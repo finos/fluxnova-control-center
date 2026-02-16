@@ -3,7 +3,7 @@
 # Fluxnova UI
 
 ## Contributing
-Please see the Fluxnova [contribution guidelines]([CONTRIBUTING.md](https://github.com/finos/fluxnova-bpm-platform/blob/main/CONTRIBUTING.md) for how to raise issues and how to contribute code to our project.
+Please see the Fluxnova [contribution guidelines](https://github.com/finos/fluxnova-bpm-platform/blob/main/CONTRIBUTING.md) for how to raise issues and how to contribute code to our project.
 
 ## License
 
