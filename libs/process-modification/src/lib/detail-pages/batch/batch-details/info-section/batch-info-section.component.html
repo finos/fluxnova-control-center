@@ -1,0 +1,83 @@
+<span *fluxnovaLoading="isLoading"></span>
+<div class="content p-4 mt-1 fs-10">
+  <div class="border-bottom mb-4">
+    <strong> Batch ID </strong>
+    <fluxnova-icon
+      copyTextLabel="Batch ID"
+      [fluxnovaCopyLink]="batchId"
+      class="ps-1 text-primary pointer"
+      iconName="copy"
+      [openDelay]="500"
+      ngbTooltip="Copy to clipboard"
+    ></fluxnova-icon>
+    <div id="batchId" fluxnovaTruncateWithTooltip class="pb-3">
+      {{ batchId }}
+    </div>
+  </div>
+  <div class="pb-2">
+    <strong>Progress: </strong><span>{{ batch.endTime ? 'Completed' : 'In-Progress' }}</span>
+  </div>
+  <div class="pb-2">
+    <strong>Start Time: </strong> <span>{{ batch.startTime | fluxnovaDate }}</span>
+  </div>
+  @if (batch.removalTime) {
+    <div class="pb-2">
+      <strong>Removal Time: </strong> <span>{{ batch.removalTime | fluxnovaDate }}</span>
+    </div>
+  }
+  <div class="pb-2">
+    <strong>Execution Time: </strong><span>{{ batch.executionStartTime | fluxnovaDate }}</span>
+  </div>
+  @if (batch.endTime) {
+    <div class="pb-2">
+      <strong>End Time: </strong> <span>{{ batch.endTime | fluxnovaDate }}</span>
+    </div>
+  }
+  <div class="pb-2">
+    <strong>User: </strong><span>{{ batch.createUserId }}</span>
+  </div>
+  <div class="pb-2">
+    <strong>Type: </strong><span>{{ batch.type }}</span>
+  </div>
+  @if (batch.failedJobs) {
+    <div class="pb-2">
+      <strong>Failed Jobs: </strong> <span>{{ batch.failedJobs }}</span>
+    </div>
+  }
+  @if (batch.remainingJobs) {
+    <div class="pb-2">
+      <strong>Remaining Jobs: </strong> <span>{{ batch.remainingJobs }}</span>
+    </div>
+  }
+  @if (batch.completedJobs) {
+    <div class="pb-2">
+      <strong>Completed Jobs: </strong> <span>{{ batch.completedJobs }}</span>
+    </div>
+  }
+  <div class="pb-2">
+    <strong>Total Jobs: </strong> <span>{{ batch.totalJobs }}</span>
+  </div>
+  <div class="pb-2">
+    <strong>Suspended?: </strong><span>{{ batch.suspended ? 'Yes' : 'No' }}</span>
+  </div>
+  @if (batch.jobsCreated) {
+    <div class="pb-2">
+      <strong>Jobs Created: </strong><span>{{ batch.jobsCreated }}</span>
+    </div>
+  }
+  <div class="pb-2">
+    <strong>Batch Jobs Per Seed: </strong><span>{{ batch.batchJobsPerSeed }}</span>
+  </div>
+  <div class="pb-2">
+    <strong>Invocations Per Batch Job: </strong><span>{{ batch.invocationsPerBatchJob }}</span>
+  </div>
+  <div class="pb-2">
+    <strong>Batch Job Definition ID: </strong><span>{{ batch.batchJobDefinitionId }}</span>
+  </div>
+  <div class="pb-2">
+    <strong>Monitor Job Definition ID: </strong><span>{{ batch.monitorJobDefinitionId }}</span>
+  </div>
+  <div class="pb-2">
+    <strong>Seed Job Definition ID: </strong><span>{{ batch.seedJobDefinitionId }}</span>
+  </div>
+</div>

@@ -1,0 +1,33 @@
+.dashboard-metrics-toggle-placement {
+  padding: 0.1rem 0.4rem;
+  margin-bottom: 0.7rem;
+}
+
+.dashboard-metrics-button-group-placement {
+  margin-left: 0.3rem;
+}
+
+.btn-primary {
+  font-weight: 400;
+}
+
+button#taskBased.btn-primary:not(:disabled):not(.disabled):focus,
+button#taskBased.btn-primary:not(:disabled):not(.disabled):active,
+button#effortBased.btn-primary:not(:disabled):not(.disabled):focus,
+button#effortBased.btn-primary:not(:disabled):not(.disabled):active {
+  border-color: transparent;
+  box-shadow: none;
+}
+
+button#effortBased {
+  border-top-right-radius: 3px;
+  border-bottom-right-radius: 3px;
+}
+
+.btn-group:not(.dropdown) > .btn.btn-outline-primary:not(:last-child)::after {
+  width: 0px;
+}
+
+.btn-group:not(.dropdown) > .btn.btn-outline-primary:not(:last-child) {
+  border-right: 1px solid;
+}

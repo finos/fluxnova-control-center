@@ -1,0 +1,14 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "allowImportingTsExtensions": true,
+    "isolatedModules": true,
+    "module": "esnext",
+    "moduleResolution": "bundler",
+    "noEmit": true,
+    "sourceMap": true,
+    "target": "esnext",
+    "types": ["node", "express"]
+  },
+  "exclude": ["vite.config.ts"]
+}

@@ -1,0 +1,100 @@
+@import '../../../../../../common/src/lib/layout/tabs-view/tabs-view.component';
+
+.modal-scroll {
+  max-width: 697px;
+  max-height: 313px;
+  overflow-y: auto;
+  border-style: none;
+}
+
+.modal-header {
+  align-items: center;
+  .modal-title {
+    padding-bottom: 10px;
+  }
+}
+
+.modal-body {
+  width: 697px;
+
+  &.full-width {
+    width: calc(100vw - 100px);
+  }
+}
+
+@media (max-width: 700px) {
+  .modal-body {
+    width: 100%;
+  }
+}
+
+.modal-inputs {
+  max-height: calc(100vh - 200px);
+  overflow: auto;
+}
+
+.modal-footer {
+  justify-content: flex-end;
+}
+
+.textarea-style {
+  border-radius: 3px;
+  resize: vertical;
+  min-height: 8rem;
+  max-height: 12rem;
+  &.error {
+    border-color: red;
+    &:focus {
+      outline: none !important;
+      border: 1px solid red;
+    }
+  }
+}
+
+input {
+  border-radius: 3px;
+  border: 1px solid grey;
+  &.error {
+    border-color: red;
+    &:focus {
+      outline: none !important;
+      border: 1px solid red;
+    }
+  }
+}
+
+select {
+  border-radius: 3px;
+  border: 1px solid grey;
+  height: 34px;
+}
+.error-wrapper {
+  color: red;
+  &.hidden {
+    visibility: hidden;
+  }
+}
+input[disabled] {
+  background-color: #eee;
+  cursor: not-allowed;
+}
+.value-readonly {
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  overflow-y: auto;
+  max-height: 30em;
+  border: solid thin lightgrey;
+  border-radius: 5px;
+  padding: 10px;
+  background-color: #f4f4f4;
+}
+
+.loader .spinner {
+  height: 50px;
+  width: 50px;
+  position: static;
+}
+
+.tab-panel {
+  min-height: auto;
+}

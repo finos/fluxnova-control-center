@@ -1,0 +1,28 @@
+:host {
+  width: 100%;
+  max-width: 100%;
+  align-items: center;
+  display: flex;
+}
+
+.form-control {
+  padding-right: 18px;
+  padding-left: 8px;
+  min-height: 24px;
+  height: 24px;
+  line-height: 14px;
+  text-overflow: ellipsis;
+}
+
+.clear-filter {
+  margin-top: 1px;
+
+  &::after {
+    cursor: pointer;
+    font-size: 10px;
+    color: #024a7a;
+    font-family: 'fluxnova-icon-font', sans-serif;
+    content: '\f107';
+    margin-left: -17px;
+  }
+}

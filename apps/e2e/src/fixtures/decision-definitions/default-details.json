@@ -1,0 +1,14 @@
+{
+  "id": "Auto-Approval:45:0a3d72a4-195c-11f0-b3b2-2e457105f526",
+  "key": "Auto-Approval",
+  "category": "http://fluxnova.org/schema/1.0/dmn",
+  "name": "Automated Approval",
+  "version": 45,
+  "resource": "automated-approval.dmn",
+  "deploymentId": "0a3b28af-195c-11f0-b3b2-2e457105f526",
+  "tenantId": null,
+  "decisionRequirementsDefinitionId": "Definitions_19lrihq:45:0a3d4b92-195c-11f0-b3b2-2e457105f526",
+  "decisionRequirementsDefinitionKey": "Definitions_19lrihq",
+  "historyTimeToLive": 30,
+  "versionTag": null
+}

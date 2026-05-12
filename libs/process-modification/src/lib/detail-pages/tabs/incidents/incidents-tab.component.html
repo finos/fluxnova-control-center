@@ -1,0 +1,57 @@
+<fluxnova-tab-actions-floating-container
+  [showResetGridButton]="showResetGridButton"
+  (resetGridClicked)="onResetGridClick()"
+/>
+@if (anyButtonVisible) {
+  <div class="tabs-view-header">
+    <div class="toolbar bulk-actions">
+      <div class="toolbar-actions">
+        <button
+          class="btn action-btn"
+          id="tab-retry"
+          [ngbTooltip]="retryTooltip"
+          container="body"
+          triggers="hover"
+          [disabled]="!canRetry()"
+          (click)="retry()"
+          *fluxnovaHasPermissions="{
+            action: 'SetJobRetryCount',
+            resources: [{ itemType: detailItemType, itemId: detailItemId }],
+          }"
+        >
+          <fluxnova-icon iconName="retry" class="fs-8"></fluxnova-icon>
+        </button>
+      </div>
+    </div>
+  </div>
+}
+<span [ngClass]="anyButtonVisible ? 'tab-grid-with-header' : 'tab-grid'">
+  <fluxnova-items-table
+    data-table-role="result"
+    [items]="data"
+    [filters]="filters"
+    [sorting]="sorting"
+    [floatingFiltersHeight]="40"
+    [overlayNoRowsTemplate]="overlayNoRowsTemplate"
+    [isLoading]="isLoading"
+    [isRowSelectable]="isRowSelectable"
+    [listViewState]="listViewState"
+    (gridReady)="onGridReady()"
+    (columnHeaderSortChange)="onSortChanged($event)"
+    (columnHeaderFilterChange)="onFilterChanged($event)"
+    (rowClicked)="onRowClick($event)"
+    (firstDataRendered)="onFirstDataRendered()"
+    [rowClassRules]="rowClassRules()"
+    (listViewStateChange)="columnPrefsUpdated($event)"
+    (itemsSelectChange)="onSelectionChanged($event)"
+    [checkboxes]="anyButtonVisible"
+    [rowSelectionType]="anyButtonVisible ? 'multiRow' : 'singleRow'"
+  >
+  </fluxnova-items-table>
+  <fluxnova-ag-pagination
+    class="border-top align-items-center px-3"
+    [totalItems]="totalCount"
+    [loading]="isLoading"
+    (paginationChanged)="paginationSubject$.next({ page: $event.page, pageSize: $event.pageSize })"
+  ></fluxnova-ag-pagination>
+</span>

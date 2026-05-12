@@ -1,0 +1,10 @@
+{
+  "name": "shared-assets",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/shared-assets",
+  "projectType": "library",
+  "prefix": "",
+  "targets": {},
+  "generators": {},
+  "tags": ["scope:shared", "scope:common-lib", "scope:client-common-lib"]
+}

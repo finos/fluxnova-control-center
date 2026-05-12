@@ -1,0 +1,44 @@
+:host {
+  display: grid;
+  grid-template-columns: 1fr 30px;
+  align-items: center;
+}
+
+input {
+  height: 100%;
+}
+
+button {
+  align-self: center;
+  padding: 0 6px;
+  height: 20px;
+  margin: 2px;
+  line-height: 19px;
+}
+
+.custom-day {
+  text-align: center;
+  padding: 0.375rem 0.25rem;
+  display: inline-block;
+  height: 2rem;
+  width: 2rem;
+  color: #333333;
+}
+
+.date-input {
+  padding-top: 8px;
+  display: grid;
+  grid-template-columns: 50px 142px;
+  &.single-input {
+    grid-template-columns: auto;
+  }
+  label {
+    border-width: 1px 0px 1px 1px;
+    border-radius: 4px 0px 0px 4px;
+    line-height: 23px;
+  }
+  input {
+    padding: 0px 8px;
+    border-radius: 0px 3px 3px 0px;
+  }
+}

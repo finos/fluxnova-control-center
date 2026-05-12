@@ -1,0 +1,19 @@
+@if (
+  {
+    hideContextBar: (hideContextBar$ | async) ?? true,
+  };
+  as asyncVars
+) {
+  <span class="root-display grid-1-rows">
+    <fluxnova-toasts aria-live="polite" aria-atomic="true"></fluxnova-toasts>
+    <main role="main" [ngClass]="{ 'no-sidebar': asyncVars.hideContextBar }">
+      <fluxnova-side-drawer></fluxnova-side-drawer>
+      <div class="content">
+        <div>
+          <ng-content select="[content]"></ng-content>
+        </div>
+        <router-outlet class="router-outlet"></router-outlet>
+      </div>
+    </main>
+  </span>
+}

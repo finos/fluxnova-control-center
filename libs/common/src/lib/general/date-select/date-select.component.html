@@ -1,0 +1,14 @@
+<input
+  type="text"
+  class="form-control"
+  aria-label="Filter by Date"
+  placeholder="YYYY-MM-DD"
+  ngbDatepicker
+  #picker="ngbDatepicker"
+  [(ngModel)]="model"
+  (input)="inputChanged.next($event)"
+  (dateSelect)="onDateChanged($event)"
+  restoreFocus="true"
+  [container]="container"
+/>
+<button class="btn fas fa-calendar" aria-label="Toggle Date Picker" (click)="toggle()" type="button"></button>

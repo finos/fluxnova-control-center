@@ -1,0 +1,111 @@
+/* You can add global styles to this file, and also import other style files */
+@import 'styles/index';
+
+:root {
+  color-scheme: only light;
+}
+
+.one-line-tooltip .tooltip-inner {
+  max-width: 500px;
+  text-wrap: nowrap;
+}
+
+/* Process Instance Count/Statistics Token */
+fluxnova-diagram-display {
+  .process-instance-count-token-wrapper {
+    white-space: nowrap;
+  }
+
+  .process-instance-count-token {
+    border-radius: 13px;
+    padding: 0px 8px;
+    border: 2px solid;
+    text-align: center;
+    user-select: none;
+    position: relative;
+    top: 0;
+    display: inline-block;
+  }
+
+  .process-instance-count-token.floating {
+    animation: jump 1s infinite;
+    animation-timing-function: ease;
+  }
+
+  .process-instance-count-token.move-to {
+    animation: jump 1s infinite;
+    animation-timing-function: ease;
+    opacity: 50%;
+  }
+
+  @keyframes jump {
+    50% {
+      top: 5px;
+    }
+  }
+
+  .process-instance-incident-token {
+    border-radius: 13px;
+    padding: 0px 8px;
+    border: 2px solid;
+  }
+}
+
+/* Cursor */
+.pointer {
+  cursor: pointer;
+}
+
+// // Resize Handlers
+.resize-grid-handle-bottom {
+  position: absolute;
+  height: 5px;
+  cursor: row-resize;
+  width: 100%;
+  z-index: 100;
+  bottom: 0;
+}
+
+input[type='number'].no-spinner::-webkit-outer-spin-button,
+input[type='number'].no-spinner::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type='number'].no-spinner {
+  -moz-appearance: textfield;
+}
+
+// Apexcharts
+.apexcharts-canvas .apexcharts-series path {
+  transition: opacity 300ms ease;
+  cursor: pointer;
+  filter: none !important;
+}
+
+.apexcharts-canvas .apexcharts-series path.slice-hover-active {
+  opacity: 0.3;
+}
+
+.apexcharts-legend {
+  max-width: 230px; /* match your legend width */
+  box-sizing: border-box;
+  overflow-x: hidden !important;
+}
+
+.apexcharts-legend-series {
+  gap: 8px;
+  width: 100%;
+}
+
+.apexcharts-legend-series .apexcharts-legend-text {
+  display: inline-block;
+  max-width: calc(100% - 24px); /* leave room for marker */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.apexcharts-legend-marker {
+  flex: 0 0 auto;
+}

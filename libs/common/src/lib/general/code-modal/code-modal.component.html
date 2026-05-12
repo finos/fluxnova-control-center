@@ -1,0 +1,31 @@
+<div class="modal-header">
+  <div>
+    <h4 class="modal-title d-inline-block" id="modal-basic-title">
+      {{ title }}
+    </h4>
+    <fluxnova-icon
+      iconName="copy"
+      [openDelay]="500"
+      [ngbTooltip]="toolTipTitle"
+      [copyTextLabel]="copyTextLabel"
+      [fluxnovaCopyLink]="code"
+      class="text-primary pointer copyicon"
+    ></fluxnova-icon>
+  </div>
+  <button type="button" class="btn shadow-none d-flex align-items-center" aria-label="Close" (click)="modal.dismiss()">
+    <fluxnova-icon class="font-standard" iconName="close"></fluxnova-icon>
+  </button>
+</div>
+
+<div class="modal-body" style="height: 70vh">
+  <fluxnova-code-editor
+    (editorInitialized)="onEditorInitialized()"
+    [editorOptionsOverrides]="{
+      language: 'bat',
+      minimap: {
+        enabled: false,
+      },
+    }"
+  >
+  </fluxnova-code-editor>
+</div>

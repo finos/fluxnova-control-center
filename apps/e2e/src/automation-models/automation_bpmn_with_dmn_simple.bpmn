@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:modeler="http://fluxnova.finos.org/schema/modeler/1.0" xmlns:fluxnova="http://fluxnova.finos.org/schema/1.0/bpmn" id="Definitions_02xhs1n" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Fluxnova Modeler" exporterVersion="1.2.0" modeler:executionPlatform="Fluxnova Platform" modeler:executionPlatformVersion="2.0.0">
+  <bpmn:process id="fluxnova_automation_bpmn_with_dmn_simple" name="Fluxnova UI Automation - BPMN with DMN Simple" isExecutable="true" camunda:historyTimeToLive="30">
+    <bpmn:startEvent id="StartEvent_1" name="start" camunda:asyncBefore="true">
+      <bpmn:extensionElements>
+        <camunda:formData>
+          <camunda:formField id="alcoholAcceptable" label="Alcohol with meal" type="boolean">
+            <camunda:properties />
+            <camunda:validation />
+          </camunda:formField>
+          <camunda:formField id="season" label="Time of year" type="string" />
+          <camunda:formField id="guestCount" label="How many guests" type="long" />
+        </camunda:formData>
+      </bpmn:extensionElements>
+      <bpmn:outgoing>Flow_0fepxnu</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_0fepxnu" sourceRef="StartEvent_1" targetRef="Gateway_0lc0qtr" />
+    <bpmn:businessRuleTask id="fluxnova_automation_dish_task_simple" name="Fluxnova UI Automation - Dish - Simple" camunda:resultVariable="dish" camunda:decisionRef="fluxnova_automation_dish_dmn_simple" camunda:mapDecisionResult="singleEntry">
+      <bpmn:extensionElements>
+        <camunda:inputOutput>
+          <camunda:inputParameter name="guestCount">${guestCount}</camunda:inputParameter>
+          <camunda:inputParameter name="season">${season}</camunda:inputParameter>
+        </camunda:inputOutput>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_033tuak</bpmn:incoming>
+      <bpmn:outgoing>Flow_1g8bkpl</bpmn:outgoing>
+    </bpmn:businessRuleTask>
+    <bpmn:sequenceFlow id="Flow_1g8bkpl" sourceRef="fluxnova_automation_dish_task_simple" targetRef="fluxnova_automation_beverage_task_simple" />
+    <bpmn:businessRuleTask id="fluxnova_automation_beverage_task_simple" name="Fluxnova UI Automation - Beverage - Simple" camunda:resultVariable="beverage" camunda:decisionRef="fluxnova_automation_beverage_dmn_simple" camunda:mapDecisionResult="collectEntries">
+      <bpmn:extensionElements>
+        <camunda:inputOutput>
+          <camunda:inputParameter name="desiredDish">${dish}</camunda:inputParameter>
+          <camunda:inputParameter name="alcoholAllow">${alcoholAcceptable}</camunda:inputParameter>
+        </camunda:inputOutput>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_1g8bkpl</bpmn:incoming>
+      <bpmn:outgoing>Flow_0efhget</bpmn:outgoing>
+    </bpmn:businessRuleTask>
+    <bpmn:sequenceFlow id="Flow_0efhget" sourceRef="fluxnova_automation_beverage_task_simple" targetRef="fluxnova_automation_review_task_simple" />
+    <bpmn:endEvent id="EndEvent_1" name="end">
+      <bpmn:incoming>Flow_10o3jmx</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_10o3jmx" sourceRef="fluxnova_automation_review_task_simple" targetRef="EndEvent_1" />
+    <bpmn:userTask id="fluxnova_automation_review_task_simple" name="Fluxnova UI Automation - Review - Simple" camunda:asyncAfter="true">
+      <bpmn:incoming>Flow_0efhget</bpmn:incoming>
+      <bpmn:outgoing>Flow_10o3jmx</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:parallelGateway id="Gateway_0lc0qtr">
+      <bpmn:incoming>Flow_0fepxnu</bpmn:incoming>
+      <bpmn:outgoing>Flow_033tuak</bpmn:outgoing>
+      <bpmn:outgoing>Flow_0sqnour</bpmn:outgoing>
+    </bpmn:parallelGateway>
+    <bpmn:sequenceFlow id="Flow_033tuak" sourceRef="Gateway_0lc0qtr" targetRef="fluxnova_automation_dish_task_simple" />
+    <bpmn:sequenceFlow id="Flow_0sqnour" sourceRef="Gateway_0lc0qtr" targetRef="TerminateTimer" />
+    <bpmn:intermediateCatchEvent id="TerminateTimer" name="terminate timer">
+      <bpmn:incoming>Flow_0sqnour</bpmn:incoming>
+      <bpmn:outgoing>Flow_1usroyh</bpmn:outgoing>
+      <bpmn:timerEventDefinition id="TimerEventDefinition_1azqfdr">
+        <bpmn:timeDuration xsi:type="bpmn:tFormalExpression">P7D</bpmn:timeDuration>
+      </bpmn:timerEventDefinition>
+    </bpmn:intermediateCatchEvent>
+    <bpmn:sequenceFlow id="Flow_1usroyh" sourceRef="TerminateTimer" targetRef="TerminateEvent" />
+    <bpmn:endEvent id="TerminateEvent" name="terminate">
+      <bpmn:incoming>Flow_1usroyh</bpmn:incoming>
+      <bpmn:terminateEventDefinition id="TerminateEventDefinition_0asfyxr" />
+    </bpmn:endEvent>
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="fluxnova_automation_bpmn_with_dmn_simple">
+      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1">
+        <dc:Bounds x="152" y="99" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="160" y="142" width="22" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0h78i2l_di" bpmnElement="fluxnova_automation_dish_task_simple">
+        <dc:Bounds x="350" y="77" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_074zxlh_di" bpmnElement="fluxnova_automation_beverage_task_simple">
+        <dc:Bounds x="510" y="77" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_06z9l0k_di" bpmnElement="EndEvent_1">
+        <dc:Bounds x="832" y="99" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="841" y="142" width="19" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0s4ib39_di" bpmnElement="fluxnova_automation_review_task_simple">
+        <dc:Bounds x="670" y="77" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_053x0hf_di" bpmnElement="Gateway_0lc0qtr">
+        <dc:Bounds x="245" y="92" width="50" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_1wdzxwv_di" bpmnElement="TerminateTimer">
+        <dc:Bounds x="252" y="182" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="161" y="190" width="74" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_00tp4j4_di" bpmnElement="TerminateEvent">
+        <dc:Bounds x="252" y="252" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="248" y="295" width="46" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_0fepxnu_di" bpmnElement="Flow_0fepxnu">
+        <di:waypoint x="188" y="117" />
+        <di:waypoint x="245" y="117" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1g8bkpl_di" bpmnElement="Flow_1g8bkpl">
+        <di:waypoint x="450" y="117" />
+        <di:waypoint x="510" y="117" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0efhget_di" bpmnElement="Flow_0efhget">
+        <di:waypoint x="610" y="117" />
+        <di:waypoint x="670" y="117" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_10o3jmx_di" bpmnElement="Flow_10o3jmx">
+        <di:waypoint x="770" y="117" />
+        <di:waypoint x="832" y="117" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_033tuak_di" bpmnElement="Flow_033tuak">
+        <di:waypoint x="295" y="117" />
+        <di:waypoint x="350" y="117" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0sqnour_di" bpmnElement="Flow_0sqnour">
+        <di:waypoint x="270" y="142" />
+        <di:waypoint x="270" y="182" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1usroyh_di" bpmnElement="Flow_1usroyh">
+        <di:waypoint x="270" y="218" />
+        <di:waypoint x="270" y="252" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>

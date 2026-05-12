@@ -1,0 +1,51 @@
+<div class="items-list-view list-item-type-deployment">
+  <div class="items-list-view-header global-header">
+    <div class="header-label">Deployments</div>
+    <div class="toolbar bulk-actions">
+      <span class="toolbar-actions toolbar-section-left bulk-span">
+        <button
+          class="btn btn-primary action-btn"
+          id="delete"
+          ngbTooltip="Delete"
+          triggers="hover"
+          [disabled]="!canDelete()"
+          (click)="delete()"
+          *fluxnovaHasPermissions="'DeleteDeployment'"
+        >
+          <fluxnova-icon iconName="trash-filled" class="fs-8"></fluxnova-icon>
+        </button>
+      </span>
+      <div class="toolbar-actions toolbar-section-right">
+        <fluxnova-toggle-filters
+          class="d-flex align-items-center"
+          (resetToggles)="resetColumns()"
+          [isResetVisible]="hasFilterOrSortDeviatedFromDefault || hasListViewStateDeviatedFromDefault"
+        >
+        </fluxnova-toggle-filters>
+      </div>
+    </div>
+  </div>
+
+  <fluxnova-items-table
+    #itemsTable
+    [items]="data"
+    [isLoading]="isLoading"
+    [sorting]="sorting"
+    [filters]="filters"
+    [listViewState]="listViewState"
+    (columnHeaderFilterChange)="selectFilter($event)"
+    (columnHeaderSortChange)="selectHeaderSort($event)"
+    (listViewStateChange)="columnPrefsUpdated($event)"
+    (itemsSelectChange)="selectedRows = $event"
+    rowSelectionType="singleRow"
+    [rowClickSelection]="true"
+    [checkboxes]="anyButtonVisible"
+  ></fluxnova-items-table>
+
+  <fluxnova-ag-pagination
+    class="border-top align-items-center px-3"
+    [totalItems]="totalCount"
+    [loading]="isLoading"
+    (paginationChanged)="paginationSubject$.next({ page: $event.page, pageSize: $event.pageSize })"
+  ></fluxnova-ag-pagination>
+</div>

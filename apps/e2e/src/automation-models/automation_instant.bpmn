@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:modeler="http://fluxnova.finos.org/schema/modeler/1.0" xmlns:fluxnova="http://fluxnova.finos.org/schema/1.0/bpmn" id="Definitions_0by5nwi" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Fluxnova Modeler" exporterVersion="0.0.1-b22-18045205029" modeler:executionPlatform="Fluxnova Platform" modeler:executionPlatformVersion="0.0.1">
+  <bpmn:process id="Process_1r6s6ex" name="DAP UI Automation - Instant" isExecutable="true" camunda:historyTimeToLive="30">
+    <bpmn:startEvent id="StartEvent_1" name="Start" camunda:asyncBefore="true">
+      <bpmn:outgoing>Flow_0n8wgnx</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:manualTask id="Activity_1dd2mtq" name="Do Nothing">
+      <bpmn:incoming>Flow_0n8wgnx</bpmn:incoming>
+      <bpmn:outgoing>Flow_1uepswz</bpmn:outgoing>
+    </bpmn:manualTask>
+    <bpmn:endEvent id="Event_051ojl4" name="End">
+      <bpmn:incoming>Flow_1uepswz</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_1uepswz" sourceRef="Activity_1dd2mtq" targetRef="Event_051ojl4" />
+    <bpmn:sequenceFlow id="Flow_0n8wgnx" sourceRef="StartEvent_1" targetRef="Activity_1dd2mtq" />
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Process_1r6s6ex">
+      <bpmndi:BPMNShape id="StartEvent_1_di" bpmnElement="StartEvent_1">
+        <dc:Bounds x="182" y="102" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="188" y="145" width="24" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1l4pbeh_di" bpmnElement="Activity_1dd2mtq">
+        <dc:Bounds x="270" y="80" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_051ojl4_di" bpmnElement="Event_051ojl4">
+        <dc:Bounds x="422" y="102" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="430" y="145" width="20" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_1uepswz_di" bpmnElement="Flow_1uepswz">
+        <di:waypoint x="370" y="120" />
+        <di:waypoint x="422" y="120" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0n8wgnx_di" bpmnElement="Flow_0n8wgnx">
+        <di:waypoint x="218" y="120" />
+        <di:waypoint x="270" y="120" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>

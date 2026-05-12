@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- This is an XML comment for testing syntax highlighting -->
+<!DOCTYPE catalog [
+  <!ENTITY company "Acme Corporation">
+  <!ENTITY copyright "&#169;">
+]>
+
+<catalog xmlns="http://example.com/catalog"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://example.com/catalog catalog.xsd"
+         version="2.0">
+
+  <!-- Root element with namespace and attributes -->
+  <metadata created="2026-02-26" author="Test User">
+    <title>Sample XML Document</title>
+    <description><![CDATA[This document demonstrates various XML syntax highlighting features including:
+      - Elements and nested elements
+      - Attributes with different value types
+      - CDATA sections
+      - Comments
+      - Entities
+      - Namespaces]]>
+    </description>
+    <company>&company;</company>
+    <copyright>&copyright; 2026</copyright>
+  </metadata>
+
+  <!-- Product catalog with mixed content -->
+  <products>
+    <product id="123" category="electronics" available="true" price="299.99">
+      <name lang="en">Wireless Headphones</name>
+      <specifications>
+        <spec key="battery">20 hours</spec>
+        <spec key="weight">250g</spec>
+        <spec key="bluetooth">5.0</spec>
+      </specifications>
+      <tags>
+        <tag>audio</tag>
+        <tag>wireless</tag>
+        <tag>portable</tag>
+      </tags>
+      <!-- Self-closing tag example -->
+      <inStock/>
+    </product>
+
+    <product id="456" category="books" available="false" price="24.99" discount="10%">
+      <name lang="en">XML Programming Guide</name>
+      <name lang="es">Guía de Programación XML</name>
+      <isbn>978-3-16-148410-0</isbn>
+      <chapters count="15"/>
+      <rating stars="4.5" reviews="127"/>
+    </product>
+  </products>
+
+  <!-- Configuration section with special characters -->
+  <configuration>
+    <setting name="max-connections" value="100" type="integer"/>
+    <setting name="timeout" value="30.5" type="float"/>
+    <setting name="debug-mode" value="false" type="boolean"/>
+    <setting name="api-endpoint" value="https://api.example.com/v1"/>
+    <advanced>
+      <option enabled="true">auto-retry</option>
+      <option enabled="false">verbose-logging</option>
+    </advanced>
+  </configuration>
+
+  <!-- Data with special characters that need escaping -->
+  <notes>
+    <note priority="high">This uses &lt; and &gt; entities</note>
+    <note priority="low">Quote: &quot;Hello World&quot;</note>
+    <note priority="medium">Apostrophe: &apos;Test&apos;</note>
+    <note priority="high">Ampersand: &amp;</note>
+  </notes>
+
+</catalog>

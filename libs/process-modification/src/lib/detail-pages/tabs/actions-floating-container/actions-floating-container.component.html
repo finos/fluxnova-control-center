@@ -1,0 +1,11 @@
+@if (showResetGridButton) {
+  @if (showResetGridButton) {
+    <button class="btn btn-link text-primary highlight-hover lh-1" onclick="this.blur()" (click)="onResetGridClicked()">
+      Reset Grid
+    </button>
+  }
+  @if (content.children.length) {
+    <div class="divider bg-neutral-700 ms-2 me-3"></div>
+  }
+}
+<div #content><ng-content></ng-content></div>

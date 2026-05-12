@@ -1,0 +1,30 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+}
+
+.deployment-info-section-wrapper {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+}
+
+.resource {
+  cursor: pointer;
+  border-radius: 8px;
+  padding: 8px 16px;
+  margin: 0 8px 6px;
+  &.selected,
+  &:hover {
+    background-color: #e4f2fa;
+  }
+}
+
+.resource-list {
+  overflow-y: auto;
+  flex: 1;
+  min-height: 0;
+}

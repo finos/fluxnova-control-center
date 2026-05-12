@@ -1,0 +1,71 @@
+<div class="heatmap-modal-container">
+  @if (contentState.isVisible) {
+    <div
+      class="heatmap-modal-content d-flex flex-column"
+      [class.fluxnova-expand]="!contentState.isClosing"
+      [class.fluxnova-shrink]="contentState.isClosing"
+      style="--fluxnova-mh-end: 200px; --fluxnova-time: 0.45s"
+      (animationend)="contentState.onAnimationEnd()"
+    >
+      <span class="d-flex flex-column ms-2 me-2 mt-1 mb-2">
+        <div class="fs-11 user-select-none gray">View by:</div>
+        <ng-select
+          #viewBySelect
+          bindLabel="label"
+          bindValue="value"
+          [(ngModel)]="selectedViewByOption"
+          placeholder=""
+          [dropdownPosition]="'bottom'"
+          [clearable]="false"
+          [searchable]="false"
+          [items]="viewByOptions"
+          appendTo="body"
+        />
+      </span>
+      <span class="d-flex flex-column m-2">
+        <div class="fs-11 user-select-none gray">Timeline:</div>
+        <ng-select
+          #timelineSelect
+          bindLabel="label"
+          bindValue="value"
+          [(ngModel)]="selectedTimelineOption"
+          placeholder=""
+          [dropdownPosition]="'bottom'"
+          [clearable]="false"
+          [searchable]="false"
+          [items]="timelineOptions"
+          appendTo="body"
+        />
+      </span>
+      <button
+        #updateHeatmapBtn
+        type="button"
+        id="update"
+        class="btn btn-primary ms-2 me-2 mt-2 mb-3 w-50"
+        (click)="onUpdateHeatmap()"
+      >
+        Update
+      </button>
+    </div>
+  }
+  <div
+    class="heatmap-modal-tab primary-blue fs-10 fw-bold"
+    [ngClass]="contentState.isOpen ? 'heatmap-modal-tab-open' : ''"
+    [class.fluxnova-slide-in]="!this.heatmapDeactivating"
+    [class.fluxnova-slide-out]="this.heatmapDeactivating"
+    style="--fluxnova-slide-start: translateY(-23px); --fluxnova-time: 0.25s"
+    (animationend)="onTabAnimationEnd()"
+  >
+    <button
+      class="btn btn-link text-primary highlight-hover d-flex flex-row h-100 justify-content-center align-items-center"
+      (click)="toggleOpen()"
+    >
+      <div class="me-2 user-select-none">Heatmap Settings</div>
+      @if (contentState.isOpen) {
+        <fluxnova-icon class="mt-1 flex-1 fs-10 caret" iconName="caret-up"></fluxnova-icon>
+      } @else {
+        <fluxnova-icon class="mt-1 flex-1 fs-10 caret" iconName="caret-down"></fluxnova-icon>
+      }
+    </button>
+  </div>
+</div>

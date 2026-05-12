@@ -1,0 +1,17 @@
+<div class="toolbar">
+  <div class="toolbar-actions toolbar-section-left">
+    <fluxnova-toolbar-button iconName="play" id="activate" tooltip="Activate"></fluxnova-toolbar-button>
+    <fluxnova-toolbar-button iconName="pause" id="suspend" tooltip="Suspend"></fluxnova-toolbar-button>
+    <fluxnova-toolbar-button iconName="retry" id="retry" tooltip="Set Retries"></fluxnova-toolbar-button>
+    <fluxnova-toolbar-button iconName="trash-filled" id="delete" tooltip="Delete"></fluxnova-toolbar-button>
+    <fluxnova-toolbar-button iconName="terminate" id="terminate" tooltip="Terminate"></fluxnova-toolbar-button>
+    @if (dividerActive) {
+      <div class="divider bg-neutral-700 ms-2 me-3"></div>
+    }
+    <fluxnova-toolbar-button iconName="download" iconColor="white" id="download_resource" tooltip="Download Resource">
+    </fluxnova-toolbar-button>
+  </div>
+  @if (!hideDiagramToolbar) {
+    <fluxnova-diagram-toolbar class="toolbar-actions toolbar-section-right"></fluxnova-diagram-toolbar>
+  }
+</div>

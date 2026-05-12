@@ -1,0 +1,91 @@
+@if (tenants.length > 1) {
+  <a class="d-flex border-top hover-selected" (click)="toggle($event)">
+    <fluxnova-icon class="fs-7" iconName="tenant"></fluxnova-icon>
+    @if (!isCompact) {
+      <span
+        fluxnovaTruncateWithTooltip
+        class="ps-2 current-tenant fw-bold"
+        [attr.data-current-tenant-id]="currentTenant?.id"
+      >
+        {{ currentTenant?.displayName || currentTenant?.id || 'Choose a group' }}
+      </span>
+    }
+    @if (isLoading) {
+      <fluxnova-loading-compact class="ms-2"></fluxnova-loading-compact>
+    }
+    @if (!isCompact && !isMenuOpen) {
+      <fluxnova-icon color="white" class="fs-11 caret" iconName="caret-up"></fluxnova-icon>
+    }
+    @if (!isCompact && isMenuOpen) {
+      <fluxnova-icon color="white" class="fs-11 caret" iconName="caret-down"></fluxnova-icon>
+    }
+  </a>
+}
+@if (tenants.length === 1) {
+  <span class="d-flex border-top span-hover">
+    <fluxnova-icon class="fs-7" iconName="tenant"></fluxnova-icon>
+    @if (!isCompact) {
+      <span fluxnovaTruncateWithTooltip class="ps-2 current-tenant fw-bold">
+        @if (currentTenant) {
+          {{ currentTenant?.displayName || currentTenant?.id || 'Choose a group' }}
+        }
+        @if (!currentTenant) {
+          <a
+            class="d-flex fw-bold"
+            [attr.aria-label]="tenants[0].displayName"
+            (click)="selectTenant($event, tenants[0])"
+          >
+            {{ tenants[0].displayName ?? tenants[0].id }}
+          </a>
+        }
+      </span>
+    }
+  </span>
+}
+@if (tenants.length > 1 && isMenuOpen && !isCompact) {
+  <div class="menu" (click)="$event.stopPropagation()">
+    @if (hasTenantGroups) {
+      @for (group of tenantGroups; track group) {
+        <div class="d-block pb-4">
+          <span class="fs-11 ps-2">{{ getGroupDisplayName(group) }}</span>
+          @for (tenant of getTenantsInGroup(group); track tenant) {
+            <span>
+              @if (tenant.displayName !== currentTenant?.displayName) {
+                <a
+                  class="d-flex fw-bold"
+                  [attr.aria-label]="tenant.displayName"
+                  [ngClass]="{ 'bg-selected': tenant.id === currentTenant?.id }"
+                  (click)="selectTenant($event, tenant)"
+                  [ngbTooltip]="getTenantTooltip(tenant)"
+                  [placement]="tooltipPlacement"
+                  tooltipClass="one-line-tooltip"
+                >
+                  {{ tenant.displayName ?? tenant.id }}
+                </a>
+              }
+            </span>
+          }
+        </div>
+      }
+    } @else {
+      <div class="d-block pb-4">
+        @for (tenant of getTenantsInGroup(); track tenant) {
+          <span>
+            @if (tenant.id !== currentTenant?.id) {
+              <a
+                class="d-flex fw-bold"
+                [attr.aria-label]="tenant.displayName"
+                (click)="selectTenant($event, tenant)"
+                [ngbTooltip]="getTenantTooltip(tenant)"
+                [placement]="tooltipPlacement"
+                tooltipClass="one-line-tooltip"
+              >
+                {{ tenant.id }}
+              </a>
+            }
+          </span>
+        }
+      </div>
+    }
+  </div>
+}

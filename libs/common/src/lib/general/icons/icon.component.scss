@@ -1,0 +1,19 @@
+:host {
+  display: inline-block;
+}
+
+.fluxnova-icon {
+  width: 1em;
+  height: 1em;
+  display: block;
+  pointer-events: none;
+}
+
+.fluxnova-icon.large-icon {
+  height: 1.25em;
+  width: 1.25em;
+}
+
+.full-width {
+  width: 100%;
+}

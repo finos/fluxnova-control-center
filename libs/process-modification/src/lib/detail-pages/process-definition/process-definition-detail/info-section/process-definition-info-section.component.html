@@ -1,0 +1,107 @@
+<div class="p-4 mt-1 fs-10">
+  <h4 fluxnovaTruncateWithTooltip>{{ processDefinition.name }}</h4>
+  <div class="border-bottom pb-3 mb-4 mt-3">
+    <strong> Definition ID </strong>
+    <fluxnova-icon
+      copyTextLabel="Definition ID"
+      [fluxnovaCopyLink]="processDefinition.id"
+      class="ps-1 text-primary pointer"
+      iconName="copy"
+      [openDelay]="500"
+      ngbTooltip="Copy to clipboard"
+      container="body"
+    ></fluxnova-icon>
+    <div fluxnovaTruncateWithTooltip class="pb-3" data-info-section-definition-id>
+      {{ processDefinition.id }}
+    </div>
+  </div>
+
+  <strong> Version </strong>
+  <fluxnova-icon
+    class="text-primary"
+    ngbTooltip="* Indicates version has active instances"
+    iconName="info-outline"
+    container="body"
+  ></fluxnova-icon>
+  <div fluxnovaTruncateWithTooltip class="pb-3" *fluxnovaLoading="isLoading">
+    <ng-select
+      [disabled]="!(versions?.length > 1)"
+      [clearable]="false"
+      appendTo="body"
+      class="small"
+      (open)="onVersionOpen()"
+      (close)="onVersionClose()"
+      (change)="versionSelected.emit($event.versionDefinitionId)"
+      bindLabel="versionNumber"
+      bindValue="versionDefinitionId"
+      [(ngModel)]="currentVersionDefinitionId"
+      [items]="versions"
+    >
+      <ng-template ng-option-tmp let-item="item" let-index="index">
+        <span>
+          {{ item.versionNumber }} {{ versionCounts[item.versionDefinitionId] ? '*' : '' }}
+
+          @if (versionCounts[item.versionDefinitionId] === undefined) {
+            <fluxnova-loading-compact class="d-inline-block"></fluxnova-loading-compact>
+          }
+        </span>
+      </ng-template>
+    </ng-select>
+  </div>
+
+  <strong> Status </strong>
+  <div fluxnovaTruncateWithTooltip class="pb-3">
+    @if (processDefinition.suspended) {
+      <span>Suspended</span>
+    }
+    @if (!processDefinition.suspended) {
+      <span>Active</span>
+    }
+  </div>
+
+  <strong> Definition Key </strong>
+  <fluxnova-icon
+    copyTextLabel="Definition Key"
+    [fluxnovaCopyLink]="processDefinition.key"
+    class="ps-1 text-primary pointer"
+    iconName="copy"
+    [openDelay]="500"
+    ngbTooltip="Copy to clipboard"
+    container="body"
+  ></fluxnova-icon>
+  <div fluxnovaTruncateWithTooltip class="pb-3">{{ processDefinition.key }}</div>
+
+  <strong> Definition Resource </strong>
+  <div fluxnovaTruncateWithTooltip class="pb-3">{{ processDefinition.resource }}</div>
+
+  <strong>Category </strong>
+  <div fluxnovaTruncateWithTooltip class="pb-3">{{ processDefinition.category }}</div>
+
+  <strong> Deployment ID </strong>
+  @if (processDefinition.deploymentId) {
+    <fluxnova-icon
+      copyTextLabel="Deployment ID"
+      [fluxnovaCopyLink]="processDefinition.deploymentId"
+      class="ps-1 text-primary pointer"
+      iconName="copy"
+      [openDelay]="500"
+      ngbTooltip="Copy to clipboard"
+      container="body"
+    ></fluxnova-icon>
+  }
+  <div fluxnovaTruncateWithTooltip class="pb-3">
+    @if (processDefinition.deploymentId) {
+      <a [routerLink]="'../../deployments/' + processDefinition.deploymentId">{{ processDefinition.deploymentId }}</a>
+    }
+    @if (!processDefinition.deploymentId) {
+      <span>None</span>
+    }
+  </div>
+
+  <strong> History Time to Live </strong>
+  <div class="pb-3" fluxnovaTruncateWithTooltip>
+    <fluxnova-value-with-units [value]="processDefinition?.historyTimeToLive" unit="day"></fluxnova-value-with-units>
+  </div>
+
+  <div class="border-bottom"></div>
+</div>

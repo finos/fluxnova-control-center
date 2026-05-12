@@ -1,0 +1,8 @@
+.detail-item-type-batch {
+  display: grid;
+  grid-template-rows: auto 1fr;
+
+  .global-header {
+    border-bottom: 1px solid #b7b7b7;
+  }
+}

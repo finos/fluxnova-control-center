@@ -1,0 +1,63 @@
+@for (toast of toastService.toasts; track toast) {
+  <div class="toast-wrap" #me>
+    <ngb-toast
+      class="bg"
+      [autohide]="toast.options.autoHide"
+      [delay]="toast.options.delay || 5000"
+      (hidden)="removeAnim(toast)"
+      [ngClass]="toast.options.borderCls"
+      (mousedown)="drag($event, me, toast)"
+    >
+      <div class="toast-body">
+        <fluxnova-icon
+          [iconName]="toast.options.icon"
+          class="icon"
+          [ngClass]="toast.options.textColor"
+          additionalClasses="large-icon"
+        ></fluxnova-icon>
+        <div [ngClass]="toast.options.textColor" class="header">
+          <span>{{ toast.options.header }}</span>
+        </div>
+        <div class="text-block">
+          <span class="body fs-11">
+            @if (isTemplate(toast)) {
+              <span>
+                <ng-template [ngTemplateOutlet]="toast.info"></ng-template>
+              </span>
+            }
+            @if (isError(toast)) {
+              <span>
+                <div>{{ toast.info.userMessage || toast.info.detailedMessage }}</div>
+                @if (toast.info.userMessage && toast.info.detailedMessage) {
+                  <a href="javascript:void(0)" (click)="toast.shouldShowDetails = !toast.shouldShowDetails">Details </a>
+                }
+                @if (toast.info.userMessage && toast.info.detailedMessage) {
+                  <i
+                    class="fa"
+                    [ngClass]="{
+                      'fa-caret-square-o-down': toast.shouldShowDetails,
+                      'fa-caret-square-o-right': !toast.shouldShowDetails,
+                    }"
+                  ></i>
+                }
+                @if (toast.shouldShowDetails) {
+                  <div class="error-details">{{ toast.info.detailedMessage }}</div>
+                }
+              </span>
+            }
+            @if (isString(toast)) {
+              <span [innerHTML]="toast.info"></span>
+            }
+          </span>
+        </div>
+      </div>
+      <ng-template ngbToastHeader>
+        <fluxnova-icon
+          iconName="close"
+          class="icon text-dark pointer"
+          (click)="toastService.remove(toast)"
+        ></fluxnova-icon>
+      </ng-template>
+    </ngb-toast>
+  </div>
+}

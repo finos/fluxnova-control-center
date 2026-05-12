@@ -1,0 +1,16 @@
+<button
+  #button
+  triggers="hover"
+  [class]="btnClass"
+  [disabled]="!enabled"
+  (click)="click()"
+  [hidden]="hidden"
+  [ngbTooltip]="tooltip"
+>
+  @if (iconName) {
+    <fluxnova-icon [iconName]="iconName" class="fs-8" [color]="iconColor"></fluxnova-icon>
+  }
+  @if (text) {
+    <span class="m-1">{{ text }}</span>
+  }
+</button>

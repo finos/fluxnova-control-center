@@ -1,0 +1,38 @@
+{
+  "user": {
+    "id": "user123",
+    "fullName": "Tester User",
+    "engines": [
+      {
+        "name": "default",
+        "displayName": "Default Tenant",
+        "group": "group-123",
+        "groupDisplayName": "Business Group 1"
+      },
+      {
+        "name": "tenant123",
+        "displayName": "Tenant 123",
+        "group": "group-123",
+        "groupDisplayName": "Business Group 1"
+      },
+      {
+        "name": "business-tenant",
+        "displayName": "Business Tenant",
+        "group": "group-123",
+        "groupDisplayName": "Business Group 1"
+      },
+      {
+        "name": "important-tenant",
+        "displayName": "Important Tenant",
+        "group": "group-123",
+        "groupDisplayName": "Business Group 1"
+      },
+      {
+        "name": "call-center-tenant",
+        "displayName": "Call Center Tenant",
+        "group": "group-123",
+        "groupDisplayName": "Business Group 1"
+      }
+    ]
+  }
+}

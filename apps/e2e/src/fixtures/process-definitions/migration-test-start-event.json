@@ -1,0 +1,27 @@
+{
+  "json": [
+    {
+      "id": "2f0f49b6-ef70-11ed-b7c8-0a8ebe9048cf",
+      "businessKey": null,
+      "processDefinitionId": "465cf569-eeb2-11ed-9b96-0a81d7d98f19",
+      "processDefinitionKey": "MODEL-7047e74a-bfca-4b2d-a574-f41e5f57b058",
+      "processDefinitionName": "Migration Test",
+      "processDefinitionVersion": 6,
+      "startTime": "2023-05-10T16:21:02.326-0400",
+      "endTime": null,
+      "removalTime": null,
+      "durationInMillis": null,
+      "startUserId": "usr1234",
+      "startActivityId": "StartEvent_1",
+      "deleteReason": null,
+      "rootProcessInstanceId": "2f0f49b6-ef70-11ed-b7c8-0a8ebe9048cf",
+      "superProcessInstanceId": null,
+      "superCaseInstanceId": null,
+      "caseInstanceId": null,
+      "tenantId": null,
+      "state": "ACTIVE",
+      "hasIncidents": false
+    }
+  ],
+  "status": 201
+}

@@ -1,0 +1,25 @@
+{
+  "name": "types",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/types/src",
+  "projectType": "library",
+  "prefix": "fluxnova",
+  "tags": ["scope:shared", "scope:common-lib", "scope:client-common-lib"],
+  "generators": {},
+  "targets": {
+    "lint": {
+      "executor": "@nx/eslint:lint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["libs/types/src/**/*.ts", "libs/types/src/**/*.html"]
+      }
+    },
+    "test": {
+      "executor": "@nx/vitest:test",
+      "outputs": ["{workspaceRoot}/results/unit/libs/types", "{workspaceRoot}/results/coverage/libs/types"],
+      "options": {
+        "config": "libs/types/vite.config.ts"
+      }
+    }
+  }
+}

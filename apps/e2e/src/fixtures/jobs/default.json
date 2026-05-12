@@ -1,0 +1,34 @@
+[
+  {
+    "id": "1d0f6576-6dcf-11ee-891b-0a1850bf1083",
+    "jobDefinitionId": "0c5ffeff-3d11-11ee-a12e-0afd836c9c8b",
+    "processInstanceId": "d2529d03-699f-11ee-973b-021699210c55",
+    "processDefinitionId": "Process_022ogbe:7:0c5ffefd-3d11-11ee-a12e-0afd836c9c8b",
+    "processDefinitionKey": "Process_022ogbe",
+    "executionId": "1d0e5403-6dcf-11ee-891b-0a1850bf1083",
+    "exceptionMessage": "Unable to evaluate script while executing activity 'Activity_0nx3cxc' in the process definition with id 'Process_022ogbe:7:0c5ffefd-3d11-11ee-a12e-0afd836c9c8b':org.graalvm.polyglot.PolyglotException: TypeError: Cannot read property \"XtracEvent\" from null",
+    "failedActivityId": "Activity_0nx3cxc",
+    "retries": 0,
+    "dueDate": null,
+    "suspended": false,
+    "priority": 0,
+    "tenantId": null,
+    "createTime": "2023-10-18T11:58:00.827-0400"
+  },
+  {
+    "id": "4815f3ac-6dcf-11ee-891b-0a1850bf1083",
+    "jobDefinitionId": "0c5ffeff-3d11-11ee-a12e-0afd836c9c8b",
+    "processInstanceId": "d2529d03-699f-11ee-973b-021699210c55",
+    "processDefinitionId": "Process_022ogbe:7:0c5ffefd-3d11-11ee-a12e-0afd836c9c8b",
+    "processDefinitionKey": "Process_022ogbe",
+    "executionId": "48155769-6dcf-11ee-891b-0a1850bf1083",
+    "exceptionMessage": "Unable to evaluate script while executing activity 'Activity_0nx3cxc' in the process definition with id 'Process_022ogbe:7:0c5ffefd-3d11-11ee-a12e-0afd836c9c8b':org.graalvm.polyglot.PolyglotException: TypeError: Cannot read property \"XtracEvent\" from null",
+    "failedActivityId": "Activity_0nx3cxc",
+    "retries": 1,
+    "dueDate": null,
+    "suspended": true,
+    "priority": 0,
+    "tenantId": null,
+    "createTime": "2023-10-18T11:59:13.012-0400"
+  }
+]

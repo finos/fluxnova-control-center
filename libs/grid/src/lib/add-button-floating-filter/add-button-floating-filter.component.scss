@@ -1,0 +1,11 @@
+:host {
+  width: 100%;
+}
+
+.add-variable-button:disabled {
+  color: var(--neutral-700);
+}
+
+.add-variable-button:enabled {
+  color: var(--bs-primary);
+}

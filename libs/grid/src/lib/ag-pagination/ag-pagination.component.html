@@ -1,0 +1,48 @@
+<div class="limit-selection d-flex">
+  <span class="label">Show: </span>
+  <ng-select
+    appendTo="body"
+    class="page-size-select"
+    [items]="options"
+    [clearable]="false"
+    [closeOnSelect]="true"
+    [searchable]="false"
+    [ngModel]="pageSize"
+    (change)="updatePageSize($event)"
+  >
+  </ng-select>
+</div>
+
+@if (!loading) {
+  <div class="displayed-count-wrapper">
+    <span class="label">
+      <span class="displayed-items"
+        ><strong>{{ totalItems > 0 ? pageSize * (page - 1) + 1 : 0 }} - {{ upperBoundResults }}</strong></span
+      >
+      <span class="total-items">
+        of <span>{{ totalItems }}</span> items
+      </span>
+    </span>
+  </div>
+}
+
+<div class="page-selection">
+  <ngb-pagination
+    [collectionSize]="totalItems > 0 ? totalItems : 1"
+    [maxSize]="3"
+    [rotate]="true"
+    [(page)]="page"
+    [pageSize]="pageSize"
+    (pageChange)="onPaginationChanged()"
+  >
+    <ng-template ngbPaginationPrevious>
+      <span class="fas fa-caret-left" title="Previous"></span>
+    </ng-template>
+    <ng-template ngbPaginationNumber let-index>
+      <span>{{ index }}</span>
+    </ng-template>
+    <ng-template ngbPaginationNext>
+      <span class="fas fa-caret-right" title="Next"></span>
+    </ng-template>
+  </ngb-pagination>
+</div>

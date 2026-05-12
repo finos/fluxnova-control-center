@@ -1,0 +1,34 @@
+[
+  {
+    "id": "AccountOpening:18:5ff64a05-b6dc-11ed-acee-023d890f59b5",
+    "key": "AccountOpening",
+    "category": "http://bpmn.io/schema/bpmn",
+    "description": null,
+    "name": "AccountOpening",
+    "version": 18,
+    "resource": "AccountOpeningProcess (2.1).bpmn",
+    "deploymentId": "5fef1e12-b6dc-11ed-acee-023d890f59b5",
+    "diagram": null,
+    "suspended": true,
+    "tenantId": null,
+    "versionTag": null,
+    "historyTimeToLive": 30,
+    "startableInTasklist": true
+  },
+  {
+    "id": "Process_022ogbe:4:64a72eb9-2bef-11ee-a1c3-0a91f6cd509f",
+    "key": "Process_022ogbe",
+    "category": "http://bpmn.io/schema/bpmn",
+    "description": null,
+    "name": "Process_022ogbe",
+    "version": 4,
+    "resource": "Process_022ogbe.bpmn",
+    "deploymentId": "64a50bd6-2bef-11ee-a1c3-0a91f6cd509f",
+    "diagram": null,
+    "suspended": true,
+    "tenantId": null,
+    "versionTag": null,
+    "historyTimeToLive": 30,
+    "startableInTasklist": true
+  }
+]

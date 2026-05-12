@@ -1,0 +1,123 @@
+<ng-container *fluxnovaLoading="isLoading">
+  @if (!isLoading) {
+    <div class="p-4 mt-1 fs-10">
+      <h4 fluxnovaTruncateWithTooltip>{{ decisionInstance?.decisionDefinitionName }}</h4>
+      <div class="border-bottom pb-3 mb-4 mt-3">
+        <strong> Instance ID </strong>
+        <fluxnova-icon
+          [fluxnovaCopyLink]="decisionInstance?.id"
+          [openDelay]="500"
+          class="ps-1 text-primary pointer"
+          copyTextLabel="Instance ID"
+          iconName="copy"
+          ngbTooltip="Copy to clipboard"
+        ></fluxnova-icon>
+        <div class="pb-3" fluxnovaTruncateWithTooltip data-info-section-definition-id>
+          {{ decisionInstance?.id }}
+        </div>
+      </div>
+      <strong>Definition Version</strong>
+      <div class="pb-3" fluxnovaTruncateWithTooltip>{{ decisionInstance?.version }}</div>
+      <strong>Definition ID</strong>
+      <fluxnova-icon
+        [fluxnovaCopyLink]="decisionInstance?.decisionDefinitionId"
+        [openDelay]="500"
+        class="ps-1 text-primary pointer"
+        copyTextLabel="Definition ID"
+        iconName="copy"
+        ngbTooltip="Copy to clipboard"
+      ></fluxnova-icon>
+      <div class="pb-3" fluxnovaTruncateWithTooltip>
+        <a [routerLink]="'../../'">{{ decisionInstance.decisionDefinitionId }}</a>
+      </div>
+      <strong>Definition Key</strong>
+      <fluxnova-icon
+        [fluxnovaCopyLink]="decisionInstance?.decisionDefinitionKey"
+        [openDelay]="500"
+        class="ps-1 text-primary pointer"
+        copyTextLabel="Definition Key"
+        iconName="copy"
+        ngbTooltip="Copy to clipboard"
+      ></fluxnova-icon>
+      <div class="pb-3" fluxnovaTruncateWithTooltip>{{ decisionInstance?.decisionDefinitionKey }}</div>
+      <strong>Decision Requirement Definition</strong>
+      <div class="pb-3" fluxnovaTruncateWithTooltip>
+        {{ decisionInstance?.decisionRequirementsDefinitionId }}
+      </div>
+      <strong>Deployment ID</strong>
+      <fluxnova-icon
+        [fluxnovaCopyLink]="decisionInstance?.deploymentId"
+        [openDelay]="500"
+        class="ps-1 text-primary pointer"
+        copyTextLabel="Deployment ID"
+        iconName="copy"
+        ngbTooltip="Copy to clipboard"
+      ></fluxnova-icon>
+      <div class="pb-3" fluxnovaTruncateWithTooltip>
+        <a [routerLink]="'../../../../deployments/' + decisionInstance.deploymentId">{{
+          decisionInstance.deploymentId
+        }}</a>
+      </div>
+      @if (decisionInstance?.processDefinitionId) {
+        <div>
+          <strong>Process Definition ID</strong>
+          <fluxnova-icon
+            [fluxnovaCopyLink]="decisionInstance?.processDefinitionId"
+            [openDelay]="500"
+            class="ps-1 text-primary pointer"
+            copyTextLabel="Process Definition ID"
+            iconName="copy"
+            ngbTooltip="Copy to clipboard"
+          ></fluxnova-icon>
+          <div class="pb-3" fluxnovaTruncateWithTooltip>
+            <a [routerLink]="'../../../../process-definitions/' + decisionInstance.processDefinitionId">{{
+              decisionInstance.processDefinitionId
+            }}</a>
+          </div>
+        </div>
+      }
+      @if (decisionInstance?.processInstanceId) {
+        <div>
+          <strong>Process Instance ID</strong>
+          <fluxnova-icon
+            [fluxnovaCopyLink]="decisionInstance?.processInstanceId"
+            [openDelay]="500"
+            class="ps-1 text-primary pointer"
+            copyTextLabel="Process Instance ID"
+            iconName="copy"
+            ngbTooltip="Copy to clipboard"
+          ></fluxnova-icon>
+          <div class="pb-3" fluxnovaTruncateWithTooltip>
+            <a [routerLink]="'../../../../process-instances/' + decisionInstance.processInstanceId">{{
+              decisionInstance.processInstanceId
+            }}</a>
+          </div>
+        </div>
+      }
+      @if (decisionInstance?.caseInstanceId) {
+        <div>
+          <strong>Case Instance ID</strong>
+          <fluxnova-icon
+            [fluxnovaCopyLink]="decisionInstance?.caseInstanceId"
+            [openDelay]="500"
+            class="ps-1 text-primary pointer"
+            copyTextLabel="Case Instance ID"
+            iconName="copy"
+            ngbTooltip="Copy to clipboard"
+          ></fluxnova-icon>
+          <div class="pb-3" fluxnovaTruncateWithTooltip>
+            {{ decisionInstance?.caseInstanceId }}
+          </div>
+        </div>
+      }
+      <strong>Evaluation Time</strong>
+      <div class="pb-3" fluxnovaTruncateWithTooltip>
+        {{ decisionInstance?.evaluationTime | fluxnovaDate }}
+      </div>
+      <strong>Removal Time</strong>
+      <div class="pb-3" fluxnovaTruncateWithTooltip>
+        {{ decisionInstance?.removalTime | fluxnovaDate }}
+      </div>
+    </div>
+  }
+</ng-container>

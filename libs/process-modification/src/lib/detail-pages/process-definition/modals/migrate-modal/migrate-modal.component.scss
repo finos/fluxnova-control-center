@@ -1,0 +1,50 @@
+.modal-body {
+  // If this transition is ever removed, remove the eventlistener in migrate-modal.component
+  transition: width 0.5s ease;
+  width: 500px;
+
+  &.full-width {
+    width: calc(100vw - 100px);
+  }
+}
+
+.diagrams {
+  height: 450px;
+
+  .pane {
+    position: relative;
+    display: flex;
+    flex-flow: column;
+
+    .header {
+      flex: 0 1 auto;
+    }
+
+    .diagram {
+      flex: 1 1 auto;
+      background-color: #f3f3f3;
+    }
+  }
+}
+
+.model-toggle {
+  cursor: pointer;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+fluxnova-loading-compact {
+  width: 20px;
+  height: 20px;
+  position: relative;
+  top: -1px;
+  left: -2px;
+}
+
+::ng-deep {
+  fluxnova-generic-diagram-viewer .diagram-canvas-wrapper {
+    height: 100% !important;
+  }
+}

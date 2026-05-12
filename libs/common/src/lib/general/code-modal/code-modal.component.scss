@@ -1,0 +1,23 @@
+.modal-body {
+  transition: width 0.5s ease;
+  max-width: 1200px;
+  width: 100%;
+
+  &.full-width {
+    width: calc(100vw - 100px);
+  }
+}
+
+.text-wrap {
+  overflow-wrap: break-word;
+  max-height: 400px;
+  overflow: auto;
+}
+
+.modal-header {
+  align-items: center;
+  .modal-title {
+    padding-bottom: 10px;
+    padding-right: 8px;
+  }
+}

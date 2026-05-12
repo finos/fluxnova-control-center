@@ -1,0 +1,12 @@
+{
+  "json": [
+    {
+      "@class": "org.fluxnova.bpm.engine.rest.dto.repository.ActivityStatisticsResultDto",
+      "id": "Activity_079duei",
+      "instances": 1,
+      "failedJobs": 0,
+      "incidents": []
+    }
+  ],
+  "status": 200
+}

@@ -1,0 +1,87 @@
+:host {
+  overflow: hidden;
+  flex: auto;
+}
+
+::ng-deep .ng-dropdown-panel .ng-dropdown-header {
+  padding: 0;
+  max-height: 162px;
+  overflow: auto;
+}
+
+::ng-deep {
+  .ng-dropdown-panel.ng-select-multiple .ng-dropdown-panel-items .ng-option.ng-option-selected,
+  .ng-dropdown-panel.ng-select-multiple .ng-dropdown-panel-items .ng-option.ng-option-selected.ng-option-marked {
+    display: none;
+  }
+}
+
+.multi-select.ng-select ::ng-deep {
+  .ng-dropdown-panel .ng-dropdown-panel-items .ng-option.ng-option-selected,
+  .ng-dropdown-panel .ng-dropdown-panel-items .ng-option.ng-option-selected.ng-option-marked {
+    display: none;
+  }
+}
+.multi-option-wrapper {
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+div.pointer.multi-option-wrapper {
+  padding: 4px 8px;
+}
+
+.ng-value {
+  display: flex;
+  align-items: center;
+}
+
+.hidden {
+  opacity: 0;
+  position: absolute;
+  z-index: -1;
+}
+
+/*
+  While ::ng-deep is technically deprecated, there is no alternative. Angular also has no plans
+  to remove it until there is an alternative.
+  https://github.com/angular/angular/issues/17867#issuecomment-312322174
+ */
+
+.select-container-small.ng-select ::ng-deep .ng-select-container {
+  min-height: 24px;
+  height: 24px;
+  line-height: 14px;
+  .ng-value-container {
+    .ng-value-label {
+      overflow: hidden;
+      flex-wrap: nowrap;
+      font-size: 10px;
+      line-height: 10px;
+      padding: 3px 5px;
+    }
+  }
+}
+
+.ng-select.ng-select-multiple ::ng-deep {
+  .ng-dropdown-header {
+    padding: 0;
+    .pointer.multi-option-wrapper {
+      padding: 4px 8px;
+    }
+  }
+  .ng-select-container .ng-value-container {
+    overflow: hidden;
+    flex-wrap: nowrap;
+  }
+  .ng-select-container .ng-value-container .ng-input > input {
+    display: block;
+  }
+
+  .ng-value-label {
+    font-size: 14px;
+    line-height: 22px;
+  }
+}

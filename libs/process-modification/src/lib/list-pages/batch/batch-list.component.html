@@ -1,0 +1,115 @@
+<div class="items-list-view list-item-type-batch">
+  <div class="items-list-view-header global-header">
+    <div class="header-label">Batches</div>
+    <div class="toolbar bulk-actions">
+      <div class="toolbar-actions toolbar-section-left">
+        @if (!showCompletedBatches) {
+          <button
+            class="btn action-btn"
+            id="suspend"
+            data-action="suspend"
+            (click)="toggleSuspended()"
+            [disabled]="!canToggleSuspended()"
+            [ngbTooltip]="isSelectedSuspended ? 'Activate' : 'Suspend'"
+            *fluxnovaHasPermissions="isSelectedSuspended ? 'ActivateBatch' : 'SuspendBatch'"
+          >
+            <fluxnova-icon [iconName]="isSelectedSuspended ? 'play' : 'pause'" class="fs-8"></fluxnova-icon>
+          </button>
+          <button
+            class="btn action-btn"
+            id="retry"
+            [disabled]="!selectedRows.length"
+            (click)="retry()"
+            ngbTooltip="Retry"
+            triggers="hover"
+            *fluxnovaHasPermissions="'SetJobRetryCount'"
+          >
+            <fluxnova-icon iconName="retry" class="fs-8"></fluxnova-icon>
+          </button>
+        }
+        <button
+          class="btn action-btn"
+          id="delete"
+          data-action="delete"
+          [disabled]="!selectedRows.length"
+          ngbTooltip="Delete"
+          triggers="hover"
+          (click)="delete()"
+          *fluxnovaHasPermissions="'DeleteBatch'"
+        >
+          <fluxnova-icon iconName="trash-filled" class="fs-8"></fluxnova-icon>
+        </button>
+      </div>
+      <div class="toolbar-actions toolbar-section-right d-flex align-items-center text-primary">
+        <fluxnova-toggle-filters
+          class="toolbar-actions toolbar-section-right d-flex align-items-center"
+          (resetToggles)="resetColumns()"
+          (selectToggle)="selectToggleFilter($event)"
+          [toggleFilters]="toggleFilters"
+          [isResetVisible]="hasFilterOrSortDeviatedFromDefault || hasListViewStateDeviatedFromDefault"
+        >
+        </fluxnova-toggle-filters>
+        @if (hasFilterOrSortDeviatedFromDefault || hasListViewStateDeviatedFromDefault) {
+          <div class="divider bg-neutral-700 me-3"></div>
+        }
+        <div class="form-check form-switch">
+          <input
+            id="toggle-batch-list"
+            class="form-check-input"
+            type="checkbox"
+            (change)="reload()"
+            [(ngModel)]="showCompletedBatches"
+          />
+          <label class="form-check-label" for="toggle-batch-list">Show Completed Batches</label>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div *fluxnovaLoading="isLoading">
+    @if (showCompletedBatches) {
+      <fluxnova-items-table
+        #completedItemsTable
+        data-table-role="result"
+        [items]="data"
+        [filters]="filters"
+        [sorting]="sorting"
+        (columnHeaderSortChange)="selectHeaderSort($event)"
+        (columnHeaderFilterChange)="selectFilter($event)"
+        (listViewStateChange)="columnPrefsUpdated($event)"
+        (itemsSelectChange)="selectedRows = $event"
+        [isLoading]="isLoading"
+        [listViewState]="completedColumnPreferences"
+        [rowClickSelection]="true"
+        [checkboxes]="anyButtonVisible"
+        [rowSelectionType]="anyButtonVisible ? 'multiRow' : 'singleRow'"
+      >
+      </fluxnova-items-table>
+    }
+    @if (!showCompletedBatches) {
+      <fluxnova-items-table
+        #activeItemsTable
+        data-table-role="result"
+        [items]="data"
+        [filters]="filters"
+        [sorting]="sorting"
+        (columnHeaderSortChange)="selectHeaderSort($event)"
+        (columnHeaderFilterChange)="selectFilter($event)"
+        (listViewStateChange)="columnPrefsUpdated($event)"
+        (itemsSelectChange)="selectedRows = $event"
+        [isLoading]="isLoading"
+        [listViewState]="activeColumnPreferences"
+        [rowClickSelection]="true"
+        [checkboxes]="anyButtonVisible"
+        [rowSelectionType]="anyButtonVisible ? 'multiRow' : 'singleRow'"
+      >
+      </fluxnova-items-table>
+    }
+  </div>
+
+  <fluxnova-ag-pagination
+    class="border-top align-items-center px-3"
+    [totalItems]="totalCount"
+    [loading]="isLoading"
+    (paginationChanged)="paginationSubject$.next({ page: $event.page, pageSize: $event.pageSize })"
+  ></fluxnova-ag-pagination>
+</div>

@@ -1,0 +1,109 @@
+<div class="modal-header">
+  <h4 class="modal-title" id="modal-basic-title">{{ options.title }}</h4>
+  <button type="button" class="btn shadow-none d-flex align-items-center" aria-label="Close" (click)="modal.dismiss()">
+    <fluxnova-icon class="font-standard" iconName="close"></fluxnova-icon>
+  </button>
+</div>
+
+<div class="modal-body">
+  <div class="d-flex">
+    <fluxnova-icon iconName="warning" color="iconBlue" class="fs-7"></fluxnova-icon>
+    <div>
+      <p class="ps-3" [innerHTML]="options.message"></p>
+    </div>
+  </div>
+
+  <div #codeContainer class="d-flex">
+    <div class="w-100 flex-fill">
+      <h5>Input</h5>
+      <div class="editorarea-style">
+        <fluxnova-code-editor
+          #codeEditor
+          [editorOptionsOverrides]="{
+            language: 'json',
+            readOnly: false,
+            minimap: {
+              enabled: true,
+              scale: 4,
+              size: 'fill',
+            },
+          }"
+          (codeChangeEvent)="onJsonUpdate($event)"
+        >
+        </fluxnova-code-editor>
+      </div>
+    </div>
+
+    <div class="w-100 flex-fill">
+      <h5>Result</h5>
+      <div class="editorarea-style">
+        <fluxnova-code-editor
+          #resultEditor
+          [editorOptionsOverrides]="{
+            language: 'json',
+            readOnly: true,
+            minimap: { enabled: false },
+          }"
+        >
+        </fluxnova-code-editor>
+      </div>
+    </div>
+  </div>
+
+  <div [ngClass]="{ invisible: modalState.hideErrorMessage }" id="failure-message" class="text-danger fw-bold">
+    <span>Decision evaluation failed: {{ modalState.errorMessage }}</span>
+  </div>
+
+  <div class="modal-footer d-flex">
+    <button
+      style="margin-left: -0.75rem !important"
+      class="btn btn-outline-secondary"
+      (click)="this.codeEditor?.format()"
+    >
+      Format JSON
+    </button>
+
+    <button type="button" class="btn btn-outline-secondary me-auto" [ngbPopover]="popContent" [popoverTitle]="popTitle">
+      View Example
+    </button>
+
+    <button [disabled]="modalState.isSubmitting" type="button" class="btn btn-outline-secondary" (click)="dismiss()">
+      {{ options.cancelButtonLabel || 'Cancel' }}
+    </button>
+
+    @if (modalState.isSubmitting) {
+      <div class="button-loading">
+        <svg class="spinner" viewBox="25 25 50 50">
+          <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10" />
+        </svg>
+      </div>
+    } @else {
+      <button
+        [disabled]="!canSubmit"
+        style="margin-right: -0.75rem !important"
+        type="button"
+        class="btn btn-primary"
+        (click)="confirm()"
+      >
+        Evaluate
+      </button>
+    }
+  </div>
+</div>
+
+<!-- Example JSON Popover Content -->
+<ng-template #popContent>
+  <pre><code>{{ INPUT_EXAMPLE }}</code><fluxnova-icon
+      iconName="copy"
+      [openDelay]="500"
+      ngbTooltip="Copy to clipboard"
+      container="body"
+      placement="bottom auto"
+      copyTextLabel="Example"
+      [fluxnovaCopyLink]="INPUT_EXAMPLE"
+      class="text-primary pointer copyicon fs-10"
+  ></fluxnova-icon></pre>
+</ng-template>
+<ng-template #popTitle>
+  <div class="d-flex justify-between">Evaluate Decision Example</div>
+</ng-template>

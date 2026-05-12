@@ -1,0 +1,322 @@
+<div #modal>
+  <div class="modal-header">
+    @if (options.modalType !== 'Readonly') {
+      <h4 class="modal-title" id="modal-basic-title">
+        {{ options.modalType }}{{ options.modalType === 'Edit' ? ' ' + options.variable?.type + ' ' : ' ' }}
+        Variable
+      </h4>
+    }
+    @if (options.modalType === 'Readonly') {
+      <h4>Variable Information</h4>
+    }
+    <button type="button" class="btn shadow-none d-flex align-items-center" aria-label="Close" (click)="dismiss()">
+      <fluxnova-icon class="font-standard" iconName="close"></fluxnova-icon>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="modal-inputs p-2">
+      @if (options.modalType !== 'Readonly') {
+        <div class="d-flex pb-2 mb-4">
+          <fluxnova-icon
+            iconName="warning"
+            [color]="options.modalType === 'Delete' ? 'danger' : 'iconBlue'"
+            class="fs-7 pe-2"
+          ></fluxnova-icon>
+          @if (options.modalType === 'Edit') {
+            <span>Enter a valid {{ options.variable?.type }}</span>
+          }
+          @if (options.modalType === 'Add') {
+            <span>Choose a variable type to continue</span>
+          }
+          @if (options.modalType === 'Delete') {
+            <span>Are you sure you want to delete this variable?</span>
+          }
+        </div>
+      }
+
+      <div class="d-flex pb-4 align-items-center">
+        <span class="pe-2 fw-bold">Type:</span>
+        @if (options.modalType === 'Add') {
+          <span>
+            <select id="type" [(ngModel)]="workingCopyData.variableType" (change)="typeChanged()">
+              @for (option of options.typeOptions; track option) {
+                <option [value]="option.value">
+                  {{ option.name }}
+                </option>
+              }
+            </select>
+          </span>
+        }
+        @if (options.modalType !== 'Add') {
+          <span> {{ workingCopyData.variableType }} </span>
+        }
+      </div>
+      <div class="pb-4">
+        <span class="pe-2 fw-bold">Variable Name:</span>
+        @if (options.modalType === 'Add') {
+          <div>
+            <input
+              #variableNameInput
+              class="pt-1 pb-1 rounded-60"
+              [ngClass]="{ error: !isVariableNameUnique }"
+              name="name"
+              type="text"
+              [(ngModel)]="workingCopyData.variableName"
+              ngbTooltip="A variable with this name already exists."
+              [autoClose]="false"
+              triggers="manual"
+              #variableNameValidationTooltip="ngbTooltip"
+              (focus)="!isVariableNameUnique && variableNameValidationTooltip.open()"
+              (blur)="variableNameValidationTooltip.close()"
+              (mouseover)="!isVariableNameUnique && variableNameValidationTooltip.open()"
+              (mouseleave)="onMouseLeave($event, variableNameValidationTooltip)"
+              (ngModelChange)="onVariableNameChange()"
+            />
+          </div>
+        }
+        @if (options.modalType === 'Readonly') {
+          <fluxnova-icon
+            copyTextLabel="Variable Name"
+            [fluxnovaCopyLink]="options.variable?.name"
+            class="mb-1 align-middle text-primary pointer"
+            iconName="copy"
+            [openDelay]="500"
+            ngbTooltip="Copy to clipboard"
+            container="body"
+          ></fluxnova-icon>
+        }
+        @if (options.modalType !== 'Add') {
+          <span class="d-block">{{ options.variable?.name }}</span>
+        }
+      </div>
+      @if (workingCopyData.variableType === 'Object') {
+        <div class="pb-4">
+          <span class="pe-2 fw-bold">Object Type Name:</span>
+          @if (options.modalType === 'Add' || options.modalType === 'Edit') {
+            <div>
+              <input
+                #objectTypeNameInput
+                class="pt-1 pb-1 rounded-60"
+                name="objectTypeName"
+                type="text"
+                [(ngModel)]="workingCopyData.valueInfo.objectTypeName"
+              />
+            </div>
+          } @else {
+            <span class="d-block">{{ options.variable?.valueInfo?.objectTypeName }}</span>
+          }
+        </div>
+        <div class="pb-4">
+          <span class="pe-2 fw-bold">Serialization Data Format:</span>
+          @if (options.modalType === 'Add' || options.modalType === 'Edit') {
+            <div>
+              <input
+                #objectTypeNameInput
+                class="pt-1 pb-1 rounded-60"
+                name="serializationDataFormat"
+                type="text"
+                [(ngModel)]="workingCopyData.valueInfo.serializationDataFormat"
+              />
+            </div>
+          } @else {
+            <span class="d-block">{{ options.variable?.valueInfo?.serializationDataFormat }}</span>
+          }
+        </div>
+      }
+      @if (!['Bytes', 'File'].includes(workingCopyData.variableType)) {
+        <div class="pb-2">
+          <span class="pe-2 fw-bold">Value:</span>
+          @if (options.modalType === 'Readonly' && !deserializedErrorMessage) {
+            <fluxnova-icon
+              copyTextLabel="Variable Value"
+              [fluxnovaCopyLink]="
+                activeTab === 'Deserialized' && hasLoadedDeserialized
+                  ? deserializedVariableValue
+                  : (workingCopyData.variableValue ?? undefined)
+              "
+              class="mb-1 align-middle text-primary pointer"
+              iconName="copy"
+              [openDelay]="500"
+              ngbTooltip="Copy to clipboard"
+              container="body"
+            ></fluxnova-icon>
+          }
+          @if (options.modalType !== 'Readonly' && options.modalType !== 'Delete') {
+            <div>
+              @if (showTextArea) {
+                <textarea
+                  #variableValueInput
+                  id="textarea"
+                  data-modal-value-input
+                  name="value"
+                  class="w-100 textarea-style rounded-1"
+                  [ngClass]="{
+                    error: !isVariableValueValid() && (workingCopyData.variableValue?.length ?? 0) > 0,
+                  }"
+                  [(ngModel)]="workingCopyData.variableValue"
+                  rows="12"
+                  (ngModelChange)="onVariableValueChange($event)"
+                  [ngbTooltip]="getValidationMessage()"
+                  #variableValueValidationTooltip="ngbTooltip"
+                  [autoClose]="false"
+                  triggers="manual"
+                  (focus)="toggleVariableValueTooltip()"
+                  (blur)="variableValueValidationTooltip.close()"
+                  (mouseover)="toggleVariableValueTooltip()"
+                  (mouseleave)="onMouseLeave($event, variableValueValidationTooltip)"
+                ></textarea>
+              }
+              @if (workingCopyData.variableType === 'Json') {
+                <button type="button" aria-label="format" class="btn btn-outline-secondary" (click)="handleFormat()">
+                  Format JSON
+                </button>
+              }
+              @if (workingCopyData.variableType === 'Xml') {
+                <div class="py-2">NOTE: plain text not within its own XML tag will be removed by the formatter.</div>
+              }
+              @if (workingCopyData.variableType === 'Xml') {
+                <button type="button" aria-label="format" class="btn btn-outline-secondary" (click)="handleFormat()">
+                  Format XML
+                </button>
+              }
+              @if (
+                !showTextArea && workingCopyData.variableType !== 'Date' && workingCopyData.variableType !== 'Boolean'
+              ) {
+                <input
+                  #variableValueInput
+                  data-modal-value-input
+                  class="pt-1 pb-1 w-100 rounded-8"
+                  [ngClass]="{
+                    error: !isVariableValueValid() && (workingCopyData.variableValue?.length ?? 0) > 0,
+                  }"
+                  [disabled]="workingCopyData.variableType === 'Null'"
+                  name="value"
+                  type="text"
+                  [(ngModel)]="workingCopyData.variableValue"
+                  (ngModelChange)="onVariableValueChange($event)"
+                  [ngbTooltip]="getValidationMessage()"
+                  #variableValueValidationTooltip="ngbTooltip"
+                  [autoClose]="false"
+                  triggers="manual"
+                  (focus)="toggleVariableValueTooltip()"
+                  (blur)="variableValueValidationTooltip.close()"
+                  (mouseover)="toggleVariableValueTooltip()"
+                  (mouseleave)="onMouseLeave($event, variableValueValidationTooltip)"
+                />
+              }
+              @if (workingCopyData.variableType === 'Date') {
+                <fluxnova-date-range-select
+                  [displayFilterTypeHeader]="false"
+                  popoverPlacement="top-right auto"
+                  [keepOpenAfterDateSelect]="true"
+                  [dateRange]="{ dateFrom: workingCopyData.variableValue ?? undefined }"
+                  filterType="equals"
+                  class="date-select"
+                  (dateRangeChanged)="dateRangeChanged($event ?? undefined)"
+                >
+                </fluxnova-date-range-select>
+              }
+              @if (workingCopyData.variableType === 'Boolean') {
+                <select [(ngModel)]="workingCopyData.variableValue">
+                  <option value="true">true</option>
+                  <option value="false">false</option>
+                </select>
+              }
+            </div>
+          }
+          @if (
+            workingCopyData.variableType !== 'Json' &&
+            workingCopyData.variableType !== 'Xml' &&
+            workingCopyData.variableType !== 'Object' &&
+            (options.modalType === 'Readonly' || options.modalType === 'Delete')
+          ) {
+            <div id="readonlyValue" class="value-readonly">
+              @if (workingCopyData.variableType === 'Date') {
+                {{ workingCopyData.variableValue ?? undefined | fluxnovaDate }}
+              }
+              @if (workingCopyData.variableType !== 'Date') {
+                {{ workingCopyData.variableValue }}
+              }
+            </div>
+          }
+          @if (
+            (workingCopyData.variableType === 'Json' || workingCopyData.variableType === 'Xml') &&
+            (options.modalType === 'Readonly' || options.modalType === 'Delete')
+          ) {
+            <pre class="value-readonly"
+              >{{ workingCopyData.variableValue }}
+            </pre>
+          }
+          @if (
+            workingCopyData.variableType === 'Object' &&
+            (options.modalType === 'Readonly' || options.modalType === 'Delete')
+          ) {
+            <div>
+              <div class="tab-panel">
+                <nav class="tabs mb-2">
+                  <ul class="tab-list bg-white">
+                    @for (tabName of toggleTabs; track tabName) {
+                      <li
+                        class="tab"
+                        (click)="updateActiveTab(tabName)"
+                        [ngClass]="{
+                          'tab-border-bottom': activeTab === tabName,
+                          'border-secondary text-standard': activeTab === tabName,
+                          'text-primary': activeTab !== tabName,
+                        }"
+                      >
+                        <div class="tab-name fs-10">
+                          {{ tabName }}
+                        </div>
+                      </li>
+                    }
+                  </ul>
+                </nav>
+                <div class="tab-content">
+                  @if (activeTab === 'Deserialized' && hasLoadedDeserialized) {
+                    @if (deserializedErrorMessage) {
+                      <div class="text-danger">{{ deserializedErrorMessage }}</div>
+                    } @else {
+                      <pre class="value-readonly">{{ formatJson(deserializedVariableValue ?? '') }}</pre>
+                    }
+                  }
+                  @if (activeTab === 'Deserialized' && !hasLoadedDeserialized) {
+                    <div class="loader app-loading">
+                      <svg class="spinner" viewBox="25 25 50 50">
+                        <circle
+                          class="path"
+                          cx="50"
+                          cy="50"
+                          fill="none"
+                          r="20"
+                          stroke-miterlimit="10"
+                          stroke-width="2"
+                        />
+                      </svg>
+                    </div>
+                  }
+                  @if (activeTab === 'Serialized') {
+                    <div class="value-readonly">{{ workingCopyData.variableValue }}</div>
+                  }
+                </div>
+              </div>
+            </div>
+          }
+        </div>
+      }
+      @if (['Bytes', 'File'].includes(workingCopyData.variableType)) {
+        <div class="pb-2 d-flex">
+          <button (click)="onDownloadClick()" type="button" class="btn btn-primary w-auto flex-grow-1">Download</button>
+        </div>
+      }
+    </div>
+  </div>
+  @if (options.modalType !== 'Readonly') {
+    <div class="modal-footer">
+      <button type="button" aria-label="cancel" class="btn btn-outline-secondary" (click)="dismiss()">Cancel</button>
+      <button [disabled]="!canSave()" type="button" class="btn btn-primary" (click)="confirm()">
+        {{ options.confirmButtonLabel ? options.confirmButtonLabel : 'Save' }}
+      </button>
+    </div>
+  }
+</div>

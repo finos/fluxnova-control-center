@@ -1,0 +1,14 @@
+:host {
+  display: grid;
+  height: 100%;
+  grid-template-rows: auto 1fr auto;
+}
+
+.actions button {
+  font-size: 0.75rem;
+  margin-right: 5px;
+  line-height: 8px;
+  border-radius: 30px;
+  padding: 5px;
+  margin-left: 5px;
+}

@@ -1,0 +1,27 @@
+:host {
+  width: 100%;
+  display: flex;
+  grid-template-columns: 1fr 13px;
+  align-items: center;
+}
+
+.date-select ::ng-deep {
+  input.form-control {
+    padding-right: 20px;
+    height: 24px;
+    font-size: 0.875rem;
+  }
+}
+
+.clear-filter {
+  margin-top: 2px;
+
+  &::after {
+    cursor: pointer;
+    font-size: 10px;
+    color: #024a7a;
+    font-family: 'fluxnova-icon-font', sans-serif;
+    content: '\f107';
+    margin-left: -45px;
+  }
+}

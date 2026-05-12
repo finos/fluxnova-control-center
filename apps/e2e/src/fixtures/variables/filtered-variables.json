@@ -1,0 +1,25 @@
+[
+  {
+    "type": "Boolean",
+    "value": false,
+    "valueInfo": {},
+    "id": "variableId3",
+    "name": "NameOfBooleanVariable",
+    "processDefinitionKey": "variableProcessDefKey123",
+    "processDefinitionId": "variableProcessDefId123",
+    "processInstanceId": "variableProcessInstanceId123",
+    "executionId": "variableExecutionId123",
+    "activityInstanceId": "variableActivityInstanceId123",
+    "caseDefinitionKey": null,
+    "caseDefinitionId": null,
+    "caseInstanceId": null,
+    "caseExecutionId": null,
+    "taskId": null,
+    "errorMessage": null,
+    "tenantId": null,
+    "state": "CREATED",
+    "createTime": "2023-02-22T15:19:17.039-0500",
+    "removalTime": null,
+    "rootProcessInstanceId": "variableRootProcessInstanceId123"
+  }
+]

@@ -1,0 +1,31 @@
+<input
+  [type]="filterFormat"
+  (ngModelChange)="filterChange$.next($event)"
+  [id]="labelForId"
+  [disabled]="isDisabled"
+  [ngbTooltip]="tooltipText"
+  container="body"
+  class="form-control fs-10 no-spinner"
+  [(ngModel)]="currentFilter"
+/>
+@if (isFilterActive()) {
+  <span class="clear-filter" (click)="clear()"></span>
+}
+<fluxnova-icon
+  [ngbPopover]="popOverContent"
+  aria-label="Select Comparator"
+  autoClose="true"
+  class="ps-2 pointer text-primary"
+  [ngClass]="{ 'disabled-icon': isDisabled, 'disabled-pointer-events': isDisabled }"
+  container="body"
+  iconName="filter"
+  placement="bottom-right auto"
+  popoverClass="no-arrow-popover filters-popover"
+  [closeDelay]="800"
+></fluxnova-icon>
+<ng-template #popOverContent>
+  <fluxnova-radio-buttons-toggle
+    [radioButtons]="filterComparatorOptions"
+    (toggleUpdateRadioButtons)="updateCurrentFilterComparator($event)"
+  ></fluxnova-radio-buttons-toggle>
+</ng-template>

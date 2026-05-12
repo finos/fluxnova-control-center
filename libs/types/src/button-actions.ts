@@ -1,0 +1,41 @@
+export enum ButtonActions {
+  ACTIVATE = 'activate',
+  APPLY_CHANGES = 'apply_changes',
+  DELETE = 'delete',
+  DOWNLOAD_RESOURCE = 'download_resource',
+  EVALUATE_DECISION = 'evaluate_decision',
+  MOVE_TOKEN = 'move_token',
+  RETRY = 'retry',
+  START_PROCESS = 'start_process',
+  SUSPEND = 'suspend',
+  TERMINATE = 'terminate',
+}
+
+export enum ItemTypeActions {
+  ActivateBatch = 'ActivateBatch',
+  ActivateJob = 'ActivateJob',
+  ActivateJobDefinition = 'ActivateJobDefinition',
+  ActivateProcessDefinition = 'ActivateProcessDefinition',
+  ActivateProcessInstance = 'ActivateProcessInstance',
+  ChangeJobDefinitionPriority = 'ChangeJobDefinitionPriority',
+  ChangeJobDueDate = 'ChangeJobDueDate',
+  DeleteBatch = 'DeleteBatch',
+  DeleteDeployment = 'DeleteDeployment',
+  DeleteJob = 'DeleteJob',
+  DeleteProcessDefinition = 'DeleteProcessDefinition',
+  DownloadResource = 'DownloadResource',
+  EvaluateDecisionDefinition = 'EvaluateDecisionDefinition',
+  MigrateProcessInstance = 'MigrateProcessInstance',
+  ModifyProcessInstanceVariables = 'ModifyProcessInstanceVariables',
+  MoveTokens = 'MoveTokens',
+  SetJobRetryCount = 'SetJobRetryCount',
+  StartProcessDefinition = 'StartProcessDefinition',
+  SuspendBatch = 'SuspendBatch',
+  SuspendJob = 'SuspendJob',
+  SuspendJobDefinition = 'SuspendJobDefinition',
+  SuspendProcessDefinition = 'SuspendProcessDefinition',
+  SuspendProcessInstance = 'SuspendProcessInstance',
+  TerminateProcessInstance = 'TerminateProcessInstance',
+}
+
+export type ItemTypeAction = (typeof ItemTypeActions)[keyof typeof ItemTypeActions];

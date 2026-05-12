@@ -1,14 +1,30 @@
-[![FINOS - Incubating](https://cdn.jsdelivr.net/gh/finos/contrib-toolbox@master/images/badge-incubating.svg)](https://community.finos.org/docs/governance/Software-Projects/stages/incubating)
+# Fluxnova Control Center
 
-# Fluxnova UI
+The Fluxnova Control Center is a web-based user interface for interacting with the Fluxnova BPM Engine. It
+allows for monitoring and interacting with process definitions and instances, incidents, jobs,
+deployments, and batches via the BPM Engine Rest API.
 
-## Contributing
-Please see the Fluxnova [contribution guidelines](https://github.com/finos/fluxnova-bpm-platform/blob/main/CONTRIBUTING.md) for how to raise issues and how to contribute code to our project.
+It consists of an Angular application and a NestJS backend for frontend (BFF).
 
-## License
+## Getting Started
 
-Copyright 2026 FINOS
+See the [Getting Started Guide](docs/guides/getting-started.md) for instructions on how to set up a
+local development environment and get the application up and running.
 
-Distributed under the [Apache License, Version 2.0](http://www.apache.org/licenses/LICENSE-2.0).
+## Development Workflow
 
-SPDX-License-Identifier: [Apache-2.0](https://spdx.org/licenses/Apache-2.0)
+Common development activities are covered in
+the [Development Workflow](docs/reference/development-workflow.md) documentation, including how to
+run tests and generate required client libraries.
+
+## Reference
+
+The [Reference](./docs/reference) section of the documentation contains detailed documentation on
+various aspects of the application, such as:
+
+- [Configuration](./docs/reference/configuration.md)
+- [Authentication](./docs/reference/authentication.md)
+- [Observability](./docs/reference/observability.md)
+- [Fluxnova API Client Library Generation](./docs/reference/fluxnova-api-client-generation.md)
+- [Icons](./docs/reference/icons.md)
+- [Tech Stack](./docs/reference/tech-stack.md)
