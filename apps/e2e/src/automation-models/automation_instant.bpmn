@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:modeler="http://fluxnova.finos.org/schema/modeler/1.0" xmlns:fluxnova="http://fluxnova.finos.org/schema/1.0/bpmn" id="Definitions_0by5nwi" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Fluxnova Modeler" exporterVersion="0.0.1-b22-18045205029" modeler:executionPlatform="Fluxnova Platform" modeler:executionPlatformVersion="0.0.1">
-  <bpmn:process id="Process_1r6s6ex" name="DAP UI Automation - Instant" isExecutable="true" camunda:historyTimeToLive="30">
+  <bpmn:process id="Process_1r6s6ex" name="Fluxnova UI Automation - Instant" isExecutable="true" camunda:historyTimeToLive="30">
     <bpmn:startEvent id="StartEvent_1" name="Start" camunda:asyncBefore="true">
       <bpmn:outgoing>Flow_0n8wgnx</bpmn:outgoing>
     </bpmn:startEvent>

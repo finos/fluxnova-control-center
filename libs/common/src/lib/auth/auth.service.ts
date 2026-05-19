@@ -73,10 +73,8 @@ export class AuthService {
 
   private async checkNeedTenantSelection(user: User): Promise<Tenant> {
     const engines = user.engines ?? [];
-    const matchedEngine: ProcessEngineDto | undefined = find(
-      engines,
-      (engine: ProcessEngineDto) => engine.name === this.pathTenant,
-    );
+    const matchedEngine: ProcessEngineDto | undefined =
+      engines.length === 1 ? engines[0] : find(engines, (engine: ProcessEngineDto) => engine.name === this.pathTenant);
 
     if (matchedEngine) {
       // Convert ProcessEngineDto to Tenant
