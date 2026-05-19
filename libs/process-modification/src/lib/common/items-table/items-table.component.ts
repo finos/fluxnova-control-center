@@ -227,7 +227,7 @@ export class ItemsTableComponent {
 
       // If a sort was applied (e.g. from a deeplink) before the grid was ready,
       // the sorting setter could not call applyColumnState because agGrid was
-      // not yet initialised.  Re-apply it now so the sort icon reflects the
+      // not yet initialized. Call it now so the sort icon reflects the
       // actual sort state.
       if (this.sortArray?.length) {
         this.agGrid?.api.applyColumnState(<ApplyColumnStateParams>{
