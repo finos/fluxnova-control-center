@@ -62,7 +62,7 @@ export class WidgetBase {
   private mainVisibilityStore: Record<string, boolean> = {};
 
   protected queryParams = () =>
-    `filters={"status":{"filterType":"select","filter":"open","type":"equals"},"createTime":{"dateFrom":"${this.calculatedTimeFrame}","type":"greaterThan"},"processDefinitionKey":{"filterType":"commaSeparatedList","filter":"${this.selectedDefinitionKey}","type":"multi"}}&sorting=[{"colId":"createTime","sort":"desc"}]&toggleFilters=`;
+    `filters={"status":{"filterType":"select","filter":"open","type":"equals"},"createTime":{"dateFrom":"${this.calculatedTimeFrame}","type":"after"},"processDefinitionKey":{"filterType":"commaSeparatedList","filter":"${this.selectedDefinitionKey}","type":"multi"}}&sorting=[{"colId":"createTime","sort":"desc"}]&toggleFilters=`;
   protected calculatedTimeFrame = '';
   protected data: FluxnovaItem[] = [];
   protected selectedDefinitionKey = '';
