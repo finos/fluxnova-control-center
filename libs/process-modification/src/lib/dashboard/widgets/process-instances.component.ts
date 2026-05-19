@@ -16,7 +16,7 @@ export class ProcessInstancesComponent extends WidgetBase implements OnInit, OnD
   protected window = inject<Window>(WINDOW);
 
   protected override queryParams = () =>
-    `filters={"state":{"filterType":"select","filter":"unfinished","type":"equals"},"startTime":{"dateFrom":"${this.calculatedTimeFrame}","type":"greaterThan"},"processDefinitionKey":{"filterType":"textArray","filter":"${this.selectedDefinitionKey}","type":"multi"}}&sorting=[{"colId":"startTime","sort":"desc"}]&toggleFilters=`;
+    `filters={"state":{"filterType":"select","filter":"unfinished","type":"equals"},"startTime":{"dateFrom":"${this.calculatedTimeFrame}","type":"after"},"processDefinitionKey":{"filterType":"textArray","filter":"${this.selectedDefinitionKey}","type":"multi"}}&sorting=[{"colId":"startTime","sort":"desc"}]&toggleFilters=`;
 
   constructor() {
     super('process-instances');

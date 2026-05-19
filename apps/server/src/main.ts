@@ -1,5 +1,11 @@
 /* eslint-disable n/no-process-env -- ConfigService is not available yet, so we must use env directly */
 
+// Node's default of 10 is too low for this app: concurrent outgoing axios requests each add error/close
+// listeners to the same keep-alive socket. 22 is just high enough to avoid false positives while
+// still catching genuine listener leaks.
+import { EventEmitter } from 'events';
+EventEmitter.defaultMaxListeners = 22;
+
 // organize-imports-ignore
 // these imports need to override code, so they're pulled to the very beginning
 import './otel/otel-setup';
