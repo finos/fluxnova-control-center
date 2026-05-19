@@ -224,6 +224,18 @@ export class ItemsTableComponent {
           colId: colDef.filterParams?.sortByKey || colDef.field,
         })),
       });
+
+      // If a sort was applied (e.g. from a deeplink) before the grid was ready,
+      // the sorting setter could not call applyColumnState because agGrid was
+      // not yet initialised.  Re-apply it now so the sort icon reflects the
+      // actual sort state.
+      if (this.sortArray?.length) {
+        this.agGrid?.api.applyColumnState(<ApplyColumnStateParams>{
+          state: this.sortArray,
+          defaultState: { sort: null },
+        });
+      }
+
       this.agGrid?.api.setFilterModel(this.currentFilterModel);
       this.makeTextSelectable(true);
       this.gridReady.emit(event);
