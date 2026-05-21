@@ -1,0 +1,67 @@
+.graph-header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.widget-body {
+  min-width: 800px;
+}
+
+.chart-wrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.chart-subtitle {
+  position: absolute;
+  color: rgb(102, 102, 102);
+  font-size: 0.8em;
+  top: -30px;
+}
+
+.chart-legend-title {
+  position: absolute;
+  font-size: 0.8em;
+  font-weight: bold;
+  right: 12%;
+}
+
+apx-chart {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.chart-center-label {
+  position: absolute;
+  top: 50%;
+  left: 35%;
+  transform: translate(-50%, -50%);
+}
+
+.chart-center-label .center-count {
+  font-size: 40px;
+  color: #024a7a;
+}
+
+.drillup {
+  position: absolute;
+  font-size: 0.8em;
+  top: -10px;
+  left: 15px;
+}
+
+.drillup-button {
+  background: none;
+  border: none;
+  padding: 0;
+  margin-left: 0.5em;
+  color: #024a7a;
+}
+
+.drillup-button:hover,
+.drillup-button:focus-visible,
+.drillup-button:focus {
+  background-color: #e6e6e6;
+}

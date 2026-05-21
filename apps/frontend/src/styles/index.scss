@@ -1,0 +1,139 @@
+@import './common/colors';
+@import 'bootstrap/scss/_functions.scss';
+/* This is the default theme */
+
+// colors from style guide v6
+// If you update/add color information, please also update common/src/lib/themes (color variables for typescript)
+$primary-blue: #0065a8;
+$charcoal-primary: #323232;
+$charcoal-secondary: #444444;
+$charcoal-tertiary: #5e5e5e;
+$highlight: #356f95;
+$lightgray: #f4f4f4;
+$redshade: #dc1616;
+$lite-blue: #e1f0f9;
+$dark-green: #004053;
+$crystal-blue: #6792af;
+$dark-midnight-blue: #013b61;
+$blue-sapphire: #1a677e;
+$oxford-blue: #012c49;
+$american-silver: #cfcfcf;
+$color-blue-900: #084f70;
+$color-blue-800: #356f92;
+$color-blue-700: #1886a6;
+$color-blue-600: #106a85;
+$color-blue-500: #426e91;
+$color-blue-450: #97a3ac;
+$color-blue-400: #91adc3;
+$color-blue-350: #b1cee0;
+$color-blue-300: #e4f2fa;
+$color-blue-200: #f5fdff;
+$color-blue-active: #ddf3ff;
+$color-blue-hover: #cae2ef;
+
+$color-alert-success: #568200;
+$color-alert-warning: #ffcd00;
+$color-alert-info: #426e91;
+$color-alert-danger: #dc1616;
+$color-alert-critical: #cd1616;
+
+$color-decision-definition: #7ccfe4;
+$color-decision-instance: #7ccfe4;
+$color-deployment: #fa9a4b;
+$color-batch: #ffeb99;
+
+$color-nav-background: $charcoal-secondary;
+$color-nav-background-dark: $charcoal-primary;
+$color-process-instance: #dbc9e8;
+$color-process-definition: #bbcd99;
+$color-dashboard: #d3d3d3;
+$color-job: #b5cfd8;
+$color-incident: #ff6161;
+$color-active-token: #0799d9;
+$color-terminated-token: #b3b3b3;
+$color-completed-token: #3eb900;
+
+$color-text-standard: #333333;
+$color-borders-standard: #b7b7b7;
+
+$theme-colors: (
+  // standard bootstrap classes
+  'primary': $primary-blue,
+  'secondary': $color-blue-800,
+  'success': $color-alert-success,
+  'danger': $color-alert-danger,
+  'warning': $color-alert-warning,
+  'info': $color-alert-info,
+  'light': $color-neutral-300,
+  'crystal-blue': $crystal-blue,
+  'dark-midnight-blue': $dark-midnight-blue,
+  'blue-sapphire': $blue-sapphire,
+  'oxford-blue': $oxford-blue,
+  'american-silver': $american-silver,
+  'dark-green': $dark-green,
+  'dark': $color-black,
+  'white': $color-white,
+  'highlight': $highlight,
+  'lightgray': $lightgray,
+  'redshade': $redshade,
+  'lite-blue': $lite-blue,
+  'charcoal': $charcoal-primary,
+  // extra color classes that give us access to the rest of the style guide colors
+  'critical': $color-alert-critical,
+  'primary-900': $color-blue-900,
+  'primary-700': $color-blue-700,
+  'primary-600': $color-blue-600,
+  'primary-500': $color-blue-500,
+  'primary-450': $color-blue-450,
+  'primary-400': $color-blue-400,
+  'primary-350': $color-blue-350,
+  'primary-300': $color-blue-300,
+  'primary-200': $color-blue-200,
+  'neutral-900': $color-neutral-900,
+  'neutral-800': $color-neutral-800,
+  'neutral-750': $color-neutral-750,
+  'neutral-700': $color-neutral-700,
+  'neutral-600': $color-neutral-600,
+  'neutral-500': $color-neutral-500,
+  'neutral-400': $color-neutral-400,
+  'neutral-375': $color-neutral-375,
+  'neutral-350': $color-neutral-350,
+  'neutral-300': $color-neutral-300,
+  'neutral-200': $color-neutral-200,
+  'neutral-100': $color-neutral-100,
+  'batch': $color-batch,
+  'decision-definition': $color-decision-definition,
+  'decision-instance': $color-decision-instance,
+  'deployment': $color-deployment,
+  'nav-background': $color-nav-background,
+  'nav-background-dark': $color-nav-background-dark,
+  'process-instance': $color-process-instance,
+  'process-definition': $color-process-definition,
+  'dashboard': $color-dashboard,
+  'job': $color-job,
+  'incident': $color-incident,
+  'active-token': $color-active-token,
+  'terminated-token': $color-terminated-token,
+  'completed-token': $color-completed-token,
+  'text-standard': $color-text-standard,
+  'borders-standard': $color-borders-standard,
+  'active': $color-blue-active,
+  'hover': $color-blue-hover
+);
+
+$link-color: $primary-blue;
+$link-hover-color: #006fb8;
+$link-hover-decoration: none;
+
+$body-color: $color-black;
+$input-border-color: $color-neutral-600;
+
+$tooltip-bg: $color-white;
+$tooltip-color: $color-black;
+$tooltip-opacity: 1;
+$tooltip-arrow-color: $american-silver;
+////-----------------------------------------------------------------------
+
+@import 'common/common';
+
+@import './assets/illustrations/default-illustrations';

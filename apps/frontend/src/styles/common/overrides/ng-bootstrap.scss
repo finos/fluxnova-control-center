@@ -1,0 +1,152 @@
+ngb-datepicker {
+  border: 0;
+  padding-top: 0.75rem;
+
+  .ngb-dp-arrow-btn {
+    @extend .btn-link;
+
+    margin: 0;
+    padding: 6px 10px;
+    line-height: 18.4px;
+  }
+
+  .ngb-dp-day:focus {
+    outline-color: map-get($theme-colors, 'primary');
+  }
+
+  ngb-datepicker-navigation-select.ngb-dp-navigation-select {
+    display: grid;
+    grid-auto-flow: column;
+    gap: 8px;
+  }
+
+  .btn-light {
+    border-radius: 0;
+  }
+
+  .ngb-dp-week {
+    @extend .p-0;
+  }
+
+  .ngb-dp-week.ngb-dp-weekdays {
+    @extend .border-bottom;
+    background-color: transparent;
+  }
+
+  .ngb-dp-weekday {
+    color: $color-text-standard;
+  }
+
+  .ngb-dp-header {
+    background-color: transparent;
+  }
+
+  .bg-secondary {
+    background-color: lighten($primary-blue, 10) !important;
+  }
+}
+
+ngb-timepicker {
+  .ngb-tp-meridian button {
+    line-height: 21px;
+  }
+
+  .ngb-tp {
+    justify-content: center;
+  }
+}
+
+.dropdown-toggle::after {
+  border: none;
+  font-family: fluxnova-icon-font, sans-serif;
+  content: '\f103';
+  vertical-align: middle;
+  font-size: 16px;
+  margin-left: 0.6em;
+}
+
+/*
+  allows accordion to show overflow from popovers and dropdowns
+*/
+ngb-accordion.accordion div.card {
+  overflow: visible;
+}
+
+@mixin button-group-variant($color, $value) {
+  .btn-group {
+    position: relative;
+
+    & > .btn.btn-outline-#{$color} {
+      background: none;
+      font-size: 14px;
+      line-height: 18px;
+      color: $value;
+
+      &.dropdown-toggle::after {
+        font-size: 16px;
+        margin-left: 0.6em;
+        vertical-align: 0.15em;
+      }
+    }
+
+    & > .btn-group:not(:first-child) > .btn.btn-outline-#{$color} {
+      border-left: 0;
+    }
+
+    &:not(.dropdown) > .btn.btn-outline-#{$color}:not(:last-child) {
+      border-right: 0;
+
+      &::after {
+        content: '';
+        width: 1px;
+        background-color: $value;
+        position: absolute;
+        top: 6px;
+        bottom: 6px;
+        margin-left: 10px;
+      }
+    }
+  }
+}
+
+@each $color, $value in $theme-colors {
+  @include button-group-variant($color, $value);
+}
+
+/**
+display active secondary button state when dropdown is open
+*/
+
+.show > .btn.btn-secondary:not(:disabled):not(.disabled),
+.show > .btn.btn-secondary:not(:disabled):not(.disabled):focus,
+.show > .btn.btn-secondary:not(:disabled):not(.disabled):focus:hover {
+  border-width: 2px;
+  padding: 5px 11px;
+  background-color: map-get($theme-colors, 'light');
+  color: map-get($theme-colors, 'primary');
+  border-color: map-get($theme-colors, 'primary');
+}
+
+.page-link {
+  @include border-radius($border-radius);
+}
+
+.border {
+  border: 1px solid $color-borders-standard !important;
+}
+
+.border-top {
+  border-top: 1px solid $color-borders-standard !important;
+}
+
+.border-right {
+  border-right: 1px solid $color-borders-standard !important;
+}
+
+.border-bottom {
+  border-bottom: 1px solid $color-borders-standard !important;
+}
+
+.border-left {
+  border-left: 1px solid $color-borders-standard !important;
+}

@@ -1,0 +1,5 @@
+strong {
+  & ~ span {
+    display: inline-block;
+  }
+}

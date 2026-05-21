@@ -1,0 +1,32 @@
+a {
+  display: flex;
+  align-items: center;
+  padding: 16px 18px;
+}
+
+.footer-navigation-menu {
+  a {
+    text-decoration: underline;
+    padding: 6px 7px;
+    &:hover {
+      background: none;
+      color: white;
+    }
+  }
+}
+
+.border-top {
+  border-top: 1px solid #5e5e5e !important;
+}
+
+ul li {
+  list-style-type: none;
+}
+
+.footer {
+  width: 100%;
+}
+
+.caret {
+  margin-left: auto;
+}

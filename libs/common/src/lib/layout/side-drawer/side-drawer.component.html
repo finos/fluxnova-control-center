@@ -1,0 +1,82 @@
+<ng-container *ngrxLet="isOpen$; let isOpen">
+  <span>
+    <div id="dashboard_side_color" [ngClass]="{ 'slider-open': isOpen }" (click)="toggleOpenOrClose()">
+      <ng-content select="[sidebar]"></ng-content>
+      <div class="sidenav-header">
+        <a (click)="$event.stopPropagation()" routerLink="/">
+          <div class="sidenavbar-header-wrapper">
+            <fluxnova-icon iconName="fluxnova-icon" class="fs-3 text-white"></fluxnova-icon>
+            <fluxnova-icon
+              [ngClass]="{ 'd-none': !isOpen }"
+              iconName="fluxnova-icon-text"
+              class="ms-2 fs-3 text-white"
+              additionalClasses="full-width"
+            ></fluxnova-icon>
+          </div>
+        </a>
+      </div>
+      <ul class="navigation-menu pt-2">
+        <a
+          class="fs-7 text-dark"
+          [ngClass]="{ 'bg-white': isOpen, 'text-white': !isOpen }"
+          [ngbTooltip]="!isOpen && 'Search by ID'"
+          (click)="searchNavigationComponent.focusSearch()"
+        >
+          <fluxnova-icon iconName="search"></fluxnova-icon>
+          <fluxnova-search-navigation
+            #searchNavigationComponent
+            class="fs-10"
+            (searchChosen)="closeSideDrawer()"
+            [ngClass]="{ hidden: !isOpen }"
+          ></fluxnova-search-navigation>
+        </a>
+        @for (link of links$ | async; track link) {
+          <a
+            class="fs-7 mt-2"
+            (click)="handleLinkClick($event, tooltip)"
+            [ngbTooltip]="!isOpen && link.name"
+            triggers="hover"
+            #tooltip="ngbTooltip"
+            placement="right auto"
+            routerLinkActive="active"
+            [routerLink]="link.path"
+          >
+            <fluxnova-icon [iconName]="link.class"></fluxnova-icon>
+            <span [ngClass]="{ 'd-none': !isOpen }" class="fs-10 ps-2 text-white text-nowrap fw-bold">{{
+              link.name
+            }}</span>
+          </a>
+        }
+      </ul>
+      <ul class="navigation-bottom-menu">
+        <fluxnova-footer [sliderOpen]="isOpen"></fluxnova-footer>
+      </ul>
+      <div class="profile-menu">
+        <div (click)="isOpen && profileClick($event)" class="profile-icon text-white text-hover-selected-lighter">
+          <a *ngrxLet="userService.$user; let user">
+            <img
+              aria-hidden="true"
+              alt="profile image"
+              class="profile-menu-img"
+              src="./api/profile-images/{{ user?.id }}"
+            />
+            <span id="user-profile-name" [ngClass]="{ 'd-none': !isOpen }" class="fs-10 ms-2 fw-bold">
+              {{ user?.fullName || user?.id }}
+            </span>
+            @if (isOpen && !isProfileDropdownOpen) {
+              <fluxnova-icon color="white" class="fs-11 caret" iconName="caret-up"></fluxnova-icon>
+            }
+            @if (isOpen && isProfileDropdownOpen) {
+              <fluxnova-icon color="white" class="fs-11 caret" iconName="caret-down"></fluxnova-icon>
+            }
+          </a>
+        </div>
+        <ul class="profile-dropdown" [ngClass]="{ 'd-none': !isProfileDropdownOpen || !isOpen }">
+          <li>
+            <a (click)="$event.stopPropagation()" class="text-white fs-10" [href]="getLogoutURI()"> Logout </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </span>
+</ng-container>

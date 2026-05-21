@@ -1,0 +1,77 @@
+{
+  "name": "server",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/server/src",
+  "projectType": "application",
+  "prefix": "server",
+  "tags": ["scope:server"],
+  "implicitDependencies": ["shared-assets"],
+  "generators": {},
+  "targets": {
+    "build": {
+      "executor": "@nx/webpack:webpack",
+      "options": {
+        "outputPath": "dist/apps/server",
+        "main": "apps/server/src/main.ts",
+        "tsConfig": "apps/server/tsconfig.app.json",
+        "assets": [
+          "apps/server/src/assets",
+          "apps/server/src/login.html",
+          "apps/server/src/loader.html",
+          {
+            "glob": "favicon.ico",
+            "input": "libs/shared-assets/",
+            "output": "assets/"
+          },
+          {
+            "glob": "**/*",
+            "input": "libs/shared-assets/",
+            "output": "/assets/"
+          }
+        ],
+        "styles": ["libs/shared-assets/loading.css"],
+        "webpackConfig": "apps/server/extra-webpack.config.cjs",
+        "target": "node",
+        "compiler": "tsc"
+      },
+      "configurations": {
+        "production": {
+          "extractLicenses": true,
+          "optimization": true,
+          "inspect": false,
+          "sourceMap": false,
+          "fileReplacements": [
+            {
+              "replace": "apps/server/src/environments/environment.ts",
+              "with": "apps/server/src/environments/environment.prod.ts"
+            }
+          ]
+        }
+      },
+      "outputs": ["{options.outputPath}"]
+    },
+    "serve": {
+      "executor": "@nx/js:node",
+      "options": {
+        "buildTarget": "server:build",
+        "inspect": true,
+        "port": 7777
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["apps/server/src/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nx/vitest:test",
+      "outputs": ["{workspaceRoot}/results/unit/apps/server", "{workspaceRoot}/results/coverage/apps/server"],
+      "options": {
+        "config": "apps/server/vite.config.ts",
+        "passWithNoTests": false
+      }
+    }
+  }
+}

@@ -1,0 +1,187 @@
+<div class="d-flex flex-row-reverse">
+  @if (diagramType === ItemType.DecisionDefinition) {
+    <span class="float-end" container="body">
+      <button
+        type="button"
+        class="btn btn-primary"
+        (click)="onEvaluateDecision()"
+        id="evaluate_decision"
+        *fluxnovaHasPermissions="{
+          action: 'EvaluateDecisionDefinition',
+          resources: [{ itemType: diagramType, itemId }],
+        }"
+      >
+        Evaluate Decision
+      </button>
+    </span>
+  }
+  @if (diagramType === ItemType.ProcessDefinition) {
+    <span
+      class="float-end"
+      container="body"
+      [ngbTooltip]="!isStartEnabled ? 'Start Process is only allowed on ACTIVE definitions' : ''"
+    >
+      <button
+        type="button"
+        class="btn btn-primary"
+        [disabled]="!isStartEnabled"
+        (click)="onStartProcess()"
+        id="start_process"
+        *fluxnovaHasPermissions="{ action: 'StartProcessDefinition', resources: [{ itemType: diagramType, itemId }] }"
+      >
+        Start Process
+      </button>
+    </span>
+  }
+  @if (!isEditing && diagramType === ItemType.ProcessInstance) {
+    <span
+      class="float-end"
+      container="body"
+      [ngbTooltip]="!isEditEnabled ? 'Move tokens is only allowed on ACTIVE instances' : ''"
+    >
+      <button
+        type="button"
+        class="btn btn-primary"
+        [disabled]="!isEditEnabled"
+        (click)="onEdit()"
+        id="move_tokens"
+        *fluxnovaHasPermissions="{ action: 'MoveTokens', resources: [{ itemType: diagramType, itemId }] }"
+      >
+        Move Tokens
+      </button>
+    </span>
+  }
+  @if (isEditing) {
+    <button type="button" class="btn btn-secondary ms-2" (click)="onCancel()" id="cancel">Cancel</button>
+  }
+  @if (isEditing) {
+    <button type="button" class="btn btn-primary" [disabled]="!hasChanges" (click)="onApplyChanges()" id="save_changes">
+      Apply Changes
+    </button>
+  }
+
+  @if (diagramType === ItemType.ProcessInstance) {
+    <span class="me-2">
+      <button
+        class="btn btn-secondary me-2"
+        id="toggle-diagram-flow"
+        [ngClass]="{ toggled: diagramFlowHighlighted }"
+        (click)="onToggleDiagramColors(diagramFlowTooltip)"
+        (mousedown)="preventFocus($event)"
+        (mouseup)="preventFocus($event)"
+        [ngbTooltip]="diagramFlowHighlighted ? 'Hide diagram flow' : 'Show diagram flow'"
+        triggers="hover"
+        #diagramFlowTooltip="ngbTooltip"
+      >
+        <span class="d-flex align-items-center justify-content-center">
+          <fluxnova-icon iconName="toggle-flow" additionalClasses="large-icon"></fluxnova-icon>
+        </span>
+      </button>
+    </span>
+  }
+  @if (diagramType === ItemType.ProcessDefinition) {
+    <span>
+      <button
+        type="button"
+        id="instance-statistics"
+        class="btn btn-secondary me-2"
+        [ngClass]="{ toggled: instanceStatisticsShown }"
+        (click)="onToggleInstanceStatistics(instanceStatisticsTooltip)"
+        (mousedown)="preventFocus($event)"
+        (mouseup)="preventFocus($event)"
+        [ngbTooltip]="instanceStatisticsShown ? 'Hide instance statistics' : 'Show instance statistics'"
+        triggers="hover"
+        #instanceStatisticsTooltip="ngbTooltip"
+      >
+        <span class="d-flex align-items-center">
+          <fluxnova-icon iconName="activity-statistics" additionalClasses="large-icon"></fluxnova-icon>
+        </span>
+      </button>
+    </span>
+  }
+  @if (diagramType === ItemType.ProcessInstance || diagramType === ItemType.ProcessDefinition) {
+    <div class="divider bg-neutral-700 ms-2 me-3"></div>
+  }
+  @if (diagramType !== ItemType.DecisionDefinition) {
+    <span>
+      <button
+        #recenterDiagramBtn
+        type="button"
+        id="recenter-diagram"
+        class="btn btn-secondary me-2"
+        (click)="onRecenterDiagram(recenterTooltip)"
+        (mousedown)="preventFocus($event)"
+        (mouseup)="preventFocus($event)"
+        ngbTooltip="Reset view"
+        triggers="hover"
+        #recenterTooltip="ngbTooltip"
+      >
+        <span class="d-flex align-items-center justify-content-center">
+          <fluxnova-icon iconName="reset-view" additionalClasses="large-icon"></fluxnova-icon>
+        </span>
+      </button>
+      <button
+        #zoomOutBtn
+        id="zoom-out"
+        type="button"
+        class="btn btn-secondary me-2"
+        (click)="onZoomDiagram(-1, zoomOutTooltip)"
+        (mousedown)="preventFocus($event)"
+        (mouseup)="preventFocus($event)"
+        ngbTooltip="Zoom out"
+        triggers="hover"
+        #zoomOutTooltip="ngbTooltip"
+      >
+        <span class="d-flex align-items-center justify-content-center">
+          <fluxnova-icon iconName="zoom-out" additionalClasses="large-icon"></fluxnova-icon>
+        </span>
+      </button>
+      <button
+        #zoomInBtn
+        id="zoom-in"
+        type="button"
+        class="btn btn-secondary me-2"
+        (click)="onZoomDiagram(1, zoomInTooltip)"
+        (mousedown)="preventFocus($event)"
+        (mouseup)="preventFocus($event)"
+        ngbTooltip="Zoom in"
+        triggers="hover"
+        #zoomInTooltip="ngbTooltip"
+      >
+        <span class="d-flex align-items-center justify-content-center">
+          <fluxnova-icon iconName="zoom-in" additionalClasses="large-icon"></fluxnova-icon>
+        </span>
+      </button>
+    </span>
+  }
+  @if (diagramType === ItemType.ProcessDefinition) {
+    <div class="divider bg-neutral-700 ms-2 me-3"></div>
+  }
+  @if (diagramType === ItemType.ProcessDefinition) {
+    <span class="position-relative">
+      <button
+        class="btn btn-secondary me-2"
+        id="toggle-heatmap"
+        [ngClass]="{ toggled: heatmapState.isOpen }"
+        (click)="onToggleHeatmap(heatmapTooltip)"
+        (mousedown)="preventFocus($event)"
+        (mouseup)="preventFocus($event)"
+        [ngbTooltip]="heatmapState.isOpen ? 'Disable heatmap' : 'Activate heatmap'"
+        container="body"
+        triggers="hover"
+        #heatmapTooltip="ngbTooltip"
+      >
+        <span class="d-flex align-items-center justify-content-center">
+          <fluxnova-icon iconName="fire" additionalClasses="large-icon"></fluxnova-icon>
+        </span>
+      </button>
+      @if (heatmapState.isVisible) {
+        <fluxnova-heatmap-modal
+          class="heatmap-modal"
+          [heatmapDeactivating]="heatmapState.isClosing"
+          (closeComplete)="heatmapState.onAnimationEnd()"
+        />
+      }
+    </span>
+  }
+</div>

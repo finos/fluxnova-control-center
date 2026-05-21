@@ -1,0 +1,23 @@
+[
+  {
+    "id": "0002adb8-a28c-11ed-a978-0ec9965d7f47",
+    "businessKey": "P01FEB23-4NK734ZX",
+    "processDefinitionId": "c44cbf2b-9da2-11ed-8e6e-0a1323eff909",
+    "processDefinitionKey": "fluxnova_automation_basic",
+    "processDefinitionName": "Fluxnova UI - Automation Basic",
+    "processDefinitionVersion": 1,
+    "startTime": "2023-02-01T18:56:09.765-0500",
+    "endTime": null,
+    "removalTime": null,
+    "durationInMillis": null,
+    "startUserId": "user123",
+    "startActivityId": "StartEvent_1",
+    "deleteReason": null,
+    "rootProcessInstanceId": "0002adb8-a28c-11ed-a978-0ec9965d7f47",
+    "superProcessInstanceId": null,
+    "superCaseInstanceId": null,
+    "caseInstanceId": null,
+    "tenantId": null,
+    "state": "ACTIVE"
+  }
+]

@@ -1,0 +1,109 @@
+:host {
+  position: fixed;
+  top: 0;
+  right: 0;
+  margin-right: 0.5em;
+  margin-top: 40px;
+  z-index: 1200;
+  font-weight: bold;
+  min-width: 200px;
+
+  max-width: 400px;
+
+  display: grid;
+  gap: 16px;
+
+  * {
+    user-select: none;
+  }
+
+  ngb-toast.toast ::ng-deep {
+    animation-name: toastin;
+    animation-duration: 0.5s;
+    display: grid;
+    opacity: 1;
+    grid-template-columns: auto 1fr auto;
+    grid-template-areas: 'body header';
+
+    .toast-header {
+      grid-area: header;
+      button.btn-close {
+        display: none;
+      }
+      button.close {
+        display: none;
+      }
+    }
+
+    .toast-body {
+      grid-area: body;
+      padding: 4px 0;
+      display: grid;
+      grid-template-columns: auto 1fr;
+      grid-template-rows: auto auto;
+
+      column-gap: 4px;
+
+      grid-template-areas: 'icon header' 'icon body';
+
+      .body {
+        grid-area: body;
+        font-weight: lighter;
+      }
+
+      .icon {
+        font-size: 16px;
+        grid-area: icon;
+        margin: auto;
+        padding: 8px;
+      }
+    }
+  }
+
+  ngb-toast.toast.hide ::ng-deep {
+    animation-duration: 1s;
+    animation-fill-mode: forwards;
+    animation-name: toastout;
+    max-height: 500px;
+  }
+
+  .fa-check-circle,
+  .fa-exclamation-triangle {
+    padding-right: 10px;
+  }
+}
+
+@keyframes toastin {
+  from {
+    transform: translateX(500px);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+@keyframes toastout {
+  0% {
+    transform: translateX(0px);
+  }
+  100% {
+    transform: translateX(500px);
+    max-height: 0;
+  }
+}
+
+.toast-wrap {
+  height: fit-content;
+  transition: 0.5s;
+}
+
+.text-block {
+  max-width: 100%;
+  overflow: hidden;
+  max-height: 300px;
+  overflow-wrap: break-word;
+}
+
+.error-details {
+  white-space: pre-line;
+}

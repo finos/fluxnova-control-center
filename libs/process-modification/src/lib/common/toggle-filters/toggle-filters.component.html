@@ -1,0 +1,30 @@
+@if (isResetVisible) {
+  <button class="btn btn-link text-primary highlight-hover lh-1" onclick="this.blur()" (click)="resetToggles.emit()">
+    Reset View
+  </button>
+}
+@if (isResetVisible && toggleFilters) {
+  <div class="divider bg-neutral-700 me-3"></div>
+}
+@for (toggleFilter of toggleFilters; track toggleFilter; let last = $last) {
+  <div
+    class="d-flex align-items-center text-primary"
+    [ngClass]="{ 'highlight-hover': !toggleFilter.isDisabled, pointer: !toggleFilter.isDisabled }"
+    (click)="!toggleFilter.isDisabled && selectToggle.emit(toggleFilter)"
+    [ngbTooltip]="toggleFilter.disabledTooltip"
+    placement="bottom auto"
+    container="body"
+    [disableTooltip]="!toggleFilter.isDisabled"
+  >
+    <input
+      [ngClass]="{ pointer: !toggleFilter.isDisabled }"
+      type="checkbox"
+      [class]="toggleFilter.field"
+      [checked]="toggleFilter.selected"
+      [disabled]="toggleFilter.isDisabled"
+    />{{ toggleFilter.headerName }}
+    @if (!last) {
+      <div class="divider bg-neutral-700 mx-3"></div>
+    }
+  </div>
+}

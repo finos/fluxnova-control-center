@@ -1,0 +1,212 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <base href="/" />
+    <link rel="stylesheet" href="loading.css" />
+    <style>
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+        text-align: center;
+        font-family: 'Arial', sans-serif;
+      }
+
+      form input {
+        display: block;
+        width: 325px;
+        height: 20px;
+        padding: 10px;
+        border: 1px solid #ced4da;
+        border-radius: 4px;
+        margin: 5px auto;
+      }
+
+      form {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .btn {
+        width: auto;
+        height: 30px;
+        padding: 5px 10px;
+        background-color: #0065a8;
+        border: 1px solid #0065a8;
+        color: #fff;
+        cursor: pointer;
+        border-radius: 5px;
+      }
+
+      .form-item {
+        margin: 10px 0;
+      }
+
+      .app-loading {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+      }
+
+      #main-content {
+        display: flex;
+        flex-direction: column;
+        padding-top: 5%;
+        padding-bottom: 5%;
+        flex: 1;
+        align-items: center;
+        width: 360px;
+        margin: auto;
+      }
+
+      #login-container {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 50px;
+      }
+
+      #login-options {
+        width: 100%;
+        height: 50px;
+        min-height: 50px;
+        border-bottom: 3px solid #d3d3d3;
+        align-self: center;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        letter-spacing: 4px;
+      }
+
+      #separator {
+        width: 200px;
+        border: none;
+        border-top: 1px solid #d3d3d3;
+      }
+      #fluxnova-logo {
+        display: block;
+      }
+
+      #error-message {
+        color: red;
+        width: 100%;
+        box-sizing: border-box;
+        font-weight: bold;
+        border: 2px solid red;
+        visibility: hidden;
+        margin: 10px 0;
+      }
+      #error-message.visible {
+        margin: 20px 0;
+        padding: 15px;
+        visibility: visible;
+      }
+    </style>
+    <script src="config.js"></script>
+    <script>
+      function submitForm() {
+        const data = JSON.stringify({
+          username: document.querySelector('input[name="username"]').value,
+          password: document.querySelector('input[name="password"]').value,
+        });
+        hideErrorMessage();
+        showSpinner();
+        fetch(`${document.querySelector('base').href}api/login`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: data,
+        })
+          .then((response) => {
+            hideSpinner();
+            if (response.ok) {
+              location.href = document.querySelector('base').href;
+            } else {
+              showErrorMessage();
+            }
+          })
+          .catch(() => {
+            hideSpinner();
+            showErrorMessage();
+          });
+      }
+
+      function showSpinner() {
+        document.querySelector('.spinner').style.display = 'block';
+      }
+
+      function hideSpinner() {
+        document.querySelector('.spinner').style.display = 'none';
+      }
+
+      function showErrorMessage(message) {
+        if (message) document.getElementById('error-message').textContent = message;
+        document.getElementById('error-message').classList.add('visible');
+      }
+
+      function hideErrorMessage() {
+        document.getElementById('error-message').classList.remove('visible');
+      }
+
+      function sso() {
+        hideErrorMessage();
+        showSpinner();
+
+        location.href = document.querySelector('base').href + 'api/sso';
+      }
+
+      onload = function () {
+        if (window.fluxnovaConfig?.authRequired === false) location.href = document.querySelector('base').href;
+
+        const params = new URLSearchParams(location.search);
+
+        if (params.get('error') === 'no-engine-access') {
+          showErrorMessage('You do not have access to any engines.');
+        }
+      };
+    </script>
+    <title>Fluxnova Login</title>
+  </head>
+  <body>
+    <div id="main-content">
+      <img src="fluxnova-logo.svg" alt="Fluxnova Icon" width="360" height="120" id="fluxnova-logo" />
+      <div id="login-options">Login Options</div>
+      <div id="error-message">Login Failure</div>
+      <div id="login-container">
+        <form
+          action="POST"
+          id="login-form"
+          onsubmit="
+            event.preventDefault();
+            submitForm();
+          "
+        >
+          <input required type="text" class="form-item" name="username" placeholder="Username" />
+          <input required type="password" class="form-item" name="password" placeholder="Password" />
+          <input id="login" class="form-item btn" value="Login" type="submit" />
+        </form>
+        <hr id="separator" />
+        <form
+          action="POST"
+          id="sso"
+          onsubmit="
+            event.preventDefault();
+            sso();
+          "
+        >
+          <input id="ssoLogin" value="Login with SSO" type="submit" class="form-item btn" />
+        </form>
+      </div>
+      <div class="app-loading">
+        <svg class="spinner" viewBox="25 25 50 50" style="display: none">
+          <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10" />
+        </svg>
+      </div>
+    </div>
+  </body>
+</html>

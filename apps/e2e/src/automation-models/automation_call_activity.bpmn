@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:modeler="http://fluxnova.finos.org/schema/modeler/1.0" xmlns:fluxnova="http://fluxnova.finos.org/schema/1.0/bpmn" id="Definitions_0nmyoqd" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Fluxnova Modeler" exporterVersion="1.2.0" modeler:executionPlatform="Fluxnova Platform" modeler:executionPlatformVersion="2.0.0">
+  <bpmn:process id="fluxnova_automation_call_activity" name="Fluxnova UI Automation - Call Activity" isExecutable="true" camunda:historyTimeToLive="30">
+    <bpmn:startEvent id="StartEvent_1" name="Start" camunda:asyncBefore="true">
+      <bpmn:outgoing>Flow_0bgocbn</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_0bgocbn" sourceRef="StartEvent_1" targetRef="Activity_0rab2zo" />
+    <bpmn:callActivity id="Activity_0rab2zo" name="Fluxnova UI Call Activity" camunda:asyncAfter="true" calledElement="Process_1r6s6ex">
+      <bpmn:incoming>Flow_0bgocbn</bpmn:incoming>
+      <bpmn:outgoing>Flow_0n1aar9</bpmn:outgoing>
+    </bpmn:callActivity>
+    <bpmn:endEvent id="Event_1jqkda9" name="End">
+      <bpmn:incoming>Flow_1q5nkhz</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_0n1aar9" sourceRef="Activity_0rab2zo" targetRef="Event_1tbc30q" />
+    <bpmn:sequenceFlow id="Flow_1q5nkhz" sourceRef="Event_1tbc30q" targetRef="Event_1jqkda9" />
+    <bpmn:intermediateCatchEvent id="Event_1tbc30q" name="10 Days">
+      <bpmn:incoming>Flow_0n1aar9</bpmn:incoming>
+      <bpmn:outgoing>Flow_1q5nkhz</bpmn:outgoing>
+      <bpmn:timerEventDefinition id="TimerEventDefinition_05wpc6f">
+        <bpmn:timeDuration xsi:type="bpmn:tFormalExpression">P10D</bpmn:timeDuration>
+      </bpmn:timerEventDefinition>
+    </bpmn:intermediateCatchEvent>
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="fluxnova_automation_call_activity">
+      <bpmndi:BPMNShape id="StartEvent_1_di" bpmnElement="StartEvent_1">
+        <dc:Bounds x="182" y="102" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="188" y="145" width="24" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_08s88y5_di" bpmnElement="Activity_0rab2zo">
+        <dc:Bounds x="270" y="80" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_0z336no_di" bpmnElement="Event_1tbc30q">
+        <dc:Bounds x="422" y="102" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="420" y="145" width="41" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_1jqkda9_di" bpmnElement="Event_1jqkda9">
+        <dc:Bounds x="492" y="102" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="500" y="145" width="20" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_0bgocbn_di" bpmnElement="Flow_0bgocbn">
+        <di:waypoint x="218" y="120" />
+        <di:waypoint x="270" y="120" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0n1aar9_di" bpmnElement="Flow_0n1aar9">
+        <di:waypoint x="370" y="120" />
+        <di:waypoint x="422" y="120" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1q5nkhz_di" bpmnElement="Flow_1q5nkhz">
+        <di:waypoint x="458" y="120" />
+        <di:waypoint x="492" y="120" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>

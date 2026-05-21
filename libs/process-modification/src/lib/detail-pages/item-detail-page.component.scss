@@ -1,0 +1,121 @@
+.banner {
+  letter-spacing: 5px;
+  white-space: nowrap;
+}
+
+.item-detail-vertical-split {
+  height: 100vh;
+}
+
+.selected-label {
+  width: 100%;
+  z-index: 100;
+  position: absolute;
+}
+
+::ng-deep fluxnova-tabs-view ::ng-deep ag-grid-angular {
+  width: 100%;
+  height: 100%; // Account for any toolbar height in the individual tab component with a calc()
+}
+
+.bottom-section-header {
+  padding: calc(0.625rem - 1px);
+  margin: 0;
+  font-weight: 700;
+  font-size: 14px;
+}
+
+.main-content-section-bg-color {
+  background-color: #f3f3f3;
+}
+
+::ng-deep fluxnova-decision-definition-details-page {
+  .view-drd {
+    display: none;
+  }
+}
+
+.empty-list {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.item-detail-view .global-header {
+  grid-template-columns: auto auto 1fr auto;
+}
+
+.hide-split-gutter {
+  grid-template: 100fr 0px 0fr / 1fr !important;
+}
+
+.file-view-container {
+  position: relative;
+  overflow: hidden;
+}
+
+.heatmap-canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  transition: opacity 0.3s ease-in-out;
+  opacity: 0;
+}
+
+.heatmap-canvas.show,
+.no-history-overlay.show {
+  opacity: 1;
+}
+
+#heatmap-tooltip {
+  opacity: 0;
+  position: absolute;
+  transition: opacity 0.2s ease-in-out;
+}
+
+#leftPanel {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.no-history-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding-top: 2rem;
+  transition: opacity 0.3s ease-in-out;
+  opacity: 0;
+}
+
+.no-history-overlay-backdrop {
+  position: absolute;
+  inset: 0;
+  background: #b4b4b47f;
+}
+
+.no-history-overlay-content {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  background-color: #ffffff;
+  padding: 0.5rem 0.75rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+  font-weight: bold;
+  font-size: 0.9rem;
+  white-space: nowrap;
+  pointer-events: none;
+  transition: transform 0.3s ease-in-out;
+}
+
+.no-history-overlay.show .no-history-overlay-content {
+  transform: translate(0, 8px);
+}

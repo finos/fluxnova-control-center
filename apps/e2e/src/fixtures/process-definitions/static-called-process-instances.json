@@ -1,0 +1,18 @@
+[
+  {
+    "id": "testId-static-called-1",
+    "name": "Static Called 1",
+    "activityId": "activity-id-1",
+    "state": "Referenced",
+    "calledProcessDefinitionId": "an-id-1",
+    "calledFromActivityIds": ["activity-id-1"]
+  },
+  {
+    "id": "testId-static-called-2",
+    "name": "Static Called 2",
+    "activityId": "activity-id-2",
+    "state": "Referenced",
+    "calledProcessDefinitionId": "an-id-2",
+    "calledFromActivityIds": ["activity-id-2"]
+  }
+]

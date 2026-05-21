@@ -1,0 +1,49 @@
+<div class="card m-2 widget-body">
+  <div class="card-header graph-header">
+    <div style="width: fit-content; padding-top: 7px" [innerHtml]="widgetTitle"></div>
+    <div style="width: 200px">
+      <ng-select
+        bindValue="value"
+        [(ngModel)]="timeFrameSelected"
+        [dropdownPosition]="'bottom'"
+        [items]="timeFrameOptions"
+        appendTo="body"
+        (change)="onTimeFrameSelected()"
+        [searchable]="false"
+        [clearable]="false"
+      >
+      </ng-select>
+    </div>
+  </div>
+  <div class="card-body" style="display: flex; align-items: center; justify-content: center; min-height: 440px">
+    @if (dataLoading) {
+      <fluxnova-loading></fluxnova-loading>
+    }
+    @if (chartOptions.series && !dataLoading) {
+      <div class="chart-wrapper">
+        <span class="chart-subtitle">{{ subtitle }}</span>
+        <span class="chart-legend-title">{{ legendTitle }}</span>
+        <span *ngIf="drilldown" class="drillup">
+          <button class="drillup-button" (click)="onDrillup()" aria-label="Return to main view">Main</button
+          >&emsp;/&emsp;<b>{{ selectedDefinitionKey }}</b>
+        </span>
+        <apx-chart
+          [series]="chartOptions.series"
+          [chart]="chartDef"
+          [labels]="labelsDef"
+          [legend]="legendDef"
+          [dataLabels]="dataLabelsDef"
+          [colors]="colorsDef"
+        >
+        </apx-chart>
+        <div class="chart-center-label">
+          <a [href]="linkHref" target="_blank" rel="noopener noreferrer" class="center-link">
+            <span class="center-count"
+              ><b>{{ displayCount }}</b></span
+            >
+          </a>
+        </div>
+      </div>
+    }
+  </div>
+</div>

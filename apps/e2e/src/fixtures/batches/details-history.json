@@ -1,0 +1,16 @@
+{
+  "id": "dbb06fca-1a00-11ef-909a-5aee36430a26",
+  "type": "instance-deletion",
+  "totalJobs": 4,
+  "batchJobsPerSeed": 100,
+  "invocationsPerBatchJob": 1,
+  "seedJobDefinitionId": "dbb06fcb-1a00-11ef-909a-5aee36430a26",
+  "monitorJobDefinitionId": "dbb06fcc-1a00-11ef-909a-5aee36430a26",
+  "batchJobDefinitionId": "dbb06fcd-1a00-11ef-909a-5aee36430a26",
+  "tenantId": null,
+  "createUserId": "usr1234",
+  "startTime": "2024-05-24T15:07:25.987-0400",
+  "endTime": null,
+  "removalTime": null,
+  "executionStartTime": "2024-05-24T15:07:26.045-0400"
+}

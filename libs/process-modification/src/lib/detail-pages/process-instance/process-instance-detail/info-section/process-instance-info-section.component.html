@@ -1,0 +1,121 @@
+<span *fluxnovaLoading="isLoading"></span>
+@if (processInstance) {
+  <div class="content p-4 mt-1 fs-10">
+    <h4 fluxnovaTruncateWithTooltip>
+      <a [routerLink]="'../../process-definitions/' + processInstance.processDefinitionId"
+        >{{ processInstance.processDefinitionName }}
+      </a>
+    </h4>
+    <div class="border-bottom pb-3 mb-4 mt-3">
+      <strong> Instance ID </strong>
+      <fluxnova-icon
+        copyTextLabel="Instance ID"
+        [fluxnovaCopyLink]="processInstance.id"
+        class="ps-1 text-primary pointer"
+        iconName="copy"
+        [openDelay]="500"
+        ngbTooltip="Copy to clipboard"
+        container="body"
+      ></fluxnova-icon>
+      <div class="pb-3" fluxnovaTruncateWithTooltip>
+        {{ processInstance.id }}
+      </div>
+    </div>
+    <strong> State </strong>
+    <div class="pb-3" fluxnovaTruncateWithTooltip>
+      {{ stateMap[processInstance.state]?.label }}
+    </div>
+    <strong> Definition ID </strong>
+    @if (processInstance.processDefinitionId) {
+      <fluxnova-icon
+        copyTextLabel="Definition ID"
+        [fluxnovaCopyLink]="processInstance.processDefinitionId"
+        class="ps-1 text-primary pointer"
+        iconName="copy"
+        [openDelay]="500"
+        ngbTooltip="Copy to clipboard"
+        container="body"
+      ></fluxnova-icon>
+    }
+    <a [routerLink]="'../../process-definitions/' + processInstance.processDefinitionId">
+      <div class="pb-3" fluxnovaTruncateWithTooltip>
+        {{ processInstance.processDefinitionId || 'None' }}
+      </div>
+    </a>
+    <strong> Business Key </strong>
+    @if (processInstance.businessKey) {
+      <fluxnova-icon
+        copyTextLabel="Business Key"
+        [fluxnovaCopyLink]="processInstance.businessKey"
+        class="ps-1 text-primary pointer"
+        iconName="copy"
+        [openDelay]="500"
+        ngbTooltip="Copy to clipboard"
+        container="body"
+      ></fluxnova-icon>
+    }
+    <div class="pb-3" fluxnovaTruncateWithTooltip>{{ processInstance.businessKey || 'None' }}</div>
+    <strong> Definition Version </strong>
+    <div class="pb-3" fluxnovaTruncateWithTooltip>
+      {{ processInstance.processDefinitionVersion || 'None' }}
+    </div>
+    <strong> Definition Key </strong>
+    @if (processInstance.processDefinitionKey) {
+      <fluxnova-icon
+        copyTextLabel="Definition Key"
+        [fluxnovaCopyLink]="processInstance.processDefinitionKey"
+        class="ps-1 text-primary pointer"
+        iconName="copy"
+        [openDelay]="500"
+        ngbTooltip="Copy to clipboard"
+        container="body"
+      ></fluxnova-icon>
+    }
+    <div class="pb-3" fluxnovaTruncateWithTooltip>{{ processInstance.processDefinitionKey || 'None' }}</div>
+    <strong> Root Process Instance ID </strong>
+    @if (processInstance.rootProcessInstanceId) {
+      <fluxnova-icon
+        copyTextLabel="Root Process Instance ID"
+        [fluxnovaCopyLink]="processInstance.rootProcessInstanceId"
+        class="ps-1 text-primary pointer"
+        iconName="copy"
+        [openDelay]="500"
+        ngbTooltip="Copy to clipboard"
+        container="body"
+      ></fluxnova-icon>
+    }
+    @if (processInstance?.id === processInstance?.rootProcessInstanceId) {
+      <div class="pb-3" fluxnovaTruncateWithTooltip>
+        {{ processInstance.rootProcessInstanceId || 'None' }}
+      </div>
+    }
+    @if (processInstance?.id !== processInstance?.rootProcessInstanceId) {
+      <a class="pb-3" [routerLink]="'../../process-instances/' + processInstance.rootProcessInstanceId">{{
+        processInstance.rootProcessInstanceId
+      }}</a>
+    }
+    <strong> Super Process Instance ID </strong>
+    @if (processInstance.superProcessInstanceId) {
+      <fluxnova-icon
+        copyTextLabel="Super Process Instance ID"
+        [fluxnovaCopyLink]="processInstance.superProcessInstanceId"
+        class="ps-1 text-primary pointer"
+        iconName="copy"
+        [openDelay]="500"
+        ngbTooltip="Copy to clipboard"
+        container="body"
+      ></fluxnova-icon>
+    }
+    @if (processInstance?.superProcessInstanceId !== processInstance?.id && processInstance?.superProcessInstanceId) {
+      <a class="pb-3" [routerLink]="'../../process-instances/' + processInstance.superProcessInstanceId">{{
+        processInstance.superProcessInstanceId
+      }}</a>
+    }
+    @if (!processInstance?.superProcessInstanceId || processInstance?.id === processInstance?.superProcessInstanceId) {
+      <div class="pb-3" fluxnovaTruncateWithTooltip>
+        {{ processInstance?.superProcessInstanceId || 'None' }}
+      </div>
+    }
+    <div class="border-bottom"></div>
+  </div>
+}

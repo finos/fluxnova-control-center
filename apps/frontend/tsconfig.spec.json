@@ -1,0 +1,12 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "outDir": "../../dist/out-tsc",
+    "module": "esnext",
+    "target": "esnext",
+    "types": ["vitest/globals", "node"],
+    "emitDecoratorMetadata": true
+  },
+  "files": ["src/test-setup.ts", "../../typings.d.ts"],
+  "include": ["**/*.spec.ts", "**/*.spec.js", "**/*.d.ts"]
+}

@@ -1,0 +1,9 @@
+<div
+  #contextMenu
+  id="context-menu"
+  (click)="$event.stopPropagation()"
+  [ngStyle]="contextMenuStyle"
+  *fluxnovaHasPermissions="{ action: 'MoveTokens', resources: detailItem ? [detailItem] : [] }"
+>
+  <div #contextMenuItems></div>
+</div>

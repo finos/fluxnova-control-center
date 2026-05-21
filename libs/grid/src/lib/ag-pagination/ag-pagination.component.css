@@ -1,0 +1,37 @@
+:host {
+  display: flex;
+  justify-content: space-between;
+  padding-right: 10px;
+  padding-left: 10px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  /* pagination component height is 36px + 10px padding on top and bottom */
+  height: 64px;
+}
+
+.displayed-count-wrapper {
+  margin-left: 16px;
+  min-width: max-content;
+}
+
+.limit-selection .label {
+  margin-right: 8px;
+}
+
+.label {
+  line-height: 38px;
+}
+
+.page-size-select {
+  min-width: 60px;
+}
+
+@media (max-width: 620px) {
+  .total-items {
+    display: none;
+  }
+}
+
+ngb-pagination ::ng-deep ul.pagination {
+  margin-bottom: 0;
+}

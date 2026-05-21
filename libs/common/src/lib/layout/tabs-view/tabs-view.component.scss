@@ -1,0 +1,75 @@
+:host {
+  overflow: hidden;
+  height: 100%;
+}
+
+.tab-panel {
+  position: relative;
+  display: block;
+
+  // This is height minus the tabs height
+  height: calc(100% - 48px);
+
+  // This allows for a min of 1 row plush headers, filters
+  // and pagination to be displayed before scrolling.
+  min-height: 204px;
+
+  .tabs {
+    -ms-overflow-style: none;
+  }
+
+  .tab-list {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: max-content;
+    list-style-type: none;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    overflow-x: scroll;
+    overflow-y: hidden;
+    max-height: 3rem;
+    &::-webkit-scrollbar {
+      display: none;
+      height: 0;
+    }
+  }
+
+  .tab-content {
+    overflow-y: auto;
+    height: 100%;
+    background-color: white;
+    display: block;
+  }
+}
+
+.tab {
+  margin: 0.875rem 1rem 0 1rem;
+  cursor: pointer;
+  border-bottom-width: 0.25rem !important;
+
+  .tab-name {
+    margin-bottom: 0.625rem;
+  }
+}
+
+.first-tab {
+  margin-left: 0.875rem;
+}
+
+.tab-drag {
+  padding: 0.5rem;
+}
+
+.tab-border-bottom {
+  border-bottom: 3px solid #0065a8 !important;
+}
+
+.cdk-drop-list-dragging .cdk-drag {
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+/* Animate an item that has been dropped. */
+.cdk-drag-animating {
+  transition: transform 300ms cubic-bezier(0, 0, 0.2, 1);
+}

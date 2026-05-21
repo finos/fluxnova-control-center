@@ -1,0 +1,29 @@
+$color-text-standard: #333333;
+
+#diagram-legend {
+  background-color: #ffffff;
+  box-shadow: 0 0 5px rgba(37, 40, 42, 0.22);
+  padding: 16px;
+  position: fixed;
+  visibility: hidden;
+  z-index: 99999999;
+  border-width: 1px;
+  border-style: solid;
+  border-color: lightgrey;
+  border-radius: 5px;
+  min-width: 10rem;
+  width: 250px;
+  .close-button {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    padding: 0;
+  }
+}
+
+:host {
+  display: block;
+  position: absolute;
+  top: 4.375rem;
+  right: 1rem;
+}

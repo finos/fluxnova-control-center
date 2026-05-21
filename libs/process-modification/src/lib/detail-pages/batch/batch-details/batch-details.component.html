@@ -1,0 +1,50 @@
+<span *fluxnovaLoading="isLoading"></span>
+@if (!batch.id && !isLoading) {
+  <div>
+    <fluxnova-back-button previousPageName="Batches"></fluxnova-back-button>
+    <fluxnova-page-not-found itemType="Batch"></fluxnova-page-not-found>
+  </div>
+}
+@if (batch.id || isLoading) {
+  <as-split unit="pixel" direction="horizontal" gutterSize="8">
+    <as-split-area [minSize]="320" [size]="320" class="bg">
+      <fluxnova-back-button [previousPageName]="routeData.itemTypeListName"></fluxnova-back-button>
+      <fluxnova-batch-info-section [batch]="batch" [isLoading]="isLoading"></fluxnova-batch-info-section>
+    </as-split-area>
+    <as-split-area size="*" class="bg detail-item-type-batch item-detail-view">
+      <div class="global-header">
+        <div class="header-label">{{ routeData.itemTypeName | uppercase }}</div>
+        <fluxnova-toolbar #toolbar [hideDiagramToolbar]="true"></fluxnova-toolbar>
+      </div>
+      @if (batch.id) {
+        <fluxnova-tabs-view
+          [activeTab]="activeTab"
+          [tabs]="tabs"
+          [tabCounts]="counts"
+          (activeTabsChange)="activeTabsChanged($event)"
+        >
+          @switch (activeTab) {
+            @case (PimTab.JobLogs) {
+              <fluxnova-job-logs-tab
+                [detailItem]="{ id: batch.batchJobDefinitionId, type: routeData.itemType }"
+                [totalCount]="counts[PimTab.JobLogs]"
+              ></fluxnova-job-logs-tab>
+            }
+            @case (PimTab.FailedJobs) {
+              <fluxnova-failed-jobs-tab
+                [detailItem]="{ id: batch.batchJobDefinitionId, type: routeData.itemType }"
+                [totalCount]="counts[PimTab.FailedJobs]"
+              ></fluxnova-failed-jobs-tab>
+            }
+            @case (PimTab.RemainingJobs) {
+              <fluxnova-remaining-jobs-tab
+                [detailItem]="{ id: batch.batchJobDefinitionId, type: routeData.itemType }"
+                [totalCount]="counts[PimTab.RemainingJobs]"
+              ></fluxnova-remaining-jobs-tab>
+            }
+          }
+        </fluxnova-tabs-view>
+      }
+    </as-split-area>
+  </as-split>
+}

@@ -1,0 +1,102 @@
+<input
+  #rangeInput
+  type="text"
+  class="form-control"
+  aria-label="Filter by Date Range"
+  [placeholder]="filterTypeRange ? placeholders.inRange : placeholders.equals"
+  [value]="filterTypeRange ? rangeString : dateFromText"
+  (input)="inputChanged.next($event)"
+  [ngClass]="{ 'ng-invalid': isInvalidDateRange }"
+  [fluxnovaTruncateWithTooltip]="{ target: 'rangeInput' }"
+  container="body"
+/>
+<fluxnova-icon
+  aria-label="Toggle Date Picker"
+  [container]="container"
+  [ngbPopover]="datePickerContent"
+  iconName="calendar"
+  class="text-primary ps-2 pointer"
+  [placement]="popoverPlacement"
+  #picker="ngbPopover"
+  autoClose="outside"
+  popoverClass="no-arrow-popover no-padding-popover outline border-light bg-light"
+></fluxnova-icon>
+<ng-template #datePickerContent>
+  @if (displayFilterTypeHeader) {
+    <div class="px-3 pt-2 pb-3 bg-light border-bottom">
+      @if (radioButtons) {
+        <fluxnova-radio-buttons-toggle
+          [radioButtons]="radioButtons"
+          (toggleUpdateRadioButtons)="handleFilterTypeToggle($event)"
+        ></fluxnova-radio-buttons-toggle>
+      }
+      <div class="date-input" [ngClass]="{ 'single-input': !filterTypeRange }">
+        @if (filterTypeRange) {
+          <label class="form-check-label text-center themed-border bg-light fs-10" for="dateFromTextInput">
+            From
+          </label>
+        }
+        <input
+          id="dateFromTextInput"
+          class="themed-border"
+          type="text"
+          [value]="dateFromText"
+          (input)="popoverInputsChanged.next($event)"
+        />
+      </div>
+      @if (filterTypeRange) {
+        <div class="date-input">
+          @if (filterTypeRange) {
+            <label class="form-check-label text-center themed-border bg-light" for="dateToTextInput"> To </label>
+          }
+          @if (filterTypeRange) {
+            <input
+              class="themed-border"
+              id="dateToTextInput"
+              type="text"
+              [value]="dateToText"
+              (input)="popoverInputsChanged.next($event)"
+            />
+          }
+        </div>
+      }
+    </div>
+  }
+  <ngb-datepicker
+    (dateSelect)="onDateSelection($event)"
+    [displayMonths]="1"
+    [dayTemplate]="t"
+    [startDate]="dateFrom!"
+    outsideDates="visible"
+    class="bg-white"
+  >
+  </ngb-datepicker>
+  <fluxnova-time-select
+    [label]="filterTypeRange && 'From:'"
+    [dateTimeModel]="dateFrom"
+    (updateDateTime)="onTimeChange($event, this.dateTo)"
+  ></fluxnova-time-select>
+  @if (filterTypeRange) {
+    <fluxnova-time-select
+      label="To:"
+      [dateTimeModel]="dateTo"
+      (updateDateTime)="onTimeChange(this.dateFrom, $event)"
+    ></fluxnova-time-select>
+  }
+</ng-template>
+<ng-template #t let-date let-focused="focused" let-currentMonth="currentMonth">
+  <span
+    class="custom-day"
+    [class.focused]="focused"
+    [class.bg-primary]="isRange(date) || isInside(date)"
+    [class.text-white]="isRange(date)"
+    [class.text-lightgray]="isInside(date)"
+    [class.opacity-8]="isInside(date) && !isHovered(date) && !isRange(date)"
+    [class.opacity-9]="isHovered(date)"
+    [class.text-neutral-400]="isOutsideDay(date, currentMonth)"
+    (mouseenter)="hoveredDate = date"
+    (mouseleave)="hoveredDate = null"
+  >
+    {{ date.day }}
+  </span>
+</ng-template>

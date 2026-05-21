@@ -1,0 +1,118 @@
+<div class="modal-header">
+  <h4 class="modal-title" id="modal-basic-title">Migrate Instances to Another Version</h4>
+  <button type="button" class="btn shadow-none d-flex align-items-center" aria-label="Close" (click)="modal.dismiss()">
+    <fluxnova-icon class="font-standard" iconName="close"></fluxnova-icon>
+  </button>
+</div>
+<div class="modal-body" [ngClass]="{ 'full-width': isDiagramOpen }">
+  <p id="summary-text">
+    <b>{{ processInstances?.length || totalCount }}</b> out of <b>{{ totalCount }}</b> unfinished process instance(s)
+    for this definition will be migrated from version <b>{{ oldVersion?.versionNumber }}</b> to version
+    <b>{{ newVersionNumber || '?' }}</b
+    >.
+  </p>
+  <div class="d-flex align-items-center">
+    <span class="pe-3"> Select your target version: </span>
+    <div class="d-inline-block">
+      <ng-select
+        [disabled]="!(versionOptions?.length > 1)"
+        [clearable]="false"
+        bindLabel="versionNumber"
+        bindValue="versionNumber"
+        (change)="updateTargetVersion()"
+        [(ngModel)]="newVersionNumber"
+        [items]="versionOptions"
+      >
+      </ng-select>
+    </div>
+  </div>
+
+  <p>
+    <span class="text-primary model-toggle" (click)="this.isDiagramOpen = !this.isDiagramOpen"
+      >{{ isDiagramOpen ? 'Hide' : 'Show' }} Models</span
+    >
+  </p>
+
+  <div>
+    <label class="d-flex align-items-center mt-3 indent">
+      <input type="checkbox" [(ngModel)]="skipCustomListeners" /> Skip Custom Listeners
+      <fluxnova-icon
+        class="primary-blue ms-2"
+        iconName="info-outline"
+        [ngbTooltip]="'When checked, only built-in listeners will be notified with the end event.'"
+      ></fluxnova-icon>
+    </label>
+  </div>
+  <div>
+    <label class="d-flex align-items-center mt-3 indent">
+      <input type="checkbox" [(ngModel)]="skipIoMappings" /> Skip IO Mappings
+      <fluxnova-icon
+        class="primary-blue ms-2"
+        iconName="info-outline"
+        [ngbTooltip]="'When checked, IO mappings will be skipped during migration.'"
+      ></fluxnova-icon>
+    </label>
+  </div>
+  <div>
+    <label class="d-flex align-items-center mt-3 indent">
+      <input type="checkbox" [(ngModel)]="updateEventTriggers" /> Update Event Triggers
+      <fluxnova-icon
+        class="primary-blue ms-2"
+        iconName="info-outline"
+        [ngbTooltip]="'When checked, all event triggers (e.g. timers) will be recalculated during the migration.'"
+      ></fluxnova-icon>
+    </label>
+  </div>
+  @if (isDiagramOpen) {
+    <div class="diagrams border">
+      <as-split class="vertical-split" direction="horizontal" gutterSize="8">
+        <as-split-area class="pane bg" size="50">
+          <div class="header text-center bg-light">
+            <b>Version {{ oldVersion?.versionNumber }}</b>
+          </div>
+          <fluxnova-generic-diagram-viewer class="diagram" #sourceDiagramComponent></fluxnova-generic-diagram-viewer>
+        </as-split-area>
+        <as-split-area class="pane bg" size="50">
+          <div class="header text-center bg-light">
+            @if (!newVersionNumber) {
+              <span>Select a Target </span>
+            }
+            <b>Version {{ newVersionNumber }}</b>
+          </div>
+          <fluxnova-generic-diagram-viewer class="diagram" #targetDiagramComponent (diagramRendered)="showDiff()">
+          </fluxnova-generic-diagram-viewer>
+        </as-split-area>
+      </as-split>
+    </div>
+  }
+  <h5 class="pt-4">Note:</h5>
+  <p class="pt-1">
+    This asynchronous request may take a while. To monitor the progress, follow the link provided in the success
+    response that will be displayed on the top right of the screen.
+    <br />
+    <br />
+    <span class="text-danger">
+      To avoid errors, do not submit additional migration requests for this process definition, until this batch has
+      completed.
+    </span>
+  </p>
+</div>
+<div class="modal-footer">
+  <button
+    type="button"
+    class="btn btn-primary position-relative"
+    (click)="executeMigration()"
+    [disabled]="
+      !newVersionNumber ||
+      newVersionNumber === oldVersion?.versionNumber ||
+      !targetDefinitionId ||
+      isLoading ||
+      isMigrating
+    "
+  >
+    @if (isMigrating) {
+      <fluxnova-loading-compact class="d-inline-block"></fluxnova-loading-compact>
+    }
+    Migrate To Version {{ newVersionNumber }}
+  </button>
+</div>

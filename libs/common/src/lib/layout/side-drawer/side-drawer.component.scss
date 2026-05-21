@@ -1,0 +1,154 @@
+#dashboard_side_color {
+  height: 100vh;
+  z-index: 100;
+  width: 60px;
+  display: grid;
+  grid-template-rows: auto 1fr auto auto;
+  grid-template-areas: 'sidenav-header' 'navigation-menu' 'navigation-bottom-menu' 'feedback';
+  overflow: hidden auto;
+  transition: width 0.25s ease;
+
+  &.slider-open {
+    width: 280px;
+    transition: width 0.25s ease;
+  }
+}
+
+.sidenav-header {
+  height: 57px;
+  grid-area: sidenav-header;
+  align-items: center;
+  cursor: pointer;
+  position: sticky;
+  top: 0px;
+  z-index: 1;
+
+  .sidenavbar-header-wrapper {
+    display: flex;
+    margin: 12px 0 0 13px;
+  }
+}
+
+.automation-platform {
+  margin-top: 13px;
+
+  h3:nth-child(1) {
+    line-height: 0;
+  }
+
+  h3:nth-child(2) {
+    line-height: 1;
+    letter-spacing: 2.5px;
+  }
+}
+
+.navigation-menu {
+  grid-area: navigation-menu;
+  list-style-type: none;
+  padding: 0 12px;
+  margin: 0;
+  cursor: pointer;
+
+  a {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    align-items: center;
+    border-radius: 5px;
+    padding: 8px 5px;
+    transition: width 5.25s;
+    position: relative;
+
+    fluxnova-loading-compact {
+      position: absolute;
+      top: 25%;
+      right: 5px;
+      width: 25px;
+    }
+
+    &.bg-white {
+      &:hover,
+      &:active,
+      &:focus {
+        background-color: white !important;
+      }
+    }
+
+    fluxnova-search-navigation.hidden {
+      width: 0;
+    }
+
+    fluxnova-icon {
+      padding-left: 2px;
+    }
+  }
+}
+
+.navigation-bottom-menu {
+  grid-area: navigation-bottom-menu;
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
+
+  a {
+    display: flex;
+    align-items: center;
+    padding: 6px 7px;
+
+    &:hover {
+      border-radius: 5px;
+    }
+
+    a {
+      flex: 0 0 100%;
+    }
+
+    span {
+      vertical-align: middle;
+    }
+  }
+}
+
+.profile-icon {
+  grid-area: feedback;
+  width: 100%;
+  line-height: 1.5;
+  margin: 0;
+  transition:
+    background-color 0.25s,
+    color 0.25s;
+  white-space: nowrap;
+  position: sticky;
+  bottom: 0px;
+
+  a {
+    padding: 15px 14px;
+    display: flex;
+    align-items: center;
+  }
+}
+
+.profile-menu-img {
+  width: 34px;
+  height: 33px;
+  border-radius: 20px;
+  object-fit: cover;
+}
+
+.caret {
+  margin-left: auto;
+  padding-right: 4px;
+}
+
+.profile-dropdown {
+  list-style: none;
+  margin: 0;
+  padding: 1rem 1rem 1rem 0.8rem;
+
+  li a {
+    display: block;
+    padding: 0.2rem 0.5rem;
+    margin-left: 0.5rem;
+    font-weight: bold;
+  }
+}

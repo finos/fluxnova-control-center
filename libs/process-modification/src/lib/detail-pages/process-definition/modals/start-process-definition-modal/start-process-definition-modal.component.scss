@@ -1,0 +1,91 @@
+.modal-header {
+  align-items: center;
+
+  .modal-title {
+    padding-bottom: 10px;
+  }
+}
+
+.modal-body {
+  transition: width 0.5s ease;
+  width: 75vw;
+
+  &.full-width {
+    width: calc(100vw - 100px);
+  }
+}
+
+.success-notification {
+  transition: width 0.5s ease;
+  width: 75vw;
+  height: 40vh;
+}
+
+.modal-footer {
+  justify-content: flex-end;
+}
+
+.error-wrapper {
+  color: red;
+
+  &.hidden {
+    visibility: hidden;
+  }
+}
+
+.retry-input {
+  width: 65px;
+  border: 1px solid black;
+  border-radius: 7px;
+}
+
+.button-loading {
+  width: 40px;
+  height: 40px;
+  margin-left: 28px;
+  margin-right: 28px;
+}
+
+.editorarea-style {
+  height: 40vh;
+  max-height: 70vh;
+  min-height: 50px;
+
+  &.error {
+    border-color: red;
+
+    &:focus {
+      outline: none !important;
+      border: 1px solid red;
+    }
+  }
+}
+
+pre {
+  font-size: 0.75rem;
+  display: block;
+  padding: 0.75rem;
+  color: #444444;
+  word-break: break-all;
+  word-wrap: break-word;
+  background-color: #f5f5f5;
+  border: 1px solid #cccccc;
+  border-radius: 0;
+  margin: 0;
+  position: relative;
+}
+
+pre code {
+  padding: 0;
+  font-size: inherit;
+  color: inherit;
+  white-space: pre-wrap;
+  border-radius: 0;
+}
+
+pre fluxnova-icon {
+  margin-left: auto;
+  position: absolute;
+  top: 0.375rem;
+  right: 0.25rem;
+}

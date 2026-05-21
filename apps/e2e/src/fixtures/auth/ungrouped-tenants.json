@@ -1,0 +1,23 @@
+{
+  "user": {
+    "id": "user123",
+    "fullName": "Tester User",
+    "engines": [
+      {
+        "name": "tenant123"
+      },
+      {
+        "name": "default"
+      },
+      {
+        "name": "business-tenant"
+      },
+      {
+        "name": "important-tenant"
+      },
+      {
+        "name": "call-center-tenant"
+      }
+    ]
+  }
+}

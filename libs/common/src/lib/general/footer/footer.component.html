@@ -1,0 +1,34 @@
+<fluxnova-select-tenant
+  #tenantSelector
+  [icon]="false"
+  [isCompact]="!sliderOpen"
+  [ngbTooltip]="!sliderOpen && (tenantTooltip$ | async)"
+  [reloadPageOnSelect]="true"
+  tooltipPlacement="right"
+  tooltipClass="one-line-tooltip"
+  class="fs-10"
+></fluxnova-select-tenant>
+<a (click)="footerinfoClick($event)" [ngbTooltip]="!sliderOpen && 'About'" class="fs-7 text-white border-top">
+  <div class="d-flex align-items-center footer">
+    <fluxnova-icon iconName="info-outline"></fluxnova-icon>
+    <span [ngClass]="{ 'd-none': !sliderOpen }" class="fs-10 text-white ps-2 fw-bold">About</span>
+    @if (sliderOpen && !showLinks) {
+      <fluxnova-icon color="white" class="fs-11 caret" iconName="caret-up"></fluxnova-icon>
+    }
+    @if (sliderOpen && showLinks) {
+      <fluxnova-icon color="white" class="fs-11 caret" iconName="caret-down"></fluxnova-icon>
+    }
+  </div>
+</a>
+<ul class="footer-navigation-menu" [ngClass]="{ 'd-none': !showLinks }">
+  @if (uiVersion) {
+    <li>
+      <p class="mt-2 mb-2 ms-2 fs-10">Control Center Version:<br />{{ uiVersion }}</p>
+    </li>
+  }
+  @if (engineVersion) {
+    <li>
+      <p class="mt-2 ms-2 fs-10">BPM Platform Version:<br />{{ engineVersion }}</p>
+    </li>
+  }
+</ul>

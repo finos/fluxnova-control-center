@@ -1,0 +1,32 @@
+{
+  "name": "process-modification",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "library",
+  "sourceRoot": "libs/process-modification/src",
+  "prefix": "fluxnova",
+  "tags": ["scope:client", "scope:process-modification-lib"],
+  "generators": {
+    "@nx/angular:component": {
+      "style": "scss"
+    }
+  },
+  "targets": {
+    "lint": {
+      "executor": "@nx/eslint:lint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["libs/process-modification/src/**/*.ts", "libs/process-modification/src/**/*.html"]
+      }
+    },
+    "test": {
+      "executor": "@nx/vitest:test",
+      "outputs": [
+        "{workspaceRoot}/results/unit/libs/process-modification",
+        "{workspaceRoot}/results/coverage/libs/process-modification"
+      ],
+      "options": {
+        "config": "libs/process-modification/vite.config.ts"
+      }
+    }
+  }
+}

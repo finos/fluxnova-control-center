@@ -1,0 +1,33 @@
+.form-switch {
+  .form-check-label {
+    cursor: pointer;
+    &::before {
+      width: 2.75rem;
+      border-radius: 1.5rem;
+      left: -3.25rem;
+      height: 1.5rem;
+      top: 0;
+    }
+
+    &::after {
+      top: 3px;
+      left: calc(-3.15rem + 2px);
+      width: calc(1.4rem - 4px);
+      height: calc(1.4rem - 4px);
+      border-radius: 1.5rem;
+    }
+  }
+  .form-check-input:checked ~ .form-check-label::after {
+    content: '';
+    transform: translateX(1.25rem);
+  }
+  .form-check-input:focus ~ .form-check-label::before {
+    content: '';
+    box-shadow: none;
+    border-color: #adb5bd;
+  }
+}
+
+input[type='checkbox']:checked:before {
+  content: none;
+}

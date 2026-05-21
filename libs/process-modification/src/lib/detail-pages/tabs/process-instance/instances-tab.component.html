@@ -1,0 +1,47 @@
+<fluxnova-tab-actions-floating-container
+  [showResetGridButton]="showResetGridButton"
+  (resetGridClicked)="onResetGridClick()"
+>
+  <button
+    class="btn btn-primary"
+    [ngbTooltip]="migrateButtonTooltip"
+    [placement]="top"
+    [disabled]="migrateButtonDisabled"
+    (click)="openModal()"
+    container="body"
+    *fluxnovaHasPermissions="{
+      action: 'MigrateProcessInstance',
+      resources: [{ itemType: detailItemType, itemId: detailItemId }],
+    }"
+  >
+    Migrate {{ selectedRows?.length || 'All' }} Instances
+  </button>
+</fluxnova-tab-actions-floating-container>
+<span class="tab-grid">
+  <fluxnova-items-table
+    data-table-role="result"
+    [items]="data"
+    [filters]="filters"
+    [sorting]="sorting"
+    [overlayNoRowsTemplate]="overlayNoRowsTemplate"
+    [isLoading]="isLoading"
+    [isRowSelectable]="isRowSelectable"
+    [listViewState]="listViewState"
+    (gridReady)="onGridReady()"
+    (columnHeaderSortChange)="onSortChanged($event)"
+    (columnHeaderFilterChange)="onFilterChanged($event)"
+    (itemsSelectChange)="onSelectionChange($event)"
+    (rowClicked)="onRowClick($event)"
+    (firstDataRendered)="onFirstDataRendered()"
+    (listViewStateChange)="columnPrefsUpdated($event)"
+    [checkboxes]="anyButtonVisible"
+    [rowSelectionType]="anyButtonVisible ? 'multiRow' : 'singleRow'"
+  >
+  </fluxnova-items-table>
+  <fluxnova-ag-pagination
+    class="border-top align-items-center px-3"
+    [totalItems]="totalCount"
+    [loading]="isLoading"
+    (paginationChanged)="paginationSubject$.next({ page: $event.page, pageSize: $event.pageSize })"
+  ></fluxnova-ag-pagination>
+</span>

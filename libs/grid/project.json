@@ -1,0 +1,29 @@
+{
+  "name": "grid",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "library",
+  "sourceRoot": "libs/grid/src",
+  "prefix": "fluxnova",
+  "tags": ["scope:client", "scope:client-common-lib"],
+  "generators": {
+    "@nx/angular:component": {
+      "style": "scss"
+    }
+  },
+  "targets": {
+    "lint": {
+      "executor": "@nx/eslint:lint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["libs/grid/src/**/*.ts", "libs/grid/src/**/*.html"]
+      }
+    },
+    "test": {
+      "executor": "@nx/vitest:test",
+      "outputs": ["{workspaceRoot}/results/unit/libs/grid", "{workspaceRoot}/results/coverage/libs/grid"],
+      "options": {
+        "config": "libs/grid/vite.config.ts"
+      }
+    }
+  }
+}

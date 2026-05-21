@@ -1,0 +1,32 @@
+{
+  "active": {
+    "id": "2f0f49b6-ef70-11ed-b7c8-0a8ebe9048cf",
+    "activityId": "ad45f701-ee93-11ed-9b96-0a81d7d98f19",
+    "activityType": "processDefinition",
+    "processInstanceId": "2f0f49b6-ef70-11ed-b7c8-0a8ebe9048cf",
+    "processDefinitionId": "465cf569-eeb2-11ed-9b96-0a81d7d98f19",
+    "childActivityInstances": [
+      {
+        "id": "Activity_0xd3o73:b0226d12-2c4f-11f0-a48e-865080163117",
+        "parentActivityInstanceId": "2f0f49b6-ef70-11ed-b7c8-0a8ebe9048cf",
+        "activityId": "Activity_0xd3o73",
+        "activityType": "userTask",
+        "processInstanceId": "2f0f49b6-ef70-11ed-b7c8-0a8ebe9048cf",
+        "processDefinitionId": "465cf569-eeb2-11ed-9b96-0a81d7d98f19",
+        "childActivityInstances": [],
+        "childTransitionInstances": [],
+        "executionIds": ["b0226d11-2c4f-11f0-a48e-865080163117"],
+        "activityName": "UT 1 migration",
+        "incidentIds": [],
+        "incidents": [],
+        "name": "UT 1 migration"
+      }
+    ],
+    "childTransitionInstances": [],
+    "activityName": "Migration Test",
+    "incidentIds": [],
+    "incidents": [],
+    "name": "Migration Test"
+  },
+  "historical": []
+}

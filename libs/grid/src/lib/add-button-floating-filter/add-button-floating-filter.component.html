@@ -1,0 +1,18 @@
+<button
+  (click)="addButtonClicked()"
+  id="add-variable"
+  class="btn p-0 shadow-none float-end add-variable-button"
+  aria-label="Add Variable"
+  [disabled]="isDisabled()"
+  *fluxnovaHasPermissions="{
+    action: 'ModifyProcessInstanceVariables',
+    resources: [
+      {
+        itemType: params?.context.componentParent.detailItemType,
+        itemId: params?.context.componentParent.detailItemId,
+      },
+    ],
+  }"
+>
+  <fluxnova-icon iconName="add-circle-plus" class="fs-5 align-middle"></fluxnova-icon>
+</button>

@@ -1,0 +1,110 @@
+@import './colors';
+/*
+  These classes are meant to provide alternatives to boostrap classes
+  where the bootstrap classes adds a !important tag or add more options
+  where boostrap does not have a suitable class.
+*/
+
+/* ----------------------------------------------------------------------- */
+// Text
+/* ----------------------------------------------------------------------- */
+
+.font-standard {
+  font-family: 'Arial', sans-serif;
+  letter-spacing: 0;
+}
+
+.text-standard {
+  color: $color-text-standard;
+}
+
+/* ----------------------------------------------------------------------- */
+// Backgrounds
+/* ----------------------------------------------------------------------- */
+
+.bg {
+  background-color: map-get($theme-colors, 'white') !important;
+}
+
+.themed-bg {
+  background-color: map-get($theme-colors, 'white') !important;
+}
+
+/* ----------------------------------------------------------------------- */
+// Forms
+/* ----------------------------------------------------------------------- */
+
+.form-control,
+.form-control-sm,
+.form-control-lg {
+  @extend .rounded;
+  @extend .bg;
+  &::placeholder {
+    @extend .text-muted;
+  }
+}
+
+select {
+  &.form-control,
+  &.form-control-sm,
+  &.form-control-lg {
+    appearance: none;
+    background-position: right 50%;
+    background-repeat: no-repeat;
+    background-image: url(escape-svg(
+      'data:image/svg+xml;utf8,<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="12" version="1.0"><path stroke="#{map-get($theme-colors, dark)}" fill="#{map-get($theme-colors, dark)}" d="M4 8L0 4h8z"/></svg>'
+    ));
+  }
+}
+
+.form-control-xs {
+  @extend .font-standard;
+  @extend .text-standard;
+  @extend .form-control-sm;
+
+  height: calc(1em + 0.5rem + 2px);
+  line-height: 1em;
+}
+
+/* ----------------------------------------------------------------------- */
+// Strokes
+/* ----------------------------------------------------------------------- */
+
+.stroke-primary {
+  stroke: map-get($theme-colors, 'primary') !important;
+}
+
+.stroke-success {
+  stroke: map-get($theme-colors, 'success') !important;
+}
+
+.stroke-warning {
+  stroke: map-get($theme-colors, 'warning') !important;
+}
+
+.stroke-danger {
+  stroke: map-get($theme-colors, 'danger') !important;
+}
+
+.stroke-info {
+  stroke: map-get($theme-colors, 'info') !important;
+}
+
+/* ----------------------------------------------------------------------- */
+// Misc
+/* ----------------------------------------------------------------------- */
+.opacity-0 {
+  opacity: 0;
+}
+
+.opacity-9 {
+  opacity: 0.9;
+}
+
+.opacity-8 {
+  opacity: 0.8;
+}
+
+.opacity-7 {
+  opacity: 0.7;
+}

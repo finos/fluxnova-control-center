@@ -1,0 +1,38 @@
+.no-search-results-icon {
+  @extend .background-illustration;
+  @extend .background-illustration-base-size;
+  background-image: url('no-results-icon.svg');
+}
+
+.no-form-icon {
+  @extend .background-illustration;
+  @extend .background-illustration-base-size;
+  background-image: url('no-form-icon.svg');
+}
+
+.no-attachments-icon {
+  @extend .background-illustration;
+  @extend .background-illustration-base-size;
+  background-image: url('no-attachments-icon.svg');
+}
+
+.fluxnova-logo-secondary {
+  @extend .background-illustration;
+  background-image: url('fluxnova-white-logo.svg');
+  background-size: cover;
+}
+
+.fluxnova-dashboard-charts {
+  width: 40%;
+  height: 40%;
+  margin: 50px auto 0 auto;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-image: url('../dashboard-charts.svg');
+}
+
+.fluxnova-drag-handle-icon {
+  background-repeat: no-repeat;
+  background-position: 50%;
+  background-image: url('data:image/pngdata:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAeCAYAAADkftS9AAAAIklEQVQoU2M4c+bMfxAGAgYYmwGrIIiDjrELjpo5aiZeMwF+yNnOs5KSvgAAAABJRU5ErkJggg==');
+}

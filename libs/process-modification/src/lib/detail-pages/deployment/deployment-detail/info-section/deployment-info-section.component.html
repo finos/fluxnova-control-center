@@ -1,0 +1,57 @@
+<div class="deployment-info-section-wrapper">
+  <div class="p-4 mt-1 fs-10">
+    <h4 id="deploymentName" fluxnovaTruncateWithTooltip>{{ deployment.deployment?.name }}</h4>
+    <div class="mt-2">
+      <strong> Deployment ID </strong>
+      <fluxnova-icon
+        copyTextLabel="Deployment ID"
+        [fluxnovaCopyLink]="deployment.deployment?.id"
+        class="ps-1 text-primary pointer"
+        iconName="copy"
+        [openDelay]="500"
+        ngbTooltip="Copy to clipboard"
+      ></fluxnova-icon>
+      <div id="deploymentId" fluxnovaTruncateWithTooltip class="pb-3">
+        {{ deployment.deployment?.id }}
+      </div>
+    </div>
+
+    <div class="mt-2">
+      <strong> Time </strong>
+      <div id="deploymentTime" fluxnovaTruncateWithTooltip class="pb-3">
+        {{ prettyDeploymentTime }}
+      </div>
+    </div>
+
+    <div class="mt-2">
+      <strong> Source </strong>
+      <div id="deploymentSource" fluxnovaTruncateWithTooltip>
+        {{ deployment.deployment?.source }}
+      </div>
+    </div>
+
+    @if (version > -1) {
+      <div class="mt-2 pt-3">
+        <strong> Definition Version </strong>
+        <div id="deploymentProcessVersion" fluxnovaTruncateWithTooltip>
+          {{ version }}
+        </div>
+      </div>
+    }
+  </div>
+
+  <hr />
+  <div class="px-4" [style]="{ fontSize: '16px', fontWeight: 700 }">Resource List</div>
+  <div class="resource-list">
+    @for (resource of deployment?.resources; track resource) {
+      <div
+        (click)="handleResourceClick(resource)"
+        class="text-primary resource"
+        [ngClass]="{ selected: selectedResourceName === resource.name }"
+        fluxnovaTruncateWithTooltip
+      >
+        {{ resource.name }}
+      </div>
+    }
+  </div>
+</div>

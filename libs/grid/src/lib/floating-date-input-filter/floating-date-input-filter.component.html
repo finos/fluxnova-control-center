@@ -1,0 +1,31 @@
+<fluxnova-date-range-select
+  [displayFilterTypeHeader]="false"
+  [filterType]="filterType"
+  class="date-select"
+  [dateRange]="dateRange"
+  [keepOpenAfterDateSelect]="true"
+  (dateRangeChanged)="dateRangeChanged($event)"
+  (popupOpened)="popupOpened()"
+>
+</fluxnova-date-range-select>
+
+@if (isFilterActive()) {
+  <span class="clear-filter" (click)="clear()"></span>
+}
+<fluxnova-icon
+  [ngbPopover]="popOverContent"
+  aria-label="Select Comparator"
+  autoClose="true"
+  class="pointer text-primary"
+  container="body"
+  iconName="filter"
+  placement="bottom-right auto"
+  popoverClass="no-arrow-popover filters-popover"
+  [closeDelay]="800"
+></fluxnova-icon>
+<ng-template #popOverContent>
+  <fluxnova-radio-buttons-toggle
+    [radioButtons]="filterComparatorOptions"
+    (toggleUpdateRadioButtons)="updateCurrentFilterComparator($event)"
+  ></fluxnova-radio-buttons-toggle>
+</ng-template>

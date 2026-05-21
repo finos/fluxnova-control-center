@@ -1,0 +1,1040 @@
+@import '../../../fonts/fluxnova-icon-font';
+
+/* this removes the white space bounce when scrolling beyond the page */
+html {
+  overflow: hidden;
+}
+
+html,
+body {
+  height: 100%;
+  color: $color-text-standard !important;
+}
+
+body.force-grabbing * {
+  cursor: grabbing !important;
+}
+
+fluxnova-root {
+  overflow: hidden;
+}
+
+.dynamic-modal.modal-dialog {
+  max-width: fit-content !important;
+}
+
+.modal-backdrop {
+  &.show.opaque {
+    opacity: 1;
+    background-color: $color-neutral-900;
+  }
+}
+
+// not using bootstraps d-none for xtrac-auth-visible.directive so we can have more than one deciding influence on if the item is hidden
+.auth-hidden {
+  display: none !important;
+}
+
+fluxnova-disabled {
+  height: 100%;
+  width: 100%;
+
+  .modal-backdrop {
+    position: absolute;
+    z-index: 900; //less than dropdown windows
+  }
+}
+
+img.profile-image {
+  object-fit: cover;
+}
+
+.fluxnova-truncate-with-tooltip {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.as-split-gutter {
+  background-color: map-get($theme-colors, 'light') !important;
+}
+
+#rightPanel {
+  border-left: 1px solid $color-borders-standard !important;
+  min-width: 1000px;
+}
+
+#topPanel {
+  border-bottom: 1px solid $color-borders-standard !important;
+  display: grid;
+  grid-template-rows: min-content auto 0;
+}
+
+.items-list-view {
+  display: grid;
+  height: 100vh;
+  grid-template-rows: auto 1fr auto;
+}
+
+.global-header {
+  display: grid;
+  padding: 0 1rem 0 0;
+
+  .header-label {
+    display: inline-block;
+    padding: 1rem 2rem;
+    letter-spacing: 0.3125rem;
+    text-transform: uppercase;
+    font-weight: 700;
+    width: fit-content;
+  }
+
+  .toolbar {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    height: 100%;
+    margin: auto 0;
+
+    .toolbar-actions {
+      margin: auto 0 auto 1rem;
+    }
+
+    .toolbar-actions.toolbar-section-left {
+      button {
+        margin-right: 0.5rem;
+        line-height: 0.5rem;
+        border-radius: 50%;
+        padding: 0;
+        cursor: pointer;
+        vertical-align: middle;
+      }
+    }
+
+    .toolbar-actions.toolbar-section-right {
+      .btn {
+        padding: 0.5em;
+        height: 2.5em;
+        min-width: 2.5em;
+      }
+    }
+  }
+}
+
+.items-list-view .global-header {
+  grid-template-columns: auto 1fr auto;
+}
+
+.item-detail-view .global-header {
+  grid-template-columns: auto 1fr auto;
+  background-color: white;
+  border-bottom: 1px solid $color-borders-standard;
+}
+
+.dashboard-wrapper .global-header > .header-label {
+  background-color: map-get($theme-colors, 'dashboard');
+}
+
+.detail-item-type-process-instance .global-header > .header-label,
+.list-item-type-process-instance .global-header > .header-label {
+  background-color: map-get($theme-colors, 'process-instance');
+}
+
+.detail-item-type-process-definition .global-header > .header-label,
+.list-item-type-process-definition .global-header > .header-label {
+  background-color: map-get($theme-colors, 'process-definition');
+}
+
+.detail-item-type-job .global-header > .header-label,
+.list-item-type-job .global-header > .header-label {
+  background-color: map-get($theme-colors, 'job');
+}
+
+.detail-item-type-incident .global-header > .header-label,
+.list-item-type-incident .global-header > .header-label {
+  background-color: map-get($theme-colors, 'incident');
+}
+
+.detail-item-type-deployment .global-header > .header-label,
+.list-item-type-deployment .global-header > .header-label {
+  background-color: map-get($theme-colors, 'deployment');
+}
+
+.detail-item-type-batch .global-header > .header-label,
+.list-item-type-batch .global-header > .header-label {
+  background-color: map-get($theme-colors, 'batch');
+}
+
+.detail-item-type-decision-definition .global-header > .header-label,
+.list-item-type-decision-definition .global-header > .header-label {
+  background-color: map-get($theme-colors, 'decision-definition');
+}
+
+.detail-item-type-decision-instance .global-header > .header-label,
+.list-item-type-decision-instance .global-header > .header-label {
+  background-color: map-get($theme-colors, 'decision-instance');
+}
+
+button.close {
+  outline: none;
+}
+
+.cdk-drag-preview {
+  .tab {
+    border-bottom: 2px solid map-get($theme-colors, 'white');
+    transform: translateY(0);
+    padding: 8px 16px;
+  }
+}
+
+// local dev colors
+$local-border-indicator-color: yellow;
+$local-border-indicator-border-width: 0;
+
+.local-left {
+  background: $local-border-indicator-color;
+  box-shadow: 0 3px 3px 3px $local-border-indicator-color;
+  position: absolute;
+  left: 0;
+  height: 100%;
+  opacity: 0.5;
+  width: $local-border-indicator-border-width;
+  z-index: 9999;
+}
+
+.local-right {
+  background: $local-border-indicator-color;
+  box-shadow: -3px 0 3px 3px $local-border-indicator-color;
+  position: absolute;
+  right: 0;
+  height: 100%;
+  opacity: 0.5;
+  width: $local-border-indicator-border-width;
+  z-index: 9999;
+}
+
+.local-top {
+  background: $local-border-indicator-color;
+  box-shadow: 3px 0 3px 3px $local-border-indicator-color;
+  position: absolute;
+  top: 0;
+  height: $local-border-indicator-border-width;
+  opacity: 0.5;
+  width: 100%;
+  z-index: 9999;
+}
+
+.local-bottom {
+  background: $local-border-indicator-color;
+  box-shadow: 0 -3px 3px 3px $local-border-indicator-color;
+  position: absolute;
+  bottom: 0;
+  height: $local-border-indicator-border-width;
+  opacity: 0.5;
+  width: 100%;
+  z-index: 9999;
+}
+
+.noselect {
+  user-select: none;
+}
+
+.document-viewer-modal {
+  .modal-dialog.modal-lg.modal-dialog-centered {
+    height: 100vh;
+    width: 100vw;
+    margin: 0;
+    max-width: unset;
+    max-height: unset;
+
+    .modal-content {
+      width: 100vw;
+      height: 100vh;
+      border: none;
+      border-radius: 0;
+      background-color: rgba(0, 0, 0, 0.6);
+    }
+  }
+}
+
+.bulk-item-modal .modal-dialog {
+  max-width: 600px;
+}
+
+span[class^='fluxnova-']:before,
+span[class*=' fluxnova-']:before {
+  line-height: 110%;
+}
+
+$input-disabled-bg: map-get($theme-colors, 'neutral-500');
+
+.background-illustration {
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.background-illustration-base-size {
+  width: 100px;
+  height: 100px;
+  margin: 0 auto 15px auto;
+}
+
+$theme-border: $color-neutral-400 !default;
+$border-color: $theme-border;
+$text-muted: $color-neutral-900 !default;
+$pagination-active-bg: $primary-blue;
+$pagination-active-border-color: $primary-blue;
+$pagination-hover-bg: $color-neutral-500;
+$pagination-disabled-bg: none;
+$tooltip-bg: $color-black;
+
+$enable-print-styles: false;
+$enable-negative-margins: true;
+$enable-rfs: false;
+$link-decoration: none;
+$toast-max-width: none;
+
+$font-sizes: (
+  1: 6.25rem,
+  2: 3.125rem,
+  3: 2.188rem,
+  4: 2rem,
+  5: 1.875rem,
+  6: 1.75rem,
+  7: 1.5rem,
+  8: 1.25rem,
+  9: 1.125rem,
+  10: 0.875rem,
+  11: 0.75rem,
+  12: 0.625rem,
+);
+
+@import './overrides/pre-bootstrap';
+@import 'bootstrap/scss/bootstrap';
+
+@import './standard-classes.scss';
+@import './toggle.scss';
+
+.border-left-primary-700 {
+  border-left-color: map-get($theme-colors, 'primary-700');
+}
+
+.border-left-data-statistics-006 {
+  border-left-color: map-get($theme-colors, 'data-statistics-006') !important;
+}
+
+.border-left-data-statistics-010 {
+  border-left-color: map-get($theme-colors, 'data-statistics-010') !important;
+}
+
+.border-left-data-statistics-014 {
+  border-left-color: map-get($theme-colors, 'data-statistics-014') !important;
+}
+
+.border-left-data-statistics-018 {
+  border-left-color: map-get($theme-colors, 'data-statistics-018') !important;
+}
+
+ul.nav {
+  display: grid;
+  grid-auto-flow: column;
+  margin: 0;
+
+  li.nav-item {
+    margin: 12px 16px 0 16px;
+    cursor: pointer;
+    padding-bottom: 10px;
+    color: map-get($theme-colors, 'secondary');
+
+    &:hover {
+      border-bottom: 4px solid $link-hover-color;
+    }
+
+    &.selected-tab {
+      border-bottom: 4px solid map-get($theme-colors, 'primary');
+      color: unset;
+    }
+  }
+}
+
+.primary-gradient {
+  background-image: linear-gradient(
+    to top,
+    map-get($theme-colors, 'primary-900'),
+    map-get($theme-colors, 'primary-600'),
+    map-get($theme-colors, 'primary-700')
+  );
+}
+
+.vertical-line {
+  border-left: 3px solid;
+  padding-right: 0 !important;
+  border-image: linear-gradient(to top, map-get($theme-colors, 'primary-600'), map-get($theme-colors, 'primary-700')) 1;
+}
+
+.divider {
+  height: 25px;
+  width: 1px;
+  display: inline-block;
+}
+
+//-----------------------------------------------------------------------
+//bootstrap overrides & alternatives
+
+/*
+older version of bootstrap use this reset and we prefer it to keep our icon buttons from
+being colored https://github.com/twbs/bootstrap/pull/30830
+ */
+a:not([href]) {
+  color: inherit;
+  text-decoration: none;
+}
+
+.btn-outline-secondary {
+  color: map-get($theme-colors, 'primary');
+  background-color: map-get($theme-colors, 'white');
+  font-weight: bold;
+
+  &:not(:disabled):not(.disabled) {
+    &:focus,
+    &:active,
+    &:active:focus {
+      box-shadow: 0 0 0 2px $body-color;
+      border-color: transparent;
+    }
+
+    &:hover,
+    &:active,
+    &:active:focus {
+      color: $link-hover-color;
+      background-color: map-get($theme-colors, 'light');
+    }
+  }
+}
+
+.btn-outline-light {
+  @extend .btn-outline-secondary;
+  background-color: map-get($theme-colors, 'light');
+  color: map-get($theme-colors, 'dark');
+}
+
+.col-form-label {
+  font-weight: bold;
+  font-size: 14px;
+  color: $body-color;
+  letter-spacing: 0;
+  line-height: 21px;
+}
+
+.sidebar {
+  a {
+    &:not([href]),
+    &:not([href]):hover {
+      background-color: $charcoal-tertiary;
+      color: $link-hover-color;
+      border: none;
+      border-left: 4px solid map-get($theme-colors, 'danger');
+    }
+
+    color: map-get($theme-colors, 'white');
+  }
+
+  ul.nav-link-group > li > a[href]:hover {
+    background-color: $charcoal-tertiary;
+  }
+}
+
+button:focus {
+  outline-color: $link-hover-color;
+}
+
+// Bootstrap's shadow class uses !important.
+// This is the same class with a transition added and the
+// Important tag removed.
+.shadow-animated {
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+  transition:
+    box-shadow 0.5s,
+    transform 0.5s;
+}
+
+.shadow-animated:hover {
+  box-shadow: 0.5rem 0.7rem 1rem rgba(0, 0, 0, 0.2) !important;
+  transform: translateX(-1px) translateY(-1px);
+}
+
+//-----------------------------------------------------------------------
+// border alternatives:
+
+// this is an alternative to the bootstrap border class because that one uses !important
+// needed to override if a dashed border is needed, for the drag and drop ux pattern.
+// We can override this with a theme color rather than bootstrap's default color.
+.themed-border {
+  border: 1px solid $theme-border;
+}
+
+.themed-border-right {
+  border-right: 1px solid $theme-border;
+}
+
+.themed-border-bottom {
+  border-bottom: 1px solid $theme-border;
+}
+
+.themed-border-primary {
+  border: 1px solid map-get($theme-colors, 'primary');
+}
+
+.themed-border-secondary {
+  border: 1px solid map-get($theme-colors, 'secondary');
+}
+
+.themed-border-success {
+  border: 1px solid map-get($theme-colors, 'success');
+}
+
+.themed-border-info {
+  border: 1px solid map-get($theme-colors, 'info');
+}
+
+.themed-border-highlight {
+  border: 1px solid map-get($theme-colors, 'highlight');
+}
+
+.themed-border-warning {
+  border: 1px solid map-get($theme-colors, 'warning');
+}
+
+.themed-border-danger {
+  border: 1px solid map-get($theme-colors, 'danger');
+}
+
+.themed-border-dark {
+  border: 1px solid map-get($theme-colors, 'dark');
+}
+
+.themed-border-light {
+  border: 1px solid map-get($theme-colors, 'light');
+}
+
+.themed-border-white {
+  border: 1px solid map-get($theme-colors, 'white') !important;
+}
+
+.themed-border-bottom-white {
+  border-bottom: 1px solid map-get($theme-colors, 'white') !important;
+}
+
+.hover-selected {
+  &:hover {
+    background-color: map-get($theme-colors, 'primary-400');
+  }
+}
+
+.text-hover-selected-lighter {
+  &:hover {
+    color: $link-hover-color;
+  }
+}
+
+.text-selected-lighter {
+  color: lighten(map-get($theme-colors, 'primary-400'), 5%);
+}
+
+.border-selected-lighter {
+  border-left: 4px solid lighten(map-get($theme-colors, 'primary-400'), 5%);
+}
+
+.border-thick {
+  border-width: 4px !important;
+}
+
+.border-shadow {
+  box-shadow: 0 0 6px lighten(map-get($theme-colors, 'dark'), 80%);
+}
+
+.outline {
+  outline: 1px solid map-get($theme-colors, 'dark');
+}
+
+//-----------------------------------------------------------------------
+// Accessibility
+
+html :focus {
+  outline-color: map-get($theme-colors, 'primary');
+}
+
+//-----------------------------------------------------------------------
+
+@import 'overrides/post-bootstrap';
+@import 'overrides/dmn-js';
+@import 'overrides/bpmn-js';
+@import 'overrides/ng-bootstrap';
+@import 'overrides/ng-select';
+@import 'overrides/toasts.scss';
+@import 'overrides/ag-grid.scss';
+
+//-----------------------------------------------------------------------
+// this class assumes the bootstrap class border is applying a border thickness of 1px
+// TODO: can we improve this?
+.hover-border {
+  margin: 1px;
+}
+
+.hover-border:hover {
+  @extend .border;
+  @extend .rounded;
+  margin: 0;
+}
+
+//-----------------------------------------------------------------------
+
+li.even-odd-bg {
+  &:nth-child(odd) {
+    @extend .bg-light;
+  }
+}
+
+.popover {
+  max-width: fit-content;
+  @extend .font-standard;
+}
+
+.no-arrow-popover {
+  .tooltip-arrow {
+    display: none;
+  }
+}
+
+.no-padding-popover {
+  .popover-body {
+    padding: 0;
+  }
+}
+
+.user-info-tooltip {
+  @extend .border-0;
+
+  &.bs-popover-top .tooltip-arrow::before {
+    border-top-color: map-get($theme-colors, 'white');
+  }
+
+  &.bs-popover-left .tooltip-arrow::before {
+    border-left-color: map-get($theme-colors, 'white');
+  }
+
+  &.bs-popover-right .tooltip-arrow::before {
+    border-right-color: map-get($theme-colors, 'white');
+  }
+
+  &.bs-popover-bottom .tooltip-arrow::before {
+    border-bottom-color: map-get($theme-colors, 'white');
+  }
+
+  .popover-body {
+    @extend .bg;
+    @extend .rounded;
+    @extend .text-standard;
+
+    max-width: unset;
+
+    padding: 0;
+  }
+}
+
+input.ng-invalid:not(.ng-untouched):not(.ng-pristine) {
+  @extend .is-invalid;
+}
+
+input[type='checkbox']:checked:before,
+input[type='radio']:checked:before {
+  color: map-get($theme-colors, 'primary');
+}
+
+footer {
+  background-color: map-get($theme-colors, 'neutral-900');
+  color: map-get($theme-colors, 'neutral-400');
+  font-size: 14px;
+
+  a {
+    color: map-get($theme-colors, 'neutral-400');
+    text-decoration: underline;
+  }
+
+  a:hover {
+    color: $link-hover-color;
+    text-decoration: underline;
+    cursor: pointer;
+  }
+}
+
+mark {
+  @extend .rounded;
+  background-color: map-get($theme-colors, 'primary-300');
+}
+
+.pointer {
+  cursor: pointer;
+}
+
+.multi-select-hover:hover {
+  background-color: map-get($theme-colors, 'neutral-350');
+}
+
+.attr-details {
+  background-color: map-get($theme-colors, 'white');
+
+  .attr-panel-heading {
+    .users-icon {
+      color: map-get($theme-colors, 'neutral-600');
+    }
+
+    .policy-icon {
+      color: map-get($theme-colors, 'neutral-600');
+    }
+  }
+}
+
+fluxnova-file-list-table {
+  table {
+    td,
+    th {
+      border: 1px solid map-get($theme-colors, 'borders-standard') !important;
+    }
+
+    th {
+      background-color: map-get($theme-colors, 'white') !important;
+    }
+
+    .selected {
+      td {
+        background: map-get($theme-colors, 'lite-blue') !important;
+      }
+    }
+
+    tr:nth-child(odd) td {
+      background-color: map-get($theme-colors, 'lightgray');
+    }
+
+    .name {
+      color: map-get($theme-colors, 'highlight');
+    }
+
+    .loading-bg {
+      background: map-get($theme-colors, 'neutral-600');
+
+      &.border {
+        border-right: 1px solid map-get($theme-colors, 'neutral-900') !important;
+      }
+    }
+
+    .loading-file-name {
+      color: map-get($theme-colors, 'neutral-900') !important;
+    }
+
+    .file-loading {
+      color: map-get($theme-colors, 'redshade') !important;
+
+      & .error-info-icon {
+        color: map-get($theme-colors, 'highlight') !important;
+      }
+    }
+  }
+}
+
+fluxnova-history-grid {
+  ag-grid-angular {
+    .ag-overlay .ag-overlay-panel .no-search-results {
+      color: map-get($theme-colors, 'neutral-900') !important;
+
+      .no-search-results-icon {
+        display: none;
+      }
+    }
+  }
+}
+
+.dropdown-item-primary {
+  &:not(:active),
+  &:not(:active) fluxnova-icon {
+    color: map-get($theme-colors, 'primary');
+  }
+
+  &:active,
+  &:active fluxnova-icon {
+    color: map-get($theme-colors, 'light');
+  }
+}
+
+#dashboard_side_color {
+  scrollbar-color: map-get($theme-colors, 'white') map-get($theme-colors, 'nav-background-dark');
+}
+
+.navigation-menu {
+  color: map-get($theme-colors, 'white');
+  background: map-get($theme-colors, 'nav-background');
+
+  a:hover,
+  a.active {
+    background-color: $charcoal-tertiary;
+  }
+}
+
+.navigation-bottom-menu,
+.profile-menu {
+  color: map-get($theme-colors, 'white');
+  background: map-get($theme-colors, 'nav-background');
+
+  a:hover {
+    background: $charcoal-tertiary;
+  }
+
+  cursor: pointer;
+}
+
+.welcome-modal {
+  .modal-content {
+    background: map-get($theme-colors, 'nav-background');
+    color: map-get($theme-colors, 'white');
+  }
+}
+
+.welcome-tenant {
+  background: map-get($theme-colors, 'white');
+  color: map-get($theme-colors, 'dark');
+}
+
+.sidenav-header {
+  background: map-get($theme-colors, 'nav-background-dark');
+  border-bottom: 1px solid $charcoal-tertiary;
+
+  a:hover {
+    background: $charcoal-tertiary;
+  }
+}
+
+.profile-icon {
+  background: map-get($theme-colors, 'nav-background-dark');
+  border-top: 1px solid $charcoal-tertiary;
+}
+
+.tooltip-inner {
+  color: map-get($theme-colors, 'white');
+  background: map-get($theme-colors, 'dark');
+}
+
+.bs-tooltip-right .tooltip-arrow::before {
+  border-right-color: map-get($theme-colors, 'dark');
+}
+
+.bs-tooltip-left .tooltip-arrow::before {
+  border-left-color: map-get($theme-colors, 'dark');
+}
+
+.bs-tooltip-top .tooltip-arrow::before {
+  border-top-color: map-get($theme-colors, 'dark');
+}
+
+.bs-tooltip-bottom .tooltip-arrow::before {
+  border-bottom-color: map-get($theme-colors, 'dark');
+}
+
+.text-primary.highlight-hover:hover {
+  color: $link-hover-color !important;
+}
+
+.disabled-pointer-events {
+  pointer-events: none;
+}
+
+.overlay-tooltip {
+  position: relative;
+  z-index: 999;
+  width: max-content;
+  padding: 5px;
+  font-family: 'Arial', serif;
+  background: black;
+  color: white;
+  font-size: 12px;
+  text-align: center;
+  border-radius: 3px;
+}
+
+.overlay-tooltip-span:before {
+  border-bottom: 7px solid black;
+  top: -5px;
+}
+
+.overlay-top-tooltip-span:before {
+  border-top: 7px solid black;
+  bottom: -5px;
+}
+
+.overlay-tooltip-span:before,
+.overlay-top-tooltip-span:before {
+  content: '';
+  display: block;
+  width: 0;
+  height: 0;
+  position: absolute;
+  border-left: 7px solid transparent;
+  border-right: 7px solid transparent;
+  left: calc(50% - 7px);
+}
+
+.overlay-tooltip span {
+  display: block;
+}
+
+.action-btn {
+  border: none;
+  font-weight: bold;
+  vertical-align: bottom !important;
+  padding: 0px 0px 0px 0.5rem;
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  background-color: map-get($theme-colors, 'primary');
+  cursor: pointer;
+
+  &:not(:disabled):not(.disabled) {
+    &:focus {
+      background-color: map-get($theme-colors, 'primary');
+    }
+
+    &:hover,
+    &:active,
+    &:active:focus {
+      background-color: $link-hover-color;
+    }
+
+    &:focus,
+    &:active,
+    &:active:focus {
+      box-shadow: none;
+    }
+  }
+
+  &:disabled {
+    background-color: map-get($theme-colors, 'neutral-700');
+    color: map-get($theme-colors, 'neutral-500');
+
+    &:focus,
+    &:active,
+    &:active:focus {
+      background-color: map-get($theme-colors, 'neutral-700');
+    }
+  }
+}
+
+.panel-btn {
+  border-top: none;
+  border-bottom: 0.5px solid $color-borders-standard;
+  border-right: 1px solid $color-borders-standard;
+  border-left: none;
+  font-weight: bold;
+  border-radius: 0;
+  width: 28px;
+  height: 28px;
+  padding-top: 5.75px;
+  padding-left: 5.25px;
+  background-color: map-get($theme-colors, 'light');
+  cursor: pointer;
+
+  &:not(:disabled):not(.disabled) {
+    &:focus {
+      background-color: map-get($theme-colors, 'neutral-500');
+    }
+
+    &:hover,
+    &:active,
+    &:active:focus {
+      background-color: map-get($theme-colors, 'neutral-500');
+      border-top: none;
+      border-bottom: 0.5px solid $color-borders-standard;
+      border-right: 1px solid $color-borders-standard;
+      border-left: none;
+    }
+
+    &:focus,
+    &:active,
+    &:active:focus {
+      box-shadow: none;
+    }
+  }
+
+  &:disabled {
+    background-color: map-get($theme-colors, 'neutral-700');
+    color: map-get($theme-colors, 'neutral-500');
+
+    &:focus,
+    &:active,
+    &:active:focus {
+      background-color: map-get($theme-colors, 'neutral-700');
+    }
+  }
+
+  &.last {
+    border-bottom: none !important;
+  }
+}
+
+.lower-panel-btn {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  border-top: 1px solid $color-borders-standard !important;
+  border-right: 1px solid $color-borders-standard !important;
+  border-left: none !important;
+  border-bottom: none !important;
+  z-index: 4;
+}
+
+.panel-btn-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.tabs-view-header {
+  display: grid;
+  border-top: 1px solid $color-borders-standard !important;
+
+  .toolbar {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    height: 3.5rem;
+
+    .toolbar-actions {
+      margin: auto 0 auto 0.625rem;
+
+      button {
+        margin-right: 0.5rem;
+        line-height: 0.5rem;
+        border-radius: 1.875rem;
+        padding: 0.3125rem;
+      }
+    }
+  }
+}
+
+.tab-content .tab-grid {
+  position: relative;
+  display: block;
+
+  // 100% of the tab-content height, minus
+  // 64px for the pagination footer
+  height: calc(100% - 64px);
+}
+
+.tab-content .tab-grid-with-header {
+  position: relative;
+  display: block;
+
+  // 100% of the tab-content height, minus
+  // 57px for the action button header and
+  // 64px for the pagination footer
+  height: calc(100% - 57px - 64px);
+}
+
+.menu {
+  scrollbar-color: map-get($theme-colors, 'white') map-get($theme-colors, 'nav-background');
+}

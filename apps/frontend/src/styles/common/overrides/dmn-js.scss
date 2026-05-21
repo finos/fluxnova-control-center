@@ -1,0 +1,53 @@
+@import 'dmn-js/dist/assets/dmn-font/css/dmn.css';
+@import 'dmn-js/dist/assets/dmn-font/css/dmn-codes.css';
+@import 'dmn-js/dist/assets/dmn-font/css/dmn-embedded.css';
+
+@import 'dmn-js/dist/assets/diagram-js.css';
+@import 'dmn-js/dist/assets/dmn-js-decision-table.css';
+@import 'dmn-js/dist/assets/dmn-js-decision-table-controls.css';
+@import 'dmn-js/dist/assets/dmn-js-literal-expression.css';
+@import 'dmn-js/dist/assets/dmn-js-shared.css';
+
+@import 'dmn-js/dist/assets/dmn-js-boxed-expression-controls.css';
+@import 'dmn-js/dist/assets/dmn-js-boxed-expression.css';
+
+.dmn-decision-table-container {
+  --cell-color: #333333;
+  --decision-table-background-color: #ffffff;
+  --decision-table-font-family: 'Arial';
+  --decision-table-properties-color: #333333;
+  --table-cell-border-color: #b7b7b7;
+  --table-cell-color: #333333;
+  --table-head-border-color: #b7b7b7;
+  --table-row-alternative-background-color: #f2f2f2;
+  --view-drd-button-background-color: #0065a8ff;
+  --view-drd-button-border-color: #0065a8ff;
+  --view-drd-button-color: #ffffff;
+  --view-drd-button-hover-background-color: #006fb8;
+
+  padding: 1rem 0 0 1rem;
+
+  // set odd row color
+  tbody tr:nth-child(odd) {
+    background-color: #ffffff;
+  }
+}
+
+// For centering the diagram within the view
+.dmn-drd-container {
+  display: block;
+  height: 100%;
+}
+
+// Hide the list of dmn definitions from the diagram
+.dmn-definitions {
+  display: none;
+}
+
+.dmn-icon-decision-table {
+  background: #0095ff;
+  color: #fff;
+  border: none;
+  padding: 0 4px;
+  margin: 1px;
+}

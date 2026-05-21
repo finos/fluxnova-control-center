@@ -1,0 +1,10 @@
+.divider {
+  margin-top: 0.5rem;
+}
+
+.heatmap-modal {
+  position: absolute;
+  top: 3rem;
+  right: -0.55rem;
+  z-index: 4;
+}

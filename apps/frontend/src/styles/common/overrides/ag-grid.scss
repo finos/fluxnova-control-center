@@ -1,0 +1,284 @@
+// Had to use relative imports here for some reason. TODO: See if we can avoid that.
+@import '../../../../../../node_modules/ag-grid-community/styles/ag-grid';
+@import '../../../../../../node_modules/ag-grid-community/styles/ag-theme-alpine';
+
+.custom-ag-theme {
+  @extend .ag-theme-alpine;
+
+  .ag-dnd-ghost {
+    box-shadow: -1px 1px 3px map-get($theme-colors, 'neutral-800');
+    padding: 8px 20px;
+    background-color: inherit;
+    z-index: 1020;
+    .ag-dnd-ghost-icon {
+      display: none;
+    }
+  }
+
+  .ag-layout-auto-height {
+    .ag-center-cols-viewport {
+      min-height: initial;
+    }
+  }
+
+  .ag-center-cols-container {
+    min-width: 100% !important;
+  }
+
+  &,
+  .ag-font-style,
+  .ag-header,
+  .ag-header-container,
+  .ag-header-cell-text,
+  .ag-input-wrapper,
+  .ag-cell {
+    @extend .fs-10;
+    @extend .text-standard;
+  }
+  .ag-menu {
+    @extend .rounded;
+  }
+
+  .ag-root-wrapper {
+    @extend .border-0;
+  }
+
+  .ag-header {
+    background-color: transparent;
+  }
+
+  .ag-header-container .ag-header-cell-text {
+    font-weight: bold;
+  }
+  .ag-header-cell-label .ag-header-cell-text {
+    font-weight: bold;
+  }
+  .button-cell {
+    margin-left: -12px;
+  }
+  .ag-ltr .ag-floating-filter-button {
+    margin-top: 0;
+    display: block;
+    margin-left: unset;
+
+    button {
+      @extend .btn;
+      padding: 0 6px;
+      height: 20px;
+      margin: 2px;
+      line-height: 19px;
+      width: auto;
+    }
+  }
+
+  .ag-icon.fas {
+    font-size: 0.875rem;
+    @extend .text-standard;
+  }
+
+  .ag-icon-asc::before {
+    font-size: 16px;
+    top: 4px;
+    position: relative;
+  }
+
+  .ag-icon-desc::before {
+    font-size: 16px;
+    top: -3px;
+    position: relative;
+  }
+
+  .ag-floating-filter-body {
+    height: min-content;
+    margin: 8px 0 8px 0;
+    max-width: calc(100% - 30px);
+  }
+
+  .ag-select-list {
+    @extend .border-left;
+    @extend .rounded;
+    @extend .text-standard;
+    @extend .font-standard;
+    border-top-left-radius: 0 !important;
+    border-top-right-radius: 0 !important;
+
+    .ag-select-list-item {
+      padding: 15px 10px;
+    }
+  }
+
+  .ag-input-wrapper {
+    height: fit-content;
+    input,
+    input:not([type]) {
+      @extend .form-control-xs;
+      @extend .border;
+    }
+  }
+
+  .ag-checkbox-input-wrapper {
+    width: 16px;
+    height: 16px;
+    font-size: 16px !important;
+    margin: 1.5px;
+
+    .ag-checkbox-input {
+      height: inherit;
+      font-size: 16px;
+    }
+  }
+
+  .ag-checkbox-input-wrapper.ag-disabled::after {
+    background-color: map-get($theme-colors, 'neutral-500');
+  }
+
+  input,
+  select.ag-filter-select {
+    @extend .bg;
+  }
+
+  .ag-filter {
+    .ag-filter-select,
+    .ag-filter-filter {
+      margin: 0;
+      padding: 0;
+
+      @extend .form-control-xs;
+      @extend .border;
+
+      .ag-wrapper {
+        padding: 5px;
+        border: none;
+
+        input.ag-input-field-input.ag-text-field-input {
+          padding: 0;
+          border: none !important;
+        }
+      }
+    }
+
+    .ag-filter-condition {
+      @extend .form-check;
+      display: grid;
+      grid-auto-flow: column;
+
+      input[type='radio'] {
+        @extend .form-check-input;
+      }
+
+      label {
+        @extend .form-check-label;
+      }
+    }
+
+    .ag-filter-body-wrapper {
+      padding: 8px;
+      display: grid;
+      gap: 8px;
+    }
+  }
+
+  .ag-cell {
+    line-height: 48px;
+  }
+
+  .ag-ltr .ag-root:not(.ag-has-focus) .ag-cell.ag-cell-last-left-pinned:not(.ag-cell-range-right),
+  .ag-ltr .ag-cell:not(.ag-cell-focus).ag-cell-last-left-pinned:not(.ag-cell-range-right) {
+    border-right: 1px map-get($theme-colors, 'text-standard') solid;
+    margin-top: -3px;
+    margin-bottom: -2px;
+    height: 54px;
+    line-height: 54px;
+  }
+
+  .ag-pinned-left-header {
+    border-right: 1px map-get($theme-colors, 'text-standard') solid;
+    z-index: 3;
+    position: relative;
+  }
+
+  .ag-pinned-right-header {
+    border-left: none;
+  }
+
+  .ag-header-container .ag-header-cell.ag-focus-managed:last-of-type .ag-header-cell-resize {
+    right: 1px;
+  }
+
+  .ag-pinned-left-header .ag-header-cell-resize {
+    right: -4px;
+  }
+
+  .ag-header-cell::after {
+    z-index: 2;
+  }
+
+  .ag-overlay-loading-wrapper {
+    z-index: 4;
+  }
+
+  .ag-overlay-no-rows-wrapper {
+    margin-top: 50px;
+    padding-bottom: 60px;
+  }
+
+  .ag-overlay-wrapper {
+    height: unset;
+  }
+
+  .full-width-cell .ag-cell-value {
+    width: 100%;
+  }
+
+  .ag-cell-value {
+    height: 100%;
+  }
+
+  .ag-cell-wrapper {
+    height: 100%;
+  }
+
+  .ag-body-horizontal-scroll.ag-scrollbar-invisible {
+    pointer-events: all;
+  }
+  .ag-header-row {
+    font-weight: normal;
+  }
+  // variables
+  --ag-border-color: #b7b7b7; // map-get($theme-colors, 'neutral-600')
+  --ag-row-border-color: #b7b7b7; // map-get($theme-colors, 'neutral-600')
+  --ag-row-border-style: solid;
+  --ag-row-border-width: 1px;
+  --ag-borders-critical: solid 1px;
+  --ag-secondary-border-color: #bbbbbb; //$color-neutral-700;
+  --ag-odd-row-background-color: #f9f9f9; //$color-neutral-300;
+  --ag-selected-row-background-color: inherit; //$color-blue-300;
+  --ag-row-hover-color: #e0e0e0; // $color-neutral-500;
+  --ag-header-column-resize-handle-display: true;
+  --ag-header-column-resize-handle-height: 75%;
+  --ag-header-column-resize-handle-width: 1px;
+  --ag-header-column-resize-handle-color: #b7b7b7; //$color-neutral-700;
+  --ag-cell-horizontal-padding: 10px;
+  --ag-row-group-indent-size: 0px; // Not sure why but this fixes weird spacing in AG Grid after 31.3
+  --ag-checkbox-checked-color: #356f92; // $secondary-blue
+  --ag-checkbox-indeterminate-color: #356f92; // $secondary-blue
+}
+
+.custom-ag-floating-filters {
+  .ag-overlay-no-rows-wrapper {
+    margin-top: 70px;
+  }
+}
+
+.ag-tooltip {
+  background-color: black;
+  color: white;
+  border-radius: 5px;
+}
+
+.row-highlighted {
+  background-color: #e4f2fa; //$color-blue-300;
+  &.ag-row-hover::before {
+    background-color: #e4f2fa; //$color-blue-300;
+  }
+}
