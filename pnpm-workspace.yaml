@@ -5,3 +5,5 @@ minimumReleaseAgeExclude:
   - "@nestjs/core@11.1.18"
   # Renovate security update: axios@1.15.2
   - axios@1.15.2
+  # Renovate security update: svgo@4.0.1
+  - svgo@4.0.1
