@@ -1,2 +1,5 @@
 autoInstallPeers: false
 minimumReleaseAge: 1440
+minimumReleaseAgeExclude:
+  # Renovate security update: @nestjs/core@11.1.18
+  - "@nestjs/core@11.1.18"
