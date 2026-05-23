@@ -7,3 +7,5 @@ minimumReleaseAgeExclude:
   - axios@1.15.2
   # Renovate security update: svgo@4.0.1
   - svgo@4.0.1
+  # Renovate security update: vite@7.3.2
+  - vite@7.3.2
