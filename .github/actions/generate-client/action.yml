@@ -1,0 +1,12 @@
+name: "Generate Fluxnova Client"
+description: "Generates the Fluxnova API client using the OpenAPI spec"
+
+runs:
+  using: "composite"
+  steps:
+    - name: Generate Fluxnova API client
+      shell: bash
+      run: |
+        chmod +x ./scripts/generate-fluxnova-client.sh
+        ./scripts/generate-fluxnova-client.sh
+

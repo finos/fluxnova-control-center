@@ -1,0 +1,13 @@
+name: "Build App"
+description: "Lints and builds the frontend and server applications"
+
+runs:
+  using: "composite"
+  steps:
+    - name: Lint
+      shell: bash
+      run: ./node_modules/.bin/nx run-many --target=lint --all --parallel --maxParallel=4
+
+    - name: Build
+      shell: bash
+      run: pnpm run build
