@@ -8,6 +8,16 @@ runs:
       shell: bash
       run: ./node_modules/.bin/nx run-many --target=lint --all --parallel --maxParallel=4
 
-    - name: Build
+    - name: Build server and frontend
       shell: bash
-      run: pnpm run build
+      run: |
+        ./node_modules/.bin/nx run-many \
+          --target=build \
+          --projects=server,frontend \
+          --parallel \
+          --maxParallel=2 \
+          --configuration=production
+
+    - name: Compress frontend assets
+      shell: bash
+      run: ./node_modules/.bin/gzipper compress ./dist/apps/frontend --brotli --gzip
