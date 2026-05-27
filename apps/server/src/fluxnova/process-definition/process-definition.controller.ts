@@ -2,6 +2,7 @@ import { Body, Controller, Delete, Get, Logger, Param, ParseBoolPipe, Post, Put,
 import {
   ActivityInstanceHistory,
   CalledProcessDefinitionFilter,
+  MAX_TOTAL_ACT_HIST_ITEMS,
   ProcessDefinitionDiagram,
   ProcessDefinitionFilter,
   StaticCalledProcessDefinition,
@@ -10,6 +11,8 @@ import { ConfigService } from '@nestjs/config';
 import { HttpService } from '@nestjs/axios';
 import { FluxnovaController } from '../fluxnova-controller';
 import {
+  GetHistoricActivityInstancesSortByEnum,
+  GetHistoricActivityInstancesSortOrderEnum,
   HistoricActivityInstanceApi,
   HistoricActivityInstanceApiGetHistoricActivityInstancesRequest,
   ProcessDefinitionApi,
@@ -175,6 +178,8 @@ export class ProcessDefinitionController extends FluxnovaController {
     @Param('processDefinitionId') id: string,
     @Query('activeOnly', ParseBoolPipe) activeOnly: boolean,
     @Query('startedAfter') startedAfter?: string,
+    @Query('sortBy') sortBy?: GetHistoricActivityInstancesSortByEnum,
+    @Query('sortOrder') sortOrder?: GetHistoricActivityInstancesSortOrderEnum,
   ): Promise<ActivityInstanceHistory[]> {
     const opts = await this.createAxiosOptions(req);
     const shouldCache = !activeOnly;
@@ -186,13 +191,22 @@ export class ProcessDefinitionController extends FluxnovaController {
       : '';
 
     const activityInstanceHistory = await (shouldCache
-      ? this.withProcessDefinitionHistoryCache(cacheKey, () => this.fetchHistory(id, activeOnly, opts, startedAfter))
-      : this.fetchHistory(id, activeOnly, opts, startedAfter));
+      ? this.withProcessDefinitionHistoryCache(cacheKey, () =>
+          this.fetchHistory(id, activeOnly, opts, startedAfter, sortBy, sortOrder),
+        )
+      : this.fetchHistory(id, activeOnly, opts, startedAfter, sortBy, sortOrder));
 
     return activityInstanceHistory as ActivityInstanceHistory[];
   }
 
-  private fetchHistory(processDefinitionId: string, unfinished: boolean, opts: any, startedAfter?: string) {
+  private fetchHistory(
+    processDefinitionId: string,
+    unfinished: boolean,
+    opts: any,
+    startedAfter?: string,
+    sortBy?: GetHistoricActivityInstancesSortByEnum,
+    sortOrder?: GetHistoricActivityInstancesSortOrderEnum,
+  ) {
     return this.fetchAll(
       () =>
         this.historicActivityInstanceApi
@@ -203,12 +217,15 @@ export class ProcessDefinitionController extends FluxnovaController {
           () =>
             this.historicActivityInstanceApi
               .getHistoricActivityInstances(
-                { processDefinitionId, unfinished, firstResult, maxResults, startedAfter },
+                { processDefinitionId, unfinished, firstResult, maxResults, startedAfter, sortBy, sortOrder },
                 opts,
               )
               .then((res) => res.data),
           'Error getting historic activity instances',
         ),
+      1000,
+      5,
+      MAX_TOTAL_ACT_HIST_ITEMS,
     );
   }
 

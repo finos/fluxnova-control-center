@@ -2,7 +2,7 @@
 import { CUSTOM_ELEMENTS_SCHEMA, ElementRef, EventEmitter } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ActivatedRoute, Router } from '@angular/router';
-import { lastValueFrom, of, Subject } from 'rxjs';
+import { lastValueFrom, of, Subject, throwError } from 'rxjs';
 import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { ActivityInstanceHistory, CalledProcessDefinition, ProcessDefinitionStatistic } from '@fxn/types';
@@ -10,7 +10,7 @@ import NavigatedViewer from 'bpmn-js/lib/Viewer';
 import { pageSizeMax } from '@fxn/grid';
 import { HeatmapData, HeatmapParams } from 'visual-heatmap';
 import moment from 'moment';
-import { acceptedDateFormats } from '@fxn/common';
+import { acceptedDateFormats, ToastService } from '@fxn/common';
 import { afterEach, beforeEach, describe, expect, it, Mock, Mocked, vi } from 'vitest';
 import { MockViewerService } from '@fxn/test-support/vitest';
 import { PaginatedDataRequest } from '../../../services/types/paginated-data-request';
@@ -133,6 +133,12 @@ describe('Process Definition Detail Page Component', () => {
     },
   ] as ProcessDefinitionStatistic[];
 
+  const mockToastService = {
+    info: vi.fn(),
+    success: vi.fn(),
+    error: vi.fn(),
+  };
+
   beforeEach(() => {
     TestBed.configureTestingModule({
       declarations: [ProcessDefinitionDetailPageComponent],
@@ -151,6 +157,7 @@ describe('Process Definition Detail Page Component', () => {
         { provide: JobService, useValue: mockJobs },
         { provide: ItemDetailPageCommunicationService },
         { provide: DeploymentResourceUtilsService, useValue: mockResourceUtilsService },
+        { provide: ToastService, useValue: mockToastService },
       ],
     });
     confirmActionService = TestBed.inject(ConfirmActionService);
@@ -208,6 +215,19 @@ describe('Process Definition Detail Page Component', () => {
     expect(mockDefinitionService.getProcessDefinitionsByFilter).toHaveBeenCalledTimes(1);
     expect(mockDefinitionService.getStatistics).toHaveBeenCalledTimes(1);
     expect(mockDefinitionService.getActivityInstanceHistory).toHaveBeenCalledTimes(1);
+  });
+
+  it('should show a toast and return an empty array if getActivityInstanceHistory fails', async () => {
+    mockDefinitionService.getActivityInstanceHistory.mockImplementationOnce(() =>
+      throwError(() => new Error('Service Timeout')),
+    );
+
+    component.loadProcessDefinitionDetailData(itemId);
+    await vi.advanceTimersByTimeAsync(1);
+
+    expect(mockToastService.error).toHaveBeenCalledWith(
+      'Problem loading activity instance history for the process definition. Tokens will not be displayed on the diagram.',
+    );
   });
 
   it('should handle button click events from the toolbar service emitter', () => {
@@ -912,6 +932,8 @@ describe('Process Definition Detail Page Component', () => {
           'itemId123',
           false,
           moment().subtract(1, 'month').startOf('day').format(acceptedDateFormats.FLUXNOVA_DATE_FORMAT),
+          'startTime',
+          'desc',
         );
 
         component.eventBus.heatmapParams({ active: true, timeline: 'pastWeek', viewBy: 'duration' });
@@ -920,6 +942,8 @@ describe('Process Definition Detail Page Component', () => {
           'itemId123',
           false,
           moment().subtract(7, 'days').startOf('day').format(acceptedDateFormats.FLUXNOVA_DATE_FORMAT),
+          'startTime',
+          'desc',
         );
       });
     });

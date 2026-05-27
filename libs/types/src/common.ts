@@ -12,3 +12,5 @@ export interface ItemList<T> {
   totalCount?: number;
   items?: T[];
 }
+
+export const MAX_TOTAL_ACT_HIST_ITEMS = 30000;
