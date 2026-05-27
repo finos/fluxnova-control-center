@@ -171,7 +171,7 @@
     "@angular/cli": "~20.3.0",
     "@angular/compiler-cli": "20.3.21",
     "@angular/language-service": "20.3.21",
-    "@babel/core": "7.29.0",
+    "@babel/core": "7.29.7",
     "@eslint/eslintrc": "^3.3.1",
     "@nestjs/cli": "^11.0.10",
     "@nestjs/schematics": "^11.0.9",
