@@ -25,7 +25,7 @@ various aspects of the application, such as:
 - [Configuration](./docs/reference/configuration.md)
 - [Authentication](./docs/reference/authentication.md)
 - [Observability](./docs/reference/observability.md)
-- [regression tests](./docs/reference/regression-tests.md)
+- [Regression Tests](./docs/reference/regression-tests.md)
 - [Fluxnova API Client Library Generation](./docs/reference/fluxnova-api-client-generation.md)
 - [Icons](./docs/reference/icons.md)
 - [Tech Stack](./docs/reference/tech-stack.md)
