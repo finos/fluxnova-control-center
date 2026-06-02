@@ -7,6 +7,7 @@ import {
   ButtonActions,
   Job,
   MAX_RESULT_COUNT,
+  MAX_TOTAL_ACT_HIST_ITEMS,
   ProcessDefinition,
   ProcessDefinitionStatistic,
 } from '@fxn/types';
@@ -15,7 +16,7 @@ import { pageSizeMax } from '@fxn/grid';
 import { FilterModel } from 'ag-grid-community';
 import moment from 'moment';
 import { HeatmapData } from 'visual-heatmap';
-import { acceptedDateFormats } from '@fxn/common';
+import { acceptedDateFormats, ToastService } from '@fxn/common';
 import { ItemDetailPageComponent } from '../../item-detail-page.component';
 import { PimTab, ProcessDefinitionTabs } from '../../item-detail-tab-utils';
 import { ActivityIncident, ActivityMarkers, WithAugmentedProcessDiagram, WithHeatmap } from '../../diagram.mixin';
@@ -54,6 +55,7 @@ export class ProcessDefinitionDetailPageComponent
   private jobsService = inject(JobService);
   private decisionInstanceService = inject(DecisionInstanceService);
   private toolbarService = inject(ToolbarService);
+  private toastService = inject(ToastService);
 
   statistics?: ProcessDefinitionStatistic[];
   activityInstanceHistory?: ActivityInstanceHistory[];
@@ -111,11 +113,24 @@ export class ProcessDefinitionDetailPageComponent
 
               this.heatmapHistoryLoading = true;
               return this.processDefinitionService
-                .getActivityInstanceHistory(this.itemId, false, this.convertTimelineToFilter(params.timeline ?? ''))
+                .getActivityInstanceHistory(
+                  this.itemId,
+                  false,
+                  this.convertTimelineToFilter(params.timeline ?? ''),
+                  'startTime',
+                  'desc',
+                )
                 .pipe(
                   tap((history) => {
                     this.heatmapHistoryLoading = false;
                     this.heatmapHistory = history;
+
+                    if (this.heatmapHistory.length >= MAX_TOTAL_ACT_HIST_ITEMS)
+                      this.toastService.info(
+                        `Maximum (${MAX_TOTAL_ACT_HIST_ITEMS}) activity instance history items have been retrieved. The heatmap will only reflect the most recent ${MAX_TOTAL_ACT_HIST_ITEMS} items.`,
+                        { autoHide: false },
+                      );
+
                     this.createHeatmap(this.getStructuredHeatmapData(), params);
                   }),
                   catchError(() => {
@@ -271,7 +286,16 @@ export class ProcessDefinitionDetailPageComponent
     return forkJoin([
       this.processDefinitionService.getProcessDefinitionsByFilter(new PaginatedDataRequest({ processDefinitionId }, 1)),
       this.processDefinitionService.getStatistics(processDefinitionId),
-      this.processDefinitionService.getActivityInstanceHistory(processDefinitionId, true),
+      this.processDefinitionService
+        .getActivityInstanceHistory(processDefinitionId, true, undefined, 'startTime', 'desc')
+        .pipe(
+          catchError(() => {
+            this.toastService.error(
+              'Problem loading activity instance history for the process definition. Tokens will not be displayed on the diagram.',
+            );
+            return of([]);
+          }),
+        ),
       this.jobsService.getJobDefinitionsByFilter(new PaginatedDataRequest({ processDefinitionId }, MAX_RESULT_COUNT)),
     ])
       .pipe(delay(DATA_RELOAD_DELAY))
@@ -297,6 +321,12 @@ export class ProcessDefinitionDetailPageComponent
     this.activityInstanceHistory = history;
     this.incidents = this.convertStatisticsToIncidents(stats || []) as ActivityIncident[];
     this.jobDefinitions = jobDefinitions;
+
+    if (this.activityInstanceHistory.length >= MAX_TOTAL_ACT_HIST_ITEMS)
+      this.toastService.info(
+        `Maximum (${MAX_TOTAL_ACT_HIST_ITEMS}) activity instance history items have been retrieved. The tokens on the diagram only reflect the most recent ${MAX_TOTAL_ACT_HIST_ITEMS} items.`,
+        { autoHide: false },
+      );
 
     this.updateDiagram();
   }

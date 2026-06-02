@@ -61,11 +61,15 @@ export class ProcessDefinitionService {
     processDefinitionId: string,
     activeOnly: boolean = false,
     startedAfter?: string,
+    sortBy?: string,
+    sortOrder?: string,
   ): Observable<ActivityInstanceHistory[]> {
     return this.http.get<ActivityInstanceHistory[]>(`api/process-definitions/${processDefinitionId}/history`, {
       params: {
         activeOnly: activeOnly.toString(),
         ...(startedAfter && { startedAfter }),
+        ...(sortBy && { sortBy }),
+        ...(sortOrder && { sortOrder }),
       },
     });
   }

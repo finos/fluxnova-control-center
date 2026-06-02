@@ -20,7 +20,6 @@ import { PaginatedDataRequest } from '../../../services/types/paginated-data-req
 @Component({
   selector: 'fluxnova-incidents-tab',
   templateUrl: './incidents-tab.component.html',
-  styleUrls: ['./incidents-tab.component.scss'],
   standalone: false,
 })
 export class IncidentsTabComponent extends BaseTabComponent implements NeedsParentInfo, OnDestroy {

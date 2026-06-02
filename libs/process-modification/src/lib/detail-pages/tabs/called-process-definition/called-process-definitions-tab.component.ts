@@ -15,7 +15,6 @@ import { PaginatedDataRequest } from '../../../services/types/paginated-data-req
 @Component({
   selector: 'fluxnova-called-process-definitions',
   templateUrl: './called-process-definitions-tab.component.html',
-  styleUrls: ['./called-process-definitions-tab.component.scss'],
   standalone: false,
 })
 export class CalledProcessDefinitionsTabComponent extends BaseTabComponent {

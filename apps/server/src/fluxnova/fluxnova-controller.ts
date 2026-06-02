@@ -101,15 +101,18 @@ export abstract class FluxnovaController {
    * @param pageFn         Function taking (firstResult, maxResults) and returning a page of items
    * @param pageSize       Number of items per page (default: 1000)
    * @param maxConcurrency Maximum number of parallel requests (default: 5)
+   * @param maxTotalResults Maximum number of total results (optional)
    */
   async fetchAll<T>(
     countFn: () => Promise<number>,
     pageFn: (firstResult: number, maxResults: number) => Promise<T[]>,
     pageSize: number = 1000,
     maxConcurrency: number = 5,
+    maxTotalResults?: number,
   ): Promise<T[]> {
     const total = await countFn();
-    const pages = Math.ceil(total / pageSize);
+    const pages =
+      maxTotalResults && total > maxTotalResults ? Math.ceil(maxTotalResults / pageSize) : Math.ceil(total / pageSize);
     const results: T[] = [];
 
     const offsets = Array.from({ length: pages }, (_, i) => i * pageSize);

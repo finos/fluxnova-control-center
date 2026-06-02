@@ -18,7 +18,6 @@ import { PaginatedDataRequest } from '../../../services/types/paginated-data-req
 @Component({
   selector: 'fluxnova-job-definitions-tab',
   templateUrl: './job-definitions-tab.component.html',
-  styleUrls: ['./job-definitions-tab.component.scss'],
   standalone: false,
 })
 export class JobDefinitionsTabComponent extends BaseTabComponent {
