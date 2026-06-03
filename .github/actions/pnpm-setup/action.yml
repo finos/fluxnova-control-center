@@ -12,7 +12,7 @@ runs:
     - name: Set up pnpm
       uses: pnpm/action-setup@v4
       with:
-        run_install: false
+        run_install: true
 
     - name: Get pnpm store directory
       id: pnpm-cache
