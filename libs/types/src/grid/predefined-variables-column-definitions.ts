@@ -48,7 +48,7 @@ export const predefinedVariablesColDefs: Dictionary<ColDefWithFilterParams> = {
     headerName: 'Value',
     resizable: true,
     cellRendererSelector: (params: any): CellRendererSelectorResult | undefined => {
-      if (params.data && params.data.type === 'Date') {
+      if (params.data?.type === 'Date') {
         return {
           component: 'dateRenderer',
         };

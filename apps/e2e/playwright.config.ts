@@ -38,6 +38,7 @@ export default defineConfig({
       testDir: './src/test-setup',
       use: {
         ...devices['Desktop Chrome'],
+        ignoreHTTPSErrors: true,
         viewport: { width: 1280, height: 720 },
       },
     },
@@ -48,6 +49,7 @@ export default defineConfig({
       testDir: './src/e2e',
       use: {
         ...devices['Desktop Chrome'],
+        ignoreHTTPSErrors: true,
         storageState: FXN_DESIGNER_STORAGE_STATE,
         viewport: { width: 1960, height: 1080 },
       },
