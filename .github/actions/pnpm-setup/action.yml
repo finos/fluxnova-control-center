@@ -17,7 +17,22 @@ runs:
 
     - name: Install dependencies
       shell: bash
-      run: pnpm install --frozen-lockfile
+      run: |
+        set -euo pipefail
+
+        install_log="$(mktemp)"
+        trap 'rm -f "$install_log"' EXIT
+
+        if pnpm install --frozen-lockfile 2>&1 | tee "$install_log"; then
+          exit 0
+        fi
+
+        if ! grep -q 'ERR_PNPM_IGNORED_BUILDS' "$install_log"; then
+          exit 1
+        fi
+
+        pnpm approve-builds --all
+        pnpm install --frozen-lockfile
 
     - name: Get pnpm store directory
       id: pnpm-cache
