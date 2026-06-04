@@ -91,6 +91,8 @@ jobs:
         uses: ./.github/actions/build-publish-image
         with:
           image_name: finos/fluxnova-control-center
+          docker_username: ${{ secrets.DOCKER_USERNAME }}
+          docker_password: ${{ secrets.DOCKER_PASSWORD }}
           dockerfile_path: ./Dockerfile
           docker_context: .
           image_tag: ${{ github.sha }}
