@@ -5,9 +5,13 @@ import '@angular/localize/init';
 import { BrowserTestingModule, platformBrowserTesting } from '@angular/platform-browser/testing';
 
 // Polyfill provided by https://github.com/nrwl/nx/issues/1178#issuecomment-498924910
-Object.defineProperty(window, 'DragEvent', {
-  value: class DragEvent {},
-});
+if (!('DragEvent' in window)) {
+  Object.defineProperty(window, 'DragEvent', {
+    configurable: true,
+    writable: true,
+    value: class DragEvent extends Event {},
+  });
+}
 
 getTestBed().resetTestEnvironment();
 getTestBed().initTestEnvironment(BrowserTestingModule, platformBrowserTesting(), {
