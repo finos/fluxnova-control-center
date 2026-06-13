@@ -9,3 +9,5 @@ minimumReleaseAgeExclude:
   - svgo@4.0.1
   # Renovate security update: vite@7.3.2
   - vite@7.3.2
+  # Renovate security update: @opentelemetry/sdk-node@0.217.0
+  - "@opentelemetry/sdk-node@0.217.0"
