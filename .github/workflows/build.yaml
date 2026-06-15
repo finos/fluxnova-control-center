@@ -28,7 +28,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repo
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Set up pnpm and install dependencies
         uses: ./.github/actions/pnpm-setup
@@ -45,7 +45,7 @@ jobs:
     needs: build
     steps:
       - name: Checkout repo
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Set up pnpm and install dependencies
         uses: ./.github/actions/pnpm-setup
@@ -62,7 +62,7 @@ jobs:
     needs: unit-tests
     steps:
       - name: Checkout repo
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Set up pnpm and install dependencies
         uses: ./.github/actions/pnpm-setup
@@ -84,7 +84,7 @@ jobs:
     needs: [unit-tests, mocked-e2e]
     steps:
       - name: Checkout repo
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Build and publish Docker image
         if: startsWith(github.ref, 'refs/heads/release/')
