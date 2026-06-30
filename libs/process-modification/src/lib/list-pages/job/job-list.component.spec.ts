@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BehaviorSubject, of } from 'rxjs';
 import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
-import { beforeEach, afterEach, describe, expect, it, Mock, vi } from 'vitest';
+import { afterEach, beforeEach, describe, expect, it, Mock, vi } from 'vitest';
 import { AuthorizationHttpService } from '@fxn/common';
 import { provideHttpClient } from '@angular/common/http';
 import { WINDOW } from 'ngx-window-token';

@@ -7,7 +7,7 @@ import { cloneDeep } from 'lodash-es';
 import { ModuleRegistry } from 'ag-grid-community';
 import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
 import { ListViewState } from '@fxn/types';
-import { beforeEach, afterEach, describe, expect, it, Mocked, vi } from 'vitest';
+import { afterEach, beforeEach, describe, expect, it, Mocked, vi } from 'vitest';
 import { WINDOW } from 'ngx-window-token';
 import { AG_GRID_MODULES } from '@fxn/grid';
 import { ConfirmActionService } from '../../services/confirm-action.service';

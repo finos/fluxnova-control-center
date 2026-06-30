@@ -4,7 +4,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BehaviorSubject, of } from 'rxjs';
 import { ModuleRegistry } from 'ag-grid-community';
-import { beforeEach, afterEach, describe, expect, it, Mocked, vi } from 'vitest';
+import { afterEach, beforeEach, describe, expect, it, Mocked, vi } from 'vitest';
 import { AuthorizationHttpService } from '@fxn/common';
 import { AG_GRID_MODULES } from '@fxn/grid';
 import { ItemsTableComponent } from '../../common/items-table/items-table.component';
