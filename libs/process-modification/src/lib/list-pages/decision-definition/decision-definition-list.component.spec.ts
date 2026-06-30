@@ -4,7 +4,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BehaviorSubject, of } from 'rxjs';
 import { ModuleRegistry } from 'ag-grid-community';
-import { beforeEach, describe, expect, it, Mocked, vi } from 'vitest';
+import { beforeEach, afterEach, describe, expect, it, Mocked, vi } from 'vitest';
 import { AuthorizationHttpService } from '@fxn/common';
 import { AG_GRID_MODULES } from '@fxn/grid';
 import { ItemsTableComponent } from '../../common/items-table/items-table.component';
@@ -54,14 +54,15 @@ describe('DecisionDefinitionListComponent', () => {
     value: localStorageMock,
   });
 
-  const buildComponent = () => {
+  const buildComponent = (routeOverride?: any) => {
+    TestBed.resetTestingModule();
     TestBed.configureTestingModule({
       imports: [],
       declarations: [DecisionDefinitionListComponent],
       schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
       providers: [
         provideHttpClientTesting(),
-        { provide: ActivatedRoute, useValue: mockRoute },
+        { provide: ActivatedRoute, useValue: routeOverride ?? mockRoute },
         { provide: AuthorizationHttpService, useValue: mockAuthHttpService },
         { provide: Router, useValue: mockRouter },
         { provide: DecisionDefinitionService, useValue: mockDecisionDefinitionService },
@@ -127,18 +128,14 @@ describe('DecisionDefinitionListComponent', () => {
 
   describe('when there are query string params', () => {
     it('should use them to load data', async () => {
-      TestBed.overrideProvider(ActivatedRoute, {
-        useValue: {
-          queryParams: of({
-            filters: { key: { filter: 'Auto', type: 'contains' } },
-            sorting: [{ colId: 'key', sort: 'desc' }],
-            page: 1,
-            pageSize: 50,
-          }),
-        },
+      buildComponent({
+        queryParams: of({
+          filters: { key: { filter: 'Auto', type: 'contains' } },
+          sorting: [{ colId: 'key', sort: 'desc' }],
+          page: 1,
+          pageSize: 50,
+        }),
       });
-
-      buildComponent();
       fixture.detectChanges();
 
       await vi.runAllTimersAsync();

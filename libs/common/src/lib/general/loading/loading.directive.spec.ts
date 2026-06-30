@@ -7,7 +7,11 @@ describe('LoadingDirective', () => {
   let directive: LoadingDirective;
 
   const mockLoadingComponentInstance = { blockInteraction: false };
-  const mockLoadingComponent = { hostView: { totallyReal: true }, instance: mockLoadingComponentInstance };
+  const mockLoadingComponent = {
+    hostView: { totallyReal: true },
+    instance: mockLoadingComponentInstance,
+    destroy: vi.fn(),
+  };
   const mockVcRef = {
     createEmbeddedView: vi.fn(),
     createComponent: vi.fn(),

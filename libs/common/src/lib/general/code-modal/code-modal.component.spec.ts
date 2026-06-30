@@ -1,6 +1,7 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { WINDOW } from 'ngx-window-token';
 import { CodeEditorComponent } from '../code-editor/code-editor.component';
 import { CodeModalComponent } from './code-modal.component';
 
@@ -10,10 +11,23 @@ describe('CodeModalComponent', () => {
 
   const mockModal = { close: vi.fn() };
 
+  const mockWindow = {
+    monaco: {
+      editor: {
+        getModels: vi.fn(() => []),
+        onDidChangeMarkers: vi.fn(() => ({ dispose: vi.fn() })),
+        Uri: { parse: vi.fn((name: string) => name) },
+      },
+    },
+  };
+
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [CodeModalComponent],
-      providers: [{ provide: NgbActiveModal, useValue: mockModal }],
+      providers: [
+        { provide: NgbActiveModal, useValue: mockModal },
+        { provide: WINDOW, useValue: mockWindow },
+      ],
     }).compileComponents();
 
     fixture = TestBed.createComponent(CodeModalComponent);

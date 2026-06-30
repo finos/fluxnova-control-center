@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { PermissionService } from '@fxn/common/src/lib/services/permission.service';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { describe, expect, it, vi } from 'vitest';
+import { beforeEach, afterEach, describe, expect, it, vi } from 'vitest';
 import { ApplyChangesConfirmModalComponent } from './confirm-modal.component';
 
 describe('Confirm Modal Component', () => {
@@ -18,6 +18,7 @@ describe('Confirm Modal Component', () => {
   };
 
   const buildComponent = () => {
+    TestBed.resetTestingModule();
     TestBed.configureTestingModule({
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
       providers: [

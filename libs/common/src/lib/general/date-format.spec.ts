@@ -39,9 +39,9 @@ describe('Parsing Dates', () => {
       const toTest = '2020-04-01T23:59:59-00:00';
       const result = parseDate(toTest);
       expect(result).toBeTruthy();
-      expect(result?.year()).toEqual(2020);
-      expect(result?.month()).toEqual(3);
-      expect(result?.date()).toEqual(1);
+      expect(result?.utc().year()).toEqual(2020);
+      expect(result?.utc().month()).toEqual(3);
+      expect(result?.utc().date()).toEqual(1);
       expect(consoleSpy).toHaveBeenCalledTimes(0);
     });
 
@@ -61,9 +61,9 @@ describe('Parsing Dates', () => {
       const toTest = '2020-07-04T23:59:59.999999-00:00';
       const result = parseDate(toTest);
       expect(result).toBeTruthy();
-      expect(result?.year()).toEqual(2020);
-      expect(result?.month()).toEqual(6);
-      expect(result?.date()).toEqual(4);
+      expect(result?.utc().year()).toEqual(2020);
+      expect(result?.utc().month()).toEqual(6);
+      expect(result?.utc().date()).toEqual(4);
       expect(consoleSpy).toHaveBeenCalledTimes(0);
     });
 

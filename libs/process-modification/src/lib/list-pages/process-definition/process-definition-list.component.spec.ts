@@ -71,9 +71,9 @@ describe('ProcessDefinitionListComponent', () => {
     value: localStorageMock,
   });
 
-  const buildComponent = () => {
+  const buildComponent = (routeOverride?: any) => {
     vi.clearAllMocks();
-
+    TestBed.resetTestingModule();
     TestBed.configureTestingModule({
       declarations: [ProcessDefinitionListComponent, HasPermissionsDirective],
       imports: [],
@@ -81,7 +81,7 @@ describe('ProcessDefinitionListComponent', () => {
       providers: [
         provideHttpClientTesting(),
         { provide: AuthorizationHttpService, useValue: mockAuthHttpService },
-        { provide: ActivatedRoute, useValue: mockRoute },
+        { provide: ActivatedRoute, useValue: routeOverride ?? mockRoute },
         { provide: Router, useValue: mockRouter },
         { provide: ProcessDefinitionService, useValue: mockDefinitionService },
         { provide: ConfirmActionService, useValue: mockConfirmActionService },
@@ -137,19 +137,15 @@ describe('ProcessDefinitionListComponent', () => {
 
   describe('when there are query string params', () => {
     it('should use them to load data', async () => {
-      TestBed.overrideProvider(ActivatedRoute, {
-        useValue: {
-          queryParams: of({
-            filters: { suspended: { filterType: 'select', filter: 'active', type: 'equals' } },
-            sorting: [{ colId: 'version', sort: 'desc' }],
-            page: 1,
-            pageSize: 50,
-            toggleFilters: 'latestVersion',
-          }),
-        },
+      buildComponent({
+        queryParams: of({
+          filters: { suspended: { filterType: 'select', filter: 'active', type: 'equals' } },
+          sorting: [{ colId: 'version', sort: 'desc' }],
+          page: 1,
+          pageSize: 50,
+          toggleFilters: 'latestVersion',
+        }),
       });
-
-      buildComponent();
       fixture.detectChanges();
 
       await vi.runAllTimersAsync();
