@@ -12,5 +12,5 @@ if (typeof window.DragEvent === 'undefined') {
 
 getTestBed().resetTestEnvironment();
 getTestBed().initTestEnvironment(BrowserTestingModule, platformBrowserTesting(), {
-  teardown: { destroyAfterEach: true },
+  teardown: { destroyAfterEach: false },
 });

@@ -48,7 +48,7 @@ describe('ActivityGridCellComponent', () => {
     doc?.body?.querySelector('svg')?.remove();
   });
 
-  it.skip('should create', () => {
+  it('should create', () => {
     expect(component).toBeTruthy();
   });
 
