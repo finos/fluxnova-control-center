@@ -54,7 +54,7 @@ jobs:
         uses: ./.github/actions/generate-client
 
       - name: Run unit tests
-        run: TZ=UTC ./node_modules/.bin/nx run-many --target=test --code-coverage --runInBand
+        run: TZ=UTC ./node_modules/.bin/nx run-many --target=test --code-coverage --runInBand --silent
 
   mocked-e2e:
     name: Mocked E2E Tests
