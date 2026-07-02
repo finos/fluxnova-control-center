@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { beforeEach, describe, expect, it } from 'vitest';
+import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 import { TruncateWithTooltipRendererComponent } from './truncate-with-tooltip-renderer.component';
 
 describe('Truncate With Tooltip Renderer Component', () => {
@@ -13,6 +13,10 @@ describe('Truncate With Tooltip Renderer Component', () => {
 
     fixture = TestBed.createComponent(TruncateWithTooltipRendererComponent);
     component = fixture.componentInstance;
+  });
+
+  afterEach(() => {
+    TestBed.resetTestingModule();
   });
 
   it('should use inner html to render html with mark tag', () => {

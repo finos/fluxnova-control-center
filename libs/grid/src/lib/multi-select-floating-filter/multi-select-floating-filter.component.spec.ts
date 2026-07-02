@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { IconComponent, MultiSelectComponent } from '@fxn/common';
 import { Subject } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
-import { beforeEach, describe, expect, it, vi } from 'vitest';
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { MultiSelectFloatingFilterComponent } from './multi-select-floating-filter.component';
 
 describe('MultiSelectFloatingFilterComponent', () => {
@@ -39,6 +39,10 @@ describe('MultiSelectFloatingFilterComponent', () => {
 
     fixture = TestBed.createComponent(MultiSelectFloatingFilterComponent);
     component = fixture.componentInstance;
+  });
+
+  afterEach(() => {
+    TestBed.resetTestingModule();
   });
 
   it('should create', () => {

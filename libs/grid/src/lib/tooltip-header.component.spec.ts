@@ -25,7 +25,10 @@ describe('tooltip header component', () => {
     component = fixture.componentInstance;
   });
 
-  afterEach(() => vi.resetAllMocks());
+  afterEach(() => {
+    vi.resetAllMocks();
+    TestBed.resetTestingModule();
+  });
 
   it('should exist', () => {
     expect(component).toBeTruthy();

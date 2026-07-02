@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { HttpClient } from '@angular/common/http';
 import { of } from 'rxjs';
-import { beforeEach, describe, expect, it, vi } from 'vitest';
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { StackTraceRendererComponent } from './stack-trace-renderer.component';
 
 describe('StackTraceRendererComponent', () => {
@@ -35,6 +35,10 @@ describe('StackTraceRendererComponent', () => {
     fixture = TestBed.createComponent(StackTraceRendererComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
+  });
+
+  afterEach(() => {
+    TestBed.resetTestingModule();
   });
 
   it('should set message and jobId in agInit', () => {

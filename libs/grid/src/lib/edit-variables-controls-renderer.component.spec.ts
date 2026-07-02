@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ICellRendererParams, IRowNode } from 'ag-grid-community';
-import { beforeEach, describe, expect, it, vi } from 'vitest';
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { EditVariablesControlsRendererComponent } from './edit-variables-controls-renderer.component';
 
 describe('EditVariablesControlsRendererComponent', () => {
@@ -16,6 +16,10 @@ describe('EditVariablesControlsRendererComponent', () => {
     TestBed.configureTestingModule({});
     fixture = TestBed.createComponent(EditVariablesControlsRendererComponent);
     component = fixture.componentInstance;
+  });
+
+  afterEach(() => {
+    TestBed.resetTestingModule();
   });
 
   const cellRendererParams = {

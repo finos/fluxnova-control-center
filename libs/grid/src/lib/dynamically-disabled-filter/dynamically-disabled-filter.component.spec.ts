@@ -41,6 +41,7 @@ describe('DefaultFloatingFilterComponent', () => {
 
   afterEach(() => {
     vi.clearAllMocks();
+    TestBed.resetTestingModule();
   });
 
   describe('constructor', () => {

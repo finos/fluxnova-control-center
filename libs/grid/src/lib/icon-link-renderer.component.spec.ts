@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ICellRendererParams } from 'ag-grid-community';
-import { beforeEach, describe, expect, it, vi } from 'vitest';
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { RouterModule } from '@angular/router';
 import { IconLinkRendererComponent } from './icon-link-renderer.component';
 
@@ -32,6 +32,10 @@ describe('Icon Link Renderer Component', () => {
     component = fixture.componentInstance;
     component.agInit(mockParams);
     fixture.detectChanges();
+  });
+
+  afterEach(() => {
+    TestBed.resetTestingModule();
   });
 
   it('iconIsInternalPath should be set correctly', () => {

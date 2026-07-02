@@ -31,6 +31,7 @@ describe('Date Input Component', () => {
 
   afterEach(() => {
     vi.resetAllMocks();
+    TestBed.resetTestingModule();
   });
 
   it('should accept a date object', () => {

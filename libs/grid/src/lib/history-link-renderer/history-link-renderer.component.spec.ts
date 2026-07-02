@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
-import { beforeEach, describe, expect, it } from 'vitest';
+import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 import { HistoryLinkRendererComponent } from './history-link-renderer.component';
 
 describe('History Link Renderer Component', () => {
@@ -15,6 +15,10 @@ describe('History Link Renderer Component', () => {
 
     fixture = TestBed.createComponent(HistoryLinkRendererComponent);
     component = fixture.componentInstance;
+  });
+
+  afterEach(() => {
+    TestBed.resetTestingModule();
   });
 
   it('should create', () => {
