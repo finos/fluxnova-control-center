@@ -45,6 +45,7 @@ describe('ActivityGridCellComponent', () => {
   });
 
   afterEach(() => {
+    TestBed.resetTestingModule();
     doc?.body?.querySelector('svg')?.remove();
   });
 
