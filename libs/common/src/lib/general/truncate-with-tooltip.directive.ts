@@ -10,18 +10,15 @@ export interface TruncateTooltipOptions {
 }
 @Directive({
   selector: '[fluxnovaTruncateWithTooltip]',
+  hostDirectives: [NgbTooltip],
   standalone: false,
 })
 export class TruncateWithTooltipDirective implements OnInit, OnDestroy {
   private elementRef = inject(ElementRef);
-
-  constructor() {
-    this.tooltipDirective = new NgbTooltip();
-  }
   @Input() fluxnovaTruncateWithTooltip?: TruncateTooltipOptions;
   private isTooltipInitialized = false;
   private targetElementRef = this.elementRef.nativeElement;
-  @HostBinding('attr.ngbTooltip') tooltipDirective: NgbTooltip;
+  tooltipDirective = inject(NgbTooltip);
   @HostBinding('class') elementClass = 'fluxnova-truncate-with-tooltip';
   @Input() customFormatter = (data: any) => data;
 
