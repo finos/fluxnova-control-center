@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ItemType, ListViewState } from '@fxn/types';
 import { RowClickedEvent } from 'ag-grid-community';
@@ -59,7 +59,7 @@ describe('failed-jobs-tab.component', () => {
     TestBed.configureTestingModule({
       imports: [],
       declarations: [FailedJobsTabComponent],
-      schemas: [CUSTOM_ELEMENTS_SCHEMA],
+      schemas: [NO_ERRORS_SCHEMA],
       providers: [
         provideHttpClient(withInterceptorsFromDi()),
         { provide: ActivatedRoute, useValue: mockRoute },

@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { PermissionService } from '@fxn/common/src/lib/services/permission.service';
-import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { ApplyChangesConfirmModalComponent } from './confirm-modal.component';
 
@@ -19,7 +19,7 @@ describe('Confirm Modal Component', () => {
 
   const buildComponent = () => {
     TestBed.configureTestingModule({
-      schemas: [CUSTOM_ELEMENTS_SCHEMA],
+      schemas: [NO_ERRORS_SCHEMA],
       providers: [
         { provide: NgbActiveModal, useValue: mockNgbActiveModal },
         { provide: PermissionService, useValue: mockPermissionService },

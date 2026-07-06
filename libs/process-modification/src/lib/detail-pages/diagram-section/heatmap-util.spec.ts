@@ -1,18 +1,21 @@
-import Heatmap, { HeatmapOptions } from 'visual-heatmap';
 import NavigatedViewer from 'bpmn-js/lib/Viewer';
 import ElementRegistry from 'diagram-js/lib/core/ElementRegistry';
+import type Heatmap from 'visual-heatmap';
 import { formatMsToLargestTimeUnit } from '@fxn/common';
 import { afterEach, beforeEach, describe, expect, it, Mock, Mocked, vi } from 'vitest';
 import { HeatmapUtil } from './heatmap-util';
 
-vi.mock('visual-heatmap');
-vi.mock('bpmn-js/lib/Viewer');
-vi.mock('@fxn/common', () => ({
-  formatMsToLargestTimeUnit: vi.fn().mockImplementation((ms) => `${ms}ms`),
-}));
-
 describe('HeatmapUtil', () => {
-  let heatmapInstance: Mocked<Heatmap>;
+  let heatmapInstance: Heatmap & {
+    setMin: Mock;
+    setMax: Mock;
+    renderData: Mock;
+    render: Mock;
+    resize: Mock;
+    setTranslate: Mock;
+    setZoom: Mock;
+    setSize: Mock;
+  };
   let navigatedViewer: Mocked<NavigatedViewer>;
   let elementRegistry: Mocked<ElementRegistry>;
   let canvas: any;
@@ -52,10 +55,25 @@ describe('HeatmapUtil', () => {
     mockTooltip.appendChild(tooltipSpan);
     document.body.appendChild(mockTooltip);
 
-    heatmapInstance = new Heatmap('container-id', {} as unknown as HeatmapOptions) as Mocked<Heatmap>;
-    heatmapInstance.setMin = vi.fn();
-    heatmapInstance.setMax = vi.fn();
-    heatmapInstance.renderData = vi.fn();
+    heatmapInstance = {
+      setMin: vi.fn(),
+      setMax: vi.fn(),
+      renderData: vi.fn(),
+      render: vi.fn(),
+      resize: vi.fn(),
+      setTranslate: vi.fn(),
+      setZoom: vi.fn(),
+      setSize: vi.fn(),
+    } as unknown as Heatmap & {
+      setMin: Mock;
+      setMax: Mock;
+      renderData: Mock;
+      render: Mock;
+      resize: Mock;
+      setTranslate: Mock;
+      setZoom: Mock;
+      setSize: Mock;
+    };
 
     canvas = {
       getAbsoluteBBox: vi.fn().mockImplementation(() => ({ x: 10, y: 10, width: 100, height: 50 })),
@@ -188,8 +206,11 @@ describe('HeatmapUtil', () => {
       HeatmapUtil.renderHeatmap(heatmapInstance, mockHeatmapData, timeSpentParams, navigatedViewer);
 
       expect(elementRegistry.getAll).toHaveBeenCalled();
-      expect(formatMsToLargestTimeUnit).toHaveBeenCalledWith(5000);
-      expect(spy).toHaveBeenCalledWith(mockTask, 'Average Duration: 5000ms', navigatedViewer);
+      expect(spy).toHaveBeenCalledWith(
+        mockTask,
+        `Average Duration: ${formatMsToLargestTimeUnit(5000)}`,
+        navigatedViewer,
+      );
       spy.mockRestore();
     });
   });

@@ -8,7 +8,13 @@ import { VariableService } from './variable.service';
 import { ProcessInstanceService } from './process-instance.service';
 import { PaginatedDataRequest } from './types/paginated-data-request';
 
-vi.mock('@fxn/common/src');
+const { mockDownloadDataBuffer } = vi.hoisted(() => ({
+  mockDownloadDataBuffer: vi.fn(),
+}));
+
+vi.mock('@fxn/common/src', () => ({
+  downloadDataBuffer: mockDownloadDataBuffer,
+}));
 
 describe('VariableService', () => {
   let service: VariableService;
@@ -17,13 +23,14 @@ describe('VariableService', () => {
     getActivityInstances: vi.fn(() => of([])),
     getProcessInstance: vi.fn(() => of({})),
   } as unknown as Mocked<ProcessInstanceService>;
-  const mockDownloadDataBuffer = vi.mocked(downloadDataBuffer);
+  const mockedDownloadDataBuffer = vi.mocked(downloadDataBuffer);
 
   beforeEach(() => {
     mockHttp = {
       post: vi.fn(() => of([])),
       get: vi.fn(),
     };
+    mockDownloadDataBuffer.mockReset();
 
     TestBed.configureTestingModule({
       providers: [
@@ -270,7 +277,7 @@ describe('VariableService', () => {
       const subscribeNextCallback = mockSubscribe.mock.calls[0][0];
       const arrayBuffer = new ArrayBuffer(8);
       subscribeNextCallback(arrayBuffer);
-      expect(mockDownloadDataBuffer).toHaveBeenCalledWith(arrayBuffer, variable.valueInfo.filename);
+      expect(mockedDownloadDataBuffer).toHaveBeenCalledWith(arrayBuffer, variable.valueInfo.filename);
     });
 
     it('For historic instance, should send get request to /variables/history/:id/data and download resulting file', () => {
@@ -296,7 +303,7 @@ describe('VariableService', () => {
       const subscribeNextCallback = mockSubscribe.mock.calls[0][0];
       const arrayBuffer = new ArrayBuffer(8);
       subscribeNextCallback(arrayBuffer);
-      expect(mockDownloadDataBuffer).toHaveBeenCalledWith(arrayBuffer, variable.valueInfo.filename);
+      expect(mockedDownloadDataBuffer).toHaveBeenCalledWith(arrayBuffer, variable.valueInfo.filename);
     });
   });
 });
