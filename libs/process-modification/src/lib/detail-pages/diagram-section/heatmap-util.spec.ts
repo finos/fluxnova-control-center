@@ -1,9 +1,9 @@
 import NavigatedViewer from 'bpmn-js/lib/Viewer';
 import ElementRegistry from 'diagram-js/lib/core/ElementRegistry';
-import type Heatmap from 'visual-heatmap';
 import { formatMsToLargestTimeUnit } from '@fxn/common';
 import { afterEach, beforeEach, describe, expect, it, Mock, Mocked, vi } from 'vitest';
 import { HeatmapUtil } from './heatmap-util';
+import type Heatmap from 'visual-heatmap';
 
 describe('HeatmapUtil', () => {
   let heatmapInstance: Heatmap & {
