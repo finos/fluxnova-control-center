@@ -1,6 +1,6 @@
 import { CompleteActivityInstanceInfo, ProcessInstance, Sorting, VariableSearchFilter } from '@fxn/types';
 import { firstValueFrom, of } from 'rxjs';
-import { downloadDataBuffer } from '@fxn/common/src/lib/utils';
+import { downloadDataBuffer } from '@fxn/common/src';
 import { TestBed } from '@angular/core/testing';
 import { HttpClient } from '@angular/common/http';
 import { beforeEach, describe, expect, it, Mock, Mocked, vi } from 'vitest';
@@ -8,7 +8,7 @@ import { VariableService } from './variable.service';
 import { ProcessInstanceService } from './process-instance.service';
 import { PaginatedDataRequest } from './types/paginated-data-request';
 
-vi.mock('@fxn/common/src/lib/utils');
+vi.mock('@fxn/common/src');
 
 describe('VariableService', () => {
   let service: VariableService;

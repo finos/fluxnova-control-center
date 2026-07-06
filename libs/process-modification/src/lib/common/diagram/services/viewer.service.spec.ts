@@ -10,19 +10,23 @@ const mockedNavigatedViewer = vi.mocked(NavigatedViewer);
 describe('Viewer Service', () => {
   const service = new ViewerService();
 
-  beforeEach(vi.clearAllMocks);
+  beforeEach(() => {
+    document.body.innerHTML = '<div id="canvas"></div>';
+    vi.clearAllMocks();
+  });
 
   it('should return a viewer when getNavigatedViewer is called', () => {
+    const container = document.createElement('div');
     const navigatedViewerInstance = {};
     mockedNavigatedViewer.mockImplementation(function () {
       return navigatedViewerInstance;
     });
 
-    const viewer = service.getNavigatedViewer(undefined);
+    const viewer = service.getNavigatedViewer(container);
 
     expect(viewer).toBe(navigatedViewerInstance);
     expect(mockedNavigatedViewer).toHaveBeenCalledWith({
-      container: '#canvas',
+      container,
       additionalModules: expect.arrayContaining([
         expect.objectContaining({ __init__: ['colorRenderer'], colorRenderer: ['type', ColorRenderer] }),
         OutlineModule,
