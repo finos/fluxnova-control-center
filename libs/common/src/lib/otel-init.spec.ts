@@ -63,6 +63,7 @@ describe('otel-init', () => {
   });
 
   afterEach(() => {
+    vi.restoreAllMocks();
     vi.resetAllMocks();
   });
 
@@ -74,14 +75,8 @@ describe('otel-init', () => {
       debug: false,
       enabled: true,
     };
-    Object.defineProperty(window.document, 'baseURI', {
-      value: baseURI,
-      writable: false,
-    });
-    Object.defineProperty(window.document, 'cookie', {
-      value: 'XSRF-TOKEN=test-xsrf-token',
-      writable: false,
-    });
+    vi.spyOn(window.document, 'baseURI', 'get').mockReturnValue(baseURI);
+    vi.spyOn(window.document, 'cookie', 'get').mockReturnValue('XSRF-TOKEN=test-xsrf-token');
 
     initOpenTelemetry(config);
 

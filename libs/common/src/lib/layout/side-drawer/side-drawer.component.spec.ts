@@ -106,7 +106,7 @@ describe('SideDrawerComponent', () => {
 
   describe('getLogoutURI', () => {
     it('should return the correct logout link', () => {
-      Object.defineProperty(mockDocument, 'baseURI', { value: 'http://fluxnova.finos.org/' });
+      vi.spyOn(mockDocument, 'baseURI', 'get').mockReturnValue('http://fluxnova.finos.org/');
 
       expect(component.getLogoutURI()).toBe('http://fluxnova.finos.org/api/logout');
     });

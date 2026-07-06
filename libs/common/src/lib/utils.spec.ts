@@ -1,4 +1,4 @@
-import { beforeEach, describe, expect, it, vi } from 'vitest';
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { ItemType } from '@fxn/types';
 import { mockConsoleError } from '@fxn/test-support/vitest';
 import { downloadDataBuffer, getTypeString, parseJson } from './utils';
@@ -22,13 +22,13 @@ describe('utils', () => {
 
   beforeEach(() => {
     logSpy = vi.spyOn(console, 'error');
-    Object.defineProperty(window.URL, 'createObjectURL', {
-      value: createObjectURLMock,
-    });
-    Object.defineProperty(window.URL, 'revokeObjectURL', {
-      value: revokeObjectURLMock,
-    });
-    document.createElement = createElementMock;
+    vi.spyOn(window.URL, 'createObjectURL').mockImplementation(createObjectURLMock);
+    vi.spyOn(window.URL, 'revokeObjectURL').mockImplementation(revokeObjectURLMock);
+    vi.spyOn(document, 'createElement').mockImplementation(createElementMock as typeof document.createElement);
+  });
+
+  afterEach(() => {
+    vi.restoreAllMocks();
   });
 
   it('should return parsed value', () => {

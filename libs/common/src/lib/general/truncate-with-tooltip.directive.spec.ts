@@ -1,7 +1,6 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { ElementRef } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
-import { TruncateWithTooltipDirective } from './truncate-with-tooltip.directive';
 
 vi.mock('@ng-bootstrap/ng-bootstrap', () => ({
   NgbTooltip: class {
@@ -10,6 +9,8 @@ vi.mock('@ng-bootstrap/ng-bootstrap', () => ({
     ngbTooltip = 'this should be overridden by the directive';
   },
 }));
+
+import { TruncateWithTooltipDirective } from './truncate-with-tooltip.directive';
 
 describe('TruncateWithTooltipDirective', () => {
   let directive: TruncateWithTooltipDirective;
