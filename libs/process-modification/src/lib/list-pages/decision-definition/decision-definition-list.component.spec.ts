@@ -55,7 +55,6 @@ describe('DecisionDefinitionListComponent', () => {
   });
 
   const buildComponent = (routeOverride?: any) => {
-    TestBed.resetTestingModule();
     TestBed.configureTestingModule({
       imports: [],
       declarations: [DecisionDefinitionListComponent],

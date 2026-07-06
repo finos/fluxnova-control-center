@@ -98,7 +98,6 @@ describe('BatchListPageComponent', () => {
   });
 
   const buildComponent = (routeOverride?: any) => {
-    TestBed.resetTestingModule();
     TestBed.configureTestingModule({
       imports: [],
       declarations: [BatchListComponent],

@@ -18,7 +18,6 @@ describe('Confirm Modal Component', () => {
   };
 
   const buildComponent = () => {
-    TestBed.resetTestingModule();
     TestBed.configureTestingModule({
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
       providers: [
