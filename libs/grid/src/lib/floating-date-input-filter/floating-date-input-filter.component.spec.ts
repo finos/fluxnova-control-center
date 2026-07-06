@@ -43,7 +43,6 @@ describe('Floating Date Input Component', () => {
 
   afterEach(() => {
     vi.resetAllMocks();
-    TestBed.resetTestingModule();
   });
 
   it('should update dateRange and filter type on parent model change', () => {

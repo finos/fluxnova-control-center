@@ -3,7 +3,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ProcessInstanceStatesMap } from '@fxn/types';
 import { ActivatedRoute } from '@angular/router';
 import { of } from 'rxjs';
-import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { SingleSelectFloatingFilterComponent } from './single-select-floating-filter.component';
 
 describe('SingleFloatingFilterComponent', () => {
@@ -40,10 +40,6 @@ describe('SingleFloatingFilterComponent', () => {
 
     fixture = TestBed.createComponent(SingleSelectFloatingFilterComponent);
     component = fixture.componentInstance;
-  });
-
-  afterEach(() => {
-    TestBed.resetTestingModule();
   });
 
   it('should notify Ag-Grid when the select item changes', () => {

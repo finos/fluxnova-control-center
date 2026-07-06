@@ -27,7 +27,6 @@ describe('tooltip header component', () => {
 
   afterEach(() => {
     vi.resetAllMocks();
-    TestBed.resetTestingModule();
   });
 
   it('should exist', () => {

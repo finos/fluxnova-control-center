@@ -4,7 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { BehaviorSubject } from 'rxjs';
-import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { AgPaginationComponent } from './ag-pagination.component';
 import { defaultPageSize } from './paging-defaults';
 
@@ -31,10 +31,6 @@ describe('AgPaginationComponent', () => {
 
     vi.useFakeTimers();
     vi.clearAllMocks();
-  });
-
-  afterEach(() => {
-    TestBed.resetTestingModule();
   });
 
   it('should load the defaults when there is nothing in the query params', () => {
