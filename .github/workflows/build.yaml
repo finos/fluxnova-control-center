@@ -2,12 +2,17 @@
 
 name: CI/CD for Fluxnova Control Center
 
+env:
+  DOCKER_USERNAME: finos
+  DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+
 on:
   push:
     branches:
       - main
       - develop
       - 'release/**'
+      - 'hotfix/**'
   pull_request:
   workflow_dispatch:
 
@@ -86,14 +91,20 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v6
 
+      - name: Extract version from branch
+        id: version
+        if: startsWith(github.ref, 'refs/heads/release/') || startsWith(github.ref, 'refs/heads/hotfix/')
+        run: |
+          VERSION="${GITHUB_REF_NAME#release/}"
+          VERSION="${VERSION#hotfix/}"
+          echo "version_tag=${VERSION}" >> "$GITHUB_OUTPUT"
+
       - name: Build and publish Docker image
-        if: startsWith(github.ref, 'refs/heads/release/')
+        if: startsWith(github.ref, 'refs/heads/release/') || startsWith(github.ref, 'refs/heads/hotfix/')
         uses: ./.github/actions/build-publish-image
         with:
           image_name: finos/fluxnova-control-center
-          docker_username: ${{ secrets.DOCKER_USERNAME }}
-          docker_password: ${{ secrets.DOCKER_PASSWORD }}
           dockerfile_path: ./Dockerfile
           docker_context: .
-          image_tag: ${{ github.sha }}
+          image_tag: ${{ steps.version.outputs.version_tag }}
 
