@@ -1,14 +1,11 @@
 import { CompleteActivityInstanceInfo, ProcessInstance, Sorting, VariableSearchFilter } from '@fxn/types';
 import { firstValueFrom, of } from 'rxjs';
-import { downloadDataBuffer } from '@fxn/common/src/lib/utils';
 import { TestBed } from '@angular/core/testing';
 import { HttpClient } from '@angular/common/http';
 import { beforeEach, describe, expect, it, Mock, Mocked, vi } from 'vitest';
 import { VariableService } from './variable.service';
 import { ProcessInstanceService } from './process-instance.service';
 import { PaginatedDataRequest } from './types/paginated-data-request';
-
-vi.mock('@fxn/common/src/lib/utils');
 
 describe('VariableService', () => {
   let service: VariableService;
@@ -17,7 +14,6 @@ describe('VariableService', () => {
     getActivityInstances: vi.fn(() => of([])),
     getProcessInstance: vi.fn(() => of({})),
   } as unknown as Mocked<ProcessInstanceService>;
-  const mockDownloadDataBuffer = vi.mocked(downloadDataBuffer);
 
   beforeEach(() => {
     mockHttp = {
@@ -257,6 +253,7 @@ describe('VariableService', () => {
         },
       };
       const mockSubscribe = vi.fn();
+      const downloadArrayBufferSpy = vi.spyOn(service as any, 'downloadArrayBuffer');
       mockHttp.get.mockReturnValueOnce({
         subscribe: mockSubscribe,
       });
@@ -270,7 +267,7 @@ describe('VariableService', () => {
       const subscribeNextCallback = mockSubscribe.mock.calls[0][0];
       const arrayBuffer = new ArrayBuffer(8);
       subscribeNextCallback(arrayBuffer);
-      expect(mockDownloadDataBuffer).toHaveBeenCalledWith(arrayBuffer, variable.valueInfo.filename);
+      expect(downloadArrayBufferSpy).toHaveBeenCalledWith(arrayBuffer, variable.valueInfo.filename);
     });
 
     it('For historic instance, should send get request to /variables/history/:id/data and download resulting file', () => {
@@ -283,6 +280,7 @@ describe('VariableService', () => {
         },
       };
       const mockSubscribe = vi.fn();
+      const downloadArrayBufferSpy = vi.spyOn(service as any, 'downloadArrayBuffer');
       mockHttp.get.mockReturnValueOnce({
         subscribe: mockSubscribe,
       });
@@ -296,7 +294,7 @@ describe('VariableService', () => {
       const subscribeNextCallback = mockSubscribe.mock.calls[0][0];
       const arrayBuffer = new ArrayBuffer(8);
       subscribeNextCallback(arrayBuffer);
-      expect(mockDownloadDataBuffer).toHaveBeenCalledWith(arrayBuffer, variable.valueInfo.filename);
+      expect(downloadArrayBufferSpy).toHaveBeenCalledWith(arrayBuffer, variable.valueInfo.filename);
     });
   });
 });

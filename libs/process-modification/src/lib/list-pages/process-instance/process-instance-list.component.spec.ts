@@ -103,7 +103,6 @@ describe('ProcessInstanceListComponent', () => {
   });
 
   const buildComponent = () => {
-    TestBed.resetTestingModule();
     TestBed.configureTestingModule({
       imports: [NgbModule],
       declarations: [ProcessInstanceListComponent, HasPermissionsDirective],

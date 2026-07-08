@@ -73,7 +73,6 @@ describe('ProcessDefinitionListComponent', () => {
 
   const buildComponent = (routeOverride?: any) => {
     vi.clearAllMocks();
-    TestBed.resetTestingModule();
     TestBed.configureTestingModule({
       declarations: [ProcessDefinitionListComponent, HasPermissionsDirective],
       imports: [],

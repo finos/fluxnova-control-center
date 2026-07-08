@@ -81,7 +81,6 @@ describe('JobListComponent', () => {
   });
 
   const buildComponent = (routeOverride?: any) => {
-    TestBed.resetTestingModule();
     TestBed.configureTestingModule({
       declarations: [JobListComponent],
       schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],

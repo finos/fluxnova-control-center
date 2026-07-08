@@ -74,27 +74,7 @@ describe('FooterComponent', () => {
     const testEngineVersion = 'engine-42.0.1';
     mockVersionService.getRestAPIVersion = () => of({ version: testEngineVersion });
 
-    testBedInstance.resetTestingModule();
-
-    testBedInstance = TestBed.configureTestingModule({
-      declarations: [FooterComponent, MockNgbTooltipDirective, IconComponent],
-      schemas: [CUSTOM_ELEMENTS_SCHEMA],
-      providers: [
-        { provide: UserService, useValue: mockUserService },
-        { provide: VersionService, useValue: mockVersionService },
-      ],
-    });
-
-    testBedInstance.overrideComponent(FooterComponent, {
-      set: {
-        providers: [{ provide: VersionService, useValue: mockVersionService }],
-      },
-    });
-
-    await testBedInstance.compileComponents();
-
-    fixture = testBedInstance.createComponent(FooterComponent);
-    component = fixture.componentInstance;
+    component.ngOnInit();
     fixture.detectChanges();
 
     expect(component.engineVersion).toBe(testEngineVersion);

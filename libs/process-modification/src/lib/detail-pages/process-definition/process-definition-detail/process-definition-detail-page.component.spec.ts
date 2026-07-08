@@ -170,7 +170,10 @@ describe('Process Definition Detail Page Component', () => {
     vi.useFakeTimers();
   });
 
-  afterEach(() => vi.useRealTimers());
+  afterEach(() => {
+    vi.useRealTimers();
+    vi.restoreAllMocks();
+  });
 
   it('should create', () => {
     expect(component).toBeTruthy();
@@ -433,17 +436,15 @@ describe('Process Definition Detail Page Component', () => {
   });
 
   it('should add suspended tokens to the diagram', () => {
-    const mockDiagramOverlaysUtil = DiagramOverlaysUtil.getInstance(MockViewerService.getNavigatedViewer(), {});
-    vi.spyOn(DiagramOverlaysUtil, 'getInstance').mockReturnValue(mockDiagramOverlaysUtil);
-    const spy = vi.spyOn(mockDiagramOverlaysUtil, 'addSuspendToDiagram');
+    const spyTarget = DiagramOverlaysUtil.getInstance(MockViewerService.getNavigatedViewer(), {});
+    const spy = vi.spyOn(spyTarget, 'addSuspendToDiagram');
     component.jobDefinitions = [
       { activityId: 'activityId1', suspended: true },
       { activityId: 'activityId2', suspended: false },
     ];
-    component.diagramComponent = {
-      navigatedViewer: MockViewerService.getNavigatedViewer(),
-    } as unknown as GenericDiagramSectionViewComponent;
-    component.onDiagramRendered(true);
+    component.diagramRendered = true;
+    component.diagramOverlaysUtil = spyTarget;
+    component.updateJobDefinitionsOverlayOnDiagram();
 
     expect(spy).toHaveBeenCalledWith('activityId1');
     expect(spy).not.toHaveBeenCalledWith('activityId2');
@@ -1071,8 +1072,8 @@ describe('Process Definition Detail Page Component', () => {
 
         vi.spyOn(component, 'updateHeatmapTransform');
         vi.spyOn(component, 'createHeatmap');
-        vi.spyOn(component.heatmapInstance, 'render');
-        vi.spyOn(component.heatmapInstance, 'resize');
+        component.heatmapInstance.render = vi.fn();
+        component.heatmapInstance.resize = vi.fn();
       });
 
       it('should call updateHeatmapTransform when viewbox changes', () => {

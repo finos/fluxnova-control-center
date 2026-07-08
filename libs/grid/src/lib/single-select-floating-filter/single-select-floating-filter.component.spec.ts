@@ -3,6 +3,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ProcessInstanceStatesMap } from '@fxn/types';
 import { ActivatedRoute } from '@angular/router';
 import { of } from 'rxjs';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { SingleSelectFloatingFilterComponent } from './single-select-floating-filter.component';
 
 describe('SingleFloatingFilterComponent', () => {

@@ -101,7 +101,6 @@ describe('IncidentListComponent', () => {
   });
 
   const buildComponent = (routeOverride?: any) => {
-    TestBed.resetTestingModule();
     TestBed.configureTestingModule({
       declarations: [IncidentListComponent, HasPermissionsDirective],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
