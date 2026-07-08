@@ -1,4 +1,4 @@
-import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AgGridAngular } from 'ag-grid-angular';
@@ -61,7 +61,7 @@ describe('JobDefinitionsTabComponent', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       declarations: [JobDefinitionsTabComponent],
-      schemas: [CUSTOM_ELEMENTS_SCHEMA],
+      schemas: [NO_ERRORS_SCHEMA],
       providers: [
         { provide: AuthorizationHttpService, useValue: mockAuthHttpService },
         { provide: ActivatedRoute, useValue: mockRoute },

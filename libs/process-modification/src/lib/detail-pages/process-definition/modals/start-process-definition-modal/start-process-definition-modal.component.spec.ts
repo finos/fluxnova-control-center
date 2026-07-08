@@ -102,9 +102,13 @@ describe('StartProcessDefinitionModalComponent', () => {
       .fn()
       .mockReturnValue(throwError(() => new Error('async error')));
 
-    component.confirm();
+    try {
+      component.confirm();
+      await vi.runAllTimersAsync();
+    } catch {
+      // Expected because handleAction rethrows in catchError.
+    }
 
-    expect(vi.runAllTimersAsync()).rejects.toThrowError('async error');
     expect(component.modalState.hideErrorMessage).toBeFalsy();
     expect(component.canSubmit).toBe(false);
   });

@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BehaviorSubject, of } from 'rxjs';
 import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
-import { beforeEach, describe, expect, it, Mock, vi } from 'vitest';
+import { afterEach, beforeEach, describe, expect, it, Mock, vi } from 'vitest';
 import { AuthorizationHttpService } from '@fxn/common';
 import { provideHttpClient } from '@angular/common/http';
 import { WINDOW } from 'ngx-window-token';
@@ -80,7 +80,7 @@ describe('JobListComponent', () => {
     value: localStorageMock,
   });
 
-  const buildComponent = () => {
+  const buildComponent = (routeOverride?: any) => {
     TestBed.configureTestingModule({
       declarations: [JobListComponent],
       schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
@@ -89,7 +89,7 @@ describe('JobListComponent', () => {
         { provide: AuthorizationHttpService, useValue: mockAuthHttpService },
         { provide: JobService, useValue: mockJobService },
         { provide: Router, useValue: mockRouter },
-        { provide: ActivatedRoute, useValue: mockRoute },
+        { provide: ActivatedRoute, useValue: routeOverride ?? mockRoute },
         { provide: ConfirmActionService, useValue: mockConfirmActionService },
         { provide: WINDOW, useValue: mockWindow },
       ],
@@ -148,19 +148,15 @@ describe('JobListComponent', () => {
 
   describe('when there are query string params', () => {
     it('should use them to load data', async () => {
-      TestBed.overrideProvider(ActivatedRoute, {
-        useValue: {
-          queryParams: of({
-            filters: { suspended: { filterType: 'select', filter: 'active', type: 'equals' } },
-            sorting: [{ colId: 'dueTime', sort: 'asc' }],
-            page: 1,
-            pageSize: 50,
-            toggleFilters: 'withRetriesLeft',
-          }),
-        },
+      buildComponent({
+        queryParams: of({
+          filters: { suspended: { filterType: 'select', filter: 'active', type: 'equals' } },
+          sorting: [{ colId: 'dueTime', sort: 'asc' }],
+          page: 1,
+          pageSize: 50,
+          toggleFilters: 'withRetriesLeft',
+        }),
       });
-
-      buildComponent();
       fixture.detectChanges();
 
       await vi.runAllTimersAsync();

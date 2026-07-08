@@ -1,0 +1,99 @@
+# Workflow: CI/CD for Fluxnova Control Center
+
+name: CI/CD for Fluxnova Control Center
+
+on:
+  push:
+    branches:
+      - main
+      - develop
+      - 'release/**'
+  pull_request:
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.ref == 'refs/heads/main' && format('ci-default-branch-{0}-{1}', github.sha, github.workflow) || format('ci-pr-{0}-{1}', github.ref, github.workflow) }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+  packages: write
+  actions: read
+  pull-requests: write
+  id-token: write
+
+jobs:
+  build:
+    name: Lint & Build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v6
+
+      - name: Set up pnpm and install dependencies
+        uses: ./.github/actions/pnpm-setup
+
+      - name: Generate Fluxnova API client
+        uses: ./.github/actions/generate-client
+
+      - name: Lint & Build
+        uses: ./.github/actions/build-app
+
+  unit-tests:
+    name: Unit Tests
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v6
+
+      - name: Set up pnpm and install dependencies
+        uses: ./.github/actions/pnpm-setup
+
+      - name: Generate Fluxnova API client
+        uses: ./.github/actions/generate-client
+
+      - name: Run unit tests
+        run: TZ=UTC ./node_modules/.bin/nx run-many --target=test --code-coverage --runInBand --silent
+
+  mocked-e2e:
+    name: Mocked E2E Tests
+    runs-on: ubuntu-latest
+    needs: unit-tests
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v6
+
+      - name: Set up pnpm and install dependencies
+        uses: ./.github/actions/pnpm-setup
+
+      - name: Generate Fluxnova API client
+        uses: ./.github/actions/generate-client
+
+      - name: Install Playwright browsers
+        run: npx playwright install --with-deps chromium
+
+      - name: Run mocked E2E tests
+        run: |
+          mkdir -p apps/e2e/.auth
+          npx playwright test -c apps/e2e/playwright.config.ts --project me2e
+
+  docker:
+    name: Build & Push Docker Image
+    runs-on: ubuntu-latest
+    needs: [unit-tests, mocked-e2e]
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v6
+
+      - name: Build and publish Docker image
+        if: startsWith(github.ref, 'refs/heads/release/')
+        uses: ./.github/actions/build-publish-image
+        with:
+          image_name: finos/fluxnova-control-center
+          docker_username: ${{ secrets.DOCKER_USERNAME }}
+          docker_password: ${{ secrets.DOCKER_PASSWORD }}
+          dockerfile_path: ./Dockerfile
+          docker_context: .
+          image_tag: ${{ github.sha }}
+

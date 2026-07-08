@@ -1,0 +1,55 @@
+name: "pnpm Setup"
+description: "Sets up Node.js and pnpm with caching"
+
+runs:
+  using: "composite"
+  steps:
+    - name: Set up Node.js
+      uses: actions/setup-node@v6
+      with:
+        node-version: 24
+
+    - name: Set up pnpm
+      uses: pnpm/action-setup@v6
+      with:
+        version: 10.33.4
+        run_install: false
+
+    - name: Install dependencies
+      shell: bash
+      run: |
+        set -euo pipefail
+
+        install_log="$(mktemp)"
+        trap 'rm -f "$install_log"' EXIT
+
+        if pnpm install --frozen-lockfile 2>&1 | tee "$install_log"; then
+          exit 0
+        fi
+
+        if ! grep -q 'ERR_PNPM_IGNORED_BUILDS' "$install_log"; then
+          exit 1
+        fi
+
+        pnpm approve-builds --all
+        pnpm install --frozen-lockfile
+
+    - name: Get pnpm store directory
+      id: pnpm-cache
+      shell: bash
+      run: echo "store_path=$(pnpm store path --silent)" >> $GITHUB_OUTPUT
+
+    - name: Cache pnpm store
+      uses: actions/cache@v5
+      with:
+        path: ${{ steps.pnpm-cache.outputs.store_path }}
+        key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+        restore-keys: |
+          ${{ runner.os }}-pnpm-store-
+
+    - name: Show versions
+      shell: bash
+      run: |
+        node --version
+        pnpm --version
+

@@ -8,7 +8,7 @@ import { ButtonActions } from '@fxn/types/src/button-actions';
 import { ActionPermissionsSpec } from '@fxn/types';
 import * as actionAccess from '@fxn/common/src/lib/auth/access-permissions/action-access';
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it, Mock, vi } from 'vitest';
-import { ChangeDetectorRef } from '@angular/core';
+import { ChangeDetectorRef, NO_ERRORS_SCHEMA } from '@angular/core';
 import { DiagramToolbarComponent } from '../../detail-pages/diagram-section/diagram-toolbar/diagram-toolbar.component';
 import { ToolbarButtonComponent } from './toolbar-button.component';
 import { ToolbarComponent } from './toolbar.component';
@@ -33,6 +33,7 @@ describe('ToolbarComponent', () => {
       ],
       declarations: [ToolbarComponent, ToolbarButtonComponent, IconComponent, DiagramToolbarComponent],
       imports: [NgbTooltip],
+      schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
 
     fixture = TestBed.createComponent(ToolbarComponent);

@@ -64,14 +64,14 @@ describe('DeploymentListPageComponent', () => {
     value: localStorageMock,
   });
 
-  const buildComponent = () => {
+  const buildComponent = (routeOverride?: any) => {
     TestBed.configureTestingModule({
       schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
       providers: [
         provideHttpClient(),
         { provide: AuthorizationHttpService, useValue: mockAuthHttpService },
         { provide: DeploymentService, useValue: mockDeployment },
-        { provide: ActivatedRoute, useValue: mockRoute },
+        { provide: ActivatedRoute, useValue: routeOverride ?? mockRoute },
         { provide: Router, useValue: mockRouter },
         { provide: ConfirmActionService, useValue: mockConfirmActionService },
         { provide: WINDOW, useValue: mockWindow },
@@ -134,18 +134,14 @@ describe('DeploymentListPageComponent', () => {
 
   describe('when there are query string params', () => {
     it('should use them to load data', async () => {
-      TestBed.overrideProvider(ActivatedRoute, {
-        useValue: {
-          queryParams: of({
-            filters: { name: { filter: 'maker', type: 'contains' } },
-            sorting: [{ colId: 'deploymentTime', sort: 'asc' }],
-            page: 1,
-            pageSize: 50,
-          }),
-        },
+      buildComponent({
+        queryParams: of({
+          filters: { name: { filter: 'maker', type: 'contains' } },
+          sorting: [{ colId: 'deploymentTime', sort: 'asc' }],
+          page: 1,
+          pageSize: 50,
+        }),
       });
-
-      buildComponent();
       fixture.detectChanges();
 
       await vi.runAllTimersAsync();

@@ -107,9 +107,13 @@ export class VariableService {
     const service = isActive ? this.getVariableDataBuffer.bind(this) : this.getHistoricalVariableDataBuffer.bind(this);
 
     service(variable).subscribe(
-      (arrayBuffer) => downloadDataBuffer(arrayBuffer, variable.valueInfo?.filename || variable.name),
+      (arrayBuffer) => this.downloadArrayBuffer(arrayBuffer, variable.valueInfo?.filename || variable.name),
       (err) => throwError(err),
     );
+  }
+
+  protected downloadArrayBuffer(arrayBuffer: ArrayBuffer, fileName: string) {
+    downloadDataBuffer(arrayBuffer, fileName);
   }
 
   protected addScope(variable$: Observable<Variable[]>, pid: string): Observable<Variable[]> {

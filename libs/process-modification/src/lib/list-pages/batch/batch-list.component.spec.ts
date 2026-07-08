@@ -7,7 +7,7 @@ import { cloneDeep } from 'lodash-es';
 import { ModuleRegistry } from 'ag-grid-community';
 import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
 import { ListViewState } from '@fxn/types';
-import { beforeEach, describe, expect, it, Mocked, vi } from 'vitest';
+import { afterEach, beforeEach, describe, expect, it, Mocked, vi } from 'vitest';
 import { WINDOW } from 'ngx-window-token';
 import { AG_GRID_MODULES } from '@fxn/grid';
 import { ConfirmActionService } from '../../services/confirm-action.service';
@@ -97,7 +97,7 @@ describe('BatchListPageComponent', () => {
     value: localStorageMock,
   });
 
-  const buildComponent = () => {
+  const buildComponent = (routeOverride?: any) => {
     TestBed.configureTestingModule({
       imports: [],
       declarations: [BatchListComponent],
@@ -108,7 +108,7 @@ describe('BatchListPageComponent', () => {
         { provide: ConfirmActionService, useValue: mockConfirmActionService },
         { provide: ConfirmModalService, useValue: mockConfirm },
         { provide: JobService, useValue: mockJobService },
-        { provide: ActivatedRoute, useValue: mockRoute },
+        { provide: ActivatedRoute, useValue: routeOverride ?? mockRoute },
         { provide: Router, useValue: mockRouter },
         { provide: BatchService, useValue: mockBatchService },
         { provide: ToastService, useValue: mockToastService },
@@ -177,18 +177,14 @@ describe('BatchListPageComponent', () => {
 
   describe('when there are query string params', () => {
     it('should use them to load data', async () => {
-      TestBed.overrideProvider(ActivatedRoute, {
-        useValue: {
-          queryParams: of({
-            filters: { suspended: { filterType: 'select', filter: 'active', type: 'equals' } },
-            sorting: [{ colId: 'startTime', sort: 'desc' }],
-            page: 1,
-            pageSize: 50,
-          }),
-        },
+      buildComponent({
+        queryParams: of({
+          filters: { suspended: { filterType: 'select', filter: 'active', type: 'equals' } },
+          sorting: [{ colId: 'startTime', sort: 'desc' }],
+          page: 1,
+          pageSize: 50,
+        }),
       });
-
-      buildComponent();
       fixture.detectChanges();
 
       await vi.runAllTimersAsync();

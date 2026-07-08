@@ -100,14 +100,14 @@ describe('IncidentListComponent', () => {
     value: localStorageMock,
   });
 
-  const buildComponent = () => {
+  const buildComponent = (routeOverride?: any) => {
     TestBed.configureTestingModule({
       declarations: [IncidentListComponent, HasPermissionsDirective],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
       imports: [NgbTooltip],
       providers: [
         provideHttpClientTesting(),
-        { provide: ActivatedRoute, useValue: mockRoute },
+        { provide: ActivatedRoute, useValue: routeOverride ?? mockRoute },
         { provide: AuthorizationHttpService, useValue: mockAuthHttpService },
         { provide: IncidentService, useValue: mockIncidentService },
         { provide: ConfirmActionService, useValue: mockConfirmActionService },
@@ -166,18 +166,19 @@ describe('IncidentListComponent', () => {
 
   describe('when there are query string params', () => {
     it('should use them to load data', async () => {
-      TestBed.overrideProvider(ActivatedRoute, {
-        useValue: {
-          queryParams: of({
-            filters: { status: { filter: 'open', type: 'equals' } },
-            sorting: [{ colId: 'activityId', sort: 'asc' }],
-            page: 2,
-            pageSize: 150,
-          }),
+      buildComponent({
+        queryParams: of({
+          filters: { status: { filter: 'open', type: 'equals' } },
+          sorting: [{ colId: 'activityId', sort: 'asc' }],
+          page: 2,
+          pageSize: 150,
+        }),
+        snapshot: {
+          params: {
+            tenant: 'test-tenant-id',
+          },
         },
       });
-
-      buildComponent();
       fixture.detectChanges();
 
       await vi.runAllTimersAsync();

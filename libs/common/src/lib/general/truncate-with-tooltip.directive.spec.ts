@@ -1,7 +1,7 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { ElementRef } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
-import { TruncateWithTooltipDirective } from './truncate-with-tooltip.directive';
+import { NgbTooltip } from '@ng-bootstrap/ng-bootstrap';
 
 vi.mock('@ng-bootstrap/ng-bootstrap', () => ({
   NgbTooltip: class {
@@ -11,8 +11,18 @@ vi.mock('@ng-bootstrap/ng-bootstrap', () => ({
   },
 }));
 
+import { TruncateWithTooltipDirective } from './truncate-with-tooltip.directive';
+
 describe('TruncateWithTooltipDirective', () => {
   let directive: TruncateWithTooltipDirective;
+  const mockTooltipDirective = {
+    ngOnInit: vi.fn(),
+    ngOnDestroy: vi.fn(),
+    ngbTooltip: 'this should be overridden by the directive',
+    placement: 'auto',
+    container: 'body',
+    openDelay: 500,
+  } as unknown as NgbTooltip;
 
   const mockElementRef = {
     nativeElement: {
@@ -24,9 +34,14 @@ describe('TruncateWithTooltipDirective', () => {
 
   beforeEach(() => {
     vi.useFakeTimers();
+    mockTooltipDirective.ngbTooltip = 'this should be overridden by the directive';
 
     TestBed.configureTestingModule({
-      providers: [TruncateWithTooltipDirective, { provide: ElementRef, useValue: mockElementRef }],
+      providers: [
+        TruncateWithTooltipDirective,
+        { provide: ElementRef, useValue: mockElementRef },
+        { provide: NgbTooltip, useValue: mockTooltipDirective },
+      ],
     });
 
     directive = TestBed.inject(TruncateWithTooltipDirective);

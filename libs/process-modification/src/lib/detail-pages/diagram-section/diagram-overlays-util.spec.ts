@@ -25,7 +25,10 @@ describe('The diagram overlays utility', () => {
     vi.useFakeTimers();
   });
 
-  afterEach(() => vi.useRealTimers());
+  afterEach(() => {
+    vi.useRealTimers();
+    vi.restoreAllMocks();
+  });
 
   it('should generate token symbol', () => {
     const circle = component.getTokenSvg('1234', 10, 'red', 'red', 'activeToken');
