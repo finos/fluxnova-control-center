@@ -81,6 +81,7 @@ export default defineConfig({
         storageState: FXN_DESIGNER_STORAGE_STATE,
       },
       retries: 2,
+      workers: 1,
     },
   ],
 
