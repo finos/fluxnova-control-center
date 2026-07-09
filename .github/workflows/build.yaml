@@ -44,36 +44,8 @@ jobs:
       - name: Lint & Build
         uses: ./.github/actions/build-app
 
-  unit-tests:
-    name: Unit Tests
-    runs-on: ubuntu-latest
-    needs: build
-    steps:
-      - name: Checkout repo
-        uses: actions/checkout@v6
-
-      - name: Set up pnpm and install dependencies
-        uses: ./.github/actions/pnpm-setup
-
-      - name: Generate Fluxnova API client
-        uses: ./.github/actions/generate-client
-
       - name: Run unit tests
         run: TZ=UTC ./node_modules/.bin/nx run-many --target=test --code-coverage --runInBand --silent
-
-  mocked-e2e:
-    name: Mocked E2E Tests
-    runs-on: ubuntu-latest
-    needs: unit-tests
-    steps:
-      - name: Checkout repo
-        uses: actions/checkout@v6
-
-      - name: Set up pnpm and install dependencies
-        uses: ./.github/actions/pnpm-setup
-
-      - name: Generate Fluxnova API client
-        uses: ./.github/actions/generate-client
 
       - name: Install Playwright browsers
         run: npx playwright install --with-deps chromium
@@ -82,14 +54,6 @@ jobs:
         run: |
           mkdir -p apps/e2e/.auth
           npx playwright test -c apps/e2e/playwright.config.ts --project me2e
-
-  docker:
-    name: Build & Push Docker Image
-    runs-on: ubuntu-latest
-    needs: [unit-tests, mocked-e2e]
-    steps:
-      - name: Checkout repo
-        uses: actions/checkout@v6
 
       - name: Extract version from branch
         id: version
@@ -107,4 +71,3 @@ jobs:
           dockerfile_path: ./Dockerfile
           docker_context: .
           image_tag: ${{ steps.version.outputs.version_tag }}
-
