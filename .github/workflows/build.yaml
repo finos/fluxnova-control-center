@@ -29,7 +29,7 @@ permissions:
 
 jobs:
   build:
-    name: Lint & Build
+    name: Build & Test
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repo
