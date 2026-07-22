@@ -79,6 +79,7 @@ export default defineConfig({
       use: {
         ...devices['Desktop Chrome'],
         storageState: FXN_DESIGNER_STORAGE_STATE,
+        ignoreHTTPSErrors: true,
       },
       retries: 2,
       workers: 1,
