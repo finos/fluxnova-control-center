@@ -26,3 +26,5 @@ minimumReleaseAgeExclude:
   - vite@7.3.2
   # Renovate security update: @opentelemetry/auto-instrumentations-node@0.75.0
   - "@opentelemetry/auto-instrumentations-node@0.75.0"
+  # Renovate security update: webpack-dev-server@5.2.6
+  - webpack-dev-server@5.2.6
