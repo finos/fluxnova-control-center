@@ -3,13 +3,18 @@
 set -euo pipefail
 umask 077
 
-certPath="apps/server/cert"
-domain="fluxnova.finos.local"
+# Unified certificate configuration for both Keycloak and Control Center
+domain="localhost"
+certName="fluxnova-local"
+sans="DNS:localhost,DNS:host.docker.internal,DNS:keycloak,IP:127.0.0.1"
 locality="Burlingame"
 org="FINOS"
+state="CA"
+country="US"
 outDir="."
+certPath="docker/certs"
 
-# Parse named arguments
+# Parse arguments
 while [[ "$#" -gt 0 ]]; do
   case $1 in
     --outDir)
@@ -21,26 +26,54 @@ while [[ "$#" -gt 0 ]]; do
       shift 2
       ;;
     --help)
-      echo "Usage: $0 [--outDir <path>]"
+      cat << EOF
+Usage: $0 [--outDir <path>]
+
+Generates a unified self-signed certificate for both Keycloak and Control Center.
+
+Options:
+  --outDir <path>    Root output directory (default: .)
+
+Certificate Details:
+  - Common Name: localhost
+  - Output filename: fluxnova-local
+  - Subject Alternative Names: DNS:localhost, DNS:host.docker.internal, DNS:keycloak, IP:127.0.0.1
+  - Output path: <outDir>/docker/certs/
+
+EOF
       exit 0
       ;;
     *)
       echo "Unknown option: $1"
-      echo "Usage: $0 [--outDir <path>]"
+      echo "Run with --help for usage information."
       exit 1
       ;;
   esac
 done
 
-echo "Using path: $outDir/$certPath"
-mkdir -p "$outDir/$certPath"
+fullPath="$outDir/$certPath"
+
+echo "Generating unified certificate for both Keycloak and Control Center..."
+echo "Output path: $fullPath/$certName.{crt,key}"
+echo ""
+
+mkdir -p "$fullPath"
 openssl version
-# Generate unencrypted private key
-echo "Generating unencrypted private key..."
-openssl genrsa -out "$outDir/$certPath/$domain.key" 2048
-# Generate CSR
-echo "Generating certificate signing request..."
-openssl req -new -key "$outDir/$certPath/$domain.key" -out "$outDir/$certPath/$domain.csr" -subj "/C=US/ST=CA/L=$locality/O=$org/OU=./CN=$domain"
-# Generate self-signed certificate
-echo "Generating self-signed certificate..."
-openssl x509 -req -in "$outDir/$certPath/$domain.csr" -signkey "$outDir/$certPath/$domain.key" -out "$outDir/$certPath/$domain.crt"
+
+# Generate private key and self-signed certificate with SANs in one step
+echo "Generating private key and self-signed certificate..."
+openssl req -x509 -newkey rsa:2048 -nodes \
+  -keyout "$fullPath/$certName.key" \
+  -out "$fullPath/$certName.crt" \
+  -days 365 \
+  -subj "/C=$country/ST=$state/L=$locality/O=$org/OU=./CN=$domain" \
+  -addext "subjectAltName=$sans"
+
+
+echo ""
+echo "✅ Certificate generated successfully!"
+echo "   Key:  $fullPath/$certName.key"
+echo "   Cert: $fullPath/$certName.crt"
+echo ""
+echo "To view certificate details:"
+echo "  openssl x509 -in $fullPath/$certName.crt -text -noout"

@@ -1,0 +1,77 @@
+services:
+  keycloak:
+    image: ${DOCKER_REGISTRY:-docker.io}/keycloak/keycloak:latest
+    command: start-dev --import-realm
+    environment:
+      KEYCLOAK_ADMIN: admin
+      KEYCLOAK_ADMIN_PASSWORD: "${KEYCLOAK_ADMIN_PASSWORD:-admin}"
+      # Keep issuer/public endpoints stable for both browser and containers.
+      KC_HOSTNAME: localhost
+      KC_HOSTNAME_PORT: 8443
+      KC_HOSTNAME_STRICT: false
+      KC_HTTP_ENABLED: false
+      KC_HTTPS_CERTIFICATE_FILE: /etc/x509/https/keycloak.crt
+      KC_HTTPS_CERTIFICATE_KEY_FILE: /etc/x509/https/keycloak.key
+    ports:
+      - "8443:8443"
+    volumes:
+      - ./keycloak/realm-export.json:/opt/keycloak/data/import/realm-export.json:ro
+      - ./certs/fluxnova-local.crt:/etc/x509/https/keycloak.crt:ro
+      - ./certs/fluxnova-local.key:/etc/x509/https/keycloak.key:ro
+
+  bpm-platform:
+    image: ${DOCKER_REGISTRY:-docker.io}/finos/fluxnova-bpm-platform:latest
+    pull_policy: always
+    depends_on:
+      - keycloak
+    environment:
+      FLUXNOVA_BPM_AUTH_ENABLED: true
+      FLUXNOVA_BPM_AUTH_TYPE: jwt
+      FLUXNOVA_BPM_JWT_JWKS_URL: "https://keycloak:8443/realms/fluxnova/protocol/openid-connect/certs"
+      FLUXNOVA_BPM_JWT_ISSUER: "https://localhost:8443/realms/fluxnova"
+      FLUXNOVA_BPM_JWT_AUDIENCE: "fluxnova-control-center"
+      FLUXNOVA_BPM_JWT_HEADER_NAME: "x-fxn-identity-token"
+      FLUXNOVA_BPM_JWT_HEADER_PREFIX: ""
+      FLUXNOVA_BPM_JWT_USER_CLAIM_NAME: "preferred_username"
+      FLUXNOVA_BPM_JWT_GROUPS_CLAIM_NAME: "groups"
+    volumes:
+      - ./certs/fluxnova-local.crt:/fluxnova/certs/fluxnova-local.crt:ro
+    ports:
+      - "8080:8080"
+
+  control-center:
+    image: ${DOCKER_REGISTRY:-docker.io}/finos/fluxnova-control-center:latest
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        DOCKER_REGISTRY: ${DOCKER_REGISTRY:-docker.io}
+        ALPINE_REGISTRY: ${ALPINE_REGISTRY:-https://dl-cdn.alpinelinux.org/alpine}
+    depends_on:
+      - bpm-platform
+      - keycloak
+    environment:
+      FXN_AUTH_STRATEGY: oidc
+      FXN_LOG_LEVEL: warn
+      FXN_REST_API_URL: "http://bpm-platform:8080/engine-rest"
+      FXN_PUBLIC_URL: "https://localhost:4000"
+      FXN_OIDC_AUTHORITY: "https://keycloak:8443/realms/fluxnova"
+      # The AUTH_URL is used for browser redirects, so it must be reachable from the browser, which is why it uses localhost and not keycloak.
+      FXN_OIDC_AUTH_URL: "https://localhost:8443/realms/fluxnova/protocol/openid-connect/auth"
+      FXN_OIDC_CLIENT_ID: "fluxnova-control-center"
+      FXN_OIDC_CLIENT_SECRET: "control-center-secret"
+      # JWT iss claim validation — must match KC_HOSTNAME localhost:8443 (Keycloak puts localhost in the token)
+      FXN_OIDC_ISSUER: "https://localhost:8443/realms/fluxnova"
+      FXN_OIDC_TOKEN_URL: "https://keycloak:8443/realms/fluxnova/protocol/openid-connect/token"
+      FXN_OIDC_USERINFO_URL: "https://keycloak:8443/realms/fluxnova/protocol/openid-connect/userinfo"
+      # Clear proxies if there are any set in the environment, as they can interfere with the internal container networking.
+      http_proxy:
+      HTTP_PROXY:
+      https_proxy:
+      HTTPS_PROXY:
+      NODE_TLS_REJECT_UNAUTHORIZED: "${NODE_TLS_REJECT_UNAUTHORIZED:-0}"
+    volumes:
+      - ./certs/fluxnova-local.crt:/app/server/cert/fluxnova.finos.local.crt:ro
+      - ./certs/fluxnova-local.key:/app/server/cert/fluxnova.finos.local.key:ro
+    ports:
+      - "4000:4000"
