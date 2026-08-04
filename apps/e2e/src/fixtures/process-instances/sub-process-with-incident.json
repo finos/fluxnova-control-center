@@ -1,0 +1,23 @@
+[
+  {
+    "id": "2e75d495-476f-11ee-a2d5-0e8c5913822b",
+    "businessKey": null,
+    "processDefinitionId": "ad45f701-ee93-11ed-9b96-0a81d7d98f19",
+    "processDefinitionKey": "fluxnova_automation_sub_process_with_incident",
+    "processDefinitionName": "Fluxnova UI Automation - sub process with incident",
+    "processDefinitionVersion": 2,
+    "startTime": "2023-08-30T15:55:34.148-0400",
+    "endTime": null,
+    "removalTime": null,
+    "durationInMillis": null,
+    "startUserId": "usr1234",
+    "startActivityId": "StartEvent_1",
+    "deleteReason": null,
+    "rootProcessInstanceId": "2e75d495-476f-11ee-a2d5-0e8c5913822b",
+    "superProcessInstanceId": null,
+    "superCaseInstanceId": null,
+    "caseInstanceId": null,
+    "tenantId": null,
+    "state": "ACTIVE"
+  }
+]

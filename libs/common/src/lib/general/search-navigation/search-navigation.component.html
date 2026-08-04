@@ -1,0 +1,36 @@
+<ng-select
+  #searchInput
+  class="search"
+  (click)="$event.stopPropagation()"
+  [items]="results"
+  bindValue="id"
+  [(ngModel)]="value"
+  [loading]="isLoading"
+  [typeahead]="update$"
+  (clear)="value = ''"
+  (change)="change($event)"
+>
+  <ng-template ng-option-tmp let-item="item">
+    @if (definitionResults.length) {
+      <span> <b>Definition:</b> {{ item.name }} </span>
+    }
+    @if (instanceResults.length) {
+      <span> <b>Instance:</b> {{ item.processDefinitionName }} </span>
+    }
+    @if (jobResults.length) {
+      <span> <b>Job:</b> {{ item.id }} </span>
+    }
+    @if (incidentResults.length) {
+      <span> <b>Incident:</b> {{ item.id }} </span>
+    }
+    @if (batchResults.length) {
+      <span> <b>Batch:</b> {{ item.id }} </span>
+    }
+    @if (deploymentResults.length) {
+      <span> <b> Deployment:</b> {{ item.name }} </span>
+    }
+    @if (decisionDefinitionResults.length) {
+      <span> <b> Decision:</b> {{ item.name }} </span>
+    }
+  </ng-template>
+</ng-select>

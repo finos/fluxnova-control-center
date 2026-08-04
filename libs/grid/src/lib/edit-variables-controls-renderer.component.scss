@@ -1,0 +1,16 @@
+.ag-row [col-id='editDelete'] {
+  display: none;
+}
+
+.ag-row.ag-row-hover [col-id='editDelete'] {
+  display: inline;
+  text-align: center;
+}
+
+.ag-header-cell[col-id='editDelete'] .ag-header-cell-resize {
+  display: none;
+}
+
+.edit-variable-button {
+  margin-left: 2px;
+}

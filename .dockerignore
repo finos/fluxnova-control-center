@@ -1,0 +1,7 @@
+#the image uses only dist and scripts so everything else is ignored
+**
+!.npmrc
+!package.json
+!pnpm-lock.yaml
+!dist/apps/
+!scripts/

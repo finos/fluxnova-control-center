@@ -1,0 +1,165 @@
+// These are the ng-select variables.
+// Overriding to set our defaults, and make overriding via the theme easier.
+$ng-select-highlight: map-get($theme-colors, 'light') !default;
+$ng-select-primary-text: $color-text-standard !default;
+$ng-select-disabled-text: map-get($theme-colors, 'secondary') !default;
+$ng-select-border: $color-neutral-700 !default;
+$ng-select-bg: map-get($theme-colors, 'white') !default;
+$ng-select-selected: $color-neutral-700 !default;
+$ng-select-marked: darken($ng-select-highlight, 5) !default;
+$ng-select-placeholder: lighten($ng-select-primary-text, 40) !default;
+$ng-select-multi-value-text: $ng-select-primary-text !default;
+$ng-select-clear: map-get($theme-colors, 'primary') !default;
+
+@import '@ng-select/ng-select/scss/default.theme';
+@import '../fonts/fluxnova-icon-font.css';
+
+.ng-select.ng-select-single,
+.ng-select.ng-select-multiple {
+  .ng-value,
+  .ng-dropdown-panel .ng-dropdown-panel-items .ng-option {
+    color: $ng-select-primary-text;
+
+    &.ng-option-selected.ng-option-marked,
+    &.ng-option.ng-option-selected {
+      background: $ng-select-selected;
+    }
+
+    &.ng-option-disabled {
+      color: $ng-select-dropdown-option-disabled;
+    }
+  }
+
+  &.ng-select-multiple {
+    .ng-select-container .ng-value-container .ng-value {
+      color: $ng-select-multi-value-text;
+      background: $color-blue-300;
+
+      .ng-value-icon.right {
+        border-left-color: $color-neutral-600;
+
+        &:hover,
+        &:hover::after {
+          color: map-get($theme-colors, 'dark');
+          background: $color-blue-300;
+        }
+      }
+    }
+  }
+
+  .ng-clear-wrapper {
+    width: 10px;
+    margin-left: 6px;
+  }
+
+  .ng-clear-wrapper .ng-clear {
+    display: none;
+  }
+
+  .ng-clear-wrapper::after,
+  .ng-value-icon.right::after {
+    font-size: 10px;
+    color: $ng-select-clear;
+    font-family: 'fluxnova-icon-font', sans-serif;
+    content: '\f107';
+  }
+
+  &.ng-select-opened > .ng-select-container .ng-arrow-wrapper::after {
+    font-family: 'fluxnova-icon-font', sans-serif;
+    content: '\f104';
+    color: map-get($theme-colors, 'primary');
+  }
+
+  .ng-arrow-wrapper {
+    width: 16px;
+    padding-right: 0;
+    margin-left: 6px;
+  }
+
+  .ng-arrow-wrapper .ng-arrow {
+    display: none;
+  }
+
+  .ng-arrow-wrapper::after {
+    display: block;
+    border: none;
+    font-family: 'fluxnova-icon-font', sans-serif;
+    content: '\f103';
+    color: map-get($theme-colors, 'primary');
+  }
+
+  input {
+    color: $ng-select-primary-text;
+    font-size: 14px;
+  }
+
+  .ng-select-container {
+    @extend .rounded;
+    border-color: $color-neutral-800 !important;
+    padding-right: 10px;
+  }
+
+  &.ng-select-focused:not(.ng-select-opened) > .ng-select-container,
+  &.ng-select-opened > .ng-select-container,
+  :not(.ng-select-disabled) .ng-select-container:hover,
+  :not(.ng-select-disabled) .ng-select-container:focus,
+  :not(.ng-select-disabled) .ng-select-container:active {
+    border-width: 2px !important;
+    box-shadow: none;
+
+    .ng-value-container {
+      margin-left: -1px;
+    }
+
+    .ng-arrow-wrapper {
+      margin-right: -1px;
+    }
+  }
+}
+
+.ng-dropdown-panel .ng-dropdown-panel-items .ng-option {
+  padding: 4px 8px;
+}
+
+ng-dropdown-panel.ng-dropdown-panel:not(.fixed-width-dropdown) {
+  width: auto !important;
+  max-width: 400px;
+  min-width: 100%;
+}
+
+// when the select options are not appended to the body,
+// the above rule (for NOT fixed width dropdowns) will get applied to a fixed width dropdown, making this second override necessary
+ng-select.fixed-width-dropdown ng-dropdown-panel.ng-dropdown-panel {
+  width: 100% !important;
+}
+
+// still necessary because we do not have access to the border class in the element scss
+// fluxnova-user-select {
+.ng-select-container {
+  @extend .border;
+}
+
+// }
+
+.ng-select.ng-select-disabled .ng-arrow-wrapper {
+  display: none;
+}
+
+ng-select.ng-select-disabled > .ng-select-container,
+ng-select.ng-select-disabled.ng-select.ng-select-single > .ng-select-container {
+  @extend .bg-neutral-375;
+  border-color: $color-neutral-750 !important;
+  box-shadow: none;
+}
+
+// Change the background color for the multi-select-floating-filter when disabled
+.ng-select-container .ng-value-container .ng-input > input:disabled {
+  color: #000 !important;
+  background-color: rgb(var(--bs-neutral-375-rgb) / 0) !important;
+}
+
+// Change the border color for the multi-select-floating-filter when disabled
+.ng-select-container:has(.ng-value-container .ng-input > input:disabled) {
+  border-color: $color-neutral-750 !important;
+  box-shadow: none;
+}

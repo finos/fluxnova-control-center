@@ -1,0 +1,29 @@
+<div class="tab-panel">
+  <nav class="tabs">
+    <ul class="tab-list bg-white">
+      @for (tabName of tabs; track tabName; let isFirst = $first) {
+        <li
+          class="tab"
+          (click)="activeTabsChange.emit(tabName)"
+          [attr.data-tab]="tabName"
+          (mouseenter)="hoveredTab = tabName"
+          (mouseleave)="hoveredTab = null"
+          [ngClass]="{
+            'tab-border-bottom': activeTab === tabName,
+            'border-secondary text-standard': activeTab === tabName,
+            'border-dark': hoveredTab === tabName && activeTab !== tabName,
+            'text-primary': activeTab !== tabName,
+            'first-tab': isFirst,
+          }"
+        >
+          <div class="tab-name fs-10">
+            {{ tabName | tabsViewNameFormatterPipe: enforceCapitalCase : tabCounts[tabName] }}
+          </div>
+        </li>
+      }
+    </ul>
+  </nav>
+  <div class="tab-content">
+    <ng-content></ng-content>
+  </div>
+</div>

@@ -1,0 +1,13 @@
+#!/bin/sh
+
+#
+# Lint staged changes
+#
+
+pnpm lint-staged
+
+#
+# Remove tarball URLs from pnpm-lock.yaml
+#
+
+bash scripts/remove-tarball-urls.sh

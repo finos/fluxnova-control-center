@@ -1,6 +1,32 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": [
-    "config:recommended"
+  "extends": ["config:recommended"],
+  "dependencyDashboardApproval": false,
+  "enabledManagers": ["npm"],
+  "major": {
+    "dependencyDashboardApproval": true
+  },
+  "packageRules": [
+    {
+      "description": "preserve semver ranges",
+      "matchPackageNames": ["*"],
+      "rangeStrategy": "replace"
+    },
+    {
+      "automerge": true,
+      "groupName": "all patch updates",
+      "description": "Combine all patch updates into a single pr and automerge",
+      "matchUpdateTypes": ["patch"]
+    },
+    {
+      "matchPackageNames": ["/@nx/"],
+      "enabled": false,
+      "description": "Disable all updates for @nx. These are too complex to update automatically."
+    },
+    {
+      "matchPackageNames": ["/@angular/"],
+      "major": false,
+      "description": "Disable major version updates for @angular since we expect nx to update it for us."
+    }
   ]
 }

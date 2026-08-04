@@ -1,0 +1,29 @@
+.modal-header {
+  border: none;
+  padding-bottom: 0;
+}
+
+.modal-header .btn {
+  padding: 16px;
+}
+
+.modal-body {
+  display: grid;
+  gap: 15px;
+
+  padding: 20px 32px;
+  text-align: center;
+}
+
+.modal-footer {
+  justify-content: center;
+  padding-bottom: 27px;
+}
+
+.modal-footer .btn {
+  margin: 8px;
+}
+
+.warning {
+  color: red;
+}

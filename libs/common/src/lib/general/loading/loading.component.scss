@@ -1,0 +1,19 @@
+.loading-background:before {
+  content: '';
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.app-loading {
+  height: 200px;
+  width: 200px;
+  position: absolute;
+  top: calc(50% - 100px);
+  left: calc(50% - 100px);
+  z-index: 99;
+  overflow: hidden;
+}

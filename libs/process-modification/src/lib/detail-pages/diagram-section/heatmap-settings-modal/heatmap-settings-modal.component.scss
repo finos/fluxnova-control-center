@@ -1,0 +1,52 @@
+@import '@fxn/common/src/lib/animations/animations.css';
+
+$heatmap-border-gray: #b7b7b7;
+
+.heatmap-modal-tab {
+  display: flex;
+  width: 100%;
+  height: 25px;
+  border-left: 1px solid $heatmap-border-gray;
+  border-bottom: 1px solid $heatmap-border-gray;
+  border-right: 1px solid $heatmap-border-gray;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+  background-color: white;
+  justify-content: center;
+  align-items: center;
+}
+
+.heatmap-modal-tab-open {
+  border-top: 1px solid $heatmap-border-gray;
+}
+
+.heatmap-modal-content {
+  border-left: 1px solid $heatmap-border-gray;
+  border-right: 1px solid $heatmap-border-gray;
+  background-color: white;
+  overflow: hidden;
+}
+
+.heatmap-modal-container {
+  width: 175px;
+  overflow: hidden;
+}
+
+.ng-select ::ng-deep {
+  .ng-select-container {
+    min-height: 1.75rem;
+    height: 1.75rem;
+    font-size: 0.875rem;
+  }
+
+  .ng-select-container .ng-value-container .ng-input > input {
+    display: none;
+  }
+}
+
+#update {
+  min-height: 2rem;
+  height: 2rem;
+  padding: 0;
+  align-self: center;
+}

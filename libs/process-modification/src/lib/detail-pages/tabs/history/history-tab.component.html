@@ -1,0 +1,46 @@
+<ng-container *fluxnovaLoading="isLoading">
+  <fluxnova-tab-actions-floating-container
+    [showResetGridButton]="showResetGridButton"
+    (resetGridClicked)="onResetGridClick()"
+  />
+  <div class="header border-top">
+    <b class="fs-10">Filter on History Type: </b>
+    <fluxnova-multi-select
+      class="d-inline-block custom"
+      [selectedArray]="selectedHistoryTypes"
+      [options]="historyTypeOptions"
+      placeholder="All"
+      [defaultSelected]="false"
+      (multiSelectionChange)="onApiTypeChange($event)"
+      appendTo="body"
+      size="small"
+      [dropdownPosition]="'bottom'"
+    ></fluxnova-multi-select>
+  </div>
+  <fluxnova-items-table
+    data-table-role="result"
+    [items]="data"
+    [filters]="filters"
+    [sorting]="sorting"
+    [overlayNoRowsTemplate]="overlayNoRowsTemplate"
+    [isLoading]="isLoading"
+    [isRowSelectable]="isRowSelectable"
+    [checkboxes]="false"
+    [rowSelectionType]="'singleRow'"
+    [listViewState]="listViewState"
+    (gridReady)="onGridReady()"
+    (columnHeaderSortChange)="onSortChanged($event)"
+    (columnHeaderFilterChange)="onFilterChanged($event)"
+    (rowClicked)="onRowClick($event)"
+    (firstDataRendered)="onFirstDataRendered()"
+    (listViewStateChange)="columnPrefsUpdated($event)"
+    [rowClassRules]="rowClassRules()"
+  >
+  </fluxnova-items-table>
+</ng-container>
+
+<ng-template #optionTemplate let-item="item">
+  <div>
+    {{ item.label }}
+  </div>
+</ng-template>

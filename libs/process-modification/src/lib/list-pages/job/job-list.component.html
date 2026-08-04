@@ -1,0 +1,97 @@
+<div class="items-list-view list-item-type-job">
+  <div class="items-list-view-header global-header">
+    <div class="header-label">Jobs</div>
+    <div class="toolbar bulk-actions">
+      <div class="toolbar-actions toolbar-section-left">
+        <button
+          id="activate"
+          class="btn action-btn"
+          ngbTooltip="Activate"
+          triggers="hover"
+          [disabled]="!canActivate()"
+          (click)="activate()"
+          *fluxnovaHasPermissions="'ActivateJob'"
+        >
+          <fluxnova-icon iconName="play" class="fs-8"></fluxnova-icon>
+        </button>
+        <button
+          class="btn action-btn"
+          id="suspend"
+          ngbTooltip="Suspend"
+          triggers="hover"
+          [disabled]="!canSuspend()"
+          (click)="suspend()"
+          *fluxnovaHasPermissions="'SuspendJob'"
+        >
+          <fluxnova-icon iconName="pause" class="fs-8"></fluxnova-icon>
+        </button>
+        <button
+          class="btn action-btn"
+          id="retry"
+          ngbTooltip="Set Retry Count"
+          triggers="hover"
+          [disabled]="!canRetry()"
+          (click)="retry()"
+          *fluxnovaHasPermissions="'SetJobRetryCount'"
+        >
+          <fluxnova-icon iconName="retry" class="fs-8"></fluxnova-icon>
+        </button>
+        <button
+          class="btn btn-primary action-btn"
+          id="delete"
+          ngbTooltip="Delete"
+          triggers="hover"
+          [disabled]="!canDelete()"
+          (click)="delete()"
+          *fluxnovaHasPermissions="'DeleteJob'"
+        >
+          <fluxnova-icon iconName="trash-filled" class="fs-8"></fluxnova-icon>
+        </button>
+        <button
+          class="btn action-btn"
+          id="due-date"
+          ngbTooltip="Change Due Date"
+          triggers="hover"
+          [disabled]="!canChangeDueDate()"
+          (click)="changeDueDate()"
+          *fluxnovaHasPermissions="'ChangeJobDueDate'"
+        >
+          <fluxnova-icon iconName="due-date" class="fs-8"></fluxnova-icon>
+        </button>
+      </div>
+      <fluxnova-toggle-filters
+        class="toolbar-actions d-flex align-items-center"
+        (resetToggles)="resetColumns()"
+        (selectToggle)="selectToggleFilter($event)"
+        [toggleFilters]="toggleFilters"
+        [isResetVisible]="hasFilterOrSortDeviatedFromDefault || hasListViewStateDeviatedFromDefault"
+      >
+      </fluxnova-toggle-filters>
+    </div>
+  </div>
+
+  <fluxnova-items-table
+    #itemsTable
+    data-table-role="result"
+    [items]="data"
+    [filters]="filters"
+    [sorting]="sorting"
+    (columnHeaderSortChange)="selectHeaderSort($event)"
+    (columnHeaderFilterChange)="selectFilter($event)"
+    (listViewStateChange)="columnPrefsUpdated($event)"
+    (itemsSelectChange)="selectedRows = $event"
+    [isLoading]="isLoading"
+    [listViewState]="listViewState"
+    [checkboxes]="anyButtonVisible"
+    [rowSelectionType]="anyButtonVisible ? 'multiRow' : 'singleRow'"
+    [rowClickSelection]="true"
+  >
+  </fluxnova-items-table>
+  <fluxnova-ag-pagination
+    class="border-top align-items-center px-3"
+    [totalItems]="totalCount"
+    [loading]="isLoading"
+    (paginationChanged)="paginationSubject$.next({ page: $event.page, pageSize: $event.pageSize })"
+  >
+  </fluxnova-ag-pagination>
+</div>

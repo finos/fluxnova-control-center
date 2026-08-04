@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:fluxnova="http://fluxnova.finos.org/schema/1.0/bpmn" xmlns:modeler="http://fluxnova.finos.org/schema/modeler/1.0" id="Definitions_1" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Fluxnova Modeler" exporterVersion="1.2.0" modeler:executionPlatform="Fluxnova Platform" modeler:executionPlatformVersion="2.0.0">
+  <bpmn:process id="fluxnova_automation_versioned_process" name="Fluxnova UI Automation - Versioned Process" isExecutable="true" camunda:historyTimeToLive="7">
+    <bpmn:startEvent id="StartEvent_1" camunda:formKey="{   &#34;components&#34;: [     {       &#34;label&#34;: &#34;Text Field&#34;,       &#34;key&#34;: &#34;textField&#34;,       &#34;type&#34;: &#34;textfield&#34;,       &#34;input&#34;: true,       &#34;tableView&#34;: true     },     {       &#34;label&#34;: &#34;Associate&#34;,       &#34;tableView&#34;: true,       &#34;key&#34;: &#34;associateId&#34;,       &#34;logic&#34;: [         {           &#34;name&#34;: &#34;on change get associate&#34;,           &#34;trigger&#34;: {             &#34;type&#34;: &#34;event&#34;,             &#34;event&#34;: &#34;change&#34;           },           &#34;actions&#34;: [             {               &#34;name&#34;: &#34;get associate name&#34;,               &#34;type&#34;: &#34;customAction&#34;,               &#34;customAction&#34;: &#34;if (data &#38;&#38; data.associate &#38;&#38; data.associate.id !== data.associateId) {\n  delete data.associate;\n  instance.triggerChange();\n}\n\nif (data &#38;&#38; data.associateId &#38;&#38; data.associateId.length === 7 &#38;&#38; (!data.associate || data.associate.id !== data.associateId)) {\n  window.fluxnovaIntegration.execute(&#39;people-central&#39;, {        \n    associateNumber: data.associateId,\n    filterFields: &#39;FIRST_NAME,LAST_NAME&#39;\n  })\n    .then(result =&#62; {\n      console.log(&#39;got an associate back&#39;, result);\n      data.associate = result.data;\n      data.associate.id = data.associateId\n      instance.triggerChange();\n    })\n    .catch(err =&#62; {\n      console.log(&#39;could not get associate&#39;, err);\n    });  \n}\n&#34;             }           ]         }       ],       &#34;type&#34;: &#34;textfield&#34;,       &#34;input&#34;: true     },     {       &#34;label&#34;: &#34;HTML&#34;,       &#34;attrs&#34;: [         {           &#34;attr&#34;: &#34;&#34;,           &#34;value&#34;: &#34;&#34;         }       ],       &#34;content&#34;: &#34;Hello {{data.associate.firstName}} {{data.associate.lastName}}!&#34;,       &#34;refreshOnChange&#34;: true,       &#34;key&#34;: &#34;html&#34;,       &#34;conditional&#34;: {         &#34;when&#34;: &#34;associate&#34;       },       &#34;customConditional&#34;: &#34;show = !!data &#38;&#38; !!data.associate&#34;,       &#34;type&#34;: &#34;htmlelement&#34;,       &#34;input&#34;: false,       &#34;tableView&#34;: false     },     {       &#34;label&#34;: &#34;Non-required Text Field&#34;,       &#34;tableView&#34;: true,       &#34;validate&#34;: {         &#34;required&#34;: false       },       &#34;key&#34;: &#34;nonRequiredTextField&#34;,       &#34;type&#34;: &#34;textfield&#34;,       &#34;input&#34;: true     },     {       &#34;label&#34;: &#34;Data Map&#34;,       &#34;tableView&#34;: false,       &#34;key&#34;: &#34;dataMap&#34;,       &#34;type&#34;: &#34;datamap&#34;,       &#34;input&#34;: true,       &#34;valueComponent&#34;: {         &#34;type&#34;: &#34;textfield&#34;,         &#34;key&#34;: &#34;value&#34;,         &#34;label&#34;: &#34;Value&#34;,         &#34;input&#34;: true,         &#34;hideLabel&#34;: true,         &#34;tableView&#34;: true       }     },     {       &#34;label&#34;: &#34;Client Only Text Field&#34;,       &#34;tableView&#34;: true,       &#34;persistent&#34;: &#34;client-only&#34;,       &#34;key&#34;: &#34;clientOnlyTextField&#34;,       &#34;type&#34;: &#34;textfield&#34;,       &#34;input&#34;: true     }   ] }">
+      <bpmn:outgoing>Flow_0a87m05</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_0a87m05" sourceRef="StartEvent_1" targetRef="Gateway_06dqy7l" />
+    <bpmn:userTask id="userTask1" name="Fluxnova UI Automation - Versioned Process Results" camunda:asyncAfter="true" camunda:formKey="{   &#34;components&#34;: [     {       &#34;label&#34;: &#34;Text Field&#34;,       &#34;key&#34;: &#34;textField&#34;,       &#34;type&#34;: &#34;textfield&#34;,       &#34;input&#34;: true,       &#34;tableView&#34;: true     },     {       &#34;label&#34;: &#34;Associate&#34;,       &#34;tableView&#34;: true,       &#34;key&#34;: &#34;associateId&#34;,       &#34;logic&#34;: [         {           &#34;name&#34;: &#34;on change get associate&#34;,           &#34;trigger&#34;: {             &#34;type&#34;: &#34;event&#34;,             &#34;event&#34;: &#34;change&#34;           },           &#34;actions&#34;: [             {               &#34;name&#34;: &#34;get associate name&#34;,               &#34;type&#34;: &#34;customAction&#34;,               &#34;customAction&#34;: &#34;if (data &#38;&#38; data.associate &#38;&#38; data.associate.id !== data.associateId) {\n  delete data.associate;\n  instance.triggerChange();\n}\n\nif (data &#38;&#38; data.associateId &#38;&#38; data.associateId.length === 7 &#38;&#38; (!data.associate || data.associate.id !== data.associateId)) {\n  window.fluxnovaIntegration.execute(&#39;people-central&#39;, {        \n    associateNumber: data.associateId,\n    filterFields: &#39;FIRST_NAME,LAST_NAME&#39;\n  })\n    .then(result =&#62; {\n      console.log(&#39;got an associate back&#39;, result);\n      data.associate = result.data;\n      data.associate.id = data.associateId\n      instance.triggerChange();\n    })\n    .catch(err =&#62; {\n      console.log(&#39;could not get associate&#39;, err);\n    });  \n}\n&#34;             }           ]         }       ],       &#34;type&#34;: &#34;textfield&#34;,       &#34;input&#34;: true     },     {       &#34;label&#34;: &#34;HTML&#34;,       &#34;attrs&#34;: [         {           &#34;attr&#34;: &#34;&#34;,           &#34;value&#34;: &#34;&#34;         }       ],       &#34;content&#34;: &#34;Hello {{data.associate.firstName}} {{data.associate.lastName}}!&#34;,       &#34;refreshOnChange&#34;: true,       &#34;key&#34;: &#34;html&#34;,       &#34;conditional&#34;: {         &#34;when&#34;: &#34;associate&#34;       },       &#34;customConditional&#34;: &#34;show = !!data &#38;&#38; !!data.associate&#34;,       &#34;type&#34;: &#34;htmlelement&#34;,       &#34;input&#34;: false,       &#34;tableView&#34;: false     },     {       &#34;label&#34;: &#34;Non-required Text Field&#34;,       &#34;tableView&#34;: true,       &#34;validate&#34;: {         &#34;required&#34;: false       },       &#34;key&#34;: &#34;requiredTextField&#34;,       &#34;type&#34;: &#34;textfield&#34;,       &#34;input&#34;: true     },     {       &#34;label&#34;: &#34;Data Map&#34;,       &#34;tableView&#34;: false,       &#34;key&#34;: &#34;dataMap&#34;,       &#34;type&#34;: &#34;datamap&#34;,       &#34;input&#34;: true,       &#34;valueComponent&#34;: {         &#34;type&#34;: &#34;textfield&#34;,         &#34;key&#34;: &#34;value&#34;,         &#34;label&#34;: &#34;Value&#34;,         &#34;input&#34;: true,         &#34;hideLabel&#34;: true,         &#34;tableView&#34;: true       }     },     {       &#34;label&#34;: &#34;Client Only Text Field&#34;,       &#34;tableView&#34;: true,       &#34;persistent&#34;: &#34;client-only&#34;,       &#34;key&#34;: &#34;clientOnlyTextField&#34;,       &#34;type&#34;: &#34;textfield&#34;,       &#34;input&#34;: true     }   ] }">
+      <bpmn:extensionElements>
+        <camunda:inputOutput>
+          <camunda:inputParameter name="textField">
+            <camunda:script scriptFormat="javascript">execution.getVariable('textField') || ''</camunda:script>
+          </camunda:inputParameter>
+          <camunda:inputParameter name="associateId">
+            <camunda:script scriptFormat="javascript">execution.getVariable('associateId') || ''</camunda:script>
+          </camunda:inputParameter>
+          <camunda:inputParameter name="nonRequiredTextField">
+            <camunda:script scriptFormat="javascript">execution.getVariable('nonRequiredTextField') || ''</camunda:script>
+          </camunda:inputParameter>
+          <camunda:inputParameter name="dataMap">
+            <camunda:script scriptFormat="javascript">execution.getVariable('dataMap') || ''</camunda:script>
+          </camunda:inputParameter>
+          <camunda:outputParameter name="textField">${textField}</camunda:outputParameter>
+          <camunda:outputParameter name="associateId">${associateId}</camunda:outputParameter>
+          <camunda:outputParameter name="nonRequiredTextField">${nonRequiredTextField}</camunda:outputParameter>
+          <camunda:outputParameter name="dataMap">${dataMap}</camunda:outputParameter>
+        </camunda:inputOutput>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_1w5y0pf</bpmn:incoming>
+      <bpmn:outgoing>Flow_15w1wbg</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:endEvent id="Event_15x9oj7">
+      <bpmn:incoming>Flow_15w1wbg</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_15w1wbg" sourceRef="userTask1" targetRef="Event_15x9oj7" />
+    <bpmn:sequenceFlow id="Flow_1w5y0pf" sourceRef="Gateway_06dqy7l" targetRef="userTask1" />
+    <bpmn:parallelGateway id="Gateway_06dqy7l">
+      <bpmn:incoming>Flow_0a87m05</bpmn:incoming>
+      <bpmn:outgoing>Flow_1w5y0pf</bpmn:outgoing>
+      <bpmn:outgoing>Flow_119iwr0</bpmn:outgoing>
+    </bpmn:parallelGateway>
+    <bpmn:sequenceFlow id="Flow_119iwr0" sourceRef="Gateway_06dqy7l" targetRef="Event_1mww3ae" />
+    <bpmn:intermediateCatchEvent id="Event_1mww3ae">
+      <bpmn:incoming>Flow_119iwr0</bpmn:incoming>
+      <bpmn:outgoing>Flow_18gzxl9</bpmn:outgoing>
+      <bpmn:timerEventDefinition id="TimerEventDefinition_06ho66w">
+        <bpmn:timeDuration xsi:type="bpmn:tFormalExpression">P7D</bpmn:timeDuration>
+      </bpmn:timerEventDefinition>
+    </bpmn:intermediateCatchEvent>
+    <bpmn:sequenceFlow id="Flow_18gzxl9" sourceRef="Event_1mww3ae" targetRef="Event_01cr0yo" />
+    <bpmn:endEvent id="Event_01cr0yo">
+      <bpmn:incoming>Flow_18gzxl9</bpmn:incoming>
+      <bpmn:terminateEventDefinition id="TerminateEventDefinition_0rrznty" />
+    </bpmn:endEvent>
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="fluxnova_automation_versioned_process">
+      <bpmndi:BPMNEdge id="Flow_15w1wbg_di" bpmnElement="Flow_15w1wbg">
+        <di:waypoint x="360" y="120" />
+        <di:waypoint x="412" y="120" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0a87m05_di" bpmnElement="Flow_0a87m05">
+        <di:waypoint x="168" y="120" />
+        <di:waypoint x="185" y="120" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1w5y0pf_di" bpmnElement="Flow_1w5y0pf">
+        <di:waypoint x="235" y="120" />
+        <di:waypoint x="260" y="120" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_119iwr0_di" bpmnElement="Flow_119iwr0">
+        <di:waypoint x="210" y="145" />
+        <di:waypoint x="210" y="230" />
+        <di:waypoint x="262" y="230" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_18gzxl9_di" bpmnElement="Flow_18gzxl9">
+        <di:waypoint x="298" y="230" />
+        <di:waypoint x="332" y="230" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="Activity_1ndbl4c_di" bpmnElement="userTask1">
+        <dc:Bounds x="260" y="80" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_15x9oj7_di" bpmnElement="Event_15x9oj7">
+        <dc:Bounds x="412" y="102" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1">
+        <dc:Bounds x="132" y="102" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_1v8gkv8_di" bpmnElement="Gateway_06dqy7l">
+        <dc:Bounds x="185" y="95" width="50" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_0stv050_di" bpmnElement="Event_1mww3ae">
+        <dc:Bounds x="262" y="212" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_1fz5a5y_di" bpmnElement="Event_01cr0yo">
+        <dc:Bounds x="332" y="212" width="36" height="36" />
+      </bpmndi:BPMNShape>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>

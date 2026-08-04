@@ -1,0 +1,46 @@
+@import '../../item-detail-page.component.scss';
+
+/* Process Instance Count/Statistics Token */
+fluxnova-instance-diagram-section {
+  .process-instance-count-token-wrapper {
+    white-space: nowrap;
+  }
+
+  .process-instance-count-token {
+    border-radius: 13px;
+    padding: 0px 8px;
+    border: 2px solid;
+    text-align: center;
+    user-select: none;
+    position: relative;
+    top: 0;
+    display: inline-block;
+  }
+
+  .process-instance-count-token.floating {
+    animation: jump 1s infinite;
+    animation-timing-function: ease;
+  }
+
+  .process-instance-count-token.move-to {
+    animation: jump 1s infinite;
+    animation-timing-function: ease;
+    opacity: 50%;
+  }
+
+  @keyframes jump {
+    50% {
+      top: 5px;
+    }
+  }
+
+  .process-instance-incident-token {
+    border-radius: 13px;
+    padding: 0px 8px;
+    border: 2px solid;
+  }
+}
+
+.edit-bg-color {
+  background-color: #e4f2fa;
+}

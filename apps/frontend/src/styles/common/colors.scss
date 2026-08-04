@@ -1,0 +1,38 @@
+// Common Colors between Themes
+
+// I have attempted to map the neutral colors given in the style guide to a bootstrap grey-#
+// For no equivalent neutral color, I am having that grey default to black
+$color-black: #000000;
+$color-neutral-900: #666666;
+$color-neutral-800: #7f7f7f;
+$color-neutral-750: #b7b7b7;
+$color-neutral-700: #bbbbbb;
+$color-neutral-600: #cccccc;
+$color-neutral-500: #e0e0e0;
+$color-neutral-400: #e0e2e3;
+$color-neutral-375: #d3d3d3;
+$color-neutral-350: #e5e5e5;
+$color-neutral-300: #f2f2f2;
+$color-neutral-200: #f8f8f8;
+$color-neutral-100: #fbfbfb;
+$color-white: #ffffff;
+
+$grays: () !default;
+// stylelint-disable-next-line scss/dollar-variable-default
+$grays: map-merge(
+  (
+    '100': $color-neutral-100,
+    '200': $color-neutral-300,
+    '300': $color-neutral-400,
+    '350': $color-neutral-350,
+    '375': $color-neutral-375,
+    '400': $color-neutral-500,
+    '500': $color-neutral-600,
+    '600': $color-neutral-700,
+    '700': $color-neutral-800,
+    '750': $color-neutral-750,
+    '800': $color-neutral-900,
+    '900': $color-black,
+  ),
+  $grays
+);

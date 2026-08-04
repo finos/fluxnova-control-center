@@ -1,0 +1,23 @@
+.floating-container {
+  position: absolute;
+  right: 0;
+}
+
+.tab-bar-button {
+  position: relative;
+  right: 5px;
+  top: -46px;
+
+  button {
+    display: inline-flex;
+    align-items: center;
+
+    fluxnova-icon {
+      padding-right: 8px;
+    }
+  }
+}
+
+.hidden {
+  visibility: hidden;
+}

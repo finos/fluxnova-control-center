@@ -1,0 +1,14 @@
+<div>
+  @for (button of radioButtons; track button; let index = $index) {
+    <div class="d-flex align-items-center">
+      <input
+        type="radio"
+        name="radio-buttons"
+        [defaultChecked]="button.checked"
+        (click)="handleButtonClick(button.value, index)"
+        [id]="button.value"
+      />
+      <label class="form-check-label" for="{{ button.value }}"> {{ button.name }} </label>
+    </div>
+  }
+</div>

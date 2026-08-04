@@ -1,0 +1,142 @@
+@font-face {
+  font-family: 'fluxnova-icon-font';
+  src: url('fluxnova-icon-font.woff2?3081446e6c0a631059b501f311d2c2f9') format('woff2');
+}
+
+span[class^='fluxnova-'],
+span[class*=' fluxnova-'] {
+  vertical-align: middle;
+  line-height: 20px;
+}
+
+span[class^='fluxnova-']:before,
+span[class*=' fluxnova-']:before {
+  font-family: fluxnova-icon-font, sans-serif !important;
+  font-style: normal;
+  font-weight: normal !important;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.fluxnova-arrow-icon:before {
+  content: '\f101';
+}
+
+.fluxnova-cancel-icon:before {
+  content: '\f102';
+}
+
+.fluxnova-caret-down-icon:before {
+  content: '\f103';
+}
+
+.fluxnova-caret-up-icon:before {
+  content: '\f104';
+}
+
+.fluxnova-checkbox-icon:before {
+  content: '\f105';
+}
+
+.fluxnova-download-icon:before {
+  content: '\f106';
+}
+
+.fluxnova-dropdown-clear-icon:before {
+  content: '\f107';
+}
+
+.fluxnova-edit-tools-icon:before {
+  content: '\f108';
+}
+
+.fluxnova-feedback-icon:before {
+  content: '\f10a';
+}
+
+.fluxnova-file-bmp-icon:before {
+  content: '\f10b';
+}
+
+.fluxnova-file-csv-icon:before {
+  content: '\f10c';
+}
+
+.fluxnova-file-doc-icon:before {
+  content: '\f10d';
+}
+
+.fluxnova-file-gif-icon:before {
+  content: '\f10e';
+}
+
+.fluxnova-file-icon:before {
+  content: '\f10f';
+}
+
+.fluxnova-file-jpg-icon:before {
+  content: '\f110';
+}
+
+.fluxnova-file-pdf-icon:before {
+  content: '\f111';
+}
+
+.fluxnova-file-png-icon:before {
+  content: '\f112';
+}
+
+.fluxnova-file-ppt-icon:before {
+  content: '\f113';
+}
+
+.fluxnova-file-tif-icon:before {
+  content: '\f114';
+}
+
+.fluxnova-file-xls-icon:before {
+  content: '\f115';
+}
+
+.fluxnova-file-xlsx-icon:before {
+  content: '\f116';
+}
+
+.fluxnova-file-xml-icon:before {
+  content: '\f117';
+}
+
+.fluxnova-filter-icon:before {
+  content: '\f118';
+}
+
+.fluxnova-info-outline-icon:before {
+  content: '\f119';
+}
+
+.fluxnova-left-chevron-icon:before {
+  content: '\f11a';
+}
+
+.fluxnova-radiobutton-icon:before {
+  content: '\f11b';
+}
+
+.fluxnova-rocket-icon:before {
+  content: '\f11c';
+}
+
+.fluxnova-settings-icon:before {
+  content: '\f11d';
+}
+
+.fluxnova-trash-icon:before {
+  content: '\f11e';
+}
+
+.fluxnova-upload-icon:before {
+  content: '\f11f';
+}

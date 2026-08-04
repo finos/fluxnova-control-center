@@ -1,0 +1,32 @@
+@if (showDiagram) {
+  <fluxnova-generic-diagram-viewer></fluxnova-generic-diagram-viewer>
+}
+
+@if (showFileText) {
+  <div class="d-flex flex-column h-100" [style.width]="fvcWidth">
+    <fluxnova-code-editor
+      class="h-100"
+      id="code-editor"
+      [editorOptionsOverrides]="{
+        language: resourceUtilsService.getViewableFileLanguage(resource),
+        lineHeight: 24,
+        padding: {
+          top: 2,
+        },
+        wordWrap: true,
+      }"
+      (editorInitialized)="onEditorInitialized()"
+    ></fluxnova-code-editor>
+  </div>
+}
+
+@if (!showFileText && !showDiagram && resource) {
+  <div id="download" class="file-wrapper download">
+    <div class="d-flex align-items-center">
+      <span class="pe-2 download-text">{{ resourceName }} has an unsupported file type. Download file to view.</span>
+    </div>
+  </div>
+}
+@if (!resource) {
+  <div>Please select a resource from the list</div>
+}

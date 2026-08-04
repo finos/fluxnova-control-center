@@ -1,0 +1,89 @@
+<fluxnova-tab-actions-floating-container
+  [showResetGridButton]="showResetGridButton"
+  (resetGridClicked)="onResetGridClick()"
+/>
+@if (anyButtonVisible) {
+  <div class="tabs-view-header">
+    <div class="toolbar bulk-actions">
+      <div class="toolbar-actions">
+        <button
+          class="btn action-btn"
+          id="tab-activate"
+          ngbTooltip="Activate"
+          container="body"
+          triggers="hover"
+          [disabled]="!canActivate()"
+          (click)="activate()"
+          *fluxnovaHasPermissions="{
+            action: 'ActivateJobDefinition',
+            resources: [{ itemType: detailItemType, itemId: detailItemId }],
+          }"
+        >
+          <fluxnova-icon iconName="play" class="fs-8"></fluxnova-icon>
+        </button>
+        <button
+          class="btn action-btn"
+          id="tab-suspend"
+          ngbTooltip="Suspend"
+          container="body"
+          triggers="hover"
+          [disabled]="!canSuspend()"
+          (click)="suspend()"
+          *fluxnovaHasPermissions="{
+            action: 'SuspendJobDefinition',
+            resources: [{ itemType: detailItemType, itemId: detailItemId }],
+          }"
+        >
+          <fluxnova-icon iconName="pause" class="fs-8"></fluxnova-icon>
+        </button>
+        <button
+          class="btn action-btn"
+          id="tab-priority"
+          ngbTooltip="Change Overriding Job Priority"
+          container="body"
+          triggers="hover"
+          [disabled]="!canSetPriority()"
+          (click)="setPriority()"
+          *fluxnovaHasPermissions="{
+            action: 'ChangeJobDefinitionPriority',
+            resources: [{ itemType: detailItemType, itemId: detailItemId }],
+          }"
+        >
+          <fluxnova-icon iconName="priority" class="fs-8"></fluxnova-icon>
+        </button>
+      </div>
+    </div>
+  </div>
+}
+<span [ngClass]="anyButtonVisible ? 'tab-grid-with-header' : 'tab-grid'">
+  <fluxnova-items-table
+    data-table-role="result"
+    [items]="data"
+    [filters]="filters"
+    [sorting]="sorting"
+    [floatingFiltersHeight]="40"
+    [overlayNoRowsTemplate]="overlayNoRowsTemplate"
+    [isLoading]="isLoading"
+    [isRowSelectable]="isRowSelectable"
+    [listViewState]="listViewState"
+    (gridReady)="onGridReady()"
+    (columnHeaderSortChange)="onSortChanged($event)"
+    (columnHeaderFilterChange)="onFilterChanged($event)"
+    (rowClicked)="onRowClick($event)"
+    (firstDataRendered)="onFirstDataRendered()"
+    (filterChanged)="onFilterChanged($event)"
+    (sortChanged)="onSortChanged($event)"
+    (itemsSelectChange)="onSelectionChanged($event)"
+    [rowClassRules]="rowClassRules()"
+    (listViewStateChange)="columnPrefsUpdated($event)"
+    [checkboxes]="anyButtonVisible"
+    [rowSelectionType]="anyButtonVisible ? 'multiRow' : 'singleRow'"
+  >
+  </fluxnova-items-table>
+  <fluxnova-ag-pagination
+    class="border-top align-items-center px-3"
+    [totalItems]="totalCount"
+    [loading]="isLoading"
+    (paginationChanged)="paginationSubject$.next({ page: $event.page, pageSize: $event.pageSize })"
+  ></fluxnova-ag-pagination>
+</span>

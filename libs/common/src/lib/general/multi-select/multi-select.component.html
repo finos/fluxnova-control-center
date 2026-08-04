@@ -1,0 +1,85 @@
+<ng-select
+  #select
+  [ngClass]="{ 'select-container-small': size === 'small' }"
+  class="multi-select"
+  [id]="labelForId + '-multi-select'"
+  [labelForId]="labelForId"
+  [disabled]="disabled"
+  [(ngModel)]="selectedArray"
+  [items]="options"
+  [multiple]="true"
+  [hideSelected]="false"
+  [closeOnSelect]="false"
+  [bindLabel]="bindLabel"
+  [placeholder]="placeholder"
+  (change)="handleMultiSelectChange($event)"
+  [loading]="loading"
+  [appendTo]="appendTo"
+  [typeahead]="typeahead"
+  [clearSearchOnAdd]="true"
+  [dropdownPosition]="dropdownPosition"
+  [clearable]="!defaultSelected"
+  (clear)="handleClear()"
+  [ngStyle]="{ width: 'auto' }"
+  [addTag]="allowAddNewItems && onAddTag.bind(this)"
+  [addTagText]="addTagText"
+  [notFoundText]="notFoundText"
+  [maxSelectedItems]="maxSelectedItems"
+>
+  <ng-template ng-loadingspinner-tmp>
+    <ng-container *ngTemplateOutlet="loadingTemplateRef"></ng-container>
+  </ng-template>
+  <ng-template ng-multi-label-tmp>
+    <div #selectedDisplay class="multi-option-wrapper" [ngClass]="{ hidden: ngSelect?.isOpen() }">
+      @if (defaultSelected) {
+        <div class="ng-value"><span class="ng-value-label">Default selected</span></div>
+      }
+      @for (item of selectedArray; track item.value; let i = $index) {
+        <div [id]="item[bindValue]" class="ng-value" [ngClass]="{ hidden: isLabelHidden(i) }">
+          <span class="ng-value-label">{{ item[bindLabel] }}</span>
+          <span class="ng-value-icon right" (click)="removeSelectItem(item)" aria-hidden="true"></span>
+        </div>
+      }
+      @if (!defaultSelected && selectedArray?.length > numberOfLabelsToDisplay) {
+        <div class="ng-value">
+          <span class="ng-value-label"
+            >{{ selectedArray?.length - numberOfLabelsToDisplay }} {{ numberOfLabelsToDisplay ? 'more' : 'selected' }}
+          </span>
+        </div>
+      }
+    </div>
+  </ng-template>
+  @if (selectedArray?.length) {
+    <ng-template ng-header-tmp>
+      @for (item of selectedArray; track item.value) {
+        <div (click)="removeSelectItem(item)" class="pointer multi-option-wrapper multi-select-hover">
+          <input
+            id="selected-{{ item[bindValue] }}"
+            type="checkbox"
+            class="pointer"
+            [checked]="isMultiOptionItemSelected(item)"
+          />
+          <ng-container
+            *ngTemplateOutlet="optionTemplateRef || defaultOptionTemplate; context: getItemTemplateContext(item)"
+          ></ng-container>
+        </div>
+      }
+    </ng-template>
+  }
+  <ng-template ng-option-tmp let-item="item">
+    <div class="multi-option-wrapper">
+      @if (!item.isLoadingOption) {
+        <input
+          id="option-{{ item[bindValue] }}"
+          type="checkbox"
+          class="pointer"
+          [checked]="isMultiOptionItemSelected(item)"
+        />
+      }
+      <ng-container
+        *ngTemplateOutlet="optionTemplateRef || defaultOptionTemplate; context: getItemTemplateContext(item)"
+      ></ng-container>
+    </div>
+  </ng-template>
+</ng-select>
+<ng-template #defaultOptionTemplate let-item="item">{{ item[bindLabel] }}</ng-template>

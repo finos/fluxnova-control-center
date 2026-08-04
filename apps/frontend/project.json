@@ -1,0 +1,142 @@
+{
+  "name": "frontend",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "sourceRoot": "apps/frontend/src",
+  "prefix": "fluxnova",
+  "tags": ["scope:client"],
+  "implicitDependencies": [],
+  "generators": {
+    "@nx/workspace:component": {
+      "style": "scss"
+    }
+  },
+  "targets": {
+    "build": {
+      "executor": "@angular-devkit/build-angular:application",
+      "options": {
+        "allowedCommonJsDependencies": ["moment", "lodash", "highcharts", "bpmn-js", "inherits"],
+        "browser": "apps/frontend/src/main.ts",
+        "baseHref": "/",
+        "outputPath": "dist/apps/frontend",
+        "index": "apps/frontend/src/index.html",
+        "polyfills": ["apps/frontend/src/polyfills.ts"],
+        "tsConfig": "apps/frontend/tsconfig.app.json",
+        "loader": {
+          ".svg": "file",
+          ".ttf": "binary"
+        },
+        "assets": [
+          {
+            "glob": "favicon.ico",
+            "input": "libs/shared-assets/",
+            "output": "/"
+          },
+          {
+            "glob": "**/*",
+            "input": "libs/shared-assets/",
+            "output": "/assets/"
+          },
+          {
+            "glob": "**/*",
+            "input": "./node_modules/monaco-editor/min",
+            "output": "./assets/nge/monaco/min"
+          },
+          {
+            "glob": "**/*",
+            "input": "./node_modules/monaco-editor/min-maps",
+            "output": "./assets/nge/monaco/min-maps"
+          },
+          {
+            "glob": "github.json",
+            "input": "./node_modules/@cisstech/nge/assets/monaco/themes",
+            "output": "./assets/nge/monaco/themes"
+          },
+          "apps/frontend/src/assets"
+        ],
+        "styles": [
+          "libs/shared-assets/loading.css",
+          "node_modules/bpmn-js/dist/assets/diagram-js.css",
+          "node_modules/bpmn-js/dist/assets/bpmn-font/css/bpmn.css",
+          "apps/frontend/src/styles.scss"
+        ],
+        "scripts": []
+      },
+      "configurations": {
+        "development": {
+          "optimization": false,
+          "aot": false,
+          "sourceMap": true,
+          "namedChunks": true
+        },
+        "branch": {
+          "aot": true,
+          "sourceMap": true,
+          "namedChunks": true,
+          "outputHashing": "all"
+        },
+        "production": {
+          "fileReplacements": [
+            {
+              "replace": "apps/frontend/src/environments/environment.ts",
+              "with": "apps/frontend/src/environments/environment.prod.ts"
+            }
+          ],
+          "optimization": true,
+          "extractLicenses": true,
+          "aot": true,
+          "sourceMap": true,
+          "outputHashing": "all",
+          "namedChunks": false,
+          "budgets": [
+            {
+              "type": "initial",
+              "maximumWarning": "4mb",
+              "maximumError": "8mb"
+            }
+          ]
+        }
+      }
+    },
+    "serve": {
+      "executor": "@angular-devkit/build-angular:dev-server",
+      "options": {
+        "port": 4200,
+        "proxyConfig": "proxy.conf.json",
+        "publicHost": "http://localhost:4200"
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "frontend:build:development"
+        },
+        "production": {
+          "buildTarget": "frontend:build:production"
+        },
+        "branch": {
+          "buildTarget": "frontend:build:branch"
+        }
+      },
+      "defaultConfiguration": "development"
+    },
+    "extract-i18n": {
+      "executor": "@angular-devkit/build-angular:extract-i18n",
+      "options": {
+        "buildTarget": "frontend:build"
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["apps/frontend/src/**/*.ts", "apps/frontend/src/**/*.html"]
+      }
+    },
+    "test": {
+      "executor": "@nx/vitest:test",
+      "outputs": ["{workspaceRoot}/results/unit/apps/frontend", "{workspaceRoot}/results/coverage/apps/frontend"],
+      "options": {
+        "config": "apps/frontend/vite.config.ts"
+      }
+    }
+  }
+}

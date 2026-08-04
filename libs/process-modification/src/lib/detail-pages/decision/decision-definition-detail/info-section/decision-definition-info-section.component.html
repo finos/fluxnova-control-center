@@ -1,0 +1,88 @@
+<ng-container *fluxnovaLoading="isLoading">
+  @if (!isLoading) {
+    <div class="p-4 mt-1 fs-10">
+      <h4 fluxnovaTruncateWithTooltip>{{ decisionDefinition?.name }}</h4>
+      <div class="border-bottom pb-3 mb-4 mt-3">
+        <strong> Definition ID </strong>
+        <fluxnova-icon
+          [fluxnovaCopyLink]="decisionDefinition?.id"
+          [openDelay]="500"
+          class="ps-1 text-primary pointer"
+          copyTextLabel="Definition ID"
+          iconName="copy"
+          ngbTooltip="Copy to clipboard"
+        ></fluxnova-icon>
+        <div class="pb-3" fluxnovaTruncateWithTooltip data-info-section-definition-id>
+          {{ decisionDefinition?.id }}
+        </div>
+      </div>
+      <strong>Version</strong>
+      <div *fluxnovaLoading="isLoading" class="pb-3" fluxnovaTruncateWithTooltip>
+        <ng-select
+          (change)="onChange($event.id)"
+          [(ngModel)]="currentVersionDefinitionId"
+          [clearable]="false"
+          [disabled]="versions?.length <= 1"
+          [items]="versions"
+          appendTo="body"
+          bindLabel="version"
+          bindValue="id"
+          class="small"
+        >
+          <ng-template let-index="index" let-item="item" ng-option-tmp>
+            <span> {{ item.version }}</span>
+          </ng-template>
+        </ng-select>
+      </div>
+      <strong>Version Tag</strong>
+      <div class="pb-3" fluxnovaTruncateWithTooltip>
+        {{ decisionDefinition?.versionTag + '' }}
+      </div>
+      <strong>Definition Key</strong>
+      <fluxnova-icon
+        [fluxnovaCopyLink]="decisionDefinition?.key"
+        [openDelay]="500"
+        class="ps-1 text-primary pointer"
+        copyTextLabel="Definition Key"
+        iconName="copy"
+        ngbTooltip="Copy to clipboard"
+      ></fluxnova-icon>
+      <div class="pb-3" fluxnovaTruncateWithTooltip>{{ decisionDefinition?.key }}</div>
+      <strong>Definition Name</strong>
+      <div class="pb-3" fluxnovaTruncateWithTooltip>{{ decisionDefinition?.name }}</div>
+      <strong>History Time to Live</strong>
+      <div class="pb-3" fluxnovaTruncateWithTooltip>
+        <fluxnova-value-with-units
+          [value]="decisionDefinition?.historyTimeToLive"
+          unit="day"
+        ></fluxnova-value-with-units>
+      </div>
+      <strong>Deployment ID</strong>
+      @if (decisionDefinition?.deploymentId) {
+        <fluxnova-icon
+          copyTextLabel="Deployment ID"
+          [fluxnovaCopyLink]="decisionDefinition?.deploymentId"
+          class="ps-1 text-primary pointer"
+          iconName="copy"
+          [openDelay]="500"
+          ngbTooltip="Copy to clipboard"
+          container="body"
+        ></fluxnova-icon>
+      }
+      <div class="pb-3" fluxnovaTruncateWithTooltip>
+        @if (decisionDefinition?.deploymentId) {
+          <a [routerLink]="'../../deployments/' + decisionDefinition?.deploymentId"
+            >{{ decisionDefinition?.deploymentId }}
+          </a>
+        }
+        @if (!decisionDefinition?.deploymentId) {
+          <span>None</span>
+        }
+      </div>
+      <strong>Decision Requirement Definition</strong>
+      <div class="pb-3" fluxnovaTruncateWithTooltip>
+        {{ decisionDefinition?.decisionRequirementsDefinitionId + '' }}
+      </div>
+    </div>
+  }
+</ng-container>

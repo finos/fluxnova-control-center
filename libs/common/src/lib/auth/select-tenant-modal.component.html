@@ -1,0 +1,10 @@
+<div class="modal-body text-center">
+  <div class="fluxnova-logo-secondary"></div>
+
+  <fluxnova-select-tenant
+    class="select-tenant text-start navigation-menu fs-10"
+    [icon]="false"
+    [reloadPageOnSelect]="true"
+    (tenantSelect)="tenantSelected($event)"
+  ></fluxnova-select-tenant>
+</div>

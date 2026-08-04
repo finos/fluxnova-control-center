@@ -1,0 +1,41 @@
+name: "Run Regression Tests"
+description: "Runs a single shard of regression tests against a target environment"
+
+inputs:
+  sandbox-url:
+    description: "Base URL for the target sandbox environment"
+    required: true
+  shard-index:
+    description: "Current shard number (e.g. 1)"
+    required: true
+  shard-total:
+    description: "Total number of shards (e.g. 2)"
+    required: true
+
+runs:
+  using: "composite"
+  steps:
+    - name: Install Playwright browsers
+      shell: bash
+      run: npx playwright install --with-deps chromium
+
+    - name: Run Regression shard ${{ inputs.shard-index }}/${{ inputs.shard-total }}
+      shell: bash
+      env:
+        FXN_BASE_URL: ${{ inputs.sandbox-url }}
+        PW_TEST_HTML_REPORT_OPEN: never
+        PLAYWRIGHT_JUNIT_OUTPUT_NAME: results/playwright/junit.xml
+        SHARD_NUM: ${{ inputs.shard-index }}
+      run: |
+        mkdir -p apps/e2e/.auth
+        mkdir -p results-${{ inputs.shard-index }}/playwright
+        pnpm reg --shard ${{ inputs.shard-index }}/${{ inputs.shard-total }}
+
+    - name: Upload regression shard blob report
+      if: always()
+      uses: actions/upload-artifact@v4
+      with:
+        name: regression-blob-shard-${{ inputs.shard-index }}
+        path: results-${{ inputs.shard-index }}/playwright/
+        if-no-files-found: warn
+        retention-days: 1

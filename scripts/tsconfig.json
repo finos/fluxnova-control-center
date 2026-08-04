@@ -1,0 +1,19 @@
+{
+  "extends": "../tsconfig.base.json",
+  "compilerOptions": {
+    "outDir": "../dist/out-tsc",
+    "types": ["node"],
+    "sourceMap": true,
+    "module": "commonjs",
+    "target": "es2016",
+    "strict": false,
+    "forceConsistentCasingInFileNames": false,
+    "noImplicitReturns": false,
+    "noFallthroughCasesInSwitch": false,
+    "lib": ["es2016", "esnext.asynciterable"]
+  },
+  "ts-node": {
+    "files": true
+  },
+  "files": ["../typings.d.ts"]
+}

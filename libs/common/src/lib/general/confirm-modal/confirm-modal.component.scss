@@ -1,0 +1,76 @@
+@import '../../animations/animations.css';
+
+.modal-scroll {
+  max-width: 697px;
+  max-height: 313px;
+  overflow-y: auto;
+  border-style: none;
+  margin-left: 1.6rem;
+}
+
+.modal-header {
+  align-items: center;
+  .modal-title {
+    padding-bottom: 10px;
+  }
+}
+
+.modal-body {
+  transition: width 0.5s ease;
+  width: 697px;
+
+  &.full-width {
+    width: calc(100vw - 100px);
+  }
+}
+
+.modal-footer {
+  justify-content: flex-end;
+}
+
+.error-wrapper {
+  color: red;
+  margin: 4px 0 0 0;
+  &.hidden {
+    visibility: hidden;
+    margin: 0;
+    height: 0;
+  }
+}
+
+.number-input {
+  width: 100px;
+  border: 1px solid black;
+  border-radius: 7px;
+}
+
+.textarea-style {
+  border-radius: 10px;
+  resize: none;
+}
+
+.readMoreWrapper {
+  max-height: 300px;
+  overflow: hidden;
+  &.expanded {
+    overflow: auto;
+  }
+}
+
+.readMoreContent {
+  max-height: 350px;
+}
+
+.indent {
+  margin-left: 2.4rem;
+}
+// This is to make sure the scrollbar is always visible
+::-webkit-scrollbar {
+  -webkit-appearance: none;
+  width: 7px;
+}
+::-webkit-scrollbar-thumb {
+  border-radius: 4px;
+  background-color: rgba(0, 0, 0, 0.5);
+  -webkit-box-shadow: 0 0 1px rgba(255, 255, 255, 0.5);
+}

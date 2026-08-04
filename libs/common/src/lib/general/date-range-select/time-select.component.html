@@ -1,0 +1,13 @@
+<div class="fs-10 p-1">
+  @if (label) {
+    <span class="ps-1"> {{ label }}</span>
+  }
+  <ngb-timepicker
+    [meridian]="true"
+    [spinners]="false"
+    [(ngModel)]="dateTimeModel"
+    [disabled]="!dateTimeModel"
+    (ngModelChange)="$event && updateDateTime.emit($event)"
+    (keyup)="input$.next($event)"
+  ></ngb-timepicker>
+</div>

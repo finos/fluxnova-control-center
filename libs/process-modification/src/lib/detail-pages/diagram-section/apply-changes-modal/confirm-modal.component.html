@@ -1,0 +1,80 @@
+<div class="modal-header d-flex align-items-center">
+  <h4 class="modal-title" id="modal-basic-title">Token Movement</h4>
+  <button type="button" class="btn shadow-none d-flex align-items-center" aria-label="Close" (click)="modal.dismiss()">
+    <fluxnova-icon class="font-standard" iconName="close"></fluxnova-icon>
+  </button>
+</div>
+<div class="modal-body">
+  @if (options.willTerminate && !userHasPermissionsToTerminate) {
+    <div class="warning">
+      <div class="d-flex justify-content-start">
+        <i><strong>Insufficient Permissions:</strong></i>
+      </div>
+      Applying this change set would put this process into an Externally Terminated state, but you do not have
+      permission to delete processes.
+    </div>
+  } @else {
+    <div class="d-flex">
+      <fluxnova-icon iconName="warning" color="iconBlue" class="fs-7"></fluxnova-icon>
+      <div class="ps-2"><strong>Please, carefully review the modifications being performed</strong></div>
+    </div>
+    <label class="d-flex align-items-center mt-3 indent">
+      <input type="checkbox" [(ngModel)]="skipCustomListeners" /> Skip Custom Listeners
+      <fluxnova-icon
+        class="primary-blue ms-2"
+        iconName="info-outline"
+        ngbTooltip="If the value is enabled, only built-in listeners will be notified with the end event."
+      ></fluxnova-icon>
+    </label>
+    <label class="d-flex align-items-center mt-3 indent">
+      <input type="checkbox" [(ngModel)]="skipIoMappings" /> Skip IO Mappings
+      <fluxnova-icon
+        class="primary-blue ms-2"
+        iconName="info-outline"
+        ngbTooltip="If the value is enabled IO mappings will be skipped during token movement."
+      ></fluxnova-icon>
+    </label>
+    <label class="d-flex flex-column mt-3 indent">
+      <div class="d-flex align-items-center">
+        <span>Annotation</span>
+        <fluxnova-icon
+          class="primary-blue ms-2"
+          iconName="info-outline"
+          ngbTooltip="Any annotation that should be included with this change set may be added here."
+        ></fluxnova-icon>
+      </div>
+
+      <textarea
+        class="form-control mt-2"
+        rows="6"
+        style="min-height: 160px; resize: vertical"
+        [(ngModel)]="annotation"
+      ></textarea>
+    </label>
+    @if (options.willTerminate) {
+      <div class="warning">
+        <div class="d-flex justify-content-start">
+          <i><strong>Warning:</strong></i>
+        </div>
+        Applying this change set will put this process into an Externally Terminated state, which then cannot be
+        restarted. Are you sure you want to continue?
+      </div>
+    }
+  }
+</div>
+<div class="modal-footer">
+  <button type="button" aria-label="cancel" class="btn btn-outline-secondary" (click)="modal.dismiss('cancel')">
+    Cancel
+  </button>
+  <button type="button" aria-label="abort" class="btn btn-outline-secondary" (click)="clear()">
+    Cancel & Clear Changes
+  </button>
+  <button
+    type="button"
+    class="btn btn-primary"
+    (click)="confirm()"
+    [disabled]="options.willTerminate && !userHasPermissionsToTerminate"
+  >
+    Continue
+  </button>
+</div>

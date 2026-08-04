@@ -1,0 +1,99 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`StaticCalledProcessDefinitionsTabComponent > should have correct column definitions 1`] = `
+[
+  {
+    "cellClass": "pointer",
+    "cellDataType": false,
+    "cellRenderer": "linkRenderer",
+    "cellRendererParams": {
+      "path": "../",
+      "pathParamField": "id",
+      "requiredFieldToEnableLink": "id",
+    },
+    "colId": "calledProcessDefinition",
+    "comparator": [Function],
+    "field": "name",
+    "flex": 1,
+    "floatingFilter": false,
+    "headerName": "Called Process Definition",
+    "initialWidth": 200,
+    "minWidth": 100,
+    "resizable": true,
+    "rowDrag": false,
+    "sortable": false,
+    "suppressFloatingFilterButton": true,
+    "suppressKeyboardEvent": [Function],
+  },
+  {
+    "cellClass": "pointer",
+    "cellDataType": false,
+    "cellRenderer": "truncateWithTooltipRenderer",
+    "colId": "state",
+    "comparator": [Function],
+    "field": "state",
+    "floatingFilter": true,
+    "headerName": "State",
+    "initialWidth": 200,
+    "minWidth": 100,
+    "resizable": true,
+    "rowDrag": false,
+    "sortable": false,
+    "suppressFloatingFilterButton": true,
+    "suppressKeyboardEvent": [Function],
+  },
+  {
+    "cellClass": "pointer",
+    "cellDataType": false,
+    "cellRenderer": "truncateWithTooltipRenderer",
+    "colId": "activityId",
+    "comparator": [Function],
+    "field": "activityId",
+    "filter": "defaultFloatingFilter",
+    "filterParams": {
+      "comparators": [
+        "equals",
+      ],
+    },
+    "flex": 1,
+    "floatingFilter": true,
+    "floatingFilterComponent": "defaultFloatingFilter",
+    "headerName": "Activity ID",
+    "initialWidth": 200,
+    "minWidth": 100,
+    "resizable": true,
+    "rowDrag": false,
+    "sortable": false,
+    "suppressFloatingFilterButton": true,
+    "suppressKeyboardEvent": [Function],
+  },
+  {
+    "cellClass": "pointer",
+    "cellDataType": false,
+    "cellRenderer": "activityNameFromDOMRenderer",
+    "cellRendererParams": {
+      "sourceField": "activityId",
+    },
+    "colId": "activityName",
+    "comparator": [Function],
+    "field": "activityName",
+    "flex": 1,
+    "floatingFilter": false,
+    "headerName": "Activity Name",
+    "initialWidth": 200,
+    "minWidth": 100,
+    "resizable": true,
+    "rowDrag": false,
+    "sortable": false,
+    "suppressFloatingFilterButton": true,
+    "suppressKeyboardEvent": [Function],
+  },
+]
+`;
+
+exports[`StaticCalledProcessDefinitionsTabComponent > should have correct overlayNoRowsTemplate getter 1`] = `
+"<span class="no-search-results">
+    <div class="no-search-results-icon" alt="no results icon"></div>
+    No called process definitions were found
+  </span>"
+`;

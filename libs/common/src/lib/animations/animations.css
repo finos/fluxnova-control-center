@@ -1,0 +1,86 @@
+/* fadeInOut */
+@keyframes fluxnovaFadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.5);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes fluxnovaFadeOut {
+  from {
+    opacity: 1;
+    transform: scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: scale(0.5);
+  }
+}
+
+.fluxnova-fade-in {
+  animation: fluxnovaFadeIn 500ms ease-out forwards;
+}
+
+.fluxnova-fade-out {
+  animation: fluxnovaFadeOut 500ms ease-out forwards;
+}
+
+/* expandShrink */
+@keyframes fluxnovaExpand {
+  from {
+    max-height: var(--fluxnova-mh-start, 0px);
+  }
+  to {
+    max-height: var(--fluxnova-mh-end, 100px);
+  }
+}
+
+@keyframes fluxnovaShrink {
+  from {
+    max-height: var(--fluxnova-mh-end, 100px);
+  }
+  to {
+    max-height: var(--fluxnova-mh-start, 0px);
+  }
+}
+
+.fluxnova-expand {
+  overflow: hidden;
+  animation: fluxnovaExpand var(--fluxnova-time, 3s) ease-in-out forwards;
+}
+
+.fluxnova-shrink {
+  overflow: hidden;
+  animation: fluxnovaShrink var(--fluxnova-time, 0.3s) ease-in-out forwards;
+}
+
+/* slideInOut */
+@keyframes fluxnovaSlideIn {
+  from {
+    transform: var(--fluxnova-slide-start);
+  }
+  to {
+    transform: var(--fluxnova-slide-end, translate(0, 0));
+  }
+}
+
+@keyframes fluxnovaSlideOut {
+  from {
+    transform: var(--fluxnova-slide-end, translate(0, 0));
+  }
+  to {
+    transform: var(--fluxnova-slide-start);
+  }
+}
+
+.fluxnova-slide-in {
+  animation: fluxnovaSlideIn var(--fluxnova-time, 300ms) ease-out forwards;
+}
+
+.fluxnova-slide-out {
+  animation: fluxnovaSlideOut var(--fluxnova-time, 300ms) ease-out forwards;
+}

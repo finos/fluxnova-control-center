@@ -1,0 +1,73 @@
+# Workflow: CI/CD for Fluxnova Control Center
+
+name: CI/CD for Fluxnova Control Center
+
+env:
+  DOCKER_USERNAME: finos
+  DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+
+on:
+  push:
+    branches:
+      - main
+      - develop
+      - 'release/**'
+      - 'hotfix/**'
+  pull_request:
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.ref == 'refs/heads/main' && format('ci-default-branch-{0}-{1}', github.sha, github.workflow) || format('ci-pr-{0}-{1}', github.ref, github.workflow) }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+  packages: write
+  actions: read
+  pull-requests: write
+  id-token: write
+
+jobs:
+  build:
+    name: Build & Test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v6
+
+      - name: Set up pnpm and install dependencies
+        uses: ./.github/actions/pnpm-setup
+
+      - name: Generate Fluxnova API client
+        uses: ./.github/actions/generate-client
+
+      - name: Lint & Build
+        uses: ./.github/actions/build-app
+
+      - name: Run unit tests
+        run: TZ=UTC ./node_modules/.bin/nx run-many --target=test --code-coverage --runInBand --silent
+
+      - name: Install Playwright browsers
+        run: npx playwright install --with-deps chromium
+
+      - name: Run mocked E2E tests
+        run: |
+          mkdir -p apps/e2e/.auth
+          npx playwright test -c apps/e2e/playwright.config.ts --project me2e
+
+      - name: Extract version from branch
+        id: version
+        if: startsWith(github.ref, 'refs/heads/release/') || startsWith(github.ref, 'refs/heads/hotfix/')
+        run: |
+          VERSION="${GITHUB_REF_NAME#release/}"
+          VERSION="${VERSION#hotfix/}"
+          echo "version_tag=${VERSION}" >> "$GITHUB_OUTPUT"
+
+      - name: Build and publish Docker image
+        if: startsWith(github.ref, 'refs/heads/release/') || startsWith(github.ref, 'refs/heads/hotfix/')
+        uses: ./.github/actions/build-publish-image
+        with:
+          image_name: finos/fluxnova-control-center
+          dockerfile_path: ./Dockerfile
+          docker_context: .
+          image_tag: ${{ steps.version.outputs.version_tag }}

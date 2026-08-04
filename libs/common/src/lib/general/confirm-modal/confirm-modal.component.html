@@ -1,0 +1,207 @@
+<div #modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">{{ options.title }}</h4>
+    <button type="button" class="btn shadow-none d-flex align-items-center" aria-label="Close" (click)="dismiss()">
+      <fluxnova-icon class="font-standard" iconName="close"></fluxnova-icon>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="d-flex">
+      <fluxnova-icon iconName="warning" color="iconBlue" class="fs-7"></fluxnova-icon>
+
+      <div [innerHTML]="options.message"></div>
+    </div>
+    <div class="modal-scroll">
+      <ul>
+        @for (i of options.lineItems; track i) {
+          <li>
+            @if (i.processDefinitionKey) {
+              <span>
+                <b>{{ i.processDefinitionKey }}:</b> {{ i.id }}
+              </span>
+            }
+            @if (!i.processDefinitionKey) {
+              <span>
+                {{ i.id }}
+              </span>
+            }
+          </li>
+        }
+      </ul>
+    </div>
+    @if (options.dynamicContent?.readMoreContent) {
+      <div class="readMoreWrapper" [ngClass]="{ expanded: readMoreState.isOpen }">
+        <div [innerHTML]="options.dynamicContent!.readMoreContent![0]"></div>
+        @if (readMoreState.isVisible) {
+          <div
+            class="overflow-hidden"
+            [class.fluxnova-expand]="!readMoreState.isClosing"
+            [class.fluxnova-shrink]="readMoreState.isClosing"
+            style="--fluxnova-mh-end: 350px; --fluxnova-time: 0.8s"
+            (animationend)="readMoreState.onAnimationEnd()"
+            [innerHTML]="options.dynamicContent!.readMoreContent![1]"
+          ></div>
+        }
+      </div>
+    }
+    @if (options.dynamicContent?.readMoreContent) {
+      <div class="primary-blue mt-2">
+        ...
+        <span (click)="toggleReadMore()" role="button" class="pe-auto"
+          >Read {{ readMoreState.isOpen ? 'Less' : 'More' }}
+        </span>
+      </div>
+    }
+
+    @if (options.isBulkTerminate) {
+      <textarea
+        name="reason"
+        class="w-100 mt-3 textarea-style"
+        placeholder="Please enter a reason for bulk terminate"
+        [(ngModel)]="modalData.reason"
+        rows="4"
+      ></textarea>
+    }
+    @if (options.inputs?.numberInput; as numberInput) {
+      <div class="d-flex align-items-center mt-3 indent">
+        {{ numberInput.label }}
+        @if (numberInput.showInfoBubble) {
+          <fluxnova-icon
+            class="primary-blue ms-2 me-2"
+            iconName="info-outline"
+            [ngbTooltip]="numberInput.infoTooltip"
+          ></fluxnova-icon>
+        }
+        <input
+          #numberInput
+          class="pt-1 pb-1 ps-2 pe-2 number-input"
+          name="{{ numberInput.label }}"
+          min="{{ numberInput.min }}"
+          max="{{ numberInput.max }}"
+          type="number"
+          [(ngModel)]="modalData.numberInput"
+          (input)="validateInput(modalData.numberInput, numberInput.min, numberInput.max)"
+        />
+      </div>
+    }
+    <div class="error-wrapper" [ngClass]="{ hidden: errorMessage === undefined }">
+      <div id="error-message">
+        <span class="fa fa-exclamation-triangle"></span>
+        <span class="ps-2">{{ errorMessage }}</span>
+      </div>
+    </div>
+    @for (checkbox of options.inputs?.checkboxes; track checkbox) {
+      @if (checkbox.itemTypeAction) {
+        <label class="d-flex align-items-center mt-3 indent" *fluxnovaHasPermissions="checkbox.itemTypeAction">
+          <input type="checkbox" [(ngModel)]="checkbox.value" /> {{ checkbox.label }}
+          @if (checkbox.showInfoBubble) {
+            <fluxnova-icon
+              class="primary-blue ms-2"
+              iconName="info-outline"
+              [ngbTooltip]="checkbox.infoTooltip"
+            ></fluxnova-icon>
+          }
+        </label>
+      }
+      @if (!checkbox.itemTypeAction) {
+        <label class="d-flex align-items-center mt-3 indent">
+          <input type="checkbox" [(ngModel)]="checkbox.value" /> {{ checkbox.label }}
+          @if (checkbox.showInfoBubble) {
+            <fluxnova-icon
+              class="primary-blue ms-2"
+              iconName="info-outline"
+              [ngbTooltip]="checkbox.infoTooltip"
+            ></fluxnova-icon>
+          }
+        </label>
+      }
+    }
+    @if (options.inputs?.checkboxes && options.inputs?.radioButtons) {
+      <div class="pb-2 pt-2"></div>
+    }
+    @for (i of options.inputs?.radioButtons; track i) {
+      <label class="d-flex align-items-center mt-3 indent">
+        <input type="radio" [value]="i.name" [(ngModel)]="modalData.selectedRadioOption" (change)="onRadioChange(i)" />
+        {{ i.label }}
+        @if (i.showInfoBubble) {
+          <fluxnova-icon class="primary-blue ms-2" iconName="info-outline" [ngbTooltip]="i.infoTooltip"></fluxnova-icon>
+        }
+      </label>
+    }
+    @if (dynamicContentState.isVisible) {
+      <div
+        [class.fluxnova-expand]="!dynamicContentState.isClosing"
+        [class.fluxnova-shrink]="dynamicContentState.isClosing"
+        style="--fluxnova-mh-end: 100px; --fluxnova-time: 0.3s"
+        (animationend)="dynamicContentState.onAnimationEnd()"
+        class="overflow-hidden ms-5 ps-3 pt-2"
+      >
+        @if (options.dynamicContent?.inputs?.numberInput; as numberInput) {
+          <div class="d-flex align-items-center mt-3">
+            {{ numberInput.label }}
+            @if (numberInput.showInfoBubble) {
+              <fluxnova-icon
+                class="primary-blue ms-2 me-2"
+                iconName="info-outline"
+                [ngbTooltip]="numberInput.infoTooltip"
+              ></fluxnova-icon>
+            }
+            <input
+              #numberInput
+              class="pt-1 pb-1 ps-2 pe-2 retry-input"
+              name="{{ numberInput.label }}"
+              min="{{ numberInput.min }}"
+              max="{{ numberInput.max }}"
+              type="number"
+              [(ngModel)]="modalData.numberInput"
+              (input)="validateInput(modalData.numberInput, numberInput.min, numberInput.max)"
+            />
+          </div>
+        }
+        @for (i of options.dynamicContent?.inputs?.checkboxes; track i) {
+          <label class="d-flex align-items-center mt-3">
+            <input type="checkbox" [(ngModel)]="i.value" /> {{ i.label }}
+            @if (i.showInfoBubble) {
+              <fluxnova-icon
+                class="primary-blue ms-2"
+                iconName="info-outline"
+                [ngbTooltip]="i.infoTooltip"
+              ></fluxnova-icon>
+            }
+          </label>
+        }
+        @if (options.dynamicContent?.inputs?.dateSelector) {
+          <label class="d-flex align-items-center mt-3">
+            <fluxnova-date-range-select
+              (dateRangeChanged)="onDateSelectorChange($event)"
+              [displayFilterTypeHeader]="false"
+              [filterType]="'equals'"
+              class="date-select"
+              [dateFrom]="currentDate"
+              [keepOpenAfterDateSelect]="true"
+              (input)="onDateInput($event)"
+            >
+            </fluxnova-date-range-select>
+          </label>
+        }
+      </div>
+    }
+  </div>
+  <div class="modal-footer">
+    @if (!options.hideCancelButton) {
+      <button type="button" aria-label="cancel" class="btn btn-outline-secondary" (click)="dismiss()">
+        {{ options.cancelButtonLabel || 'Cancel' }}
+      </button>
+    }
+    <button
+      type="button"
+      class="btn btn-primary"
+      [disabled]="
+        (modalData.reason === '' && options.isBulkTerminate) || errorMessage !== undefined || !modalData.validDate
+      "
+      (click)="confirm()"
+    >
+      {{ options.confirmButtonLabel || 'Confirm' }}
+    </button>
+  </div>
+</div>

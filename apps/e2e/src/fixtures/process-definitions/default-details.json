@@ -1,0 +1,18 @@
+[
+  {
+    "id": "mocked-process-definition",
+    "key": "MODEL-4385509b-ddf1-43c8-842e-efc7a7c021d0",
+    "category": "http://bpmn.io/schema/bpmn",
+    "description": null,
+    "name": "Fluxnova Automation - Default Test Process",
+    "version": 1,
+    "resource": "Fluxnova-Automation---Versioned-Process--2023-2-15--12-1-36.bpmn",
+    "deploymentId": "f89995d1-c25f-11ed-a93b-0ee78d79079d",
+    "diagram": null,
+    "suspended": false,
+    "tenantId": null,
+    "versionTag": null,
+    "historyTimeToLive": 7,
+    "startableInTasklist": true
+  }
+]

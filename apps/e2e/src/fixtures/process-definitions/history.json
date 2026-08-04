@@ -1,0 +1,29 @@
+{
+  "userOperation": [],
+  "activityInstance": [
+    {
+      "id": "Activity_079duei:717af2b1-5bc2-11ee-b941-02f6ae7b73e9",
+      "parentActivityInstanceId": "15e48ec1-ef6c-11ed-b7c8-0a8ebe9048cf",
+      "activityId": "Activity_079duei",
+      "activityName": "Fluxnova UI Automation - Alternate User Task",
+      "activityType": "userTask",
+      "processDefinitionKey": "MODEL-7047e74a-bfca-4b2d-a574-f41e5f57b058",
+      "processDefinitionId": "1fc528c2-eeb1-11ed-9b96-0a81d7d98f19",
+      "processInstanceId": "0002adb8-a28c-11ed-a978-0ec9965d7f47",
+      "executionId": "15e48ec1-ef6c-11ed-b7c8-0a8ebe9048cf",
+      "taskId": "717b19c2-5bc2-11ee-b941-02f6ae7b73e9",
+      "calledProcessInstanceId": null,
+      "calledCaseInstanceId": null,
+      "assignee": null,
+      "startTime": "2023-09-25T12:41:58.073-0400",
+      "endTime": null,
+      "durationInMillis": null,
+      "canceled": false,
+      "completeScope": false,
+      "tenantId": null,
+      "removalTime": null,
+      "rootProcessInstanceId": "15e48ec1-ef6c-11ed-b7c8-0a8ebe9048cf"
+    }
+  ],
+  "incident": []
+}

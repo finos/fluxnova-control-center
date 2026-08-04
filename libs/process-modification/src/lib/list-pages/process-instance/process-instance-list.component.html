@@ -1,0 +1,76 @@
+<div class="items-list-view list-item-type-process-instance">
+  <div class="items-list-view-header global-header">
+    <div class="header-label">Process Instances</div>
+    <div class="toolbar bulk-actions">
+      <div class="toolbar-actions toolbar-section-left bulk-span">
+        <button
+          class="btn action-btn"
+          id="activate"
+          ngbTooltip="Activate"
+          triggers="hover"
+          [disabled]="!canActivate()"
+          (click)="suspendOrActivate(false)"
+          *fluxnovaHasPermissions="'ActivateProcessInstance'"
+        >
+          <fluxnova-icon iconName="play" class="fs-8"></fluxnova-icon>
+        </button>
+        <button
+          class="btn action-btn"
+          id="suspend"
+          ngbTooltip="Suspend"
+          triggers="hover"
+          [disabled]="!canSuspend()"
+          (click)="suspendOrActivate(true)"
+          *fluxnovaHasPermissions="'SuspendProcessInstance'"
+        >
+          <fluxnova-icon iconName="pause" class="fs-8"></fluxnova-icon>
+        </button>
+        <button
+          class="btn action-btn"
+          id="terminate"
+          ngbTooltip="Terminate"
+          triggers="hover"
+          [disabled]="!canTerminate()"
+          (click)="terminate()"
+          *fluxnovaHasPermissions="'TerminateProcessInstance'"
+        >
+          <fluxnova-icon iconName="terminate" class="fs-8"></fluxnova-icon>
+        </button>
+      </div>
+      <div class="toolbar-actions toolbar-section-right">
+        <fluxnova-toggle-filters
+          class="d-flex align-items-center"
+          (resetToggles)="resetColumns()"
+          (selectToggle)="selectToggleFilter($event)"
+          [toggleFilters]="toggleFilters"
+          [isResetVisible]="hasFilterOrSortDeviatedFromDefault || hasListViewStateDeviatedFromDefault"
+        >
+        </fluxnova-toggle-filters>
+      </div>
+    </div>
+  </div>
+  <fluxnova-items-table
+    #itemsTable
+    data-table-role="result"
+    [items]="data"
+    [filters]="filters"
+    [sorting]="sorting"
+    (columnHeaderSortChange)="selectHeaderSort($event)"
+    (columnHeaderFilterChange)="selectFilter($event)"
+    (listViewStateChange)="columnPrefsUpdated($event)"
+    (itemsSelectChange)="selectedRows = $event"
+    [isLoading]="isLoading"
+    [listViewState]="listViewState"
+    [rowSelectionType]="anyButtonVisible ? 'multiRow' : 'singleRow'"
+    [rowClickSelection]="true"
+    [checkboxes]="anyButtonVisible"
+  >
+  </fluxnova-items-table>
+  <fluxnova-ag-pagination
+    class="border-top align-items-center px-3"
+    [totalItems]="totalCount"
+    [loading]="isLoading"
+    (paginationChanged)="paginationSubject$.next({ page: $event.page, pageSize: $event.pageSize })"
+  >
+  </fluxnova-ag-pagination>
+</div>

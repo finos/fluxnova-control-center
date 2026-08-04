@@ -1,0 +1,39 @@
+<fluxnova-multi-select
+  #multiSelectFloatingFilterComponent
+  [labelForId]="labelForId"
+  [selectedArray]="selectedItemsArray"
+  [options]="itemOptions"
+  placeholder=""
+  [defaultSelected]="isDefaultSelected"
+  (multiSelectionChange)="updateSelectedItems($event)"
+  appendTo="body"
+  size="small"
+  [dropdownPosition]="'bottom'"
+  [allowAddNewItems]="allowAddNewItems"
+  [maxSelectedItems]="maxSelectedItems"
+  addTagText="Add filter:"
+  [notFoundText]="!allowAddNewItems ? 'No items found' : 'Type to filter'"
+  [disabled]="isDisabled"
+  [ngbTooltip]="tooltipText"
+  container="body"
+></fluxnova-multi-select>
+@if (multipleComparators) {
+  <fluxnova-icon
+    [ngbPopover]="popOverContent"
+    aria-label="Select Comparator"
+    autoClose="true"
+    class="ps-2 pointer text-primary"
+    [ngClass]="{ 'disabled-icon': isDisabled, 'disabled-pointer-events': isDisabled }"
+    container="body"
+    iconName="filter"
+    placement="bottom-right auto"
+    popoverClass="no-arrow-popover filters-popover"
+    [closeDelay]="800"
+  ></fluxnova-icon>
+}
+<ng-template #popOverContent>
+  <fluxnova-radio-buttons-toggle
+    [radioButtons]="filterComparatorOptions"
+    (toggleUpdateRadioButtons)="updateCurrentFilterComparator($event)"
+  ></fluxnova-radio-buttons-toggle>
+</ng-template>

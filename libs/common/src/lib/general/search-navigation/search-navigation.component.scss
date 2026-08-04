@@ -1,0 +1,54 @@
+fluxnova-search-navigation {
+  .ng-select {
+    &.ng-select-single {
+      .ng-select-container {
+        height: 24px;
+      }
+    }
+
+    .ng-select-container {
+      border: none !important;
+      background-color: inherit !important;
+      min-height: 24px;
+
+      &:hover {
+        box-shadow: none;
+      }
+
+      .ng-spinner-loader {
+        margin-right: 0;
+      }
+
+      .ng-arrow-wrapper {
+        display: none;
+      }
+
+      .ng-clear-wrapper {
+        display: flex;
+        align-items: center;
+
+        &::after {
+          font-size: 12px;
+        }
+      }
+    }
+  }
+
+  &.hidden .ng-select-container,
+  &.hidden .ng-input {
+    width: 0 !important;
+    padding: 0 !important;
+  }
+
+  .ng-select.ng-select-single .ng-select-container .ng-value-container .ng-input {
+    height: 22px;
+    top: 2px;
+    padding-right: 45px;
+  }
+
+  ng-dropdown-panel.ng-dropdown-panel:not(.fixed-width-dropdown) {
+    left: -31px;
+    top: 26px;
+    width: 256px !important;
+  }
+}

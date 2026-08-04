@@ -1,0 +1,270 @@
+// These are here to restore bpmn-js defined colors in the properties panel, and that's why we're not using something from theme-colors.
+$description-text: #999;
+$properties-panel-background: #f8f9fa;
+$error-message: #cc3333;
+
+.djs-container .canceled .djs-visual {
+  rect,
+  polygon,
+  circle {
+    stroke: $color-terminated-token !important;
+  }
+}
+
+.djs-container .completedSuccess .djs-visual {
+  rect,
+  polygon,
+  circle {
+    stroke: $color-completed-token !important;
+  }
+  path {
+    stroke: $color-completed-token !important;
+  }
+  &.solid-paths {
+    path {
+      fill: $color-completed-token !important;
+    }
+  }
+}
+
+.djs-container .completedSuccess {
+  &.solid-paths {
+    .djs-visual {
+      path {
+        stroke: $color-completed-token !important;
+        fill: $color-completed-token !important;
+      }
+    }
+  }
+}
+
+.djs-container .inProgress .djs-visual {
+  rect,
+  polygon,
+  circle {
+    stroke: $color-active-token !important;
+  }
+  path {
+    stroke: $color-active-token !important;
+  }
+}
+
+.djs-container .inProgress {
+  &.solid-paths {
+    .djs-visual {
+      path {
+        stroke: $color-active-token !important;
+        fill: $color-active-token !important;
+      }
+    }
+  }
+}
+
+.djs-container .incident .djs-visual {
+  rect,
+  polygon,
+  circle {
+    stroke: $color-incident !important;
+  }
+  path {
+    stroke: $color-incident !important;
+  }
+}
+
+.djs-container .incident {
+  &.solid-paths {
+    .djs-visual {
+      path {
+        stroke: $color-incident !important;
+        fill: $color-incident !important;
+      }
+    }
+  }
+}
+
+/**
+ * Styles for migration model diff.
+ */
+.djs-container .addition .djs-visual {
+  rect,
+  polygon,
+  circle {
+    stroke: map-get($theme-colors, 'success') !important;
+    fill: map-get($theme-colors, 'success') !important;
+    fill-opacity: 0.2 !important;
+  }
+  path {
+    stroke: map-get($theme-colors, 'success') !important;
+  }
+}
+
+.djs-container .deletion .djs-visual {
+  rect,
+  polygon,
+  circle {
+    stroke: map-get($theme-colors, 'danger') !important;
+    fill: map-get($theme-colors, 'danger') !important;
+    fill-opacity: 0.2 !important;
+  }
+  path {
+    stroke: map-get($theme-colors, 'danger') !important;
+  }
+}
+/*****/
+
+.bpp-textbox > div.bpp-field-wrapper > div {
+  width: 100% !important;
+}
+
+.bpp-textbox > div.bpp-field-wrapper > div + div {
+  color: $description-text;
+  background-color: $properties-panel-background !important;
+  font-size: 11px;
+  border: none;
+  padding: 0;
+}
+
+.bpp-textbox > div.bpp-field-wrapper > div.bpp-error-message {
+  color: $error-message;
+  height: 16px;
+}
+
+.bjsl-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.bjsl-icon-warning svg {
+  padding-right: 1.5px;
+}
+
+.bjs-container.simulation {
+  .set-animation-speed .animation-speed-buttons .animation-speed-button {
+    padding: 6px;
+    width: max-content;
+  }
+
+  .token-simulation-palette {
+    top: 70px;
+
+    .entry {
+      background-color: map-get($theme-colors, 'white');
+      color: map-get($theme-colors, 'primary');
+      padding: 10px;
+      width: 40px;
+      border: 1px solid map-get($theme-colors, 'primary');
+
+      &:hover {
+        background-color: map-get($theme-colors, 'light');
+      }
+
+      &.active {
+        background-color: map-get($theme-colors, 'primary');
+        color: map-get($theme-colors, 'white');
+      }
+
+      &.disabled {
+        opacity: 0.6;
+        background-color: map-get($theme-colors, 'neutral-700');
+        border: 1px solid map-get($theme-colors, 'neutral-700');
+        color: map-get($theme-colors, 'neutral-500');
+      }
+    }
+  }
+
+  .set-animation-speed {
+    background-color: map-get($theme-colors, 'white');
+    color: map-get($theme-colors, 'primary');
+    border: 1px solid map-get($theme-colors, 'primary');
+    cursor: default;
+
+    &.active {
+      background-color: map-get($theme-colors, 'primary');
+      color: map-get($theme-colors, 'white');
+    }
+  }
+
+  .token-simulation-scopes {
+    left: 200px;
+  }
+
+  .animation-speed-buttons {
+    cursor: pointer;
+  }
+
+  .switch-mode {
+    cursor: pointer;
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    font-size: 16px;
+    width: max-content;
+    display: flex;
+    flex-direction: row;
+    border-radius: 2px;
+    padding: 6px 12px;
+    background-color: map-get($theme-colors, 'white');
+    color: map-get($theme-colors, 'primary');
+    border: 1px solid map-get($theme-colors, 'primary');
+
+    &:hover {
+      background-color: map-get($theme-colors, 'light');
+    }
+  }
+
+  .token-simulation-log {
+    left: 50%;
+  }
+
+  .token-simulation-log .header {
+    height: max-content;
+  }
+}
+
+.pim-move-token-btn {
+  cursor: pointer;
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  font-size: 16px;
+  width: max-content;
+  display: flex;
+  flex-direction: row;
+  border-radius: 2px;
+  padding: 6px 12px;
+  background-color: map-get($theme-colors, 'white');
+  color: map-get($theme-colors, 'primary');
+  border: 1px solid map-get($theme-colors, 'primary');
+
+  &:hover {
+    background-color: map-get($theme-colors, 'light');
+  }
+}
+
+:root {
+  --token-simulation-green-base-44: #024a7a;
+}
+
+.djs-element.dimmed,
+.djs-overlays.dimmed {
+  opacity: 0.3;
+}
+
+.djs-element.dimmed.hovered,
+.djs-overlays.dimmed.hovered {
+  opacity: 0.8;
+}
+
+.djs-element,
+.djs-overlays {
+  transition: opacity 0.3s ease;
+}
+
+.djs-connection .djs-hit {
+  pointer-events: none;
+}
+
+.djs-shape .djs-hit {
+  cursor: pointer !important;
+}

@@ -1,0 +1,8 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`ItemDetailHistorySectionComponent > should have correct overlayNorRowsTemplate string value with phrase "No history items were found" 1`] = `
+"<span class="no-search-results">
+    <div class="no-search-results-icon" alt="no results icon"></div>
+    No history items were found
+  </span>"
+`;

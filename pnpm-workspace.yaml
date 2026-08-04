@@ -1,0 +1,28 @@
+allowBuilds:
+  '@nestjs/core': true
+  '@openapitools/openapi-generator-cli': true
+  '@parcel/watcher': true
+  '@swc/core': true
+  esbuild: true
+  inferno: true
+  less: true
+  lmdb: true
+  msgpackr-extract: true
+  nx: true
+  protobufjs: true
+  puppeteer: true
+  unrs-resolver: true
+  utf-8-validate: true
+autoInstallPeers: false
+minimumReleaseAge: 1440
+minimumReleaseAgeExclude:
+  # Renovate security update: @nestjs/core@11.1.18
+  - "@nestjs/core@11.1.18"
+  # Renovate security update: axios@1.15.2
+  - axios@1.15.2
+  # Renovate security update: svgo@4.0.1
+  - svgo@4.0.1
+  # Renovate security update: vite@7.3.2
+  - vite@7.3.2
+  # Renovate security update: @opentelemetry/auto-instrumentations-node@0.75.0
+  - "@opentelemetry/auto-instrumentations-node@0.75.0"

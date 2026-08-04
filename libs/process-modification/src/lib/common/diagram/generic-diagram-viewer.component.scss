@@ -1,0 +1,52 @@
+:host {
+  position: relative;
+}
+
+.diagram-canvas-wrapper {
+  height: 100%;
+}
+
+.canvas {
+  width: 100%;
+  height: 100%;
+  cursor: grab;
+
+  .diagram-legend-trigger {
+    top: 0.75rem;
+  }
+}
+
+::ng-deep {
+  .djs-element.selected .djs-outline {
+    stroke: #356f95;
+    stroke-width: 2px;
+    stroke-dasharray: 5;
+  }
+
+  .djs-element.hover .djs-outline {
+    stroke: #356f95;
+    stroke-width: 2px;
+  }
+
+  .djs-cursor-grab {
+    user-select: none;
+  }
+
+  .dmn-js-parent .view-drd .view-drd-button {
+    border-radius: 5px;
+  }
+}
+
+.hidden {
+  display: none;
+  visibility: hidden;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.no-diagram {
+  position: relative;
+  text-align: center;
+  font-size: 1.5em;
+  top: 50%;
+}

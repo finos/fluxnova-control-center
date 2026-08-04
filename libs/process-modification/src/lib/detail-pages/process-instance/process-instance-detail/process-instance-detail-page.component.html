@@ -1,0 +1,186 @@
+<ng-container *ngrxLet="itemId$; let itemId">
+  <div *ngIf="isLoading; else storeItems" class="item-detail-vertical-split">
+    <div class="app-loading">
+      <div class="logo"></div>
+      <svg class="spinner" viewBox="25 25 50 50">
+        <circle class="path" cx="50" cy="50" fill="none" r="20" stroke-miterlimit="10" stroke-width="2" />
+      </svg>
+    </div>
+  </div>
+  <ng-template #storeItems>
+    <as-split
+      #split
+      *ngIf="isItemFound$ | async; else pageNotFound"
+      direction="horizontal"
+      [gutterSize]="gutterSize"
+      [useTransition]="true"
+      [gutterDblClickDuration]="500"
+      unit="pixel"
+      (transitionEnd)="this.onCanvasSizeChanged()"
+      (dragEnd)="handlePanelDragEnd(infoPanelState, $event, 0)"
+      (gutterDblClick)="expandOrCollapsePanel(infoPanelState)"
+    >
+      <as-split-area
+        id="leftPanel"
+        [ngClass]="'item-detail-' + routeData.itemTypeClass"
+        [size]="(infoPanelState.visible$ | async) ? (infoPanelState.size$ | async) : 0"
+        class="detail-pane-meta bg"
+      >
+        <fluxnova-back-button
+          [previousPageName]="routeData.itemTypeListName"
+          [backTo]="routeData.backNavigation"
+        ></fluxnova-back-button>
+        <div [ngSwitch]="routeData.itemType">
+          <fluxnova-process-instance-info-section
+            *ngSwitchCase="ItemType.ProcessInstance"
+          ></fluxnova-process-instance-info-section>
+        </div>
+      </as-split-area>
+      <as-split-area id="rightPanel" [ngSwitch]="routeData.itemType" class="bg">
+        <as-split
+          [ngClass]="'detail-item-type-' + routeData.itemTypeClass"
+          class="item-detail-vertical-split item-detail-view"
+          direction="vertical"
+          [gutterSize]="gutterSize"
+          [useTransition]="true"
+          [gutterDblClickDuration]="500"
+          (transitionEnd)="this.onCanvasSizeChanged()"
+          (dragEnd)="handlePanelDragEnd(tabPanelState, $event, 1); handlePanelDragEnd(diagramPanelState, $event, 0)"
+          (gutterDblClick)="expandOrCollapsePanel(tabPanelState)"
+        >
+          <as-split-area
+            id="topPanel"
+            [ngSwitch]="routeData.itemType"
+            [size]="(tabPanelState.visible$ | async) ? (diagramPanelState.size$ | async) : 100"
+            class="overflow-hidden main-content-section-bg-color"
+            minSize="10"
+          >
+            <div class="global-header">
+              <div class="panel-btn-container">
+                <button
+                  class="btn panel-btn first"
+                  [ngbTooltip]="(infoPanelState.visible$ | async) ? 'Collapse Info' : 'Expand Info'"
+                  triggers="hover"
+                  [disabled]="false"
+                  (click)="expandOrCollapsePanel(infoPanelState)"
+                >
+                  <fluxnova-icon
+                    [iconName]="(infoPanelState.visible$ | async) ? 'expand-left' : 'expand-right'"
+                    class="fs-3"
+                  ></fluxnova-icon>
+                </button>
+                <button
+                  class="btn panel-btn last"
+                  [ngbTooltip]="
+                    (infoPanelState.visible$ | async) || (tabPanelState.visible$ | async)
+                      ? 'Expand Diagram'
+                      : 'Restore Panels'
+                  "
+                  triggers="hover"
+                  [disabled]="false"
+                  (click)="toggleDiagramFullscreen()"
+                >
+                  <fluxnova-icon
+                    [iconName]="
+                      (infoPanelState.visible$ | async) || (tabPanelState.visible$ | async)
+                        ? 'fullscreen'
+                        : 'fullscreen-restore'
+                    "
+                    class="fs-3"
+                  ></fluxnova-icon>
+                </button>
+              </div>
+              <div class="header-label">{{ routeData.itemTypeName | uppercase }}</div>
+              <fluxnova-toolbar #toolbar></fluxnova-toolbar>
+            </div>
+            <div [ngClass]="{ 'edit-bg-color': isEditing }" style="position: relative">
+              <fluxnova-generic-diagram-viewer
+                (diagramRendered)="onDiagramRendered($event)"
+                (sequenceFlows)="setSequenceFlows($event)"
+                *fluxnovaLoading="isSaving"
+              ></fluxnova-generic-diagram-viewer>
+              <button
+                class="btn panel-btn lower-panel-btn"
+                [ngbTooltip]="(tabPanelState.visible$ | async) ? 'Collapse Tabs' : 'Expand Tabs'"
+                [openDelay]="50"
+                [closeDelay]="50"
+                triggers="hover"
+                [disabled]="false"
+                (click)="expandOrCollapsePanel(tabPanelState)"
+              >
+                <fluxnova-icon
+                  [iconName]="(tabPanelState.visible$ | async) ? 'expand-down' : 'expand-up'"
+                  class="fs-3"
+                ></fluxnova-icon>
+              </button>
+            </div>
+            <fluxnova-context-menu
+              [detailItem]="{ itemId: itemId, itemType: routeData.itemType }"
+            ></fluxnova-context-menu>
+            <fluxnova-diagram-legend [showIconsInLegend]="true"></fluxnova-diagram-legend>
+          </as-split-area>
+          <as-split-area
+            id="bottomPanel"
+            [size]="(tabPanelState.visible$ | async) ? (tabPanelState.size$ | async) : 0"
+            class="item-details-tabs-view"
+          >
+            <fluxnova-tabs-view
+              (activeTabsChange)="activeTabsChanged($event)"
+              [activeTab]="activeTab"
+              [ngSwitch]="activeTab"
+              [tabCounts]="counts"
+              [tabs]="tabs"
+            >
+              <fluxnova-variables-tab
+                *ngSwitchCase="TabNames.Variables"
+                [detailItem]="{ id: itemId, type: routeData.itemType }"
+                [totalCount]="counts[PimTab.Variables]"
+              ></fluxnova-variables-tab>
+              <fluxnova-incidents-tab
+                *ngSwitchCase="TabNames.Incidents"
+                [parentItemType]="routeData.itemType"
+                [detailItem]="{ id: itemId, type: routeData.itemType }"
+                [totalCount]="counts[PimTab.Incidents]"
+              ></fluxnova-incidents-tab>
+              <fluxnova-jobs-tab
+                *ngSwitchCase="TabNames.Jobs"
+                [detailItem]="{ id: itemId, type: routeData.itemType }"
+                [totalCount]="counts[PimTab.Jobs]"
+              ></fluxnova-jobs-tab>
+              <fluxnova-history-tab
+                *ngSwitchCase="TabNames.History"
+                [detailItem]="{ id: itemId, type: routeData.itemType }"
+              ></fluxnova-history-tab>
+              <fluxnova-called-process-definitions
+                *ngSwitchCase="TabNames.CalledProcessDefinitions"
+                [detailItem]="{ id: itemId, type: routeData.itemType }"
+                [totalCount]="counts[PimTab.CalledProcessDefinitions]"
+              ></fluxnova-called-process-definitions>
+              <fluxnova-decision-instance-list
+                *ngSwitchCase="TabNames.DecisionInstances"
+                [parentItemType]="routeData.itemType"
+                [detailItem]="{ id: itemId, type: routeData.itemType }"
+                [totalCount]="counts[PimTab.DecisionInstances]"
+              ></fluxnova-decision-instance-list>
+              <fluxnova-static-called-process-instances
+                *ngSwitchCase="TabNames.CalledProcessInstances"
+                [detailItem]="{ id: itemId, type: routeData.itemType }"
+                [totalCount]="counts[PimTab.CalledProcessInstances]"
+              ></fluxnova-static-called-process-instances>
+              <fluxnova-user-tasks-tab
+                *ngSwitchCase="TabNames.UserTasks"
+                [detailItem]="{ id: itemId, type: routeData.itemType }"
+                [totalCount]="counts[PimTab.UserTasks]"
+              >
+              </fluxnova-user-tasks-tab>
+            </fluxnova-tabs-view>
+          </as-split-area>
+        </as-split>
+      </as-split-area>
+    </as-split>
+    <ng-template #pageNotFound>
+      <fluxnova-back-button [previousPageName]="routeData.itemTypeListName"></fluxnova-back-button>
+      <fluxnova-page-not-found [itemType]="routeData.itemTypeName"></fluxnova-page-not-found>
+    </ng-template>
+  </ng-template>
+</ng-container>

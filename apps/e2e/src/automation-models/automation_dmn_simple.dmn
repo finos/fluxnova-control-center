@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:camunda="http://camunda.org/schema/1.0/dmn" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:di="http://www.omg.org/spec/DMN/20180521/DI/" xmlns:modeler="http://fluxnova.finos.org/schema/modeler/1.0" id="fluxnova_automation_dmn_simple" name="Fluxnova UI Automation - DMN Simple" namespace="http://fluxnova.finos.org/schema/1.0/dmn" exporter="Fluxnova Modeler" exporterVersion="1.2.0" modeler:executionPlatform="Fluxnova Platform" modeler:executionPlatformVersion="2.0.0">
+  <decision id="fluxnova_automation_dish_dmn_simple" name="Fluxnova UI Automation - Dish - Simple" camunda:historyTimeToLive="P30D">
+    <decisionTable id="decisionTable">
+      <input id="input1" label="Season">
+        <inputExpression id="inputExpression1" typeRef="string">
+          <text>season</text>
+        </inputExpression>
+      </input>
+      <input id="InputClause_0hmkumv" label="How many guests">
+        <inputExpression id="LiteralExpression_0m7s53h" typeRef="long">
+          <text>guestCount</text>
+        </inputExpression>
+      </input>
+      <output id="output1" label="Dish" name="desiredDish" typeRef="string" />
+      <rule id="row-950612891-1">
+        <inputEntry id="UnaryTests_0c1o054">
+          <text>"Fall"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1lod0sz">
+          <text>&lt;= 8</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_065u3ym">
+          <text>"Spareribs"</text>
+        </outputEntry>
+      </rule>
+      <rule id="row-950612891-2">
+        <inputEntry id="UnaryTests_0u1z4ho">
+          <text>"Winter"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1euytqf">
+          <text>&lt;= 8</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_198frve">
+          <text>"Roastbeef"</text>
+        </outputEntry>
+      </rule>
+      <rule id="row-950612891-3">
+        <inputEntry id="UnaryTests_1vn9t5c">
+          <text>"Spring"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1bbbmvu">
+          <text>&lt;= 4</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1bewepn">
+          <text>"Dry Aged Gourmet Steak"</text>
+        </outputEntry>
+      </rule>
+      <rule id="row-950612891-4">
+        <description>Save money</description>
+        <inputEntry id="UnaryTests_0ogofox">
+          <text>"Spring"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0c60gjz">
+          <text>[5..8]</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1lahvj7">
+          <text>"Steak"</text>
+        </outputEntry>
+      </rule>
+      <rule id="row-950612891-5">
+        <description>Less effort</description>
+        <inputEntry id="UnaryTests_1774yme">
+          <text>"Fall", "Winter", "Spring"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_01rn17i">
+          <text>&gt; 8</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0jpd7hr">
+          <text>"Stew"</text>
+        </outputEntry>
+      </rule>
+      <rule id="row-950612891-6">
+        <description>Hey, why not!?</description>
+        <inputEntry id="UnaryTests_0ifdx8k">
+          <text>"Summer"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0c8ym7l">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_08d4mb6">
+          <text>"Light Salad and a nice Steak"</text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+  <decision id="fluxnova_automation_beverage_dmn_simple" name="Fluxnova UI Automation - Beverage - Simple" camunda:historyTimeToLive="P30D">
+    <informationRequirement id="InformationRequirement_0mz5k96">
+      <requiredInput href="#desiredDish" />
+    </informationRequirement>
+    <decisionTable id="DecisionTable_1tx5jyd" hitPolicy="COLLECT">
+      <input id="InputClause_1td3c67" label="Dish">
+        <inputExpression id="LiteralExpression_14evvah" typeRef="string">
+          <text>desiredDish</text>
+        </inputExpression>
+      </input>
+      <input id="InputClause_1jt8348" label="Alcohol Allowed">
+        <inputExpression id="LiteralExpression_1jser3x" typeRef="boolean">
+          <text>alcoholAllow</text>
+        </inputExpression>
+      </input>
+      <output id="OutputClause_1jp2rka" label="Beverage" name="beverage" typeRef="string" />
+      <rule id="DecisionRule_17lk7lc">
+        <description>Tough Stuff</description>
+        <inputEntry id="UnaryTests_1avljyg">
+          <text>"Spareribs"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0jux7iw">
+          <text>true</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0cyyz6n">
+          <text>"Aecht Schlenkerla Rauchbier"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_087qneb">
+        <inputEntry id="UnaryTests_0175vj4">
+          <text>"Stew"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_14jxqk0">
+          <text>true</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_19lbo79">
+          <text>"Guiness"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1wv1bad">
+        <inputEntry id="UnaryTests_1y5j0rp">
+          <text>"Roastbeef"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0r3bzx1">
+          <text>true</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1itq3pm">
+          <text>"Bordeaux"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1rhpz6r">
+        <inputEntry id="UnaryTests_0rahgjz">
+          <text>"Steak", "Dry Aged Gourmet Steak", "Light Salad and a nice Steak"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1cehjxg">
+          <text>true</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0fia8lr">
+          <text>"Pinot Noir"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0rwzyy6">
+        <inputEntry id="UnaryTests_1wcmg5g">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0h41l2d">
+          <text>false</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1tb27ys">
+          <text>"Apple Juice"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0reekve">
+        <inputEntry id="UnaryTests_0ezwgu3">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1ichmr3">
+          <text>false</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1o9v799">
+          <text>"Water"</text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+  <dmndi:DMNDI>
+    <dmndi:DMNDiagram id="DMNDiagram_0nydu8l">
+      <dmndi:DMNShape id="DMNShape_1kdfewh" dmnElementRef="fluxnova_automation_dish_dmn_simple">
+        <dc:Bounds height="80" width="180" x="410" y="80" />
+      </dmndi:DMNShape>
+      <dmndi:DMNShape id="DMNShape_17iidjv" dmnElementRef="fluxnova_automation_beverage_dmn_simple">
+        <dc:Bounds height="80" width="180" x="160" y="80" />
+      </dmndi:DMNShape>
+      <dmndi:DMNEdge id="DMNEdge_0ld82bd" dmnElementRef="InformationRequirement_0mz5k96">
+        <di:waypoint x="251" y="248" />
+        <di:waypoint x="250" y="180" />
+        <di:waypoint x="250" y="160" />
+      </dmndi:DMNEdge>
+    </dmndi:DMNDiagram>
+  </dmndi:DMNDI>
+</definitions>

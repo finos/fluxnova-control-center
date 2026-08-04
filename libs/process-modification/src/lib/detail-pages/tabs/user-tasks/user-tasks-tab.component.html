@@ -1,0 +1,29 @@
+<span class="tab-grid">
+  <fluxnova-items-table
+    data-table-role="result"
+    [items]="data"
+    [filters]="filters"
+    [sorting]="sorting"
+    [overlayNoRowsTemplate]="overlayNoRowsTemplate"
+    [isLoading]="isLoading"
+    [isRowSelectable]="isRowSelectable"
+    [listViewState]="listViewState"
+    (gridReady)="onGridReady()"
+    (columnHeaderSortChange)="onSortChanged($event)"
+    (columnHeaderFilterChange)="onFilterChanged($event)"
+    (itemsSelectChange)="onSelectionChanged($event)"
+    (rowClicked)="onRowClick($event)"
+    (firstDataRendered)="onFirstDataRendered()"
+    (listViewStateChange)="columnPrefsUpdated($event)"
+    [checkboxes]="false"
+    [rowSelectionType]="'singleRow'"
+    [rowClassRules]="rowClassRules()"
+  >
+  </fluxnova-items-table>
+  <fluxnova-ag-pagination
+    class="border-top align-items-center px-3"
+    [totalItems]="totalCount"
+    [loading]="isLoading"
+    (paginationChanged)="paginationSubject$.next({ page: $event.page, pageSize: $event.pageSize })"
+  ></fluxnova-ag-pagination>
+</span>

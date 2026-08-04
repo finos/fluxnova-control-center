@@ -1,0 +1,28 @@
+<ng-select
+  #singleSelectFloatingFilterComponent
+  [labelForId]="labelForId"
+  bindLabel="label"
+  bindValue="value"
+  [(ngModel)]="selectedItemsString"
+  placeholder=""
+  [clearable]="selectedItemsString?.length > 1"
+  [dropdownPosition]="'bottom'"
+  [items]="itemOptions"
+  appendTo="body"
+  (change)="updateSelectedItem($event)"
+  [disabled]="isDisabled"
+  [ngbTooltip]="tooltipText"
+  container="body"
+  [disableTooltip]="!isDisabled"
+  [ngClass]="labelForId"
+>
+  <ng-template ng-option-tmp let-item="item">
+    <ng-container *ngTemplateOutlet="optionTemplate; context: { item }"></ng-container>
+  </ng-template>
+</ng-select>
+
+<ng-template #optionTemplate let-item="item">
+  <div>
+    {{ item.label }}
+  </div>
+</ng-template>

@@ -1,0 +1,26 @@
+{
+  "json": [
+    {
+      "id": "12bdabce-4c32-11ee-a20f-0a17649195dd",
+      "businessKey": null,
+      "processDefinitionId": "Process_0syqn6g:2:0bc26d18-69d0-11ef-b19b-bae8488ad94a",
+      "processDefinitionKey": "Process_0syqn6g",
+      "processDefinitionName": "TestActivityProcess2",
+      "processDefinitionVersion": 2,
+      "startTime": "2024-09-05T13:02:47.567-0400",
+      "endTime": "2024-09-06T00:07:47.484-0400",
+      "removalTime": "2024-10-06T00:07:47.488-0400",
+      "durationInMillis": 39899917,
+      "startUserId": "usr1234",
+      "startActivityId": "StartEvent_1",
+      "deleteReason": null,
+      "rootProcessInstanceId": "ad29cc84-6ba8-11ef-922b-e6cb99cec601",
+      "superProcessInstanceId": "ad29cc84-6ba8-11ef-922b-e6cb99cec601",
+      "superCaseInstanceId": null,
+      "caseInstanceId": null,
+      "tenantId": null,
+      "state": "ACTIVE"
+    }
+  ],
+  "status": 200
+}

@@ -1,0 +1,39 @@
+{
+  "compileOnSave": false,
+  "files": ["typings.d.ts"],
+  "compilerOptions": {
+    "baseUrl": ".",
+    "downlevelIteration": true,
+    "outDir": "./dist/out-tsc",
+    "allowJs": true,
+    "sourceMap": true,
+    "declaration": false,
+    "module": "esnext",
+    "moduleResolution": "node",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "resolveJsonModule": true,
+    "noImplicitAny": true,
+    "esModuleInterop": true,
+    "importHelpers": false,
+    "isolatedModules": true,
+    "skipLibCheck": true,
+    "target": "es2022",
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": false,
+    "typeRoots": ["node_modules/@types"],
+    "lib": ["es2022", "dom"],
+    "paths": {
+      "@fxn/*": ["libs/*"],
+      "@fxn/common": ["libs/common/src/index.ts"],
+      "@fxn/grid": ["libs/grid/src/index.ts"],
+      "@fxn/pim": ["libs/process-modification/src/index.ts"],
+      "@fxn/test-support": ["libs/test-support/src/index.ts"],
+      "@fxn/test-support/vitest": ["libs/test-support/src/vitest.ts"],
+      "@fxn/types": ["libs/types/src/index.ts"]
+    },
+    "rootDir": "."
+  }
+}

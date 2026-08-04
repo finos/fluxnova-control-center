@@ -1,0 +1,24 @@
+:host {
+  display: grid;
+  grid-template-columns: 1fr auto;
+}
+
+.batch-progress-completed {
+  top: -1px;
+  height: 24px;
+  background-color: #678e19;
+}
+
+.progress-label {
+  width: 60px;
+  padding-left: 10px;
+}
+
+.batch-progress-bar {
+  border-color: #bbb !important;
+  margin: 12px 0;
+  text-align: center;
+  height: 24px;
+  line-height: 24px;
+  width: 100%;
+}

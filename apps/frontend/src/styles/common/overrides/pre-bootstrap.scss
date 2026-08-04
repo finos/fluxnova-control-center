@@ -1,0 +1,15 @@
+// Overriding Bootstrap default variables (as seen in ng_modules/bootstrap/scss/_variables.scss)
+
+html {
+  // setting the rem value, aka: base font size
+  @extend .font-standard;
+}
+
+$line-height-base: 1.5; // 1.5em, aka: 24px, since the base font size is 16px
+$border-radius: 5px;
+
+$h1-font-size: 44px;
+$h2-font-size: 30px;
+$h3-font-size: 26px;
+$h4-font-size: 22px;
+$h5-font-size: 18px;

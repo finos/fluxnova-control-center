@@ -1,0 +1,19 @@
+{
+  "json": {
+    "type": "String",
+    "value": "a value",
+    "valueInfo": {},
+    "id": "73cb8d27-454e-11ef-a057-6ec028c716d5",
+    "name": "a name",
+    "processDefinitionId": "465cf569-eeb2-11ed-9b96-0a81d7d98f19",
+    "processInstanceId": "2f0f49b6-ef70-11ed-b7c8-0a8ebe9048cf",
+    "executionId": "2f0f49b6-ef70-11ed-b7c8-0a8ebe9048cf",
+    "caseInstanceId": null,
+    "caseExecutionId": null,
+    "taskId": null,
+    "batchId": null,
+    "activityInstanceId": "2f0f49b6-ef70-11ed-b7c8-0a8ebe9048cf",
+    "errorMessage": null,
+    "tenantId": null
+  }
+}

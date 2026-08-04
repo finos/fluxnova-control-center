@@ -1,0 +1,14 @@
+@import 'ag-grid-icons';
+
+$default-mixin-parameters: (
+  icons-data: null,
+  icons-font-codes: $ag-icons-font-codes,
+  row-height: 50px,
+  header-height: 50px,
+  suppress-native-widget-styling: true,
+  widget-container-horizontal-padding: 1px,
+  input-focus-box-shadow: none,
+  header-column-separator: false,
+  header-column-resize-handle: true,
+  header-column-resize-handle-height: 75%,
+);
