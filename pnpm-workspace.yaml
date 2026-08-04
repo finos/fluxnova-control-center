@@ -28,3 +28,5 @@ minimumReleaseAgeExclude:
   - "@opentelemetry/auto-instrumentations-node@0.75.0"
   # Renovate security update: webpack-dev-server@5.2.6
   - webpack-dev-server@5.2.6
+  # Renovate security update: @angular/compiler@20.3.27
+  - "@angular/compiler@20.3.27"
