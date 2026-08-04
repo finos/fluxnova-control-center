@@ -30,3 +30,5 @@ minimumReleaseAgeExclude:
   - webpack-dev-server@5.2.6
   # Renovate security update: @angular/compiler@20.3.27
   - "@angular/compiler@20.3.27"
+  # Renovate security update: @angular/common@20.3.27
+  - "@angular/common@20.3.27"
