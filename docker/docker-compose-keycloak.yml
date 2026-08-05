@@ -42,7 +42,7 @@ services:
   control-center:
     image: ${DOCKER_REGISTRY:-docker.io}/finos/fluxnova-control-center:latest
     build:
-      context: .
+      context: ../
       dockerfile: Dockerfile
       args:
         DOCKER_REGISTRY: ${DOCKER_REGISTRY:-docker.io}
@@ -64,6 +64,8 @@ services:
       FXN_OIDC_ISSUER: "https://localhost:8443/realms/fluxnova"
       FXN_OIDC_TOKEN_URL: "https://keycloak:8443/realms/fluxnova/protocol/openid-connect/token"
       FXN_OIDC_USERINFO_URL: "https://keycloak:8443/realms/fluxnova/protocol/openid-connect/userinfo"
+      FXN_SSL_CERT_PATH: "/certs/fluxnova-local.crt"
+      FXN_SSL_KEY_PATH: "/certs/fluxnova-local.key"
       # Clear proxies if there are any set in the environment, as they can interfere with the internal container networking.
       http_proxy:
       HTTP_PROXY:
@@ -71,7 +73,7 @@ services:
       HTTPS_PROXY:
       NODE_TLS_REJECT_UNAUTHORIZED: "${NODE_TLS_REJECT_UNAUTHORIZED:-0}"
     volumes:
-      - ./certs/fluxnova-local.crt:/app/server/cert/fluxnova.finos.local.crt:ro
-      - ./certs/fluxnova-local.key:/app/server/cert/fluxnova.finos.local.key:ro
+      - ./certs/fluxnova-local.crt:/certs/fluxnova-local.crt:ro
+      - ./certs/fluxnova-local.key:/certs/fluxnova-local.key:ro
     ports:
       - "4000:4000"
