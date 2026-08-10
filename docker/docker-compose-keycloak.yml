@@ -20,8 +20,8 @@ services:
       - ./certs/fluxnova-local.key:/etc/x509/https/keycloak.key:ro
 
   bpm-platform:
-    image: ${DOCKER_REGISTRY:-docker.io}/finos/fluxnova-bpm-platform:latest
-    pull_policy: always
+    image: ${DOCKER_REGISTRY:-docker.io}/finos/fluxnova-bpm-platform:latest-corretto21-alpine
+    pull_policy: if_not_present
     depends_on:
       - keycloak
     environment:
