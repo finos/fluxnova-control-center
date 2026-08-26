@@ -14,10 +14,11 @@ allowBuilds:
   unrs-resolver: true
   utf-8-validate: true
 autoInstallPeers: false
+lockfileIncludeTarballUrl: false
 minimumReleaseAge: 1440
 minimumReleaseAgeExclude:
   # Renovate security update: @nestjs/core@11.1.18
-  - "@nestjs/core@11.1.18"
+  - '@nestjs/core@11.1.18'
   # Renovate security update: axios@1.15.2
   - axios@1.15.2
   # Renovate security update: svgo@4.0.1 || 4.0.2
@@ -25,12 +26,17 @@ minimumReleaseAgeExclude:
   # Renovate security update: vite@7.3.2
   - vite@7.3.2
   # Renovate security update: @opentelemetry/auto-instrumentations-node@0.75.0
-  - "@opentelemetry/auto-instrumentations-node@0.75.0"
+  - '@opentelemetry/auto-instrumentations-node@0.75.0'
   # Renovate security update: webpack-dev-server@5.2.6
   - webpack-dev-server@5.2.6
   # Renovate security update: @angular/compiler@20.3.27
-  - "@angular/compiler@20.3.27"
+  - '@angular/compiler@20.3.27'
   # Renovate security update: @angular/common@20.3.27
-  - "@angular/common@20.3.27"
+  - '@angular/common@20.3.27'
   # Renovate security update: @angular/core@20.3.27
-  - "@angular/core@20.3.27"
+  - '@angular/core@20.3.27'
+overrides:
+  flatted: ^3.4.2
+  jsdom: 27.4.0
+  koa: ^3.1.2
+  tough-cookie: ^6.0.0

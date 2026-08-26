@@ -13,8 +13,8 @@ modifications back to the project maintainers for inclusion in this guide.
 Before setting up the project, make sure you have the following installed:
 
 - git
-- Node.js 22+
-- pnpm
+- Node.js 24
+- Corepack (included with Node.js 24)
 - (optional) If you want to use the Vault integration to manage your secrets, set up vault and add your secrets there.
   See [Consume secrets from Vault](../guides/using-secrets-from-vault.md) for more information.
 
@@ -71,9 +71,11 @@ configuration variables and options.
    cd fluxnova-control-center
    ```
 
-4. Install dependencies:
+4. Enable the repository's pinned pnpm version and install dependencies:
 
    ```bash
+   corepack enable
+   corepack install
    pnpm install
    ```
 
