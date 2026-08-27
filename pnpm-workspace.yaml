@@ -22,8 +22,8 @@ minimumReleaseAgeExclude:
   - axios@1.15.2
   # Renovate security update: svgo@4.0.1 || 4.0.2
   - svgo@4.0.1 || 4.0.2
-  # Renovate security update: vite@7.3.2
-  - vite@7.3.2
+  # Renovate security update: vite@7.3.2 || 7.3.5
+  - vite@7.3.2 || 7.3.5
   # Renovate security update: @opentelemetry/auto-instrumentations-node@0.75.0
   - "@opentelemetry/auto-instrumentations-node@0.75.0"
   # Renovate security update: webpack-dev-server@5.2.6
