@@ -34,3 +34,5 @@ minimumReleaseAgeExclude:
   - "@angular/common@20.3.27"
   # Renovate security update: @angular/core@20.3.27
   - "@angular/core@20.3.27"
+  # Renovate security update: form-data@4.0.6
+  - form-data@4.0.6
