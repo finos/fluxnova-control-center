@@ -240,7 +240,7 @@
     "mochawesome": "^7.1.4",
     "mochawesome-merge": "^5.0.0",
     "mochawesome-report-generator": "^6.3.2",
-    "nx": "22.1.0",
+    "nx": "22.7.7",
     "prettier": "3.8.4",
     "prettier-plugin-organize-imports": "^4.3.0",
     "puppeteer": "24.41.0",
