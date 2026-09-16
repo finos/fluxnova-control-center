@@ -275,11 +275,13 @@
     ]
   },
   "license": "Apache-2.0",
-  "resolutions": {
-    "flatted": "^3.4.2",
-    "jsdom": "27.4.0",
-    "koa": "^3.1.2",
-    "tough-cookie": "^6.0.0"
+  "pnpm": {
+    "overrides": {
+      "flatted": "^3.4.2",
+      "jsdom": "27.4.0",
+      "koa": "^3.1.2",
+      "tough-cookie": "^6.0.0"
+    }
   },
   "browserslist": [
     "last 2 chrome versions",
