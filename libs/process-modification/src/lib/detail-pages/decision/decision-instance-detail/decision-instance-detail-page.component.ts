@@ -1,11 +1,12 @@
 import { AfterViewChecked, Component, HostListener, inject, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { DecisionInstance } from '@fxn/types';
 import { of, take, timer } from 'rxjs';
-import { DecisionInstanceService } from '../../../services/decision-instance.service';
-import { ItemDetailPageComponent } from '../../item-detail-page.component';
-import { DecisionInstanceTabs } from '../../item-detail-tab-utils';
 import { DecisionDiagramViewerComponent } from '../../../common/diagram/decision-diagram-viewer.component';
 import { ToolbarEvent } from '../../../common/toolbar/toolbar.component';
 import { ToolbarService } from '../../../common/toolbar/toolbar.service';
+import { DecisionInstanceService } from '../../../services/decision-instance.service';
+import { ItemDetailPageComponent } from '../../item-detail-page.component';
+import { DecisionInstanceTabs } from '../../item-detail-tab-utils';
 
 @Component({
   selector: 'fluxnova-decision-instance-details-page',
@@ -31,7 +32,10 @@ export class DecisionInstanceDetailPageComponent
     this.subs$.add(
       this.toolbarService.emitter.subscribe(this.onToolbarButtonClick.bind(this)),
       this.decisionInstanceService.getInstance(this.itemId).subscribe({
-        next: () => {
+        next: (decisionInstance: DecisionInstance) => {
+          this.highlightedRuleIds = [
+            ...new Set(decisionInstance.outputs?.flatMap((output) => output.ruleId ?? []) ?? []),
+          ];
           this.isItemFound$ = of(true);
           this.isLoading = false;
         },

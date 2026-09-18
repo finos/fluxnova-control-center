@@ -1,12 +1,12 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
-import { firstValueFrom, of } from 'rxjs';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { DIAGRAM_TYPE } from '@fxn/types';
+import { firstValueFrom, of } from 'rxjs';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { DecisionDefinitionService } from '../../services/decision-definition.service';
 import { DiagramService } from '../../services/diagram.service';
-import { DiagramRendererService } from './services/diagram-renderer.service';
 import { DecisionDiagramViewerComponent } from './decision-diagram-viewer.component';
+import { DiagramRendererService } from './services/diagram-renderer.service';
 
 describe('DecisionDefinitionDiagramSectionComponent', () => {
   let component: DecisionDiagramViewerComponent;
@@ -101,5 +101,82 @@ describe('DecisionDefinitionDiagramSectionComponent', () => {
       nativeElement,
     );
     expect(mockDiagramRendererService.renderDiagram).toHaveBeenCalledWith(mockRenderer, 'fooKey');
+  });
+
+  it('should render the diagram with an empty view id when the definition has no key', async () => {
+    component.diagramContainerDiv = { nativeElement: 'i am an element' } as any;
+
+    await component.renderDiagram(mockDiagram, {} as any);
+
+    expect(mockDiagramRendererService.renderDiagram).toHaveBeenCalledWith(mockRenderer, '');
+  });
+
+  it('should highlight every supplied rule row', () => {
+    const firstRow = { classList: { add: vi.fn(), remove: vi.fn() } };
+    const secondRow = { classList: { add: vi.fn(), remove: vi.fn() } };
+    component.diagramContainerDiv = {
+      nativeElement: {
+        querySelector: vi.fn((selector: string) =>
+          selector.includes('rule-one') ? { parentElement: firstRow } : { parentElement: secondRow },
+        ),
+      },
+    } as any;
+
+    component.ruleIdsToHighlight = ['rule-one', 'rule-two'];
+    component.ngAfterViewInit();
+
+    expect(firstRow.classList.add).toHaveBeenCalledWith('row-highlighted');
+    expect(secondRow.classList.add).toHaveBeenCalledWith('row-highlighted');
+  });
+
+  it('should not highlight when the diagram container is not available', () => {
+    component.diagramContainerDiv = undefined;
+
+    component.ruleIdsToHighlight = ['rule-one'];
+
+    expect(() => component.ngAfterViewInit()).not.toThrow();
+  });
+
+  it('should treat a nullish rule id list as empty', () => {
+    const querySelector = vi.fn();
+    component.diagramContainerDiv = { nativeElement: { querySelector } } as any;
+
+    component.ruleIdsToHighlight = undefined as unknown as string[];
+    component.ngAfterViewInit();
+
+    expect(querySelector).not.toHaveBeenCalled();
+  });
+
+  it('should ignore rule ids that do not match a row', () => {
+    component.diagramContainerDiv = {
+      nativeElement: {
+        querySelector: vi.fn(() => null),
+      },
+    } as any;
+
+    component.ruleIdsToHighlight = ['missing-rule'];
+
+    expect(() => component.ngAfterViewInit()).not.toThrow();
+  });
+
+  it('should clear previously highlighted rows before highlighting the new ones', async () => {
+    const firstRow = { classList: { add: vi.fn(), remove: vi.fn() } };
+    const secondRow = { classList: { add: vi.fn(), remove: vi.fn() } };
+    component.diagramContainerDiv = {
+      nativeElement: {
+        querySelector: vi.fn((selector: string) =>
+          selector.includes('rule-one') ? { parentElement: firstRow } : { parentElement: secondRow },
+        ),
+      },
+    } as any;
+
+    component.ruleIdsToHighlight = ['rule-one'];
+    component.ngAfterViewInit();
+
+    component.ruleIdsToHighlight = ['rule-two'];
+    await component.renderDiagram(mockDiagram, { key: 'fooKey' } as any);
+
+    expect(firstRow.classList.remove).toHaveBeenCalledWith('row-highlighted');
+    expect(secondRow.classList.add).toHaveBeenCalledWith('row-highlighted');
   });
 });
