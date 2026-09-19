@@ -36,3 +36,5 @@ minimumReleaseAgeExclude:
   - "@angular/core@20.3.27"
   # Renovate security update: form-data@4.0.6
   - form-data@4.0.6
+  # Renovate security update: @opentelemetry/sdk-node@0.217.0
+  - "@opentelemetry/sdk-node@0.217.0"
