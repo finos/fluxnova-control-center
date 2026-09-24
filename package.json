@@ -1,7 +1,7 @@
 {
   "name": "fluxnova-control-center",
   "version": "1.0.0",
-  "packageManager": "pnpm@10.33.4",
+  "packageManager": "pnpm@10.34.5",
   "scripts": {
     "ng": "nx",
     "format": "./node_modules/.bin/nx format:write && pnpm prettier && ./node_modules/.bin/nx lint --fix",
