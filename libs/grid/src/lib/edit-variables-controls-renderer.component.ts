@@ -1,7 +1,7 @@
 import { Component, ViewEncapsulation } from '@angular/core';
+import { ItemType } from '@fxn/types';
 import { AgRendererComponent } from 'ag-grid-angular';
 import { ICellRendererParams } from 'ag-grid-community';
-import { ItemType } from '@fxn/types';
 
 @Component({
   selector: 'fluxnova-edit-controls-cell',

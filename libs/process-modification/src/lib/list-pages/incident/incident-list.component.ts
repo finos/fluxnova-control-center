@@ -1,12 +1,12 @@
 import { Component, inject, ViewChild } from '@angular/core';
+import { ItemType, ItemTypeActions, ListOptions } from '@fxn/types';
 import { forkJoin, take, timer } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { ItemType, ItemTypeActions, ListOptions } from '@fxn/types';
-import { getDefaultListViewState } from '../../common/list-utils';
-import { BaseListComponent } from '../base-list.component';
 import { ItemsTableComponent } from '../../common/items-table/items-table.component';
+import { getDefaultListViewState } from '../../common/list-utils';
 import { IncidentService } from '../../services/incident.service';
 import { PaginatedDataRequest } from '../../services/types/paginated-data-request';
+import { BaseListComponent } from '../base-list.component';
 
 @Component({
   selector: 'fluxnova-incident-list',

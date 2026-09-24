@@ -1,7 +1,7 @@
 name: 🤗 Support Question
 description: If you have a question about configuration, usage, etc. 💬
-title: "[Support] "
-labels: ["question", "support"]
+title: '[Support] '
+labels: ['question', 'support']
 body:
   - type: markdown
     attributes:
@@ -15,4 +15,3 @@ body:
       placeholder: What would you like to know?
     validations:
       required: true
-

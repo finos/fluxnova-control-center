@@ -1,5 +1,4 @@
 import { Component, inject } from '@angular/core';
-import { every, isUndefined } from 'lodash-es';
 import {
   detailPageJobTabColFields,
   ItemTypeActions,
@@ -9,13 +8,14 @@ import {
   predefinedJobColDefs,
 } from '@fxn/types';
 import { ColDef } from 'ag-grid-community';
+import { every, isUndefined } from 'lodash-es';
 import { combineLatestWith, forkJoin, of, switchMap } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { PimTab, PimTabRowQueryParam } from '../../item-detail-tab-utils';
-import { JobService } from '../../../services/job.service';
-import { BaseTabComponent } from '../base-tab-component';
 import { ConfirmActionService } from '../../../services/confirm-action.service';
+import { JobService } from '../../../services/job.service';
 import { PaginatedDataRequest } from '../../../services/types/paginated-data-request';
+import { PimTab, PimTabRowQueryParam } from '../../item-detail-tab-utils';
+import { BaseTabComponent } from '../base-tab-component';
 
 @Component({
   selector: 'fluxnova-jobs-tab',

@@ -1,17 +1,17 @@
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ActivatedRoute, Router } from '@angular/router';
+import { AuthorizationHttpService, PermissionService } from '@fxn/common';
+import { ItemType, ListViewState } from '@fxn/types';
 import { AgGridAngular } from 'ag-grid-angular';
 import { RowClassParams, RowClickedEvent } from 'ag-grid-community';
-import { ItemType, ListViewState } from '@fxn/types';
-import { BehaviorSubject, of } from 'rxjs';
-import { AuthorizationHttpService, PermissionService } from '@fxn/common';
-import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { WINDOW } from 'ngx-window-token';
+import { BehaviorSubject, of } from 'rxjs';
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
+import { ItemsTableComponent } from '../../../common/items-table/items-table.component';
+import { ConfirmActionService } from '../../../services/confirm-action.service';
 import { JobService } from '../../../services/job.service';
 import { ItemDetailPageCommunicationService } from '../../item-detail-page.communication.service';
-import { ConfirmActionService } from '../../../services/confirm-action.service';
-import { ItemsTableComponent } from '../../../common/items-table/items-table.component';
 import { PimTab } from '../../item-detail-tab-utils';
 import { JobDefinitionsTabComponent } from './job-definitions-tab.component';
 
@@ -379,7 +379,6 @@ describe('JobDefinitionsTabComponent', () => {
 
       component.init();
       await vi.runAllTimersAsync();
-      fixture.detectChanges();
 
       expect(component.anyButtonVisible).toBe(true);
     });
@@ -389,7 +388,6 @@ describe('JobDefinitionsTabComponent', () => {
 
       component.init();
       await vi.runAllTimersAsync();
-      fixture.detectChanges();
 
       expect(component.anyButtonVisible).toBe(false);
     });

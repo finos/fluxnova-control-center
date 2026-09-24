@@ -1,6 +1,6 @@
+import { DOCUMENT } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { AfterViewInit, Component, inject, OnInit } from '@angular/core';
-import { DOCUMENT } from '@angular/common';
 import { NavigationEnd, Router, RoutesRecognized } from '@angular/router';
 import { fromEvent, Observable } from 'rxjs';
 import { filter, map, pairwise, throttleTime } from 'rxjs/operators';

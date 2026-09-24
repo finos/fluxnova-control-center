@@ -7,14 +7,14 @@ import {
   ProcessDefinition,
   ProcessDefinitionFilter,
 } from '@fxn/types';
-import { SubSink } from 'subsink';
 import { concatMap, forkJoin, map, Observable, of } from 'rxjs';
+import { SubSink } from 'subsink';
 import { DeploymentService } from '../../../services/deployment.service';
 import { ProcessDefinitionService } from '../../../services/process-definition.service';
 import { ProcessInstanceService } from '../../../services/process-instance.service';
-import { BaseTabComponent } from '../base-tab-component';
-import { PimTab, PimTabRowQueryParam } from '../../item-detail-tab-utils';
 import { PaginatedDataRequest } from '../../../services/types/paginated-data-request';
+import { PimTab, PimTabRowQueryParam } from '../../item-detail-tab-utils';
+import { BaseTabComponent } from '../base-tab-component';
 
 @Component({
   selector: 'fluxnova-process-definition-info-tab',

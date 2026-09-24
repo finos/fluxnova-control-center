@@ -1,6 +1,4 @@
-import { ColDef, FilterModel, IRowNode } from 'ag-grid-community';
 import { Component, ElementRef, inject, OnDestroy, ViewChild } from '@angular/core';
-import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { MODAL_DEFAULTS } from '@fxn/common';
 import {
   detailPageInstancesTabColFields,
@@ -10,14 +8,16 @@ import {
   ProcessInstance,
   ProcessInstanceStatesMap,
 } from '@fxn/types';
+import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { top } from '@popperjs/core';
+import { ColDef, FilterModel, IRowNode } from 'ag-grid-community';
 import { SubSink } from 'subsink';
-import { ProcessDefinitionService } from '../../../services/process-definition.service';
 import { MigrateModalComponent } from '../../../detail-pages/process-definition/modals/migrate-modal/migrate-modal.component';
+import { ProcessDefinitionService } from '../../../services/process-definition.service';
 import { ProcessInstanceService } from '../../../services/process-instance.service';
+import { PaginatedDataRequest } from '../../../services/types/paginated-data-request';
 import { PimTab, PimTabRowQueryParam } from '../../item-detail-tab-utils';
 import { BaseTabComponent } from '../base-tab-component';
-import { PaginatedDataRequest } from '../../../services/types/paginated-data-request';
 
 @Component({
   selector: 'fluxnova-instances-tab',

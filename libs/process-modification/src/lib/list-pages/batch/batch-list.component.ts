@@ -1,8 +1,5 @@
 import { Component, inject, ViewChild } from '@angular/core';
-import { Subscription, take } from 'rxjs';
 import { Params } from '@angular/router';
-import { isEmpty } from 'lodash-es';
-import { top } from '@popperjs/core';
 import {
   ItemType,
   ItemTypeActions,
@@ -11,8 +8,9 @@ import {
   LocalStorageColumnPrefData,
   SubItemType,
 } from '@fxn/types';
-import { BaseListComponent } from '../base-list.component';
-import { BatchService } from '../../services/support/batch.service';
+import { top } from '@popperjs/core';
+import { isEmpty } from 'lodash-es';
+import { Subscription, take } from 'rxjs';
 import { ItemsTableComponent } from '../../common/items-table/items-table.component';
 import {
   getDefaultListViewState,
@@ -20,7 +18,9 @@ import {
   mergeSavedStateWithColumnDefinitions,
 } from '../../common/list-utils';
 import { getDataSavedInLocalStorage, saveDataToLocalStorage } from '../../common/storage-utils';
+import { BatchService } from '../../services/support/batch.service';
 import { PaginatedDataRequest } from '../../services/types/paginated-data-request';
+import { BaseListComponent } from '../base-list.component';
 
 @Component({
   selector: 'fluxnova-batch-list',

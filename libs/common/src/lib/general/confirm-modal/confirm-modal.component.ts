@@ -1,7 +1,7 @@
 import { AfterViewInit, Component, inject, OnInit, ViewChild, ViewChildren } from '@angular/core';
+import { ItemTypeAction } from '@fxn/types';
 import { NgbActiveModal, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
 import { keyBy, mapValues, merge } from 'lodash-es';
-import { ItemTypeAction } from '@fxn/types';
 import { AnimationState } from '../../animations/animation-state';
 import { MODAL_DEFAULTS } from '../modal-defaults';
 

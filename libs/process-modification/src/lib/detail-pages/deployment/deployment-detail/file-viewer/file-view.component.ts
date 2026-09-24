@@ -1,10 +1,10 @@
 import { Component, EventEmitter, inject, Input, OnDestroy, Output, ViewChild } from '@angular/core';
-import { DeploymentResource } from '@fxn/types';
 import { CodeEditorComponent } from '@fxn/common';
+import { DeploymentResource } from '@fxn/types';
 import { SubSink } from 'subsink';
+import { GenericDiagramSectionViewComponent } from '../../../../common/diagram/generic-diagram-viewer.component';
 import { DeploymentResourceUtilsService } from '../../../../services/deployment-resource-utils.service';
 import { DeploymentService } from '../../../../services/deployment.service';
-import { GenericDiagramSectionViewComponent } from '../../../../common/diagram/generic-diagram-viewer.component';
 
 @Component({
   selector: 'fluxnova-deployment-file-view',

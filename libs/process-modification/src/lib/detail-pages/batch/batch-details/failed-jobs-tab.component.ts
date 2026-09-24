@@ -1,9 +1,9 @@
 import { Component, inject, OnDestroy } from '@angular/core';
-import { SubSink } from 'subsink';
-import { Observable, Subscription } from 'rxjs';
-import { failedJobColFields, predefinedDetailPageFailedJobTabColDef, predefinedJobColDefs } from '@fxn/types';
 import { ConfirmModalService, MODAL_DEFAULTS } from '@fxn/common';
+import { failedJobColFields, predefinedDetailPageFailedJobTabColDef, predefinedJobColDefs } from '@fxn/types';
 import { ColDef } from 'ag-grid-community';
+import { Observable, Subscription } from 'rxjs';
+import { SubSink } from 'subsink';
 import { PimTab } from '../../item-detail-tab-utils';
 import { BaseBatchDetailsTabComponent } from './base-batch-details-tab.component';
 

@@ -1,13 +1,13 @@
 import { Component, inject, ViewChild } from '@angular/core';
+import { ItemType, ItemTypeActions, JobFilter, ListOptions } from '@fxn/types';
 import { every, isUndefined } from 'lodash-es';
 import { forkJoin, take } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { ItemType, ItemTypeActions, JobFilter, ListOptions } from '@fxn/types';
-import { getDefaultListViewState } from '../../common/list-utils';
-import { BaseListComponent } from '../base-list.component';
-import { JobService } from '../../services/job.service';
 import { ItemsTableComponent } from '../../common/items-table/items-table.component';
+import { getDefaultListViewState } from '../../common/list-utils';
+import { JobService } from '../../services/job.service';
 import { PaginatedDataRequest } from '../../services/types/paginated-data-request';
+import { BaseListComponent } from '../base-list.component';
 
 @Component({
   selector: 'fluxnova-job-list',

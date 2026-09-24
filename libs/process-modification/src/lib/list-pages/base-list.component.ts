@@ -1,5 +1,6 @@
-import { Directive, inject, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Directive, inject, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
+import { jsonParseSafe, PermissionService } from '@fxn/common';
 import {
   Dictionary,
   GridFilter,
@@ -12,11 +13,9 @@ import {
   SavedSortAndFilterData,
   ToggleFilter,
 } from '@fxn/types';
-import { jsonParseSafe, PermissionService } from '@fxn/common';
 import { difference, filter, intersection, isEmpty, isEqual, map } from 'lodash-es';
 import { debounceTime, Subject } from 'rxjs';
 import { SubSink } from 'subsink';
-import { mapQueryParamsOptions } from '../services/service-utils';
 import {
   getDefaultListFilters,
   getDefaultListViewState,
@@ -29,6 +28,7 @@ import {
 } from '../common/list-utils';
 import { getDataSavedInLocalStorage, saveDataToLocalStorage } from '../common/storage-utils';
 import { ConfirmActionService } from '../services/confirm-action.service';
+import { mapQueryParamsOptions } from '../services/service-utils';
 
 export const defaultPage = 1;
 export const defaultPageSize = 50;
@@ -38,6 +38,7 @@ export class BaseListComponent implements OnInit, OnDestroy {
   protected router = inject(Router);
   protected route = inject(ActivatedRoute);
   protected permissionService? = inject(PermissionService, { optional: true });
+  protected changeDetectorRef = inject(ChangeDetectorRef);
   protected subs: SubSink = new SubSink();
   protected readonly LIST_VIEW_STATE_STORAGE_KEY: string;
   protected readonly QUERY_PARAMS_STORAGE_KEY: string;
@@ -209,6 +210,7 @@ export class BaseListComponent implements OnInit, OnDestroy {
     this.isLoading = false;
     this.totalCount = results.count;
     this.data = results.items;
+    this.changeDetectorRef.markForCheck();
   }
 
   updateRoute(params?: { [key: string]: string | string[] | number | boolean | undefined }) {

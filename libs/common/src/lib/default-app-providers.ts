@@ -1,11 +1,12 @@
 import { inject, provideAppInitializer } from '@angular/core';
-import { provideHttpClient, withInterceptorsFromDi, withXsrfConfiguration } from '@angular/common/http';
+import { provideHttpClient, withInterceptorsFromDi, withXsrfConfiguration, withXhr } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { AuthService } from './auth/auth.service';
 
 export function defaultAppProviders() {
   return [
     provideHttpClient(
+      withXhr(),
       withInterceptorsFromDi(),
       withXsrfConfiguration({ cookieName: 'XSRF-TOKEN', headerName: 'X-XSRF-TOKEN' }),
     ),

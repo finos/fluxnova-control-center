@@ -1,10 +1,10 @@
 import { Component, inject, ViewChild } from '@angular/core';
 import { ItemType, ListOptions } from '@fxn/types';
 import { take } from 'rxjs';
-import { getDefaultListViewState } from '../../common/list-utils';
 import { ItemsTableComponent } from '../../common/items-table/items-table.component';
-import { BaseListComponent } from '../base-list.component';
+import { getDefaultListViewState } from '../../common/list-utils';
 import { DecisionDefinitionService } from '../../services/decision-definition.service';
+import { BaseListComponent } from '../base-list.component';
 
 import { PaginatedDataRequest } from '../../services/types/paginated-data-request';
 

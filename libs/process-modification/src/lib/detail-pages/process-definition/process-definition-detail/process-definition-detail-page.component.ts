@@ -1,7 +1,7 @@
 /* eslint-disable max-lines */
 import { Component, ElementRef, HostListener, inject, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { EMPTY, forkJoin, Observable, of } from 'rxjs';
-import { catchError, delay, map, switchMap, tap } from 'rxjs/operators';
+import { acceptedDateFormats, ToastService } from '@fxn/common';
+import { pageSizeMax } from '@fxn/grid';
 import {
   ActivityInstanceHistory,
   ButtonActions,
@@ -11,25 +11,25 @@ import {
   ProcessDefinition,
   ProcessDefinitionStatistic,
 } from '@fxn/types';
-import { groupBy, omitBy } from 'lodash-es';
-import { pageSizeMax } from '@fxn/grid';
 import { FilterModel } from 'ag-grid-community';
+import { groupBy, omitBy } from 'lodash-es';
 import moment from 'moment';
+import { EMPTY, forkJoin, Observable, of } from 'rxjs';
+import { catchError, delay, map, switchMap, tap } from 'rxjs/operators';
 import { HeatmapData } from 'visual-heatmap';
-import { acceptedDateFormats, ToastService } from '@fxn/common';
+import { DATA_RELOAD_DELAY } from '../../../common/app-constants';
+import { GenericDiagramSectionViewComponent } from '../../../common/diagram/generic-diagram-viewer.component';
+import { ToolbarEvent } from '../../../common/toolbar/toolbar.component';
+import { ToolbarService } from '../../../common/toolbar/toolbar.service';
+import { DecisionInstanceService } from '../../../services/decision-instance.service';
+import { IncidentService } from '../../../services/incident.service';
+import { JobService } from '../../../services/job.service';
+import { ProcessDefinitionService } from '../../../services/process-definition.service';
+import { ProcessInstanceService } from '../../../services/process-instance.service';
+import { PaginatedDataRequest } from '../../../services/types/paginated-data-request';
+import { ActivityIncident, ActivityMarkers, WithAugmentedProcessDiagram, WithHeatmap } from '../../diagram.mixin';
 import { ItemDetailPageComponent } from '../../item-detail-page.component';
 import { PimTab, ProcessDefinitionTabs } from '../../item-detail-tab-utils';
-import { ActivityIncident, ActivityMarkers, WithAugmentedProcessDiagram, WithHeatmap } from '../../diagram.mixin';
-import { GenericDiagramSectionViewComponent } from '../../../common/diagram/generic-diagram-viewer.component';
-import { ProcessDefinitionService } from '../../../services/process-definition.service';
-import { IncidentService } from '../../../services/incident.service';
-import { ProcessInstanceService } from '../../../services/process-instance.service';
-import { JobService } from '../../../services/job.service';
-import { DecisionInstanceService } from '../../../services/decision-instance.service';
-import { ToolbarService } from '../../../common/toolbar/toolbar.service';
-import { ToolbarEvent } from '../../../common/toolbar/toolbar.component';
-import { DATA_RELOAD_DELAY } from '../../../common/app-constants';
-import { PaginatedDataRequest } from '../../../services/types/paginated-data-request';
 
 const COUNTS_DEFAULT: { [p: string]: number } = {
   [PimTab.Instances]: 0,

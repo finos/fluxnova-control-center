@@ -1,5 +1,5 @@
-import { Component, inject } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
+import { Component, inject } from '@angular/core';
 import { AgRendererComponent } from 'ag-grid-angular';
 import { ICellRendererParams } from 'ag-grid-community';
 

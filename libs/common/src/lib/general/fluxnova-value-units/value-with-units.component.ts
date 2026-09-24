@@ -1,5 +1,5 @@
-import pluralize from 'pluralize';
 import { Component, Input } from '@angular/core';
+import pluralize from 'pluralize';
 
 @Component({
   selector: 'fluxnova-value-with-units',

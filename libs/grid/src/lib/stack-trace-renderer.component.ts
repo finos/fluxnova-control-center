@@ -1,9 +1,9 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, inject } from '@angular/core';
-import { AgRendererComponent } from 'ag-grid-angular';
-import { ICellRendererParams } from 'ag-grid-community';
 import { CodeModalComponent, GeneralModule, MODAL_DEFAULTS } from '@fxn/common';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import { HttpClient } from '@angular/common/http';
+import { AgRendererComponent } from 'ag-grid-angular';
+import { ICellRendererParams } from 'ag-grid-community';
 
 @Component({
   selector: 'fluxnova-stack-trace-renderer',
@@ -12,6 +12,7 @@ import { HttpClient } from '@angular/common/http';
       {{ message }}
     </span>
   </div>`,
+
   imports: [GeneralModule],
 })
 export class StackTraceRendererComponent implements AgRendererComponent {

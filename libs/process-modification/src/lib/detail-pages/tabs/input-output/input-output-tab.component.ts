@@ -1,10 +1,10 @@
-import { ColDef, IRowNode } from 'ag-grid-community';
 import { Component, inject, Input, OnDestroy } from '@angular/core';
+import { DecisionInstance, noFilterNoSortColDef } from '@fxn/types';
 import {
   inputOutputColDefs,
   inputOutputColFields,
 } from '@fxn/types/src/grid/predefined-input-output-column-definitions';
-import { DecisionInstance, noFilterNoSortColDef } from '@fxn/types';
+import { ColDef, IRowNode } from 'ag-grid-community';
 import { DecisionInstanceService } from '../../../services/decision-instance.service';
 import { PimTab, PimTabRowQueryParam } from '../../item-detail-tab-utils';
 import { BaseTabComponent } from '../base-tab-component';

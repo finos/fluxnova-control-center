@@ -1,8 +1,6 @@
 /* eslint-disable max-lines */
 import { Component, ElementRef, HostListener, inject, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { combineLatest, Observable, of, Subscription, take } from 'rxjs';
-import { map } from 'rxjs/operators';
-import { groupBy, map as lodashMap } from 'lodash-es';
+import { MODAL_DEFAULTS } from '@fxn/common';
 import {
   ActivityInstance,
   ActivityInstanceHistory,
@@ -12,10 +10,25 @@ import {
   TransitionInstance,
 } from '@fxn/types';
 import { FilterModel } from 'ag-grid-community';
-import { MODAL_DEFAULTS } from '@fxn/common';
+import { groupBy, map as lodashMap } from 'lodash-es';
 import moment from 'moment';
-import { ItemDetailPageComponent } from '../../item-detail-page.component';
-import { FinishedProcessInstanceTabs, PimTab, ProcessInstanceTabs } from '../../item-detail-tab-utils';
+import { combineLatest, Observable, of, Subscription, take } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { GenericDiagramSectionViewComponent } from '../../../common/diagram/generic-diagram-viewer.component';
+import { DiagramUtilsService } from '../../../common/diagram/services';
+import { ToolbarEvent } from '../../../common/toolbar/toolbar.component';
+import { ToolbarService } from '../../../common/toolbar/toolbar.service';
+import { CalledProcessInstancesService } from '../../../services/called-process-instances.service';
+import { DecisionInstanceService } from '../../../services/decision-instance.service';
+import { IncidentService } from '../../../services/incident.service';
+import { JobService } from '../../../services/job.service';
+import { ProcessInstanceService } from '../../../services/process-instance.service';
+import { UserTaskService } from '../../../services/user-task.service';
+import { VariableService } from '../../../services/variable.service';
+import { ApplyChangesModalService } from '../../diagram-section/apply-changes-modal/apply-changes-modal-service';
+import { ContextMenuItemService } from '../../diagram-section/context-menu/context-menu-item.service';
+import { ContextMenuComponent } from '../../diagram-section/context-menu/context-menu.component';
+import { PimCommandStackService } from '../../diagram-section/pim-command-stack.service';
 import {
   ActivityIncident,
   ActivityMarkers,
@@ -23,21 +36,8 @@ import {
   WithAugmentedProcessDiagram,
   WithModifiableInstance,
 } from '../../diagram.mixin';
-import { GenericDiagramSectionViewComponent } from '../../../common/diagram/generic-diagram-viewer.component';
-import { ContextMenuComponent } from '../../diagram-section/context-menu/context-menu.component';
-import { DiagramUtilsService } from '../../../common/diagram/services';
-import { ContextMenuItemService } from '../../diagram-section/context-menu/context-menu-item.service';
-import { PimCommandStackService } from '../../diagram-section/pim-command-stack.service';
-import { ToolbarService } from '../../../common/toolbar/toolbar.service';
-import { DecisionInstanceService } from '../../../services/decision-instance.service';
-import { IncidentService } from '../../../services/incident.service';
-import { CalledProcessInstancesService } from '../../../services/called-process-instances.service';
-import { ProcessInstanceService } from '../../../services/process-instance.service';
-import { VariableService } from '../../../services/variable.service';
-import { JobService } from '../../../services/job.service';
-import { ToolbarEvent } from '../../../common/toolbar/toolbar.component';
-import { ApplyChangesModalService } from '../../diagram-section/apply-changes-modal/apply-changes-modal-service';
-import { UserTaskService } from '../../../services/user-task.service';
+import { ItemDetailPageComponent } from '../../item-detail-page.component';
+import { FinishedProcessInstanceTabs, PimTab, ProcessInstanceTabs } from '../../item-detail-tab-utils';
 
 const COUNTS_DEFAULT: { [p: string]: number } = {
   [PimTab.Variables]: 0,

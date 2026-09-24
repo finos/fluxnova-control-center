@@ -1,6 +1,6 @@
 import { AfterViewInit, Component } from '@angular/core';
-import { NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { Tenant, User } from '@fxn/types';
+import { NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'fluxnova-select-tenant-modal',

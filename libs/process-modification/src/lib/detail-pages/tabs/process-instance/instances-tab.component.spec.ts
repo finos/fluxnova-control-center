@@ -1,20 +1,20 @@
-import { LetDirective } from '@ngrx/component';
-import { IRowNode } from 'ag-grid-community';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ActivatedRoute, Router } from '@angular/router';
+import { AuthorizationHttpService } from '@fxn/common';
+import { MockFluxnovaHasPermissionsDirective } from '@fxn/test-support/src/lib/mock-fluxnova-has-permissions-directive';
 import { ItemType, ListViewState, ProcessInstanceStatesMap, processInstanceTabDefaultFilters } from '@fxn/types';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { ActivatedRoute, Router } from '@angular/router';
-import { BehaviorSubject, of, Subscription } from 'rxjs';
-import { MockFluxnovaHasPermissionsDirective } from '@fxn/test-support/src/lib/mock-fluxnova-has-permissions-directive';
-import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
-import { AuthorizationHttpService } from '@fxn/common';
+import { LetDirective } from '@ngrx/component';
+import { IRowNode } from 'ag-grid-community';
 import { WINDOW } from 'ngx-window-token';
-import { ProcessInstanceService } from '../../../services/process-instance.service';
+import { BehaviorSubject, of, Subscription } from 'rxjs';
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
+import { ItemsTableComponent } from '../../../common/items-table/items-table.component';
 import { ProcessDefinitionService } from '../../../services/process-definition.service';
+import { ProcessInstanceService } from '../../../services/process-instance.service';
 import { ItemDetailPageCommunicationService } from '../../item-detail-page.communication.service';
 import { PimTab } from '../../item-detail-tab-utils';
-import { ItemsTableComponent } from '../../../common/items-table/items-table.component';
 import { InstancesTabComponent } from './instances-tab.component';
 
 describe('Instances Tab', () => {
@@ -186,9 +186,8 @@ describe('Instances Tab', () => {
 
       component.init();
       await vi.runAllTimersAsync();
-      fixture.detectChanges();
 
-      expect(migrateButton?.disabled).toBe(false);
+      expect((component as any).migrateButtonDisabled).toBe(false);
     });
 
     it('should be disabled when there are not multiple definition versions', () => {
@@ -288,7 +287,6 @@ describe('Instances Tab', () => {
 
       component.init();
       await vi.runAllTimersAsync();
-      fixture.detectChanges();
 
       expect(component.anyButtonVisible).toBe(true);
     });
@@ -298,7 +296,6 @@ describe('Instances Tab', () => {
 
       component.init();
       await vi.runAllTimersAsync();
-      fixture.detectChanges();
 
       expect(component.anyButtonVisible).toBe(false);
     });

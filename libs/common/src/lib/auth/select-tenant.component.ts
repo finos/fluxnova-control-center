@@ -1,11 +1,11 @@
 import { Component, EventEmitter, inject, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import { Params, Router } from '@angular/router';
 import { ProcessEngineDto, Tenant } from '@fxn/types';
 import { filter, find, map, sortBy, uniqBy } from 'lodash-es';
 import { SubSink } from 'subsink';
-import { Params, Router } from '@angular/router';
-import { windowRedirect } from '../window-actions';
-import { getUrlSegments } from '../utils';
 import { UserService } from '../services/user.service';
+import { getUrlSegments } from '../utils';
+import { windowRedirect } from '../window-actions';
 
 @Component({
   selector: 'fluxnova-select-tenant',

@@ -1,12 +1,12 @@
+import { HttpClient } from '@angular/common/http';
 import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router';
 import { of } from 'rxjs';
 import { beforeEach, describe, expect, it, Mocked, vi } from 'vitest';
+import { DecisionDefinitionService } from '../../../../services/decision-definition.service';
 import { DeploymentService } from '../../../../services/deployment.service';
 import { ProcessDefinitionService } from '../../../../services/process-definition.service';
-import { DecisionDefinitionService } from '../../../../services/decision-definition.service';
 import { DeploymentInfoSectionComponent } from './deployment-info-section.component';
 
 describe('Deployment Info Section Component', () => {
@@ -88,7 +88,6 @@ describe('Deployment Info Section Component', () => {
       deploymentId: '1234',
       name: 'testing.bpmn',
     });
-    fixture.detectChanges();
 
     expect(component.version).toEqual(1);
   });
@@ -108,7 +107,6 @@ describe('Deployment Info Section Component', () => {
       deploymentId: '1234',
       name: 'test-decision.dmn',
     });
-    fixture.detectChanges();
 
     expect(component.version).toEqual(2);
   });

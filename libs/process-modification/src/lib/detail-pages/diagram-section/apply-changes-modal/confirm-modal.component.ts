@@ -1,7 +1,7 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { ActionPermissionsSpec, ApplyChangesModalOptions } from '@fxn/types';
 import { PermissionService } from '@fxn/common/src/lib/services/permission.service';
+import { ActionPermissionsSpec, ApplyChangesModalOptions } from '@fxn/types';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'fluxnova-apply-changes-confirm-modal',

@@ -1,11 +1,11 @@
 import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { deploymentDecisionRequirementsDefinitionsColumnDefinitions } from '@fxn/types';
 import { SubSink } from 'subsink';
-import { DeploymentService } from '../../../../services/deployment.service';
 import { DecisionRequirementsDefinitionService } from '../../../../services/decision-requirements-definition';
-import { BaseTabComponent } from '../../base-tab-component';
-import { PimTab, PimTabRowQueryParam } from '../../../item-detail-tab-utils';
+import { DeploymentService } from '../../../../services/deployment.service';
 import { PaginatedDataRequest } from '../../../../services/types/paginated-data-request';
+import { PimTab, PimTabRowQueryParam } from '../../../item-detail-tab-utils';
+import { BaseTabComponent } from '../../base-tab-component';
 
 @Component({
   selector: 'fluxnova-decision-requirements-definitions',

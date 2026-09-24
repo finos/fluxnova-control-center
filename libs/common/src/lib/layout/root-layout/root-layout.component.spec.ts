@@ -1,4 +1,3 @@
-import { beforeEach, describe, expect, it, Mock, vi } from 'vitest';
 import { APP_BASE_HREF } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Component, Input } from '@angular/core';
@@ -8,6 +7,7 @@ import { NgbCollapseModule, NgbModalModule, NgbTooltipModule } from '@ng-bootstr
 import { LetDirective } from '@ngrx/component';
 import * as rxjs from 'rxjs';
 import { of } from 'rxjs';
+import { beforeEach, describe, expect, it, Mock, vi } from 'vitest';
 import { AuthModule } from '../../auth/auth.module';
 import { IconComponent } from '../../general/icons/icon.component';
 import { IS_PRODUCTION } from '../../injection-tokens';

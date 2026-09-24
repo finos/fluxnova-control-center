@@ -1,13 +1,13 @@
 import { Component, inject, OnDestroy, OnInit } from '@angular/core';
-import { DeploymentProcess, DeploymentResource, DeploymentResponse } from '@fxn/types';
-import { SubSink } from 'subsink';
 import { ActivatedRoute, Router } from '@angular/router';
 import { pageSizeMax } from '@fxn/grid';
+import { DeploymentProcess, DeploymentResource, DeploymentResponse } from '@fxn/types';
+import { SubSink } from 'subsink';
 import { DeploymentService } from '../../../../services/deployment.service';
 import { ProcessDefinitionService } from '../../../../services/process-definition.service';
 
-import { PaginatedDataRequest } from '../../../../services/types/paginated-data-request';
 import { DecisionDefinitionService } from '../../../../services/decision-definition.service';
+import { PaginatedDataRequest } from '../../../../services/types/paginated-data-request';
 
 @Component({
   selector: 'fluxnova-deployment-info-section',

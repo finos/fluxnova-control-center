@@ -1,13 +1,13 @@
 import { Component, inject, ViewChild } from '@angular/core';
+import { ItemType, ItemTypeActions, ListOptions } from '@fxn/types';
 import { every } from 'lodash-es';
 import { forkJoin, take } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { ItemType, ItemTypeActions, ListOptions } from '@fxn/types';
+import { ItemsTableComponent } from '../../common/items-table/items-table.component';
 import { getDefaultListViewState } from '../../common/list-utils';
 import { ProcessDefinitionService } from '../../services/process-definition.service';
-import { BaseListComponent } from '../base-list.component';
-import { ItemsTableComponent } from '../../common/items-table/items-table.component';
 import { PaginatedDataRequest } from '../../services/types/paginated-data-request';
+import { BaseListComponent } from '../base-list.component';
 
 @Component({
   selector: 'fluxnova-process-list',

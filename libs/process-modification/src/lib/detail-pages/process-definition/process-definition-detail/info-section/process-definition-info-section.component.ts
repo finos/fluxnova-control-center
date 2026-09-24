@@ -1,13 +1,13 @@
 import { Component, EventEmitter, inject, Input, OnDestroy, Output } from '@angular/core';
-import { ProcessDefinition } from '@fxn/types';
 import { ToastService } from '@fxn/common';
+import { ProcessDefinition } from '@fxn/types';
+import { map as lodashMap } from 'lodash-es';
 import { from, Subject, Subscription, takeUntil } from 'rxjs';
 import { delay, map, mergeMap } from 'rxjs/operators';
-import { map as lodashMap } from 'lodash-es';
-import { ProcessDefinitionVersion } from '../../../item-detail-page.types';
 import { ProcessDefinitionService } from '../../../../services/process-definition.service';
 import { ProcessInstanceService } from '../../../../services/process-instance.service';
 import { ItemDetailPageCommunicationService } from '../../../item-detail-page.communication.service';
+import { ProcessDefinitionVersion } from '../../../item-detail-page.types';
 
 const CONCURRENT_REQUEST_COUNT = 2;
 

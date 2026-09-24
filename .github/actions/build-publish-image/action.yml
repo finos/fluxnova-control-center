@@ -1,24 +1,24 @@
-name: "Build and Publish Docker Image"
-description: "Build and publish a Docker image to Docker Hub"
+name: 'Build and Publish Docker Image'
+description: 'Build and publish a Docker image to Docker Hub'
 
 inputs:
   image_name:
-    description: "Docker Hub image name"
+    description: 'Docker Hub image name'
     required: true
   dockerfile_path:
-    description: "Path to Dockerfile"
+    description: 'Path to Dockerfile'
     required: true
-    default: "./Dockerfile"
+    default: './Dockerfile'
   docker_context:
-    description: "Docker build context"
+    description: 'Docker build context'
     required: false
-    default: "."
+    default: '.'
   image_tag:
-    description: "Image tag version"
+    description: 'Image tag version'
     required: true
 
 runs:
-  using: "composite"
+  using: 'composite'
   steps:
     - name: Set up Docker Buildx
       uses: docker/setup-buildx-action@v3

@@ -1,7 +1,4 @@
-import { firstValueFrom, from, Observable, of } from 'rxjs';
 import { Component, inject, OnDestroy } from '@angular/core';
-import { cloneDeep } from 'lodash-es';
-import { catchError, map, mergeMap, takeLast } from 'rxjs/operators';
 import { MODAL_DEFAULTS } from '@fxn/common';
 import {
   detailPageHistoricalVariablesTabColFields,
@@ -12,18 +9,21 @@ import {
   Variable,
   VariableScopeType,
 } from '@fxn/types';
-import { SubSink } from 'subsink';
 import { ColDef } from 'ag-grid-community';
+import { cloneDeep } from 'lodash-es';
+import { firstValueFrom, from, Observable, of } from 'rxjs';
+import { catchError, map, mergeMap, takeLast } from 'rxjs/operators';
+import { SubSink } from 'subsink';
 import { ProcessInstanceService } from '../../../services/process-instance.service';
+import { PaginatedDataRequest } from '../../../services/types/paginated-data-request';
 import { VariableService } from '../../../services/variable.service';
+import { PimTab, PimTabRowQueryParam } from '../../item-detail-tab-utils';
 import { ProcessVariableModalService } from '../../process-instance/process-variable-modal/process-variable-modal-service';
 import {
   VariableModalResult,
   VariableOptions,
 } from '../../process-instance/process-variable-modal/process-variable-modal.component';
 import { BaseTabComponent } from '../base-tab-component';
-import { PimTab, PimTabRowQueryParam } from '../../item-detail-tab-utils';
-import { PaginatedDataRequest } from '../../../services/types/paginated-data-request';
 
 @Component({
   selector: 'fluxnova-variables-tab',

@@ -1,10 +1,10 @@
+import { AfterViewInit, Component, ElementRef, inject, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { CodeEditorComponent } from '@fxn/common';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { isEmpty } from 'lodash-es';
 import { editor } from 'monaco-editor';
 import { catchError, debounceTime, Observable, Subject, throwError } from 'rxjs';
 import { SubSink } from 'subsink';
-import { AfterViewInit, Component, ElementRef, inject, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { CodeEditorComponent } from '@fxn/common';
 import { DecisionDefinitionService } from '../../../../services/decision-definition.service';
 import IMarker = editor.IMarker;
 

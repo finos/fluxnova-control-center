@@ -1,13 +1,13 @@
 import { Component, inject, OnDestroy } from '@angular/core';
+import { noRowsTemplate } from '@fxn/grid';
 import { detailPageHistoryTabColFields, noFilterNoSortColDef, predefinedHistoryColDefs } from '@fxn/types';
 import { IsFullWidthRowParams, RowClickedEvent } from 'ag-grid-community';
-import { catchError, map } from 'rxjs/operators';
-import { noRowsTemplate } from '@fxn/grid';
 import { of } from 'rxjs';
-import { BaseTabComponent } from '../base-tab-component';
-import { PimTab, PimTabRowQueryParam } from '../../item-detail-tab-utils';
+import { catchError, map } from 'rxjs/operators';
 import { ProcessInstanceService } from '../../../services/process-instance.service';
 import { PaginatedDataRequest } from '../../../services/types/paginated-data-request';
+import { PimTab, PimTabRowQueryParam } from '../../item-detail-tab-utils';
+import { BaseTabComponent } from '../base-tab-component';
 import { HistoryTabService } from './history-tab.service';
 
 @Component({

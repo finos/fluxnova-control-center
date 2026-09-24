@@ -1,5 +1,4 @@
 import { Component, inject, Input, OnDestroy } from '@angular/core';
-import { ColDef } from 'ag-grid-community';
 import {
   detailPageIncidentTabColFields,
   Incident,
@@ -9,13 +8,14 @@ import {
   predefinedIncidentTabColDefs,
   predefinedIncidentTabPInstColDefs,
 } from '@fxn/types';
+import { ColDef } from 'ag-grid-community';
 import { combineLatestWith, take, timer } from 'rxjs';
+import { ConfirmActionService } from '../../../services/confirm-action.service';
+import { IncidentService } from '../../../services/incident.service';
+import { PaginatedDataRequest } from '../../../services/types/paginated-data-request';
 import { NeedsParentInfo } from '../../NeedsParentInfo';
 import { PimTab, PimTabRowQueryParam } from '../../item-detail-tab-utils';
-import { IncidentService } from '../../../services/incident.service';
 import { BaseTabComponent } from '../base-tab-component';
-import { ConfirmActionService } from '../../../services/confirm-action.service';
-import { PaginatedDataRequest } from '../../../services/types/paginated-data-request';
 
 @Component({
   selector: 'fluxnova-incidents-tab',

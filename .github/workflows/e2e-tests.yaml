@@ -8,7 +8,7 @@ permissions:
   actions: read
 
 env:
-  SANDBOX_URL: "https://sandbox.fluxnova-control-center.com"
+  SANDBOX_URL: 'https://sandbox.fluxnova-control-center.com'
   SHARD_TOTAL: 2
 
 jobs:

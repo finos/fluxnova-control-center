@@ -1,7 +1,7 @@
 name: 🐛 Bug Report
 description: If something isn't working as expected 🤔
-title: "[Bug] "
-labels: ["bug"]
+title: '[Bug] '
+labels: ['bug']
 body:
   - type: markdown
     attributes:
@@ -52,4 +52,3 @@ body:
       label: Additional Context
       description: Add any other context about the problem here. If applicable, add screenshots to help explain.
       placeholder: Any additional information that might be helpful...
-

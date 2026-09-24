@@ -1,11 +1,11 @@
-import { beforeEach, describe, expect, it, vi } from 'vitest';
-import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { CUSTOM_ELEMENTS_SCHEMA, Directive, Input, SimpleChange } from '@angular/core';
-import { firstValueFrom, of } from 'rxjs';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { mockUserInfo, mockUserService } from '@fxn/test-support';
+import { firstValueFrom, of } from 'rxjs';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
+import { UserService } from '../../services/user.service';
 import { VersionService } from '../../services/version.service';
 import { IconComponent } from '../icons/icon.component';
-import { UserService } from '../../services/user.service';
 import { FooterComponent } from './footer.component';
 
 describe('FooterComponent', () => {
@@ -77,7 +77,7 @@ describe('FooterComponent', () => {
     component.ngOnInit();
     fixture.detectChanges();
 
-    expect(component.engineVersion).toBe(testEngineVersion);
+    await expect(firstValueFrom(component.engineVersion$!)).resolves.toBe(testEngineVersion);
   });
 
   it('should close the tenant menu when the drawer collapses', () => {

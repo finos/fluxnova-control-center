@@ -1,7 +1,7 @@
 import { AfterViewInit, Component, ElementRef, inject, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { NgbActiveModal, NgbTooltip } from '@ng-bootstrap/ng-bootstrap';
 import { convertDateToFluxnovaString, DateFilterTypes } from '@fxn/common';
 import { Variable } from '@fxn/types';
+import { NgbActiveModal, NgbTooltip } from '@ng-bootstrap/ng-bootstrap';
 import { Subject, take } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
 import { SubSink } from 'subsink';

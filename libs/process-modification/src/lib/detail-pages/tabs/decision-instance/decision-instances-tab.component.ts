@@ -1,11 +1,11 @@
 import { Component, inject, Input } from '@angular/core';
 import { decisionInstanceAllColsColDefs, decisionInstanceDefaultColDefs, ItemType } from '@fxn/types';
 import { ColDef } from 'ag-grid-community';
-import { BaseTabComponent } from '../base-tab-component';
 import { DecisionInstanceService } from '../../../services/decision-instance.service';
+import { PaginatedDataRequest } from '../../../services/types/paginated-data-request';
 import { NeedsParentInfo } from '../../NeedsParentInfo';
 import { PimTab, PimTabRowQueryParam } from '../../item-detail-tab-utils';
-import { PaginatedDataRequest } from '../../../services/types/paginated-data-request';
+import { BaseTabComponent } from '../base-tab-component';
 
 @Component({
   selector: 'fluxnova-decision-instance-list',

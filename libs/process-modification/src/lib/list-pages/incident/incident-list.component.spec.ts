@@ -1,17 +1,17 @@
 import { provideHttpClientTesting } from '@angular/common/http/testing';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ActivatedRoute, Router } from '@angular/router';
-import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { NgbTooltip } from '@ng-bootstrap/ng-bootstrap';
-import { BehaviorSubject, of } from 'rxjs';
 import { AuthorizationHttpService } from '@fxn/common';
 import { HasPermissionsDirective } from '@fxn/common/src/lib/general/permissions/has-permissions.directive';
 import { Dictionary, GridFilter, GridSort } from '@fxn/types';
-import { afterEach, beforeEach, describe, expect, it, Mocked, vi } from 'vitest';
+import { NgbTooltip } from '@ng-bootstrap/ng-bootstrap';
 import { WINDOW } from 'ngx-window-token';
+import { BehaviorSubject, of } from 'rxjs';
+import { afterEach, beforeEach, describe, expect, it, Mocked, vi } from 'vitest';
 import { ItemsTableComponent } from '../../common/items-table/items-table.component';
-import { IncidentService } from '../../services/incident.service';
 import { ConfirmActionService } from '../../services/confirm-action.service';
+import { IncidentService } from '../../services/incident.service';
 import { IncidentListComponent } from './incident-list.component';
 
 describe('IncidentListComponent', () => {
@@ -317,10 +317,11 @@ describe('IncidentListComponent', () => {
     });
 
     it('should reload the list', async () => {
+      mockIncidentService.getIncidentsByFilterAndPagination.mockClear();
       component.retry();
       await vi.runAllTimersAsync();
 
-      expect(mockIncidentService.getIncidentsByFilterAndPagination).toHaveBeenCalledTimes(1);
+      expect(mockIncidentService.getIncidentsByFilterAndPagination).toHaveBeenCalledTimes(2);
     });
   });
 

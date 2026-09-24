@@ -1,8 +1,8 @@
-name: "Build App"
-description: "Lints and builds the frontend and server applications"
+name: 'Build App'
+description: 'Lints and builds the frontend and server applications'
 
 runs:
-  using: "composite"
+  using: 'composite'
   steps:
     - name: Lint
       shell: bash

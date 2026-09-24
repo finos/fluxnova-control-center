@@ -8,9 +8,9 @@ import {
   ViewChild,
   ViewChildren,
 } from '@angular/core';
-import { ButtonActions, ItemType, ProcessInstanceStatesMap } from '@fxn/types';
-import { PermissionService } from '@fxn/common/src/lib/services/permission.service';
 import { getRequiredActionPermissions } from '@fxn/common/src/lib/auth/access-permissions/action-access';
+import { PermissionService } from '@fxn/common/src/lib/services/permission.service';
+import { ButtonActions, ItemType, ProcessInstanceStatesMap } from '@fxn/types';
 import { DiagramToolbarComponent } from '../../detail-pages/diagram-section/diagram-toolbar/diagram-toolbar.component';
 import { ToolbarButtonComponent } from './toolbar-button.component';
 import { ToolbarService } from './toolbar.service';

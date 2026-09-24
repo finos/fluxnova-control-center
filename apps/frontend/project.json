@@ -13,7 +13,7 @@
   },
   "targets": {
     "build": {
-      "executor": "@angular-devkit/build-angular:application",
+      "executor": "@angular/build:application",
       "options": {
         "allowedCommonJsDependencies": ["moment", "lodash", "highcharts", "bpmn-js", "inherits"],
         "browser": "apps/frontend/src/main.ts",
@@ -99,11 +99,11 @@
       }
     },
     "serve": {
-      "executor": "@angular-devkit/build-angular:dev-server",
+      "executor": "@angular/build:dev-server",
+      "defaultConfiguration": "development",
       "options": {
         "port": 4200,
-        "proxyConfig": "proxy.conf.json",
-        "publicHost": "http://localhost:4200"
+        "proxyConfig": "proxy.conf.json"
       },
       "configurations": {
         "development": {
@@ -115,11 +115,10 @@
         "branch": {
           "buildTarget": "frontend:build:branch"
         }
-      },
-      "defaultConfiguration": "development"
+      }
     },
     "extract-i18n": {
-      "executor": "@angular-devkit/build-angular:extract-i18n",
+      "executor": "@angular/build:extract-i18n",
       "options": {
         "buildTarget": "frontend:build"
       }

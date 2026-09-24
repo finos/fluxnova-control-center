@@ -1,15 +1,15 @@
 import { Component, inject, ViewChild } from '@angular/core';
+import { ToastService } from '@fxn/common';
+import { ItemType, ItemTypeActions, ListOptions, ProcessInstanceStatesMap } from '@fxn/types';
 import { every } from 'lodash-es';
 import { forkJoin, take } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { ToastService } from '@fxn/common';
-import { ItemType, ItemTypeActions, ListOptions, ProcessInstanceStatesMap } from '@fxn/types';
+import { ItemsTableComponent } from '../../common/items-table/items-table.component';
 import { getDefaultListViewState } from '../../common/list-utils';
 import { ProcessInstanceService } from '../../services/process-instance.service';
-import { BaseListComponent } from '../base-list.component';
 import { BatchService } from '../../services/support/batch.service';
-import { ItemsTableComponent } from '../../common/items-table/items-table.component';
 import { PaginatedDataRequest } from '../../services/types/paginated-data-request';
+import { BaseListComponent } from '../base-list.component';
 
 @Component({
   selector: 'fluxnova-process-instance-list',

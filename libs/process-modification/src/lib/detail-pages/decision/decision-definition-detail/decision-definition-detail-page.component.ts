@@ -1,14 +1,14 @@
 import { Component, inject, OnDestroy, OnInit } from '@angular/core';
-import { forkJoin, Observable, of, take } from 'rxjs';
 import { MODAL_DEFAULTS } from '@fxn/common';
-import { map } from 'rxjs/operators';
 import { ButtonActions } from '@fxn/types/src';
-import { ItemDetailPageComponent } from '../../item-detail-page.component';
-import { DecisionDefinitionService } from '../../../services/decision-definition.service';
-import { DecisionDefinitionTabs, PimTab } from '../../item-detail-tab-utils';
+import { forkJoin, Observable, of, take } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { ToolbarEvent } from '../../../common/toolbar/toolbar.component';
 import { ToolbarService } from '../../../common/toolbar/toolbar.service';
+import { DecisionDefinitionService } from '../../../services/decision-definition.service';
 import { DecisionInstanceService } from '../../../services/decision-instance.service';
+import { ItemDetailPageComponent } from '../../item-detail-page.component';
+import { DecisionDefinitionTabs, PimTab } from '../../item-detail-tab-utils';
 import { EvaluateDecisionModalService } from './evaluate-decision-modal/evaluate-decision-modal.service';
 
 const COUNTS_DEFAULT: { [p: string]: number } = {

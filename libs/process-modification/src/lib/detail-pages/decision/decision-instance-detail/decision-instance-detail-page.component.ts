@@ -1,11 +1,11 @@
 import { AfterViewChecked, Component, HostListener, inject, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { of, take, timer } from 'rxjs';
-import { DecisionInstanceService } from '../../../services/decision-instance.service';
-import { ItemDetailPageComponent } from '../../item-detail-page.component';
-import { DecisionInstanceTabs } from '../../item-detail-tab-utils';
 import { DecisionDiagramViewerComponent } from '../../../common/diagram/decision-diagram-viewer.component';
 import { ToolbarEvent } from '../../../common/toolbar/toolbar.component';
 import { ToolbarService } from '../../../common/toolbar/toolbar.service';
+import { DecisionInstanceService } from '../../../services/decision-instance.service';
+import { ItemDetailPageComponent } from '../../item-detail-page.component';
+import { DecisionInstanceTabs } from '../../item-detail-tab-utils';
 
 @Component({
   selector: 'fluxnova-decision-instance-details-page',

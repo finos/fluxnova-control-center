@@ -1,19 +1,19 @@
 import { Component, ElementRef, inject, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { SubSink } from 'subsink';
-import { finalize, forkJoin, of } from 'rxjs';
-import { catchError } from 'rxjs/operators';
-import { differenceBy, forEach } from 'lodash-es';
-import { MigrationExecutionRequest, ProcessDefinition, ProcessInstance } from '@fxn/types';
 import { ToastService } from '@fxn/common';
-import ElementRegistry from 'diagram-js/lib/core/ElementRegistry';
+import { MigrationExecutionRequest, ProcessDefinition, ProcessInstance } from '@fxn/types';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { Canvas } from 'bpmn-js/lib/features/context-pad/ContextPadProvider';
 import NavigatedViewer from 'bpmn-js/lib/NavigatedViewer';
-import { ProcessDefinitionVersion } from '../../../item-detail-page.types';
+import ElementRegistry from 'diagram-js/lib/core/ElementRegistry';
+import { differenceBy, forEach } from 'lodash-es';
+import { finalize, forkJoin, of } from 'rxjs';
+import { catchError } from 'rxjs/operators';
+import { SubSink } from 'subsink';
 import { GenericDiagramSectionViewComponent } from '../../../../common/diagram/generic-diagram-viewer.component';
-import { VersionMigrationService } from '../../../../services/version-migration.service';
-import { ProcessInstanceService } from '../../../../services/process-instance.service';
 import { ProcessDefinitionService } from '../../../../services/process-definition.service';
+import { ProcessInstanceService } from '../../../../services/process-instance.service';
+import { VersionMigrationService } from '../../../../services/version-migration.service';
+import { ProcessDefinitionVersion } from '../../../item-detail-page.types';
 
 interface VersionOption extends ProcessDefinitionVersion {
   disabled?: boolean;

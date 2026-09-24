@@ -1,19 +1,19 @@
-name: "Run E2E Tests"
-description: "Runs a single shard of E2E tests against a target environment"
+name: 'Run E2E Tests'
+description: 'Runs a single shard of E2E tests against a target environment'
 
 inputs:
   sandbox-url:
-    description: "Base URL for the target sandbox environment"
+    description: 'Base URL for the target sandbox environment'
     required: true
   shard-index:
-    description: "Current shard number (e.g. 1)"
+    description: 'Current shard number (e.g. 1)'
     required: true
   shard-total:
-    description: "Total number of shards (e.g. 2)"
+    description: 'Total number of shards (e.g. 2)'
     required: true
 
 runs:
-  using: "composite"
+  using: 'composite'
   steps:
     - name: Install Playwright browsers
       shell: bash

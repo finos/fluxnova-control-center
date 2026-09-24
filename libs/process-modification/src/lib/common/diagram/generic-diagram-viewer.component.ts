@@ -1,13 +1,13 @@
 import { Component, ElementRef, EventEmitter, inject, Input, OnDestroy, Output, ViewChild } from '@angular/core';
-import { forkJoin, Observable, Subscription } from 'rxjs';
 import { DecisionDefinitionDiagram, DIAGRAM_TYPE, ProcessDefinitionDiagram } from '@fxn/types';
+import { forkJoin, Observable, Subscription } from 'rxjs';
 
 import NavigatedViewer from 'bpmn-js/lib/NavigatedViewer';
 import DmnJSNavigatedViewer from 'dmn-js/lib/NavigatedViewer';
-import { DiagramService } from '../../services/diagram.service';
 import { SequenceFlow } from '../../detail-pages/diagram.mixin';
-import { DiagramRendererService } from './services/diagram-renderer.service';
+import { DiagramService } from '../../services/diagram.service';
 import { DiagramRenderer } from './diagram-renderer';
+import { DiagramRendererService } from './services/diagram-renderer.service';
 
 /**
  * This component can render basic BPMN and DMN diagrams by providing

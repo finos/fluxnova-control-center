@@ -90,5 +90,6 @@
       "!{projectRoot}/eslint.config.cjs"
     ]
   },
-  "defaultBase": "develop"
+  "defaultBase": "develop",
+  "analytics": false
 }

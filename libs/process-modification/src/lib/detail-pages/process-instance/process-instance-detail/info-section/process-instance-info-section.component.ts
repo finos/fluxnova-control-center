@@ -1,7 +1,7 @@
 import { Component, inject, OnDestroy, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { ProcessInstance, ProcessInstanceStatesMap } from '@fxn/types';
 import { SubSink } from 'subsink';
-import { ActivatedRoute } from '@angular/router';
 import { ProcessInstanceService } from '../../../../services/process-instance.service';
 import { ItemDetailPageCommunicationService } from '../../../item-detail-page.communication.service';
 

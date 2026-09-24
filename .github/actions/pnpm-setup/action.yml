@@ -1,8 +1,8 @@
-name: "pnpm Setup"
-description: "Sets up Node.js and pnpm with caching"
+name: 'pnpm Setup'
+description: 'Sets up Node.js and pnpm with caching'
 
 runs:
-  using: "composite"
+  using: 'composite'
   steps:
     - name: Set up Node.js
       uses: actions/setup-node@v6
@@ -52,4 +52,3 @@ runs:
       run: |
         node --version
         pnpm --version
-

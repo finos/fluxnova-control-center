@@ -1,16 +1,16 @@
 import { Component, inject } from '@angular/core';
+import { noRowsTemplate } from '@fxn/grid';
 import {
   CalledProcessDefinition,
   CalledProcessDefinitionFilter,
   predefinedStaticCalledProcessDefColFields,
   predefinedStaticCalledProcessDefinitionColDefs,
 } from '@fxn/types';
-import { noRowsTemplate } from '@fxn/grid';
 import { combineLatestWith } from 'rxjs';
 import { ProcessDefinitionService } from '../../../services/process-definition.service';
-import { BaseTabComponent } from '../base-tab-component';
-import { PimTab, PimTabRowQueryParam } from '../../item-detail-tab-utils';
 import { PaginatedDataRequest } from '../../../services/types/paginated-data-request';
+import { PimTab, PimTabRowQueryParam } from '../../item-detail-tab-utils';
+import { BaseTabComponent } from '../base-tab-component';
 
 @Component({
   selector: 'fluxnova-called-process-definitions',

@@ -9,10 +9,10 @@ import {
   ViewChild,
   ViewContainerRef,
 } from '@angular/core';
-import { WINDOW } from 'ngx-window-token';
-import { SubSink } from 'subsink';
-import { of } from 'rxjs';
 import { ItemType } from '@fxn/types';
+import { WINDOW } from 'ngx-window-token';
+import { of } from 'rxjs';
+import { SubSink } from 'subsink';
 import { PimCommandStackService } from '../pim-command-stack.service';
 import { ContextMenuItemComponent } from './context-menu-item.component';
 import { ContextMenuItemAction } from './context-menu-item.service';

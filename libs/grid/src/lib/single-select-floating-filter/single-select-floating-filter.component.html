@@ -5,7 +5,7 @@
   bindValue="value"
   [(ngModel)]="selectedItemsString"
   placeholder=""
-  [clearable]="selectedItemsString?.length > 1"
+  [clearable]="$safeNavigationMigration(selectedItemsString?.length) > 1"
   [dropdownPosition]="'bottom'"
   [items]="itemOptions"
   appendTo="body"

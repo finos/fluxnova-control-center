@@ -1,9 +1,9 @@
 import { Component, EventEmitter, inject, OnDestroy, OnInit, Output } from '@angular/core';
-import { DecisionDefinition, MAX_RESULT_COUNT } from '@fxn/types';
-import { SubSink } from 'subsink';
 import { ActivatedRoute, Router } from '@angular/router';
-import { keyBy } from 'lodash-es';
 import { getUrlSegments } from '@fxn/common';
+import { DecisionDefinition, MAX_RESULT_COUNT } from '@fxn/types';
+import { keyBy } from 'lodash-es';
+import { SubSink } from 'subsink';
 import { DecisionDefinitionService } from '../../../../services/decision-definition.service';
 
 @Component({

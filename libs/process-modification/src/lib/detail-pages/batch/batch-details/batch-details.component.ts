@@ -1,14 +1,14 @@
 import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { ConfirmModalService, RouteData, ToastService } from '@fxn/common';
 import { Batch, ButtonActions } from '@fxn/types';
-import { SubSink } from 'subsink';
 import { forkJoin, Observable, of } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
-import { ToolbarService } from '../../../common/toolbar/toolbar.service';
+import { SubSink } from 'subsink';
 import { ToolbarEvent } from '../../../common/toolbar/toolbar.component';
-import { ItemDetailPageComponent } from '../../item-detail-page.component';
-import { BatchService } from '../../../services/support/batch.service';
+import { ToolbarService } from '../../../common/toolbar/toolbar.service';
 import { JobService } from '../../../services/job.service';
+import { BatchService } from '../../../services/support/batch.service';
+import { ItemDetailPageComponent } from '../../item-detail-page.component';
 import { BatchTabs, PimTab } from '../../item-detail-tab-utils';
 
 @Component({

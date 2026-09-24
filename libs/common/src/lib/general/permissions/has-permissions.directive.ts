@@ -7,8 +7,8 @@ import {
   ItemTypeActions,
   PermissionSpecification,
 } from '@fxn/types';
-import { PermissionService } from '../../services/permission.service';
 import { supplementWithResourceIds } from '../../auth/access-permissions/action-access';
+import { PermissionService } from '../../services/permission.service';
 
 export interface HasPermissionsActionItemSpecification {
   action: keyof typeof ItemTypeActions;

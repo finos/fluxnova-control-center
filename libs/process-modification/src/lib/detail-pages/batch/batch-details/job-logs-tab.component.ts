@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { jobLogColFields, predefinedDetailPageJobLogTabColDef } from '@fxn/types';
 import { ColDef } from 'ag-grid-community';
-import { PimTab } from '../../item-detail-tab-utils';
 import { PaginatedDataRequest } from '../../../services/types/paginated-data-request';
+import { PimTab } from '../../item-detail-tab-utils';
 import { BaseBatchDetailsTabComponent } from './base-batch-details-tab.component';
 
 @Component({

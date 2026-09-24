@@ -15,9 +15,21 @@ allowBuilds:
   utf-8-validate: true
 autoInstallPeers: false
 minimumReleaseAge: 1440
+overrides:
+  '@peculiar/asn1-cms': 2.8.0
+  '@peculiar/asn1-csr': 2.8.0
+  '@peculiar/asn1-ecc': 2.8.0
+  '@peculiar/asn1-pfx': 2.8.0
+  '@peculiar/asn1-pkcs8': 2.8.0
+  '@peculiar/asn1-pkcs9': 2.8.0
+  '@peculiar/asn1-rsa': 2.8.0
+  '@peculiar/asn1-schema': 2.8.0
+  '@peculiar/asn1-x509': 2.8.0
+  '@peculiar/asn1-x509-attr': 2.8.0
+  pkijs: 3.4.0
 minimumReleaseAgeExclude:
   # Renovate security update: @nestjs/core@11.1.18
-  - "@nestjs/core@11.1.18"
+  - '@nestjs/core@11.1.18'
   # Renovate security update: axios@1.15.2
   - axios@1.15.2
   # Renovate security update: svgo@4.0.1 || 4.0.2
@@ -25,14 +37,14 @@ minimumReleaseAgeExclude:
   # Renovate security update: vite@7.3.2 || 7.3.5
   - vite@7.3.2 || 7.3.5
   # Renovate security update: @opentelemetry/auto-instrumentations-node@0.75.0
-  - "@opentelemetry/auto-instrumentations-node@0.75.0"
+  - '@opentelemetry/auto-instrumentations-node@0.75.0'
   # Renovate security update: webpack-dev-server@5.2.6
   - webpack-dev-server@5.2.6
   # Renovate security update: @angular/compiler@20.3.27
-  - "@angular/compiler@20.3.27"
+  - '@angular/compiler@20.3.27'
   # Renovate security update: @angular/common@20.3.27
-  - "@angular/common@20.3.27"
+  - '@angular/common@20.3.27'
   # Renovate security update: @angular/core@20.3.27
-  - "@angular/core@20.3.27"
+  - '@angular/core@20.3.27'
   # Renovate security update: form-data@4.0.6
   - form-data@4.0.6

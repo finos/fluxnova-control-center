@@ -5,10 +5,10 @@ import {
   ProcessInstance,
 } from '@fxn/types';
 import { combineLatestWith, delay } from 'rxjs';
-import { BaseTabComponent } from '../base-tab-component';
 import { CalledProcessInstancesService } from '../../../services/called-process-instances.service';
-import { PimTab, PimTabRowQueryParam } from '../../item-detail-tab-utils';
 import { PaginatedDataRequest } from '../../../services/types/paginated-data-request';
+import { PimTab, PimTabRowQueryParam } from '../../item-detail-tab-utils';
+import { BaseTabComponent } from '../base-tab-component';
 
 @Component({
   selector: 'fluxnova-static-called-process-instances',

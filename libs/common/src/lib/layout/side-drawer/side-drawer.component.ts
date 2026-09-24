@@ -1,9 +1,9 @@
-import { Component, inject, OnDestroy, ViewChild } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
+import { Component, inject, OnDestroy, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
+import { NgbTooltip } from '@ng-bootstrap/ng-bootstrap';
 import { Observable, Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { NgbTooltip } from '@ng-bootstrap/ng-bootstrap';
 
 import { SearchNavigationComponent } from '../../general/search-navigation/search-navigation.component';
 import { SideDrawerToggleService } from '../../services/side-drawer-toggle.service';

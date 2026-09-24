@@ -1,18 +1,18 @@
-import { Component, HostListener, inject, NgZone, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
+import { Component, HostListener, inject, NgZone, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { SIDE_DRAWER_CLOSED_WIDTH, SIDE_DRAWER_COLLAPSIBLE_WIDTH, SIDE_DRAWER_OPEN_WIDTH } from '@fxn/common';
-import { delay, of, take, timer } from 'rxjs';
 import { ButtonActions, DeploymentResource } from '@fxn/types';
 import { SplitComponent } from 'angular-split';
+import { delay, of, take, timer } from 'rxjs';
+import { ToolbarEvent } from '../../../common/toolbar/toolbar.component';
+import { ToolbarService } from '../../../common/toolbar/toolbar.service';
+import { DeploymentService } from '../../../services/deployment.service';
 import {
   DEFAULT_TOP_PANE_HEIGHT_PCT,
   GUTTER_SIZE,
   ItemDetailPageComponent,
   PanelState,
 } from '../../item-detail-page.component';
-import { DeploymentService } from '../../../services/deployment.service';
-import { ToolbarEvent } from '../../../common/toolbar/toolbar.component';
-import { ToolbarService } from '../../../common/toolbar/toolbar.service';
 import { DeploymentTabs, PimTab } from '../../item-detail-tab-utils';
 import { FileViewComponent } from './file-viewer/file-view.component';
 

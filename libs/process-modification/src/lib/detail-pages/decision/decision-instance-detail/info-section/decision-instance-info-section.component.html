@@ -5,7 +5,7 @@
       <div class="border-bottom pb-3 mb-4 mt-3">
         <strong> Instance ID </strong>
         <fluxnova-icon
-          [fluxnovaCopyLink]="decisionInstance?.id"
+          [fluxnovaCopyLink]="$safeNavigationMigration(decisionInstance?.id)"
           [openDelay]="500"
           class="ps-1 text-primary pointer"
           copyTextLabel="Instance ID"
@@ -20,7 +20,7 @@
       <div class="pb-3" fluxnovaTruncateWithTooltip>{{ decisionInstance?.version }}</div>
       <strong>Definition ID</strong>
       <fluxnova-icon
-        [fluxnovaCopyLink]="decisionInstance?.decisionDefinitionId"
+        [fluxnovaCopyLink]="$safeNavigationMigration(decisionInstance?.decisionDefinitionId)"
         [openDelay]="500"
         class="ps-1 text-primary pointer"
         copyTextLabel="Definition ID"
@@ -32,7 +32,7 @@
       </div>
       <strong>Definition Key</strong>
       <fluxnova-icon
-        [fluxnovaCopyLink]="decisionInstance?.decisionDefinitionKey"
+        [fluxnovaCopyLink]="$safeNavigationMigration(decisionInstance?.decisionDefinitionKey)"
         [openDelay]="500"
         class="ps-1 text-primary pointer"
         copyTextLabel="Definition Key"
@@ -46,7 +46,7 @@
       </div>
       <strong>Deployment ID</strong>
       <fluxnova-icon
-        [fluxnovaCopyLink]="decisionInstance?.deploymentId"
+        [fluxnovaCopyLink]="$safeNavigationMigration(decisionInstance?.deploymentId)"
         [openDelay]="500"
         class="ps-1 text-primary pointer"
         copyTextLabel="Deployment ID"
@@ -62,7 +62,7 @@
         <div>
           <strong>Process Definition ID</strong>
           <fluxnova-icon
-            [fluxnovaCopyLink]="decisionInstance?.processDefinitionId"
+            [fluxnovaCopyLink]="$safeNavigationMigration(decisionInstance?.processDefinitionId)"
             [openDelay]="500"
             class="ps-1 text-primary pointer"
             copyTextLabel="Process Definition ID"
@@ -80,7 +80,7 @@
         <div>
           <strong>Process Instance ID</strong>
           <fluxnova-icon
-            [fluxnovaCopyLink]="decisionInstance?.processInstanceId"
+            [fluxnovaCopyLink]="$safeNavigationMigration(decisionInstance?.processInstanceId)"
             [openDelay]="500"
             class="ps-1 text-primary pointer"
             copyTextLabel="Process Instance ID"
@@ -98,7 +98,7 @@
         <div>
           <strong>Case Instance ID</strong>
           <fluxnova-icon
-            [fluxnovaCopyLink]="decisionInstance?.caseInstanceId"
+            [fluxnovaCopyLink]="$safeNavigationMigration(decisionInstance?.caseInstanceId)"
             [openDelay]="500"
             class="ps-1 text-primary pointer"
             copyTextLabel="Case Instance ID"
@@ -112,11 +112,11 @@
       }
       <strong>Evaluation Time</strong>
       <div class="pb-3" fluxnovaTruncateWithTooltip>
-        {{ decisionInstance?.evaluationTime | fluxnovaDate }}
+        {{ $safeNavigationMigration(decisionInstance?.evaluationTime) | fluxnovaDate }}
       </div>
       <strong>Removal Time</strong>
       <div class="pb-3" fluxnovaTruncateWithTooltip>
-        {{ decisionInstance?.removalTime | fluxnovaDate }}
+        {{ $safeNavigationMigration(decisionInstance?.removalTime) | fluxnovaDate }}
       </div>
     </div>
   }

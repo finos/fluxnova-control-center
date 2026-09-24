@@ -1,6 +1,6 @@
 import { Component, OnDestroy } from '@angular/core';
-import { ColDef } from 'ag-grid-community';
 import { predefinedJobColDefs, remainingJobColFields } from '@fxn/types';
+import { ColDef } from 'ag-grid-community';
 import { PimTab, PimTabRowQueryParam } from '../../item-detail-tab-utils';
 import { BaseBatchDetailsTabComponent } from './base-batch-details-tab.component';
 

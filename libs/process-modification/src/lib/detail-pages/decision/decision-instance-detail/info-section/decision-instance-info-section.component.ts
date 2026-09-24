@@ -1,9 +1,9 @@
 import { Component, inject, OnDestroy, OnInit } from '@angular/core';
-import { DecisionDefinition, DecisionInstance } from '@fxn/types';
-import { SubSink } from 'subsink';
 import { ActivatedRoute, Router } from '@angular/router';
+import { DecisionDefinition, DecisionInstance } from '@fxn/types';
 import { forkJoin } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { SubSink } from 'subsink';
 import { DecisionDefinitionService } from '../../../../services/decision-definition.service';
 import { DecisionInstanceService } from '../../../../services/decision-instance.service';
 

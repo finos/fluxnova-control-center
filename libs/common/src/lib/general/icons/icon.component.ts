@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
-import { colors, ThemeColors } from '../../themes';
 import Icons from '../../../assets/icons.svg';
+import { colors, ThemeColors } from '../../themes';
 
 @Component({
   selector: 'fluxnova-icon',

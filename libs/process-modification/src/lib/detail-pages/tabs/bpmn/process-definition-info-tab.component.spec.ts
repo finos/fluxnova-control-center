@@ -1,15 +1,15 @@
+import { HttpClient } from '@angular/common/http';
 import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { HttpClient } from '@angular/common/http';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ItemType, ListViewState } from '@fxn/types';
 import { of } from 'rxjs';
-import { ActivatedRoute, Router } from '@angular/router';
 import { beforeEach, describe, expect, it, Mocked, vi } from 'vitest';
-import { ProcessInstanceService } from '../../../services/process-instance.service';
-import { ProcessDefinitionService } from '../../../services/process-definition.service';
-import { DeploymentService } from '../../../services/deployment.service';
-import { PimTab } from '../../item-detail-tab-utils';
 import { ItemsTableComponent } from '../../../common/items-table/items-table.component';
+import { DeploymentService } from '../../../services/deployment.service';
+import { ProcessDefinitionService } from '../../../services/process-definition.service';
+import { ProcessInstanceService } from '../../../services/process-instance.service';
+import { PimTab } from '../../item-detail-tab-utils';
 import { ProcessDefinitionInfoTabComponent } from './process-definition-info-tab.component';
 
 const mockActivatedRoute = {
@@ -143,8 +143,6 @@ describe('Deployment Links Section Component', () => {
 
     it('should load the column preferences from local storage', () => {
       const listView = new ListViewState([{ colId: 'processDefinitionName', pinned: true, width: 330, flex: 1 }]);
-
-      fixture.detectChanges();
 
       expect(localStorageMock.getItem).toHaveBeenCalledWith(storageKey);
       expect(component.listViewState?.getColumnStates()).toContainEqual(listView.getColumnStates()[0]);

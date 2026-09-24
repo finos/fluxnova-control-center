@@ -9,8 +9,8 @@ import {
   OnInit,
   Output,
 } from '@angular/core';
-import { take } from 'rxjs';
 import { AnimationState } from '@fxn/common';
+import { take } from 'rxjs';
 import { ItemDetailPageCommunicationService } from '../../item-detail-page.communication.service';
 
 @Component({

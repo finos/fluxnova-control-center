@@ -1,29 +1,29 @@
-import { LetDirective } from '@ngrx/component';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { AuthorizationHttpService, GeneralModule, MODAL_DEFAULTS, ToastService } from '@fxn/common';
-import { cloneDeep } from 'lodash-es';
-import { BehaviorSubject, of, throwError } from 'rxjs';
-import { marbles } from 'rxjs-marbles';
-import { FluxnovaVariableTypes, ItemType, ListViewState, Variable } from '@fxn/types';
-import { AgGridAngular } from 'ag-grid-angular';
-import { toastServiceSpy } from '@fxn/test-support/vitest';
+import { AG_GRID_MODULES } from '@fxn/grid';
 import {
   complexFluxnovaVariableTypes,
   createMockFluxnovaVariables,
   simpleFluxnovaVariableTypes,
 } from '@fxn/test-support/src/lib/mock-fluxnova-process-variables';
+import { toastServiceSpy } from '@fxn/test-support/vitest';
+import { FluxnovaVariableTypes, ItemType, ListViewState, Variable } from '@fxn/types';
+import { LetDirective } from '@ngrx/component';
+import { AgGridAngular } from 'ag-grid-angular';
 import { ModuleRegistry } from 'ag-grid-community';
-import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { beforeEach, describe, expect, it, Mocked, vi } from 'vitest';
-import { AG_GRID_MODULES } from '@fxn/grid';
+import { cloneDeep } from 'lodash-es';
+import { BehaviorSubject, of, throwError } from 'rxjs';
+import { marbles } from 'rxjs-marbles';
+import { afterEach, beforeEach, describe, expect, it, Mocked, vi } from 'vitest';
+import { ItemsTableComponent } from '../../../common/items-table/items-table.component';
 import { ProcessInstanceService } from '../../../services/process-instance.service';
 import { VariableService } from '../../../services/variable.service';
 import { ItemDetailPageCommunicationService } from '../../item-detail-page.communication.service';
-import { ProcessVariableModalService } from '../../process-instance/process-variable-modal/process-variable-modal-service';
-import { ItemsTableComponent } from '../../../common/items-table/items-table.component';
 import { PimTab } from '../../item-detail-tab-utils';
+import { ProcessVariableModalService } from '../../process-instance/process-variable-modal/process-variable-modal-service';
 import { VariablesTabComponent } from './variables-tab.component';
 
 ModuleRegistry.registerModules(AG_GRID_MODULES);
@@ -283,7 +283,6 @@ describe('Variables Tab Component', () => {
 
     it('should call modal service when deleteClicked is called', async () => {
       component.detailItem = { id: '123', type: ItemType.ProcessInstance };
-      fixture.detectChanges();
       await vi.advanceTimersByTimeAsync(1);
 
       component.deleteClicked(0, mockedVariables[0]);
@@ -489,8 +488,6 @@ describe('Variables Tab Component', () => {
 
     it('should load the column preferences from local storage', () => {
       const listView = new ListViewState([{ colId: 'name', pinned: true, width: 330 }]);
-
-      fixture.detectChanges();
 
       expect(localStorageMock.getItem).toHaveBeenCalledWith(storageKey);
       expect(component.listViewState?.getColumnStates()).toContainEqual(listView.getColumnStates()[0]);

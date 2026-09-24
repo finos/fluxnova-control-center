@@ -1,11 +1,11 @@
 import { Component, inject, ViewChild } from '@angular/core';
-import { take } from 'rxjs';
 import { ItemType, ItemTypeActions, ListOptions } from '@fxn/types';
-import { getDefaultListViewState } from '../../common/list-utils';
-import { BaseListComponent } from '../base-list.component';
-import { DeploymentService } from '../../services/deployment.service';
+import { take } from 'rxjs';
 import { ItemsTableComponent } from '../../common/items-table/items-table.component';
+import { getDefaultListViewState } from '../../common/list-utils';
+import { DeploymentService } from '../../services/deployment.service';
 import { PaginatedDataRequest } from '../../services/types/paginated-data-request';
+import { BaseListComponent } from '../base-list.component';
 
 @Component({
   selector: 'fluxnova-deployment-list',

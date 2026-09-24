@@ -1,6 +1,6 @@
 import { Component, EventEmitter, inject, Input, OnDestroy, OnInit, Output } from '@angular/core';
-import { WINDOW } from 'ngx-window-token';
 import { editor, IDisposable } from 'monaco-editor';
+import { WINDOW } from 'ngx-window-token';
 import ITextModel = editor.ITextModel;
 import IMarker = editor.IMarker;
 

@@ -1,10 +1,10 @@
-import { ColDef, RowClassParams, RowClickedEvent } from 'ag-grid-community';
 import { Component, inject, OnDestroy } from '@angular/core';
 import { predefinedUserTaskColDefs, predefinedUserTaskColFields } from '@fxn/types';
+import { ColDef, RowClassParams, RowClickedEvent } from 'ag-grid-community';
+import { PaginatedDataRequest } from '../../../services/types/paginated-data-request';
 import { UserTaskService } from '../../../services/user-task.service';
 import { PimTab, PimTabRowQueryParam } from '../../item-detail-tab-utils';
 import { BaseTabComponent } from '../base-tab-component';
-import { PaginatedDataRequest } from '../../../services/types/paginated-data-request';
 
 @Component({
   selector: 'fluxnova-user-tasks-tab',

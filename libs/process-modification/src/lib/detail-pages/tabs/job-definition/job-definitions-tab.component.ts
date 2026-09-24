@@ -7,13 +7,13 @@ import {
   predefinedJobDefinitionColDefs,
 } from '@fxn/types';
 import { ColDef } from 'ag-grid-community';
-import { combineLatestWith } from 'rxjs';
 import { every, isUndefined } from 'lodash-es';
+import { combineLatestWith } from 'rxjs';
+import { ConfirmActionService } from '../../../services/confirm-action.service';
+import { JobService } from '../../../services/job.service';
+import { PaginatedDataRequest } from '../../../services/types/paginated-data-request';
 import { PimTab, PimTabRowQueryParam } from '../../item-detail-tab-utils';
 import { BaseTabComponent } from '../base-tab-component';
-import { JobService } from '../../../services/job.service';
-import { ConfirmActionService } from '../../../services/confirm-action.service';
-import { PaginatedDataRequest } from '../../../services/types/paginated-data-request';
 
 @Component({
   selector: 'fluxnova-job-definitions-tab',

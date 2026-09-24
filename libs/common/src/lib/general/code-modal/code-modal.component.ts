@@ -2,8 +2,8 @@ import { Component, inject, Input, OnInit, ViewChild } from '@angular/core';
 
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { isEmpty } from 'lodash-es';
-import { GeneralModule } from '../general.module';
 import { CodeEditorComponent } from '../code-editor/code-editor.component';
+import { GeneralModule } from '../general.module';
 
 @Component({
   selector: 'fluxnova-code-modal',
