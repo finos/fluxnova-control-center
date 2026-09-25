@@ -144,7 +144,7 @@
     "pino-http": "^11.0.0",
     "pino-pretty": "^13.1.2",
     "pluralize": "^8.0.0",
-    "react-refresh": "^0.18.0",
+    "react-refresh": "^0.19.0",
     "reflect-metadata": "^0.2.2",
     "rxjs": "~7.8.2",
     "shimmer": "^1.2.1",
