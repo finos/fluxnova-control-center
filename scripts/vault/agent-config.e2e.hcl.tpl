@@ -27,28 +27,53 @@ vault {
   address = "https://###VAULT_ADDR###/"
 }
 
+env_template "FXN_OIDC_CLIENT_ID" {
+   contents             = "{{ with secret \"###PATH_TO_SECRET_IN_VAULT###\" }}{{ .Data.data.FXN_OIDC_CLIENT_ID }}{{ end }}"
+   error_on_missing_key = true
+}
+env_template "FXN_OIDC_CLIENT_SECRET" {
+   contents             = "{{ with secret \"###PATH_TO_SECRET_IN_VAULT###\" }}{{ .Data.data.FXN_OIDC_CLIENT_SECRET }}{{ end }}"
+   error_on_missing_key = true
+}
+env_template "FXN_API_AUTH_CLIENT_ID" {
+   contents             = "{{ with secret \"###PATH_TO_SECRET_IN_VAULT###\" }}{{ .Data.data.FXN_API_AUTH_CLIENT_ID }}{{ end }}"
+   error_on_missing_key = true
+}
+env_template "FXN_API_AUTH_CLIENT_SECRET" {
+   contents             = "{{ with secret \"###PATH_TO_SECRET_IN_VAULT###\" }}{{ .Data.data.FXN_API_AUTH_CLIENT_SECRET }}{{ end }}"
+   error_on_missing_key = true
+}
+env_template "FXN_CSRF_KEY" {
+   contents             = "{{ with secret \"###PATH_TO_SECRET_IN_VAULT###\" }}{{ .Data.data.FXN_CSRF_KEY }}{{ end }}"
+   error_on_missing_key = true
+}
+env_template "FXN_COOKIE_KEYS" {
+   contents             = "{{ with secret \"###PATH_TO_SECRET_IN_VAULT###\" }}{{ .Data.data.FXN_COOKIE_KEYS }}{{ end }}"
+   error_on_missing_key = true
+}
+
 env_template "FXN_DESIGNER_USR" {
-   contents             = "{{ with secret \"###PATH_TO_SECRET_IN_VAULT###\" }}{{ .Data.usr }}{{ end }}"
+   contents             = "{{ with secret \"###PATH_TO_SECRET_IN_VAULT###\" }}{{ .Data.data.usr }}{{ end }}"
    error_on_missing_key = true
 }
 env_template "FXN_DESIGNER_PSW" {
-   contents             = "{{ with secret \"###PATH_TO_SECRET_IN_VAULT###\" }}{{ .Data.psw }}{{ end }}"
+   contents             = "{{ with secret \"###PATH_TO_SECRET_IN_VAULT###\" }}{{ .Data.data.psw }}{{ end }}"
    error_on_missing_key = true
 }
 env_template "FXN_SUPPORT_USR" {
-   contents             = "{{ with secret \"###PATH_TO_SECRET_IN_VAULT###\" }}{{ .Data.usr }}{{ end }}"
+   contents             = "{{ with secret \"###PATH_TO_SECRET_IN_VAULT###\" }}{{ .Data.data.usr }}{{ end }}"
    error_on_missing_key = true
 }
 env_template "FXN_SUPPORT_PSW" {
-   contents             = "{{ with secret \"###PATH_TO_SECRET_IN_VAULT###\" }}{{ .Data.psw }}{{ end }}"
+   contents             = "{{ with secret \"###PATH_TO_SECRET_IN_VAULT###\" }}{{ .Data.data.psw }}{{ end }}"
    error_on_missing_key = true
 }
 env_template "FXN_PLAT_READ_USR" {
-   contents             = "{{ with secret \"###PATH_TO_SECRET_IN_VAULT###\" }}{{ .Data.usr }}{{ end }}"
+   contents             = "{{ with secret \"###PATH_TO_SECRET_IN_VAULT###\" }}{{ .Data.data.usr }}{{ end }}"
    error_on_missing_key = true
 }
 env_template "FXN_PLAT_READ_PSW" {
-   contents             = "{{ with secret \"###PATH_TO_SECRET_IN_VAULT###\" }}{{ .Data.psw }}{{ end }}"
+   contents             = "{{ with secret \"###PATH_TO_SECRET_IN_VAULT###\" }}{{ .Data.data.psw }}{{ end }}"
    error_on_missing_key = true
 }
 
