@@ -13,7 +13,7 @@ modifications back to the project maintainers for inclusion in this guide.
 Before setting up the project, make sure you have the following installed:
 
 - git
-- Node.js 22+
+- Node.js 24+
 - pnpm
 - (optional) If you want to use the Vault integration to manage your secrets, set up vault and add your secrets there.
   See [Consume secrets from Vault](../guides/using-secrets-from-vault.md) for more information.
