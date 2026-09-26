@@ -19,17 +19,21 @@
       <strong>Definition Version</strong>
       <div class="pb-3" fluxnovaTruncateWithTooltip>{{ decisionInstance?.version }}</div>
       <strong>Definition ID</strong>
-      <fluxnova-icon
-        [fluxnovaCopyLink]="decisionInstance?.decisionDefinitionId"
-        [openDelay]="500"
-        class="ps-1 text-primary pointer"
-        copyTextLabel="Definition ID"
-        iconName="copy"
-        ngbTooltip="Copy to clipboard"
-      ></fluxnova-icon>
-      <div class="pb-3" fluxnovaTruncateWithTooltip>
-        <a [routerLink]="'../../'">{{ decisionInstance.decisionDefinitionId }}</a>
-      </div>
+      @if (decisionInstance?.decisionDefinitionId) {
+        <fluxnova-icon
+          [fluxnovaCopyLink]="decisionInstance.decisionDefinitionId"
+          [openDelay]="500"
+          class="ps-1 text-primary pointer"
+          copyTextLabel="Definition ID"
+          iconName="copy"
+          ngbTooltip="Copy to clipboard"
+        ></fluxnova-icon>
+        <div class="pb-3" fluxnovaTruncateWithTooltip>
+          <a [routerLink]="'../../'">{{ decisionInstance.decisionDefinitionId }}</a>
+        </div>
+      } @else {
+        <span>--</span>
+      }
       <strong>Definition Key</strong>
       <fluxnova-icon
         [fluxnovaCopyLink]="decisionInstance?.decisionDefinitionKey"
@@ -54,8 +58,8 @@
         ngbTooltip="Copy to clipboard"
       ></fluxnova-icon>
       <div class="pb-3" fluxnovaTruncateWithTooltip>
-        <a [routerLink]="'../../../../deployments/' + decisionInstance.deploymentId">{{
-          decisionInstance.deploymentId
+        <a [routerLink]="'../../../../deployments/' + decisionInstance?.deploymentId">{{
+          decisionInstance?.deploymentId
         }}</a>
       </div>
       @if (decisionInstance?.processDefinitionId) {

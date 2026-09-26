@@ -113,6 +113,7 @@
               <fluxnova-decision-diagram-viewer
                 *ngSwitchCase="ItemType.DecisionInstance"
                 [id]="itemId"
+                [ruleIdsToHighlight]="highlightedRuleIds"
               ></fluxnova-decision-diagram-viewer>
               <button
                 class="btn panel-btn lower-panel-btn"
