@@ -1,14 +1,14 @@
 import { Component, HostListener, inject, OnDestroy, Output, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { BehaviorSubject, filter, Observable, of, Subscription, take } from 'rxjs';
-import { map } from 'rxjs/operators';
-import { SubSink } from 'subsink';
 import { getUrlSegments, RouteData } from '@fxn/common';
 import { ItemDetailQueryParams, ItemType } from '@fxn/types';
 import { SplitGutterInteractionEvent } from 'angular-split';
+import { BehaviorSubject, filter, Observable, of, Subscription, take } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { SubSink } from 'subsink';
 import { ToolbarComponent } from '../common/toolbar/toolbar.component';
-import { DeploymentResourceUtilsService } from '../services/deployment-resource-utils.service';
 import { ConfirmActionService } from '../services/confirm-action.service';
+import { DeploymentResourceUtilsService } from '../services/deployment-resource-utils.service';
 import { ItemDetailPageCommunicationService } from './item-detail-page.communication.service';
 import { PimTab } from './item-detail-tab-utils';
 

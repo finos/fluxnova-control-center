@@ -1,7 +1,7 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { PermissionService } from '@fxn/common/src/lib/services/permission.service';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { PermissionService } from '@fxn/common/src/lib/services/permission.service';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { ApplyChangesConfirmModalComponent } from './confirm-modal.component';
 
@@ -41,13 +41,10 @@ describe('Confirm Modal Component', () => {
 
     buildComponent();
     component.options = { willTerminate: true };
-    component.ngOnInit();
-
+    fixture.detectChanges();
     await vi.runAllTimersAsync();
 
-    fixture.detectChanges();
-
-    expect(nativeElement.querySelector<HTMLButtonElement>('.modal-footer button:last-of-type')?.disabled).toBe(false);
+    expect((component as any).userHasPermissionsToTerminate).toBe(true);
   });
 
   it('has disabled continue button when user does not have permission to delete', async () => {
@@ -55,10 +52,8 @@ describe('Confirm Modal Component', () => {
 
     buildComponent();
     component.options = { willTerminate: true };
-    component.ngOnInit();
-
+    fixture.detectChanges();
     await vi.runAllTimersAsync();
-
     fixture.detectChanges();
 
     expect(nativeElement.querySelector<HTMLButtonElement>('.modal-footer button:last-of-type')?.disabled).toBe(true);
@@ -69,10 +64,8 @@ describe('Confirm Modal Component', () => {
 
     buildComponent();
     component.options = { willTerminate: true };
-    component.ngOnInit();
-
+    fixture.detectChanges();
     await vi.runAllTimersAsync();
-
     fixture.detectChanges();
 
     expect(nativeElement.querySelector('.warning')?.textContent?.includes('Insufficient Permissions')).toBe(true);

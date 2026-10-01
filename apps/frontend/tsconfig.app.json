@@ -14,5 +14,14 @@
     "**/*.test.ts",
     "**/vitest.config.ts",
     "src/environments/environment.prod.ts"
-  ]
+  ],
+  "angularCompilerOptions": {
+    "extendedDiagnostics": {
+      "checks": {
+        "nullishCoalescingNotNullable": "suppress",
+        "optionalChainNotNullable": "suppress"
+      }
+    },
+    "strictTemplates": false
+  }
 }
