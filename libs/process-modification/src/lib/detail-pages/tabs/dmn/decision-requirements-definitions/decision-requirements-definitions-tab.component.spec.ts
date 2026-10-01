@@ -1,5 +1,9 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
+import { HttpClient, provideHttpClient } from '@angular/common/http';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
+import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import {
   DecisionDefinition,
   DecisionRequirementsDefinition,
@@ -7,11 +11,7 @@ import {
   ItemType,
   ListViewState,
 } from '@fxn/types';
-import { HttpClient, provideHttpClient } from '@angular/common/http';
 import { of, throwError } from 'rxjs';
-import { provideHttpClientTesting } from '@angular/common/http/testing';
-import { ActivatedRoute } from '@angular/router';
-import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { ItemsTableComponent } from '../../../../common/items-table/items-table.component';
 import { DeploymentService } from '../../../../services/deployment.service';
@@ -122,8 +122,8 @@ describe('DrdTabComponent', () => {
     vi.spyOn(httpClient, 'get').mockReturnValue(observableWithError);
 
     deploymentService.setSelectedResource(mockResource);
-    await fixture.whenStable();
-    fixture.detectChanges();
+    component.ngOnInit();
+    await vi.runAllTimersAsync();
 
     expect(component.data).toEqual([]);
   });

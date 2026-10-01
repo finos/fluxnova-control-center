@@ -1,10 +1,10 @@
-import { groupBy } from 'lodash-es';
+import { ChangeDetectorRef, inject } from '@angular/core';
 import { Dictionary, FLUXNOVA_DATE_FORMAT } from '@fxn/types';
-import { SubSink } from 'subsink';
+import { groupBy } from 'lodash-es';
 import moment from 'moment-timezone';
-import { inject } from '@angular/core';
-import { WINDOW } from 'ngx-window-token';
 import { ApexChart, ApexDataLabels, ApexLegend, ApexOptions } from 'ng-apexcharts';
+import { WINDOW } from 'ngx-window-token';
+import { SubSink } from 'subsink';
 import { DEFAULT_CHART_OPTIONS, DEFAULT_PLOT_COLORS, LEGEND_DRILLDOWN_TITLE, LEGEND_TITLE } from '../chart-defaults';
 
 export interface FluxnovaItem {
@@ -26,6 +26,7 @@ export interface ChartSeriesItem {
 
 export class WidgetBase {
   protected window = inject<Window>(WINDOW);
+  protected changeDetectorRef = inject(ChangeDetectorRef);
 
   protected TIMEFRAME_VALUE_SEPARATOR = '-';
   public DRILLDOWN_SUBTITLE = 'Click a slice to view the process definition.';
@@ -309,6 +310,7 @@ export class WidgetBase {
       },
       {} as Record<string, number>,
     );
+    this.changeDetectorRef.markForCheck();
   }
 
   transformDataToSeriesData(items: FluxnovaItem[]): DrillDataItem[] {

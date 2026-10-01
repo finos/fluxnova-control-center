@@ -67,10 +67,13 @@ module.exports = [
             groups: [['builtin', 'external'], 'internal', 'parent', 'sibling', 'index', 'object', 'type'],
           },
         ],
-        'sort-imports': ['error', {
-          'ignoreDeclarationSort': true,
-          'ignoreCase': true,
-        }],
+        'sort-imports': [
+          'error',
+          {
+            ignoreDeclarationSort: true,
+            ignoreCase: true,
+          },
+        ],
         'no-restricted-syntax': 'off',
         '@angular-eslint/no-conflicting-lifecycle': 'error',
         '@angular-eslint/no-input-rename': 'error',

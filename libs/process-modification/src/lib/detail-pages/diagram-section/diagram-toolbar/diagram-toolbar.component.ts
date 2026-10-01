@@ -1,9 +1,9 @@
 import { Component, inject, Input, OnDestroy, OnInit } from '@angular/core';
-import { Subscription } from 'rxjs';
-import { ButtonActions, ItemType } from '@fxn/types';
-import { HeatmapParams } from 'visual-heatmap';
-import { NgbTooltip } from '@ng-bootstrap/ng-bootstrap';
 import { AnimationState } from '@fxn/common';
+import { ButtonActions, ItemType } from '@fxn/types';
+import { NgbTooltip } from '@ng-bootstrap/ng-bootstrap';
+import { Subscription } from 'rxjs';
+import { HeatmapParams } from 'visual-heatmap';
 import { ToolbarService } from '../../../common/toolbar/toolbar.service';
 import { ItemDetailPageCommunicationService } from '../../item-detail-page.communication.service';
 import { PimCommandStackService } from '../pim-command-stack.service';
