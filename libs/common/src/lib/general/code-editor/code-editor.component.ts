@@ -1,8 +1,8 @@
 import { Component, EventEmitter, inject, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { WINDOW } from 'ngx-window-token';
-import { editor, IDisposable } from 'monaco-editor';
-import ITextModel = editor.ITextModel;
-import IMarker = editor.IMarker;
+import type { editor, IDisposable } from 'monaco-editor';
+type ITextModel = editor.ITextModel;
+type IMarker = editor.IMarker;
 
 export const DEFAULT_EDITOR_OPTIONS: any = {
   theme: 'github',

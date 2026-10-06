@@ -80,7 +80,7 @@ export class DecisionInstanceDetailPageComponent
       }); // This crazy statement is needed to avoid the "ExpressionChangedAfterItHasBeenChecked" Angular Error
   }
 
-  @HostListener('window:resize', ['$event'])
+  @HostListener('window:resize')
   override onCanvasSizeChanged() {
     this.diagramSection?.notifyCanvasSizeChanged();
   }

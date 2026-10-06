@@ -1,13 +1,13 @@
 import { AfterViewInit, Component, inject, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { catchError, debounceTime, Observable, Subject, throwError } from 'rxjs';
-import { SubSink } from 'subsink';
 import { CodeEditorComponent } from '@fxn/common';
 import { StartProcessDefinitionOptions } from '@fxn/types';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { isEmpty } from 'lodash-es';
-import { editor } from 'monaco-editor';
+import { catchError, debounceTime, Observable, Subject, throwError } from 'rxjs';
+import { SubSink } from 'subsink';
 import { ProcessDefinitionService } from '../../../../services/process-definition.service';
-import IMarker = editor.IMarker;
+import type { editor } from 'monaco-editor';
+type IMarker = editor.IMarker;
 
 export interface StartProcessDefinitionModalState {
   isSubmitting: boolean;

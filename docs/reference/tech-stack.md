@@ -81,13 +81,17 @@ fluxnova-control-center/
 
 ### Build
 
-| Tool                                                                                  | Purpose                                                    |
-| ------------------------------------------------------------------------------------- | ---------------------------------------------------------- |
-| [Angular CLI](https://angular.dev/tools/cli) / `@angular-devkit/build-angular`        | Primary build pipeline                                     |
-| [Webpack 5](https://webpack.js.org)                                                   | Bundler (with custom config via `extra-webpack.config.ts`) |
-| [Rspack](https://rspack.dev)                                                          | High-performance Rust-based bundler (`@rspack/core`)       |
-| [gzipper](https://github.com/gios/gzipper)                                            | Post-build Brotli + Gzip compression of static assets      |
-| [webpack-bundle-analyzer](https://github.com/webpack-contrib/webpack-bundle-analyzer) | Bundle size analysis                                       |
+| Tool                                                                        | Purpose                                               |
+| --------------------------------------------------------------------------- | ----------------------------------------------------- |
+| [Angular CLI](https://angular.dev/tools/cli) / `@angular/build:application` | Production build pipeline using esbuild               |
+| [Vite](https://vite.dev)                                                    | Development server via `@angular/build:dev-server`    |
+| [gzipper](https://github.com/gios/gzipper)                                  | Post-build Brotli + Gzip compression of static assets |
+| [esbuild Analyze](https://esbuild.github.io/analyze/)                       | Frontend bundle analysis from esbuild statistics      |
+
+Run `pnpm frontend-bundle-report` to generate `dist/apps/frontend/browser-stats.json`,
+then open that file in esbuild Analyze. The command retains the production bundle
+budgets; a budget failure prevents the statistics file from being emitted.
+The server still uses webpack and its separate `pnpm server-bundle-report` command.
 
 ---
 

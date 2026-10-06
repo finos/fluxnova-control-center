@@ -1,10 +1,10 @@
-import { groupBy } from 'lodash-es';
+import { ChangeDetectorRef, inject } from '@angular/core';
 import { Dictionary, FLUXNOVA_DATE_FORMAT } from '@fxn/types';
-import { SubSink } from 'subsink';
-import moment from 'moment-timezone';
-import { inject } from '@angular/core';
-import { WINDOW } from 'ngx-window-token';
+import { groupBy } from 'lodash-es';
+import moment from 'moment';
 import { ApexChart, ApexDataLabels, ApexLegend, ApexOptions } from 'ng-apexcharts';
+import { WINDOW } from 'ngx-window-token';
+import { SubSink } from 'subsink';
 import { DEFAULT_CHART_OPTIONS, DEFAULT_PLOT_COLORS, LEGEND_DRILLDOWN_TITLE, LEGEND_TITLE } from '../chart-defaults';
 
 export interface FluxnovaItem {
@@ -26,6 +26,7 @@ export interface ChartSeriesItem {
 
 export class WidgetBase {
   protected window = inject<Window>(WINDOW);
+  protected changeDetectorRef = inject(ChangeDetectorRef);
 
   protected TIMEFRAME_VALUE_SEPARATOR = '-';
   public DRILLDOWN_SUBTITLE = 'Click a slice to view the process definition.';
@@ -61,8 +62,6 @@ export class WidgetBase {
   private currentLabels: string[] = [];
   private mainVisibilityStore: Record<string, boolean> = {};
 
-  protected queryParams = () =>
-    `filters={"status":{"filterType":"select","filter":"open","type":"equals"},"createTime":{"dateFrom":"${this.calculatedTimeFrame}","type":"after"},"processDefinitionKey":{"filterType":"commaSeparatedList","filter":"${this.selectedDefinitionKey}","type":"multi"}}&sorting=[{"colId":"createTime","sort":"desc"}]&toggleFilters=`;
   protected calculatedTimeFrame = '';
   protected data: FluxnovaItem[] = [];
   protected selectedDefinitionKey = '';
@@ -74,7 +73,7 @@ export class WidgetBase {
   get linkHref(): string {
     const currentUrl = new URL(this.window.location.href);
     currentUrl.pathname = `${currentUrl.pathname}/${this.pageLocation}`;
-    currentUrl.search = this.queryParams();
+    currentUrl.search = this.getQueryParams();
     return currentUrl.toString();
   }
 
@@ -309,6 +308,7 @@ export class WidgetBase {
       },
       {} as Record<string, number>,
     );
+    this.changeDetectorRef.markForCheck();
   }
 
   transformDataToSeriesData(items: FluxnovaItem[]): DrillDataItem[] {
@@ -393,5 +393,20 @@ export class WidgetBase {
 
   protected calculateTotalItemsVisible(series: number[]): number {
     return series.reduce((sum, value) => sum + value, 0);
+  }
+
+  protected getQueryParams() {
+    const filters = {
+      status: { filterType: 'select', filter: 'open', type: 'equals' },
+      createTime: { dateFrom: this.calculatedTimeFrame, type: 'after' },
+      processDefinitionKey: {
+        filterType: 'commaSeparatedList',
+        filter: this.selectedDefinitionKey,
+        type: 'multi',
+      },
+    };
+    const sorting = [{ colId: 'createTime', sort: 'desc' }];
+
+    return `filters=${JSON.stringify(filters)}&sorting=${JSON.stringify(sorting)}&toggleFilters=`;
   }
 }

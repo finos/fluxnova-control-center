@@ -256,7 +256,7 @@ export class ItemDetailPageComponent implements OnDestroy {
    * Overridden in the children classes if they need to do something when the canvas size changes.
    * This could be by either adjusting the side/bottom panel size or adjusting the window size.
    */
-  @HostListener('window:resize', ['$event'])
+  @HostListener('window:resize')
   onCanvasSizeChanged() {}
 
   toggleDiagramFullscreen() {
