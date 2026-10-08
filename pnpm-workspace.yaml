@@ -39,6 +39,8 @@ minimumReleaseAgeExclude:
   - form-data@4.0.6
   # Renovate security update: compression@1.8.2
   - compression@1.8.2
+  # Renovate security update: nx@22.7.10
+  - nx@22.7.10
 overrides:
   flatted: ^3.4.2
   jsdom: 27.4.0
