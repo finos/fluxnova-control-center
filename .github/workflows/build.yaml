@@ -14,23 +14,27 @@ on:
       - 'release/**'
       - 'hotfix/**'
   pull_request:
+    branches:
+      - develop
   workflow_dispatch:
 
 concurrency:
-  group: ${{ github.ref == 'refs/heads/main' && format('ci-default-branch-{0}-{1}', github.sha, github.workflow) || format('ci-pr-{0}-{1}', github.ref, github.workflow) }}
+  group: ${{ github.ref == 'refs/heads/develop' && format('ci-default-branch-{0}-{1}', github.sha, github.workflow) || format('ci-pr-{0}-{1}', github.ref, github.workflow) }}
   cancel-in-progress: true
 
 permissions:
   contents: read
-  packages: write
-  actions: read
-  pull-requests: write
-  id-token: write
 
 jobs:
   build:
     name: Build & Test
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+      actions: read
+      pull-requests: write
+      id-token: write
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
