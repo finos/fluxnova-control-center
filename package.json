@@ -274,6 +274,10 @@
     "webpack-remove-empty-scripts": "^1.1.1",
     "webpack-sources": "^3.2.1"
   },
+  "nonJsDependencies": {
+    "fluxnova": "3.0.1",
+    "openApiGenerator": "7.14.0"
+  },
   "lint-staged": {
     "*.{js,json,css,scss,md,ts,html,component.html}": [
       "./node_modules/.bin/prettier --write"
