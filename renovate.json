@@ -25,7 +25,9 @@
     },
     {
       "matchPackageNames": ["/@angular/"],
-      "major": false,
+      "major": {
+        "enabled": false
+      },
       "description": "Disable major version updates for @angular since we expect nx to update it for us."
     }
   ]
