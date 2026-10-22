@@ -1,4 +1,5 @@
 import {
+  ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
   forwardRef,
@@ -24,6 +25,7 @@ export interface ToolbarEvent {
 @Component({
   selector: 'fluxnova-toolbar',
   templateUrl: './toolbar.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class ToolbarComponent {

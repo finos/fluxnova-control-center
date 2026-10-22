@@ -1,4 +1,4 @@
-import { Component, OnDestroy } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnDestroy } from '@angular/core';
 import { IFilterAngularComp } from 'ag-grid-angular';
 import { IFilterParams } from 'ag-grid-community';
 import { DynamicallyDisabledFilterComponent } from '../dynamically-disabled-filter/dynamically-disabled-filter.component';
@@ -13,6 +13,7 @@ interface SelectOption {
   selector: 'fluxnova-single-select-floating-filter',
   templateUrl: './single-select-floating-filter.component.html',
   styleUrls: ['./single-select-floating-filter.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class SingleSelectFloatingFilterComponent

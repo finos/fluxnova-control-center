@@ -1,8 +1,9 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { PermissionService } from '@fxn/common/src/lib/services/permission.service';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { PermissionService } from '@fxn/common/src/lib/services/permission.service';
+import { ActionPermissionsSpec } from '@fxn/types';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { describe, expect, it, vi } from 'vitest';
 import { ApplyChangesConfirmModalComponent } from './confirm-modal.component';
 
 describe('Confirm Modal Component', () => {
@@ -32,21 +33,18 @@ describe('Confirm Modal Component', () => {
     nativeElement = fixture.nativeElement;
   };
 
-  beforeEach(() => vi.useFakeTimers());
-
-  afterEach(() => vi.useRealTimers());
-
   it('has enabled continue button when user has permission to delete', async () => {
-    mockPermissionService.meetsPermissionSpecification.mockResolvedValueOnce(true);
+    mockPermissionService.meetsPermissionSpecification.mockResolvedValue(true);
 
     buildComponent();
     component.options = { willTerminate: true };
-    component.ngOnInit();
-
-    await vi.runAllTimersAsync();
-
+    // Await permission resolution before the first render so the view reflects the granted permission.
+    await component.ngOnInit();
     fixture.detectChanges();
 
+    expect(mockPermissionService.meetsPermissionSpecification).toHaveBeenCalledWith(
+      ActionPermissionsSpec.TerminateProcessInstance,
+    );
     expect(nativeElement.querySelector<HTMLButtonElement>('.modal-footer button:last-of-type')?.disabled).toBe(false);
   });
 
@@ -55,10 +53,8 @@ describe('Confirm Modal Component', () => {
 
     buildComponent();
     component.options = { willTerminate: true };
-    component.ngOnInit();
-
-    await vi.runAllTimersAsync();
-
+    fixture.detectChanges();
+    await fixture.whenStable();
     fixture.detectChanges();
 
     expect(nativeElement.querySelector<HTMLButtonElement>('.modal-footer button:last-of-type')?.disabled).toBe(true);
@@ -69,10 +65,8 @@ describe('Confirm Modal Component', () => {
 
     buildComponent();
     component.options = { willTerminate: true };
-    component.ngOnInit();
-
-    await vi.runAllTimersAsync();
-
+    fixture.detectChanges();
+    await fixture.whenStable();
     fixture.detectChanges();
 
     expect(nativeElement.querySelector('.warning')?.textContent?.includes('Insufficient Permissions')).toBe(true);

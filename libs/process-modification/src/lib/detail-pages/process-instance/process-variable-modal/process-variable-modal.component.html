@@ -77,7 +77,7 @@
         @if (options.modalType === 'Readonly') {
           <fluxnova-icon
             copyTextLabel="Variable Name"
-            [fluxnovaCopyLink]="options.variable?.name"
+            [fluxnovaCopyLink]="$safeNavigationMigration(options.variable?.name)"
             class="mb-1 align-middle text-primary pointer"
             iconName="copy"
             [openDelay]="500"

@@ -14,14 +14,14 @@ export class EngineService extends EngineApi {
    *
    * @param options
    */
-  public override async getProcessEngineNames(
+  public override async getProcessEngines(
     options?: RawAxiosRequestConfig,
   ): Promise<AxiosResponse<Array<ProcessEngineDto>>> {
     const localVarAxiosParamCreator = EngineApiAxiosParamCreator(this.configuration);
-    const localVarAxiosArgs = await localVarAxiosParamCreator.getProcessEngineNames(options);
+    const localVarAxiosArgs = await localVarAxiosParamCreator.getProcessEngines(options);
     const localVarOperationServerIndex = this.configuration?.serverIndex ?? 0;
     const localVarOperationServerBasePath =
-      operationServerMap['EngineApi.getProcessEngineNames']?.[localVarOperationServerIndex]?.url;
+      operationServerMap['EngineApi.getProcessEngines']?.[localVarOperationServerIndex]?.url;
 
     if (options?.url) localVarAxiosArgs.url = `${localVarAxiosArgs.url}${options?.url}`;
 

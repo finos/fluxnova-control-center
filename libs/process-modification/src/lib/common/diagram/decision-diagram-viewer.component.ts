@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, inject, Input } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, Component, inject, Input } from '@angular/core';
 import { DecisionDefinition, DecisionDefinitionDiagram, DIAGRAM_TYPE, ProcessDefinitionDiagram } from '@fxn/types';
 import { Observable } from 'rxjs';
 import { DecisionDefinitionService } from '../../services/decision-definition.service';
@@ -14,6 +14,7 @@ import { GenericDiagramSectionViewComponent } from './generic-diagram-viewer.com
   templateUrl: `./generic-diagram-viewer.component.html`,
   styleUrls: ['./generic-diagram-viewer.component.scss'],
   imports: [],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: true,
 })
 export class DecisionDiagramViewerComponent extends GenericDiagramSectionViewComponent implements AfterViewInit {

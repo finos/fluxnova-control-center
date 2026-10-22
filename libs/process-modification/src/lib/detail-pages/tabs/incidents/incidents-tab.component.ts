@@ -1,4 +1,4 @@
-import { Component, inject, Input, OnDestroy } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, Input, OnDestroy } from '@angular/core';
 import { ColDef } from 'ag-grid-community';
 import {
   detailPageIncidentTabColFields,
@@ -20,6 +20,7 @@ import { PaginatedDataRequest } from '../../../services/types/paginated-data-req
 @Component({
   selector: 'fluxnova-incidents-tab',
   templateUrl: './incidents-tab.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class IncidentsTabComponent extends BaseTabComponent implements NeedsParentInfo, OnDestroy {

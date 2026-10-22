@@ -1,14 +1,14 @@
 import { defineConfig } from 'vitest/config';
 import dts from 'vite-plugin-dts';
 import * as path from 'path';
-import { nxViteTsPaths } from '@nx/vite/plugins/nx-tsconfig-paths.plugin';
+import tsconfigPaths from 'vite-tsconfig-paths';
 import angular from '@analogjs/vite-plugin-angular';
 
 export default defineConfig({
   root: __dirname,
   cacheDir: '../../node_modules/.vite/process-modification',
   plugins: [
-    nxViteTsPaths(),
+    tsconfigPaths(),
     dts({
       entryRoot: 'src',
       tsconfigPath: path.join(__dirname, 'tsconfig.spec.json'),
@@ -26,6 +26,9 @@ export default defineConfig({
     globals: true,
     environment: 'jsdom',
     include: ['src/**/*.{test,spec}.{js,mjs,cjs,ts,mts,cts}'],
+    // CI runners are much slower than dev machines when Nx runs several Vitest projects in parallel.
+    testTimeout: 30000,
+    hookTimeout: 30000,
     reporters: ['default', ['junit', { suiteName: 'process-modification' }]],
     outputFile: {
       junit: '../../results/unit/libs/process-modification/junit.xml',

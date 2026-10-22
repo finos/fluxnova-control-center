@@ -1,4 +1,4 @@
-import { Component, inject, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, ViewChild } from '@angular/core';
 import { Subscription, take } from 'rxjs';
 import { Params } from '@angular/router';
 import { isEmpty } from 'lodash-es';
@@ -26,6 +26,7 @@ import { PaginatedDataRequest } from '../../services/types/paginated-data-reques
   selector: 'fluxnova-batch-list',
   templateUrl: './batch-list.component.html',
   styleUrls: ['./batch-list.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class BatchListComponent extends BaseListComponent {

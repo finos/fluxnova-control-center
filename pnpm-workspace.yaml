@@ -16,7 +16,7 @@ allowBuilds:
   utf-8-validate: true
 autoInstallPeers: false
 lockfileIncludeTarballUrl: false
-minimumReleaseAge: 1440
+minimumReleaseAge: 4320
 minimumReleaseAgeExclude:
   # Renovate security update: @nestjs/core@11.1.18
   - '@nestjs/core@11.1.18'

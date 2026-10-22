@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Injectable, Input, OnDestroy, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Injectable, Input, OnDestroy, Output } from '@angular/core';
 import { NgbTimeAdapter, NgbTimeStruct } from '@ng-bootstrap/ng-bootstrap';
 import { BehaviorSubject, Subscription } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
@@ -31,6 +31,7 @@ export class NgbTimeDateAdapter extends NgbTimeAdapter<Date> {
   selector: 'fluxnova-time-select',
   templateUrl: './time-select.component.html',
   providers: [{ provide: NgbTimeAdapter, useClass: NgbTimeDateAdapter }],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class TimeSelectComponent implements OnDestroy {

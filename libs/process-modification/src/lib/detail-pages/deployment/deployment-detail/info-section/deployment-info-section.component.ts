@@ -1,4 +1,4 @@
-import { Component, inject, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { DeploymentProcess, DeploymentResource, DeploymentResponse } from '@fxn/types';
 import { SubSink } from 'subsink';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -13,6 +13,7 @@ import { DecisionDefinitionService } from '../../../../services/decision-definit
   selector: 'fluxnova-deployment-info-section',
   templateUrl: './deployment-info-section.component.html',
   styleUrls: ['./deployment-info-section.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class DeploymentInfoSectionComponent implements OnInit, OnDestroy {

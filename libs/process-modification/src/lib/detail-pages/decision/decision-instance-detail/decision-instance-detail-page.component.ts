@@ -1,4 +1,13 @@
-import { AfterViewChecked, Component, HostListener, inject, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import {
+  AfterViewChecked,
+  ChangeDetectionStrategy,
+  Component,
+  HostListener,
+  inject,
+  OnDestroy,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { DecisionInstance } from '@fxn/types';
 import { of, take, timer } from 'rxjs';
 import { DecisionDiagramViewerComponent } from '../../../common/diagram/decision-diagram-viewer.component';
@@ -12,6 +21,7 @@ import { DecisionInstanceTabs } from '../../item-detail-tab-utils';
   selector: 'fluxnova-decision-instance-details-page',
   templateUrl: '../../item-detail-page.component.html',
   styleUrls: ['../../item-detail-page.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class DecisionInstanceDetailPageComponent
@@ -80,7 +90,7 @@ export class DecisionInstanceDetailPageComponent
       }); // This crazy statement is needed to avoid the "ExpressionChangedAfterItHasBeenChecked" Angular Error
   }
 
-  @HostListener('window:resize', ['$event'])
+  @HostListener('window:resize')
   override onCanvasSizeChanged() {
     this.diagramSection?.notifyCanvasSizeChanged();
   }

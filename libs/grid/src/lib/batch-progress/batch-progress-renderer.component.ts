@@ -1,5 +1,5 @@
 import { AgRendererComponent } from 'ag-grid-angular';
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { ICellRendererParams } from 'ag-grid-community';
 
 @Component({
@@ -13,6 +13,7 @@ import { ICellRendererParams } from 'ag-grid-community';
     </div>
   `,
   styleUrls: ['./batch-progress-renderer.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class BatchProgressRendererComponent implements AgRendererComponent {

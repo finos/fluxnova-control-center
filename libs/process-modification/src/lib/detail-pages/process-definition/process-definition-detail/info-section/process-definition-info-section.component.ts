@@ -1,4 +1,4 @@
-import { Component, EventEmitter, inject, Input, OnDestroy, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, inject, Input, OnDestroy, Output } from '@angular/core';
 import { ProcessDefinition } from '@fxn/types';
 import { ToastService } from '@fxn/common';
 import { from, Subject, Subscription, takeUntil } from 'rxjs';
@@ -15,6 +15,7 @@ const CONCURRENT_REQUEST_COUNT = 2;
   selector: 'fluxnova-process-definition-info-section',
   templateUrl: './process-definition-info-section.component.html',
   styleUrls: ['./process-definition-info-section.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class ProcessDefinitionInfoSectionComponent implements OnDestroy {

@@ -22,7 +22,7 @@ import { GridModule } from '@fxn/grid';
 import { AgGridModule } from 'ag-grid-angular';
 import { ResizableModule } from 'angular-resizable-element';
 import { AngularSplitModule } from 'angular-split';
-import { NgApexchartsModule } from 'ng-apexcharts';
+import { BaseChartDirective, provideCharts, withDefaultRegisterables } from 'ng2-charts';
 import { ItemDetailPageComponent } from './detail-pages/item-detail-page.component';
 import { ItemsTableComponent } from './common/items-table/items-table.component';
 import { JobListComponent } from './list-pages/job/job-list.component';
@@ -173,9 +173,9 @@ import { ActionsFloatingContainerComponent } from './detail-pages/tabs/actions-f
     NgbPopoverModule,
     GenericDiagramSectionViewComponent,
     DecisionDiagramViewerComponent,
-    NgApexchartsModule,
+    BaseChartDirective,
   ],
-  providers: [{ provide: NgbModal, useClass: ModalService }],
+  providers: [{ provide: NgbModal, useClass: ModalService }, provideCharts(withDefaultRegisterables())],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   exports: [ItemsTableComponent, ToggleFiltersComponent, ToolbarComponent],
 })

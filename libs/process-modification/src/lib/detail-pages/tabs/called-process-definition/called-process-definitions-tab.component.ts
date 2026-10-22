@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import {
   CalledProcessDefinition,
   CalledProcessDefinitionFilter,
@@ -15,6 +15,7 @@ import { PaginatedDataRequest } from '../../../services/types/paginated-data-req
 @Component({
   selector: 'fluxnova-called-process-definitions',
   templateUrl: './called-process-definitions-tab.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class CalledProcessDefinitionsTabComponent extends BaseTabComponent {

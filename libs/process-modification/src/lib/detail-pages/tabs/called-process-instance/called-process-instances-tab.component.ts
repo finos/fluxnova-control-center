@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import {
   detailCalledProcessInstancesTabColFields,
   predefinedCalledInstanceTabColDefs,
@@ -14,6 +14,7 @@ import { PaginatedDataRequest } from '../../../services/types/paginated-data-req
   selector: 'fluxnova-static-called-process-instances',
   templateUrl: './called-process-instances-tab.component.html',
   styleUrls: ['./called-process-instances-tab.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class CalledProcessInstancesTabComponent extends BaseTabComponent {

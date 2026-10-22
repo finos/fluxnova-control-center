@@ -14,7 +14,7 @@ if (environment.production) {
 ModuleRegistry.registerModules(AG_GRID_MODULES);
 provideGlobalGridOptions({ theme: 'legacy' });
 
-if (window.fluxnovaConfig.otel?.enabled) initOpenTelemetry(window.fluxnovaConfig.otel);
+if (window?.fluxnovaConfig?.otel?.enabled) initOpenTelemetry(window?.fluxnovaConfig?.otel);
 
 platformBrowserDynamic()
   .bootstrapModule(AppModule)

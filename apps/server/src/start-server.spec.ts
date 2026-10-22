@@ -1,5 +1,3 @@
-/* eslint-disable n/no-process-env -- ConfigService is not available yet, so we must use env directly */
-
 import { Express } from 'express';
 import { readFile } from 'fs/promises';
 import https from 'https';

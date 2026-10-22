@@ -1,4 +1,5 @@
 import {
+  ChangeDetectionStrategy,
   Component,
   ComponentRef,
   ElementRef,
@@ -36,6 +37,7 @@ const VISIBLE = 'visible';
   selector: 'fluxnova-context-menu',
   templateUrl: './context-menu.component.html',
   styleUrls: ['./context-menu.component.css'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class ContextMenuComponent {

@@ -1,8 +1,9 @@
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { of } from 'rxjs';
-import moment from 'moment-timezone';
 import { FLUXNOVA_DATE_FORMAT } from '@fxn/types';
+import moment from 'moment-timezone';
+import { BaseChartDirective, provideCharts, withDefaultRegisterables } from 'ng2-charts';
+import { of } from 'rxjs';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { ProcessInstanceService } from '../../services/process-instance.service';
 import { PaginatedDataRequest } from '../../services/types/paginated-data-request';
@@ -45,8 +46,12 @@ describe('Process Instances Widget', () => {
 
     await TestBed.configureTestingModule({
       declarations: [ProcessInstancesComponent],
-      providers: [{ provide: ProcessInstanceService, useValue: mockInstancesService }],
-      schemas: [CUSTOM_ELEMENTS_SCHEMA],
+      imports: [BaseChartDirective],
+      providers: [
+        { provide: ProcessInstanceService, useValue: mockInstancesService },
+        provideCharts(withDefaultRegisterables()),
+      ],
+      schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
 
     fixture = TestBed.createComponent(ProcessInstancesComponent);
@@ -76,10 +81,9 @@ describe('Process Instances Widget', () => {
     });
   });
 
-  it('converts data to Apex series and sets chart options', () => {
-    const chartOptions = component.chartOptions;
-    expect(chartOptions.series).toEqual([1]);
-    expect(chartOptions.labels).toEqual([DEF_KEY]);
+  it('converts data to chart series and sets chart labels', () => {
+    expect(component.chartData.datasets[0].data).toEqual([1]);
+    expect(component.chartData.labels).toEqual([DEF_KEY]);
     expect(component.totalItems).toBe(1);
     expect(component.legendTitle).toBe(LEGEND_TITLE);
     expect(component.subtitle).toBe(component.MAIN_SUBTITLE);
@@ -121,27 +125,22 @@ describe('Process Instances Widget', () => {
     expect(component.displayCount).toBe('1+');
   });
 
-  it('drills down to definition id on dataPointSelection when drill data exists', () => {
-    const events = (component.chartOptions.chart as any).events;
-    expect(typeof events.dataPointSelection).toBe('function');
-
-    const cfg = { dataPointIndex: 0 };
+  it('drills down to definition id when a chart slice with drill data is selected', () => {
     expect(component.drilldown).toBe(false);
 
-    events.dataPointSelection({}, {}, cfg);
+    component.onChartClick({ active: [{ index: 0 }] });
 
     expect(component.drilldown).toBe(true);
     expect(component.legendTitle).toBe(LEGEND_DRILLDOWN_TITLE);
     expect(component.subtitle).toBe(component.DRILLDOWN_SUBTITLE);
-    expect(component.chartOptions.labels).toEqual(expect.arrayContaining([DEF_ID]));
+    expect(component.chartData.labels).toEqual(expect.arrayContaining([DEF_ID]));
   });
 
   it('opens process definition page when no drill data exists for selection', () => {
     component.setChartData([2], ['no-drill-label'], false);
     const openSpy = vi.spyOn(window, 'open').mockImplementation(() => null as any);
 
-    const events = (component.chartOptions.chart as any).events;
-    events.dataPointSelection({}, {}, { dataPointIndex: 0 });
+    component.onChartClick({ active: [{ index: 0 }] });
 
     expect(openSpy).toHaveBeenCalledWith(expect.stringMatching(/\/process-definitions\/no-drill-label$/), '_blank');
     openSpy.mockRestore();
@@ -159,18 +158,15 @@ describe('Process Instances Widget', () => {
 
     component.onTimeFrameSelected();
 
-    const events = (component.chartOptions.chart as any).events;
-    const config = { globals: { seriesNames: component.chartOptions.labels as string[] } };
-
     expect(component.totalItems).toBe(5);
 
-    events.legendClick({}, 1, config);
+    component.onLegendItemClick(1);
     expect(component.totalItems).toBe(3);
-    expect(component.chartOptions.series).toEqual([3, 0]);
+    expect(component.chartData.datasets[0].data).toEqual([3, 0]);
 
-    events.legendClick({}, 1, config);
+    component.onLegendItemClick(1);
     expect(component.totalItems).toBe(5);
-    expect(component.chartOptions.series).toEqual([3, 2]);
+    expect(component.chartData.datasets[0].data).toEqual([3, 2]);
   });
 
   it('restores main series and visibility on drillup', () => {
@@ -184,41 +180,35 @@ describe('Process Instances Widget', () => {
     mockInstancesService.getProcessInstancesByFilter.mockReturnValueOnce(of(incidents));
     component.onTimeFrameSelected();
 
-    const events = (component.chartOptions.chart as any).events;
-    const config = { globals: { seriesNames: component.chartOptions.labels as string[] } };
-    events.legendClick({}, 1, config);
-    expect(component.chartOptions.series).toEqual([3, 0]);
+    component.onLegendItemClick(1);
+    expect(component.chartData.datasets[0].data).toEqual([3, 0]);
 
-    events.dataPointSelection({}, {}, { dataPointIndex: 0 });
-    events.dataPointSelection({}, {}, { dataPointIndex: 0 });
+    component.onChartClick({ active: [{ index: 0 }] });
+    component.onChartClick({ active: [{ index: 0 }] });
     expect(component.drilldown).toBe(true);
 
     component.onDrillup();
     expect(component.drilldown).toBe(false);
     expect(component.subtitle).toBe(component.MAIN_SUBTITLE);
     expect(component.legendTitle).toBe(LEGEND_TITLE);
-    expect(component.chartOptions.labels).toEqual(['test-process-definition-key', 'other-def']);
-    expect(component.chartOptions.series).toEqual([3, 0]);
+    expect(component.chartData.labels).toEqual(['test-process-definition-key', 'other-def']);
+    expect(component.chartData.datasets[0].data).toEqual([3, 0]);
   });
 
-  it('applies and removes slice-hover-active classes on highlight/reset', () => {
-    const container = document.createElement('div');
-    container.innerHTML = `
-      <svg>
-        <g class="apexcharts-series"><path></path></g>
-        <g class="apexcharts-series"><path></path></g>
-        <g class="apexcharts-series"><path></path></g>
-      </svg>
-    `;
-    const paths = Array.from(container.querySelectorAll('.apexcharts-series path')) as SVGPathElement[];
+  it('dims other slices on hover and restores colors when the pointer leaves', () => {
+    component.setChartData([1, 2, 3], ['one', 'two', 'three'], false);
+    const chart = { update: vi.fn() } as any;
 
-    component.highlightSlice(1, container);
-    expect(paths[0].classList.contains('slice-hover-active')).toBe(true);
-    expect(paths[1].classList.contains('slice-hover-active')).toBe(false);
-    expect(paths[2].classList.contains('slice-hover-active')).toBe(true);
+    component.onChartHover({ active: [{ index: 1 }] }, chart);
 
-    component.resetOpacity(container);
-    paths.forEach((p) => expect(p.classList.contains('slice-hover-active')).toBe(false));
+    const hoveredColors = component.chartData.datasets[0].backgroundColor as string[];
+    expect(hoveredColors[1]).toBe('#9747F6');
+    expect(hoveredColors[0]).toContain('0.3)');
+    expect(chart.update).toHaveBeenCalledWith('none');
+
+    component.onChartHover({ active: [] }, chart);
+
+    expect(component.chartData.datasets[0].backgroundColor).toEqual(['#368727', '#9747F6', '#5B2C8F']);
   });
 
   describe('widgetTitle pluralization', () => {

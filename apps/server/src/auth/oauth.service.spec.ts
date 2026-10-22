@@ -1,5 +1,3 @@
-/* eslint-disable n/no-process-env -- Direct process.env access is being used to manipulate the configuration & is acceptable in the context of these tests. */
-
 import { Logger } from '@nestjs/common';
 import axios, { AxiosInstance } from 'axios';
 import { HttpProxyAgent } from 'http-proxy-agent';

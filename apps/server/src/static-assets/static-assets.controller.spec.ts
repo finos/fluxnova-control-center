@@ -1,5 +1,3 @@
-/* eslint-disable n/no-process-env -- Direct process.env access is being used to manipulate the configuration & is acceptable in the context of these tests. */
-
 import { ConfigService } from '@nestjs/config';
 import { Test, TestingModule } from '@nestjs/testing';
 import { beforeEach, describe, expect, it, Mocked, vi } from 'vitest';

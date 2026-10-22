@@ -1,4 +1,4 @@
-import { Component, inject, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { DecisionDefinition, DecisionInstance } from '@fxn/types';
 import { SubSink } from 'subsink';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -11,6 +11,7 @@ import { DecisionInstanceService } from '../../../../services/decision-instance.
   selector: 'fluxnova-decision-instance-info-section',
   templateUrl: './decision-instance-info-section.component.html',
   styleUrl: './decision-instance-info-section.component.scss',
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class DecisionInstanceInfoSectionComponent implements OnInit, OnDestroy {

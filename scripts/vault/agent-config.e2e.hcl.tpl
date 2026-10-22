@@ -56,20 +56,34 @@ env_template "FXN_DESIGNER_USR" {
    contents             = "{{ with secret \"###PATH_TO_SECRET_IN_VAULT###\" }}{{ .Data.data.usr }}{{ end }}"
    error_on_missing_key = true
 }
+env_template "FXN_DESIGNER_USR_EMAIL" {
+   contents             = "{{ with secret \"###PATH_TO_SECRET_IN_VAULT###\" }}{{ .Data.data.email }}{{ end }}"
+   error_on_missing_key = true
+}
 env_template "FXN_DESIGNER_PSW" {
    contents             = "{{ with secret \"###PATH_TO_SECRET_IN_VAULT###\" }}{{ .Data.data.psw }}{{ end }}"
    error_on_missing_key = true
 }
+
 env_template "FXN_SUPPORT_USR" {
    contents             = "{{ with secret \"###PATH_TO_SECRET_IN_VAULT###\" }}{{ .Data.data.usr }}{{ end }}"
+   error_on_missing_key = true
+}
+env_template "FXN_SUPPORT_USR_EMAIL" {
+   contents             = "{{ with secret \"###PATH_TO_SECRET_IN_VAULT###\" }}{{ .Data.data.email }}{{ end }}"
    error_on_missing_key = true
 }
 env_template "FXN_SUPPORT_PSW" {
    contents             = "{{ with secret \"###PATH_TO_SECRET_IN_VAULT###\" }}{{ .Data.data.psw }}{{ end }}"
    error_on_missing_key = true
 }
+
 env_template "FXN_PLAT_READ_USR" {
    contents             = "{{ with secret \"###PATH_TO_SECRET_IN_VAULT###\" }}{{ .Data.data.usr }}{{ end }}"
+   error_on_missing_key = true
+}
+env_template "FXN_PLAT_READ_USR_EMAIL" {
+   contents             = "{{ with secret \"###PATH_TO_SECRET_IN_VAULT###\" }}{{ .Data.data.email }}{{ end }}"
    error_on_missing_key = true
 }
 env_template "FXN_PLAT_READ_PSW" {

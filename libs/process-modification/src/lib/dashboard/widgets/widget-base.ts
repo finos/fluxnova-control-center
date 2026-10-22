@@ -1,10 +1,11 @@
-import { groupBy } from 'lodash-es';
+import { ChangeDetectorRef, inject } from '@angular/core';
 import { Dictionary, FLUXNOVA_DATE_FORMAT } from '@fxn/types';
-import { SubSink } from 'subsink';
+import { ActiveElement, ChartData, ChartOptions } from 'chart.js';
+import { groupBy } from 'lodash-es';
 import moment from 'moment-timezone';
-import { inject } from '@angular/core';
+import { BaseChartDirective } from 'ng2-charts';
 import { WINDOW } from 'ngx-window-token';
-import { ApexChart, ApexDataLabels, ApexLegend, ApexOptions } from 'ng-apexcharts';
+import { SubSink } from 'subsink';
 import { DEFAULT_CHART_OPTIONS, DEFAULT_PLOT_COLORS, LEGEND_DRILLDOWN_TITLE, LEGEND_TITLE } from '../chart-defaults';
 
 export interface FluxnovaItem {
@@ -26,13 +27,18 @@ export interface ChartSeriesItem {
 
 export class WidgetBase {
   protected window = inject<Window>(WINDOW);
+  protected changeDetectorRef = inject(ChangeDetectorRef);
 
   protected TIMEFRAME_VALUE_SEPARATOR = '-';
   public DRILLDOWN_SUBTITLE = 'Click a slice to view the process definition.';
   public MAIN_SUBTITLE = 'Click a slice to view a breakdown for the definition key.';
   public MAX_ITEM_COUNT = 1000;
 
-  public chartOptions: Partial<ApexOptions> = DEFAULT_CHART_OPTIONS();
+  public chartOptions: ChartOptions<'doughnut'> = DEFAULT_CHART_OPTIONS();
+  public chartData: ChartData<'doughnut', number[], string> = {
+    labels: [],
+    datasets: [{ data: [], backgroundColor: [] }],
+  };
   public dataLoading = false;
   public timeFrameOptions: { label: string; value: string }[] = [
     { label: 'Past 1 Hour', value: '1-hours' },
@@ -46,35 +52,29 @@ export class WidgetBase {
   public timeFrameSelected: string = this.timeFrameOptions[5].value;
   public totalItems = 0;
   public drilldown = false;
-  public suppressDrilldown = false;
   public subtitle = this.MAIN_SUBTITLE;
   public legendTitle = LEGEND_TITLE;
 
   private sliceVisibility: boolean[] = [];
   private mainSeries: number[] = [];
   private mainLabels: string[] = [];
-  private colorMap: Record<string, string> = {};
-  private indexMap: Record<string, number> = {};
   private drillData: Record<string, DrillDataItem> = {};
+  private hoveredIndex: number | null = null;
 
   private currentSeries: number[] = [];
   private currentLabels: string[] = [];
   private mainVisibilityStore: Record<string, boolean> = {};
 
-  protected queryParams = () =>
-    `filters={"status":{"filterType":"select","filter":"open","type":"equals"},"createTime":{"dateFrom":"${this.calculatedTimeFrame}","type":"after"},"processDefinitionKey":{"filterType":"commaSeparatedList","filter":"${this.selectedDefinitionKey}","type":"multi"}}&sorting=[{"colId":"createTime","sort":"desc"}]&toggleFilters=`;
   protected calculatedTimeFrame = '';
   protected data: FluxnovaItem[] = [];
   protected selectedDefinitionKey = '';
   protected subSink: SubSink = new SubSink();
-  protected chart?: ApexChart;
-
   private pageLocation = '';
 
   get linkHref(): string {
     const currentUrl = new URL(this.window.location.href);
     currentUrl.pathname = `${currentUrl.pathname}/${this.pageLocation}`;
-    currentUrl.search = this.queryParams();
+    currentUrl.search = this.getQueryParams();
     return currentUrl.toString();
   }
 
@@ -84,93 +84,83 @@ export class WidgetBase {
 
   constructor(location: string) {
     this.pageLocation = location;
-    this.chartOptions = {
-      ...this.chartOptions,
-      legend: {
-        position: 'right',
-        offsetX: -75,
-        fontSize: '14px',
-        width: 230,
-        height: 330,
-        formatter: (seriesName: string) => {
-          const index = this.indexMap[seriesName];
-
-          if (!this.sliceVisibility[index]) {
-            return `<span style="text-decoration: line-through;">${seriesName}</span>`;
-          }
-
-          return seriesName;
-        },
-      },
-    };
   }
 
-  // Typed accessors for template bindings
-  get chartDef(): ApexChart {
-    return this.chartOptions.chart as ApexChart;
-  }
   get labelsDef(): string[] {
-    return this.chartOptions.labels as string[];
+    return (this.chartData.labels ?? []) as string[];
   }
-  get legendDef(): ApexLegend {
-    return this.chartOptions.legend as ApexLegend;
+  get visibilityDef(): boolean[] {
+    return this.sliceVisibility;
   }
-  get dataLabelsDef(): ApexDataLabels {
-    return this.chartOptions.dataLabels as ApexDataLabels;
+  getColor(index: number): string {
+    return DEFAULT_PLOT_COLORS[index % DEFAULT_PLOT_COLORS.length];
   }
-  get colorsDef(): any[] {
-    return (this.chartOptions.colors as any[]) || [];
+
+  protected getQueryParams(): string {
+    return '';
+  }
+
+  protected getSliceColors(count: number): string[] {
+    return Array.from({ length: count }, (_, index) => {
+      const color = this.getColor(index);
+      if (this.hoveredIndex === null || index === this.hoveredIndex) {
+        return color;
+      }
+
+      const red = Number.parseInt(color.slice(1, 3), 16);
+      const green = Number.parseInt(color.slice(3, 5), 16);
+      const blue = Number.parseInt(color.slice(5, 7), 16);
+      return `rgba(${red}, ${green}, ${blue}, 0.3)`;
+    });
   }
 
   setChartData(series: number[], labels: string[], isDrilldown: boolean) {
     this.drilldown = isDrilldown;
     this.totalItems = this.calculateTotalItemsVisible(series);
-
-    this.chartOptions = {
-      ...this.chartOptions,
-      series: series,
-      labels: labels,
-      chart: {
-        ...this.chartOptions.chart,
-        type: 'donut',
-        events: {
-          legendClick: (chartContext: any, seriesIndex: number, config: { globals: { seriesNames: string[] } }) => {
-            const label = config.globals.seriesNames[seriesIndex];
-            const originalIndex = this.indexMap[label];
-
-            this.suppressDrilldown = true;
-            this.onLegendItemClick(originalIndex, seriesIndex);
-          },
-          dataPointSelection: (event: any, chartContext: any, config: { dataPointIndex: number }) => {
-            if (this.suppressDrilldown) {
-              this.suppressDrilldown = false;
-              return;
-            }
-
-            const selectedData = labels[config.dataPointIndex];
-
-            if (this.drillData[selectedData]) {
-              this.selectedDefinitionKey = selectedData;
-              this.onDrilldown(event, this.selectedDefinitionKey);
-            } else {
-              const currentUrl = new URL(this.window.location.href);
-              currentUrl.pathname = `${currentUrl.pathname}/process-definitions/${selectedData}`;
-              window.open(currentUrl.toString(), '_blank');
-            }
-          },
-          dataPointMouseEnter: (event: MouseEvent, chartContext: any, config: any) => {
-            this.highlightSlice(config.dataPointIndex, chartContext.el);
-          },
-          dataPointMouseLeave: (event: MouseEvent, chartContext: any) => {
-            this.resetOpacity(chartContext.el);
-          },
+    this.hoveredIndex = null;
+    this.chartData = {
+      labels,
+      datasets: [
+        {
+          data: series,
+          backgroundColor: this.getSliceColors(labels.length),
+          borderWidth: 0,
+          hoverOffset: 0,
         },
-      },
+      ],
     };
   }
 
-  onLegendItemClick(originalIndex: number, currentIndex: number) {
-    const newSeries = Array.isArray(this.chartOptions.series) ? [...this.chartOptions.series] : [];
+  onChartClick(event: { active?: ActiveElement[] }) {
+    const activeElement = event.active?.[0];
+    if (!activeElement) {
+      return;
+    }
+
+    const selectedData = this.labelsDef[activeElement.index];
+    if (this.drillData[selectedData]) {
+      this.selectedDefinitionKey = selectedData;
+      this.onDrilldown(selectedData);
+    } else {
+      const currentUrl = new URL(this.window.location.href);
+      currentUrl.pathname = `${currentUrl.pathname}/process-definitions/${selectedData}`;
+      this.window.open(currentUrl.toString(), '_blank');
+    }
+  }
+
+  onChartHover(event: { active?: ActiveElement[] }, chart: BaseChartDirective<'doughnut'>) {
+    const activeElement = event.active?.[0];
+    const hoveredIndex = activeElement?.index ?? null;
+    if (hoveredIndex === this.hoveredIndex) {
+      return;
+    }
+
+    this.hoveredIndex = hoveredIndex;
+    this.chartData.datasets[0].backgroundColor = this.getSliceColors(this.labelsDef.length);
+    chart.update('none');
+  }
+
+  onLegendItemClick(originalIndex: number) {
     this.sliceVisibility[originalIndex] = !this.sliceVisibility[originalIndex];
 
     if (!this.drilldown) {
@@ -178,18 +168,11 @@ export class WidgetBase {
       this.mainVisibilityStore[label] = this.sliceVisibility[originalIndex];
     }
 
-    if (!this.sliceVisibility[originalIndex]) {
-      newSeries.splice(currentIndex, 1, 0);
-    } else {
-      newSeries.splice(currentIndex, 0, this.currentSeries[originalIndex]);
-      newSeries.splice(currentIndex + 1, 1);
-    }
-
-    this.totalItems = this.calculateTotalItemsVisible(newSeries as number[]);
-    this.setChartData(newSeries as number[], this.chartOptions.labels as string[], this.drilldown);
+    const newSeries = this.currentSeries.map((value, index) => (this.sliceVisibility[index] ? value : 0));
+    this.setChartData(newSeries, this.currentLabels, this.drilldown);
   }
 
-  onDrilldown(event: Event, selectedLabel: string) {
+  onDrilldown(selectedLabel: string) {
     const drillSeries = this.drillData[selectedLabel].series;
     const drillLabels = this.drillData[selectedLabel].labels;
 
@@ -200,13 +183,6 @@ export class WidgetBase {
 
     this.currentSeries = drillSeries;
     this.currentLabels = drillLabels;
-    this.indexMap = this.currentLabels.reduce(
-      (val, label, index) => {
-        val[label] = index;
-        return val;
-      },
-      {} as Record<string, number>,
-    );
     this.sliceVisibility = Array(this.currentSeries.length).fill(true);
   }
 
@@ -215,7 +191,7 @@ export class WidgetBase {
       this.mainVisibilityStore[label] !== undefined ? this.mainVisibilityStore[label] : true,
     );
 
-    const adjustedMainSeries = this.mainSeries.map((val, idx) => (restoredVisibility[idx] ? val : 0));
+    const adjustedMainSeries = this.mainSeries.map((value, index) => (restoredVisibility[index] ? value : 0));
 
     this.setChartData(adjustedMainSeries, this.mainLabels, false);
 
@@ -226,32 +202,7 @@ export class WidgetBase {
 
     this.currentSeries = this.mainSeries;
     this.currentLabels = this.mainLabels;
-    this.indexMap = this.mainLabels.reduce(
-      (val, label, index) => {
-        val[label] = index;
-        return val;
-      },
-      {} as Record<string, number>,
-    );
     this.sliceVisibility = restoredVisibility;
-  }
-
-  highlightSlice(index: number, chartEl: HTMLElement) {
-    const slices = Array.from(chartEl.querySelectorAll('.apexcharts-series path')) as SVGPathElement[];
-    slices.forEach((slice, i) => {
-      if (i !== index) {
-        slice.classList.add('slice-hover-active');
-      } else {
-        slice.classList.remove('slice-hover-active'); // keep hovered slice fully visible
-      }
-    });
-  }
-
-  resetOpacity(chartEl: HTMLElement) {
-    const slices = chartEl.querySelectorAll('.apexcharts-series path');
-    slices.forEach((slice) => {
-      slice.classList.remove('slice-hover-active');
-    });
   }
 
   onInit() {
@@ -263,8 +214,7 @@ export class WidgetBase {
   }
 
   clearCurrentData() {
-    delete this.chartOptions?.series;
-    delete this.chartOptions?.labels;
+    this.chartData = { labels: [], datasets: [{ data: [], backgroundColor: [] }] };
   }
 
   loadData() {
@@ -293,22 +243,13 @@ export class WidgetBase {
     });
 
     this.sortDrillData();
-    this.sliceVisibility = Array(this.chartOptions.labels?.length).fill(true);
+    this.sliceVisibility = Array(this.labelsDef.length).fill(true);
 
-    this.mainLabels.forEach((label, index) => {
+    this.mainLabels.forEach((label) => {
       if (this.mainVisibilityStore[label] === undefined) {
         this.mainVisibilityStore[label] = true;
       }
-      this.colorMap[label] = DEFAULT_PLOT_COLORS[index % DEFAULT_PLOT_COLORS.length];
     });
-
-    this.indexMap = this.mainLabels.reduce(
-      (val, label, index) => {
-        val[label] = index;
-        return val;
-      },
-      {} as Record<string, number>,
-    );
   }
 
   transformDataToSeriesData(items: FluxnovaItem[]): DrillDataItem[] {

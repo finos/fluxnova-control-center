@@ -1,10 +1,11 @@
 import { AgRendererComponent } from 'ag-grid-angular';
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { ICellRendererParams } from 'ag-grid-community';
 
 @Component({
   selector: 'fluxnova-job-state-cell',
   template: ` <div>{{ getState() }}</div> `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class JobStateRendererComponent implements AgRendererComponent {

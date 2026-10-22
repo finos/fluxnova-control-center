@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { convertDateToFluxnovaString, DateFilterTypes, RadioButtonItem } from '@fxn/common';
 import { IFloatingFilterAngularComp } from 'ag-grid-angular';
 import { IFloatingFilterParams } from 'ag-grid-community';
@@ -8,6 +8,7 @@ import { FILTER_COMPARATOR_DICTIONARY } from '@fxn/types';
   selector: 'fluxnova-ag-grid-floating-date-input',
   templateUrl: './floating-date-input-filter.component.html',
   styleUrls: ['./floating-date-input-filter.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class FloatingDateInputFilterComponent implements IFloatingFilterAngularComp {

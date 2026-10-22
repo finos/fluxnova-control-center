@@ -1,4 +1,13 @@
-import { Component, EventEmitter, inject, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  EventEmitter,
+  inject,
+  Input,
+  OnDestroy,
+  OnInit,
+  Output,
+} from '@angular/core';
 import { ProcessEngineDto, Tenant } from '@fxn/types';
 import { filter, find, map, sortBy, uniqBy } from 'lodash-es';
 import { SubSink } from 'subsink';
@@ -11,6 +20,7 @@ import { UserService } from '../services/user.service';
   selector: 'fluxnova-select-tenant',
   templateUrl: './select-tenant.component.html',
   styleUrls: ['./select-tenant.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class SelectTenantComponent implements OnInit, OnDestroy {

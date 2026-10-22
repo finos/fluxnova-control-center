@@ -5,7 +5,7 @@
       <div class="border-bottom pb-3 mb-4 mt-3">
         <strong> Definition ID </strong>
         <fluxnova-icon
-          [fluxnovaCopyLink]="decisionDefinition?.id"
+          [fluxnovaCopyLink]="$safeNavigationMigration(decisionDefinition?.id)"
           [openDelay]="500"
           class="ps-1 text-primary pointer"
           copyTextLabel="Definition ID"
@@ -22,7 +22,7 @@
           (change)="onChange($event.id)"
           [(ngModel)]="currentVersionDefinitionId"
           [clearable]="false"
-          [disabled]="versions?.length <= 1"
+          [disabled]="$safeNavigationMigration(versions?.length) <= 1"
           [items]="versions"
           appendTo="body"
           bindLabel="version"
@@ -40,7 +40,7 @@
       </div>
       <strong>Definition Key</strong>
       <fluxnova-icon
-        [fluxnovaCopyLink]="decisionDefinition?.key"
+        [fluxnovaCopyLink]="$safeNavigationMigration(decisionDefinition?.key)"
         [openDelay]="500"
         class="ps-1 text-primary pointer"
         copyTextLabel="Definition Key"
@@ -53,7 +53,7 @@
       <strong>History Time to Live</strong>
       <div class="pb-3" fluxnovaTruncateWithTooltip>
         <fluxnova-value-with-units
-          [value]="decisionDefinition?.historyTimeToLive"
+          [value]="$safeNavigationMigration(decisionDefinition?.historyTimeToLive)"
           unit="day"
         ></fluxnova-value-with-units>
       </div>
@@ -61,7 +61,7 @@
       @if (decisionDefinition?.deploymentId) {
         <fluxnova-icon
           copyTextLabel="Deployment ID"
-          [fluxnovaCopyLink]="decisionDefinition?.deploymentId"
+          [fluxnovaCopyLink]="$safeNavigationMigration(decisionDefinition?.deploymentId)"
           class="ps-1 text-primary pointer"
           iconName="copy"
           [openDelay]="500"
@@ -71,7 +71,7 @@
       }
       <div class="pb-3" fluxnovaTruncateWithTooltip>
         @if (decisionDefinition?.deploymentId) {
-          <a [routerLink]="'../../deployments/' + decisionDefinition?.deploymentId"
+          <a [routerLink]="'../../deployments/' + $safeNavigationMigration(decisionDefinition?.deploymentId)"
             >{{ decisionDefinition?.deploymentId }}
           </a>
         }

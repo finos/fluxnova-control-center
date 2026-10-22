@@ -1,9 +1,18 @@
 #!/bin/bash
 
-FLUXNOVA_VERSION="2.0.0"
-OPENAPI_GENERATOR_VERSION="7.14.0"
-OUTPUT_DIR="apps/server/src/fluxnova/generated"
-OPENAPI_VERSIONS_DIR="node_modules/@openapitools/openapi-generator-cli/versions"
+get_version_from_package_json() {
+  NON_JS_DEPENDENCY_VERSION="$1"
+  NODE_COMMAND_TO_PRINT="require('./package.json')?.nonJsDependencies?.${NON_JS_DEPENDENCY_VERSION}"
+  VERSION=$(node -p $NODE_COMMAND_TO_PRINT)
+
+  if [[ $VERSION == 'undefined' ]];
+  then
+    echo "$NON_JS_DEPENDENCY_VERSION field is missing in package.json nonJsDependencies"
+    exit 1
+  else
+    echo $VERSION
+  fi
+}
 
 show_usage() {
   echo "Usage: $0 [options]"
@@ -16,6 +25,11 @@ show_usage() {
   echo "  --output-dir DIR                  Output directory (default: $OUTPUT_DIR)"
   echo "  -h, --help                        Show this help message"
 }
+
+FLUXNOVA_VERSION="$(get_version_from_package_json 'fluxnova')"
+OPENAPI_GENERATOR_VERSION="$(get_version_from_package_json 'openApiGenerator')"
+OUTPUT_DIR="apps/server/src/fluxnova/generated"
+OPENAPI_VERSIONS_DIR="node_modules/@openapitools/openapi-generator-cli/versions"
 
 while [[ $# -gt 0 ]]; do
   key="$1"

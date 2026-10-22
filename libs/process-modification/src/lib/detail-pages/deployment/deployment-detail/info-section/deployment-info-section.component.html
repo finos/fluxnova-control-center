@@ -5,7 +5,7 @@
       <strong> Deployment ID </strong>
       <fluxnova-icon
         copyTextLabel="Deployment ID"
-        [fluxnovaCopyLink]="deployment.deployment?.id"
+        [fluxnovaCopyLink]="$safeNavigationMigration(deployment.deployment?.id)"
         class="ps-1 text-primary pointer"
         iconName="copy"
         [openDelay]="500"

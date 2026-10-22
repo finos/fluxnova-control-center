@@ -30,7 +30,11 @@
     <ng-container *ngTemplateOutlet="loadingTemplateRef"></ng-container>
   </ng-template>
   <ng-template ng-multi-label-tmp>
-    <div #selectedDisplay class="multi-option-wrapper" [ngClass]="{ hidden: ngSelect?.isOpen() }">
+    <div
+      #selectedDisplay
+      class="multi-option-wrapper"
+      [ngClass]="{ hidden: $safeNavigationMigration(ngSelect?.isOpen()) }"
+    >
       @if (defaultSelected) {
         <div class="ng-value"><span class="ng-value-label">Default selected</span></div>
       }

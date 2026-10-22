@@ -1,28 +1,5 @@
-import * as Apexcharts from 'ng-apexcharts';
+import { ChartOptions } from 'chart.js';
 
-interface LegendItemStyle {
-  color: string;
-  fill: string;
-  'font-size': number;
-  textOverflow: string;
-  width: number;
-}
-
-export const PRIMARY_BLUE = '#024a7a';
-export const LEGEND_HOVER_STYLE: LegendItemStyle = {
-  color: PRIMARY_BLUE,
-  fill: PRIMARY_BLUE,
-  'font-size': 16,
-  textOverflow: 'ellipsis',
-  width: 210,
-};
-export const LEGEND_ITEM_STYLE: LegendItemStyle = {
-  color: '#515151',
-  fill: '#515151',
-  'font-size': 14,
-  textOverflow: 'ellipsis',
-  width: 210,
-};
 export const LEGEND_TITLE = 'Process Definition Key';
 export const LEGEND_DRILLDOWN_TITLE = 'Process Definition ID';
 export const DEFAULT_INNER_SIZE = '65%';
@@ -55,23 +32,16 @@ export const DEFAULT_PLOT_COLORS: string[] = [
   '#053C58',
   '#032537',
 ];
-export const DEFAULT_CHART_OPTIONS = () =>
-  <Apexcharts.ApexOptions>{
-    chart: {
-      type: 'donut',
-      width: 630,
-      height: 350,
-      style: {
-        fontFamily: 'Arial',
-      },
+export const DEFAULT_CHART_OPTIONS = (): ChartOptions<'doughnut'> => ({
+  responsive: false,
+  maintainAspectRatio: false,
+  cutout: DEFAULT_INNER_SIZE,
+  font: {
+    family: 'Arial',
+  },
+  plugins: {
+    legend: {
+      display: false,
     },
-    dataLabels: {
-      enabled: false,
-    },
-    colors: DEFAULT_PLOT_COLORS,
-    plotOptions: {
-      pie: {
-        size: 350,
-      },
-    },
-  };
+  },
+});

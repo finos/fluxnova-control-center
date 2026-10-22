@@ -100,7 +100,10 @@
 
   <strong> History Time to Live </strong>
   <div class="pb-3" fluxnovaTruncateWithTooltip>
-    <fluxnova-value-with-units [value]="processDefinition?.historyTimeToLive" unit="day"></fluxnova-value-with-units>
+    <fluxnova-value-with-units
+      [value]="$safeNavigationMigration(processDefinition?.historyTimeToLive)"
+      unit="day"
+    ></fluxnova-value-with-units>
   </div>
 
   <div class="border-bottom"></div>

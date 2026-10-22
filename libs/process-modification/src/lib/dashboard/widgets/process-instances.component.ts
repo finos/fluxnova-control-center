@@ -1,6 +1,7 @@
-import { Component, inject, OnDestroy, OnInit } from '@angular/core';
-import pluralize from 'pluralize';
+import { ChangeDetectionStrategy, Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { WINDOW } from 'ngx-window-token';
+import pluralize from 'pluralize';
+import { finalize } from 'rxjs/operators';
 import { ProcessInstanceService } from '../../services/process-instance.service';
 import { PaginatedDataRequest } from '../../services/types/paginated-data-request';
 import { WidgetBase } from './widget-base';
@@ -9,14 +10,27 @@ import { WidgetBase } from './widget-base';
   selector: 'fluxnova-process-instances',
   styleUrls: ['./widget-base.scss'],
   templateUrl: './widget-base.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class ProcessInstancesComponent extends WidgetBase implements OnInit, OnDestroy {
   private instanceService = inject(ProcessInstanceService);
   protected window = inject<Window>(WINDOW);
 
-  protected override queryParams = () =>
-    `filters={"state":{"filterType":"select","filter":"unfinished","type":"equals"},"startTime":{"dateFrom":"${this.calculatedTimeFrame}","type":"after"},"processDefinitionKey":{"filterType":"textArray","filter":"${this.selectedDefinitionKey}","type":"multi"}}&sorting=[{"colId":"startTime","sort":"desc"}]&toggleFilters=`;
+  protected override getQueryParams() {
+    const filters = {
+      state: { filterType: 'select', filter: 'unfinished', type: 'equals' },
+      startTime: { dateFrom: this.calculatedTimeFrame, type: 'after' },
+      processDefinitionKey: {
+        filterType: 'textArray',
+        filter: this.selectedDefinitionKey,
+        type: 'multi',
+      },
+    };
+    const sorting = [{ colId: 'startTime', sort: 'desc' }];
+
+    return `filters=${JSON.stringify(filters)}&sorting=${JSON.stringify(sorting)}&toggleFilters=`;
+  }
 
   constructor() {
     super('process-instances');
@@ -49,6 +63,12 @@ export class ProcessInstancesComponent extends WidgetBase implements OnInit, OnD
             },
             this.MAX_ITEM_COUNT,
           ),
+        )
+        .pipe(
+          finalize(() => {
+            this.dataLoading = false;
+            this.changeDetectorRef.markForCheck();
+          }),
         )
         .subscribe(this.onDataLoaded.bind(this)),
     );

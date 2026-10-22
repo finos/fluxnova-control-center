@@ -1,10 +1,10 @@
-import { Component, inject, OnDestroy } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import { ColDefWithFilterParams, FilterDisable } from '@fxn/types/src';
 import { IFilterParams } from 'ag-grid-community';
 import { SubSink } from 'subsink';
 
-@Component({ template: '', standalone: false })
+@Component({ template: '', changeDetection: ChangeDetectionStrategy.Eager, standalone: false })
 export class DynamicallyDisabledFilterComponent implements OnDestroy {
   route = inject(ActivatedRoute);
 

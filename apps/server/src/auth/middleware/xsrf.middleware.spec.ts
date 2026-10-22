@@ -1,5 +1,3 @@
-/* eslint-disable n/no-process-env -- Direct process.env access is being used to manipulate the configuration & is acceptable in the context of these tests. */
-
 import { describe, expect, it, vi } from 'vitest';
 import { csrfConfig, handleBadCsrfToken, invalidCsrfTokenError } from './xsrf.middleware';
 import type { Request } from 'express';

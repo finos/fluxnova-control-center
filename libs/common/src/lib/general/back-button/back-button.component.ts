@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 
 @Component({
   selector: 'fluxnova-back-button',
@@ -6,6 +6,7 @@ import { Component, Input } from '@angular/core';
     <fluxnova-icon iconName="left-chevron" class="ms-n1 text-primary fs-11 pe-2"></fluxnova-icon>
     <a> {{ previousPageName }} </a>
   </a>`,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class BackButtonComponent {

@@ -1,4 +1,4 @@
-import { Component, inject, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, ViewChild } from '@angular/core';
 import { every } from 'lodash-es';
 import { forkJoin, take } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -13,6 +13,7 @@ import { PaginatedDataRequest } from '../../services/types/paginated-data-reques
   selector: 'fluxnova-process-list',
   templateUrl: './process-definition-list.component.html',
   styleUrls: ['./process-definition-list.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class ProcessDefinitionListComponent extends BaseListComponent {

@@ -1,17 +1,17 @@
 import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ActivatedRoute, Router } from '@angular/router';
-import { IsFullWidthRowParams, RowClickedEvent } from 'ag-grid-community';
 import { AuthorizationHttpService, ToastService } from '@fxn/common';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { firstValueFrom, of, throwError } from 'rxjs';
 import { ItemType, ListViewState, ProcessInstanceFullHistory } from '@fxn/types';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { IsFullWidthRowParams, RowClickedEvent } from 'ag-grid-community';
+import { firstValueFrom, of, throwError } from 'rxjs';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
-import { ItemDetailPageCommunicationService } from '../../item-detail-page.communication.service';
-import { ProcessInstanceService } from '../../../services/process-instance.service';
-import { PimTab } from '../../item-detail-tab-utils';
-import { PaginatedDataRequest } from '../../../services/types/paginated-data-request';
 import { ItemsTableComponent } from '../../../common/items-table/items-table.component';
+import { ProcessInstanceService } from '../../../services/process-instance.service';
+import { PaginatedDataRequest } from '../../../services/types/paginated-data-request';
+import { ItemDetailPageCommunicationService } from '../../item-detail-page.communication.service';
+import { PimTab } from '../../item-detail-tab-utils';
 import { HistoryTabComponent } from './history-tab.component';
 
 describe('ItemDetailHistorySectionComponent', () => {
@@ -57,7 +57,9 @@ describe('ItemDetailHistorySectionComponent', () => {
     checkSync: vi.fn().mockResolvedValue(true),
   };
 
-  beforeEach(async () => {
+  beforeEach(() => {
+    vi.useFakeTimers();
+
     TestBed.configureTestingModule({
       declarations: [HistoryTabComponent],
       schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
@@ -80,9 +82,6 @@ describe('ItemDetailHistorySectionComponent', () => {
 
     fixture = TestBed.createComponent(HistoryTabComponent);
     component = fixture.componentInstance;
-
-    await fixture.whenStable();
-    vi.useFakeTimers();
   });
 
   afterEach(() => {

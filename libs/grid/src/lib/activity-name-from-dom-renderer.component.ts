@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 import { AgRendererComponent } from 'ag-grid-angular';
 import { ICellRendererParams } from 'ag-grid-community';
@@ -11,6 +11,7 @@ export interface ActivityNameFromDomRendererParams extends ICellRendererParams {
   selector: 'fluxnova-activity-grid-cell',
   template: '<p>{{ calledActivityName }}</p>',
   styleUrls: ['./activity-name-from-dom-renderer.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class ActivityNameFromDomRendererComponent implements AgRendererComponent {

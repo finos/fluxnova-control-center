@@ -1,8 +1,9 @@
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { of } from 'rxjs';
-import moment from 'moment-timezone';
 import { FLUXNOVA_DATE_FORMAT } from '@fxn/types';
+import moment from 'moment-timezone';
+import { BaseChartDirective, provideCharts, withDefaultRegisterables } from 'ng2-charts';
+import { of } from 'rxjs';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { IncidentService } from '../../services/incident.service';
 import { PaginatedDataRequest } from '../../services/types/paginated-data-request';
@@ -40,8 +41,12 @@ describe('Incident Volume Widget', () => {
 
     await TestBed.configureTestingModule({
       declarations: [IncidentVolumeComponent],
-      providers: [{ provide: IncidentService, useValue: mockIncidentService }],
-      schemas: [CUSTOM_ELEMENTS_SCHEMA],
+      imports: [BaseChartDirective],
+      providers: [
+        { provide: IncidentService, useValue: mockIncidentService },
+        provideCharts(withDefaultRegisterables()),
+      ],
+      schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
 
     fixture = TestBed.createComponent(IncidentVolumeComponent);
@@ -96,36 +101,30 @@ describe('Incident Volume Widget', () => {
     ]);
   });
 
-  it('sets ApexCharts series and labels from transformed data', () => {
-    const chartOptions = component.chartOptions;
-    expect(chartOptions.series).toEqual([1]);
-    expect(chartOptions.labels).toEqual([DEF_KEY]);
+  it('sets chart data and labels from transformed data', () => {
+    expect(component.chartData.datasets[0].data).toEqual([1]);
+    expect(component.chartData.labels).toEqual([DEF_KEY]);
     expect(component.totalItems).toBe(1);
     expect(component.legendTitle).toBe(LEGEND_TITLE);
     expect(component.subtitle).toBe(component.MAIN_SUBTITLE);
   });
 
-  it('drills down into processDefinitionId on dataPointSelection when drill data exists', () => {
-    const events = (component.chartOptions.chart as any).events;
-    expect(typeof events.dataPointSelection).toBe('function');
-
-    const config = { dataPointIndex: 0 };
+  it('drills down into processDefinitionId when a chart slice with drill data is selected', () => {
     expect(component.drilldown).toBe(false);
 
-    events.dataPointSelection({}, {}, config);
+    component.onChartClick({ active: [{ index: 0 }] });
 
     expect(component.drilldown).toBe(true);
     expect(component.legendTitle).toBe(LEGEND_DRILLDOWN_TITLE);
     expect(component.subtitle).toBe(component.DRILLDOWN_SUBTITLE);
-    expect(component.chartOptions.labels).toEqual(expect.arrayContaining([DEF_ID]));
+    expect(component.chartData.labels).toEqual(expect.arrayContaining([DEF_ID]));
   });
 
   it('opens process definition page when no drill data exists for selection', () => {
     component.setChartData([2], ['no-drill-label'], false);
     const openSpy = vi.spyOn(window, 'open').mockImplementation(() => null as any);
 
-    const events = (component.chartOptions.chart as any).events;
-    events.dataPointSelection({}, {}, { dataPointIndex: 0 });
+    component.onChartClick({ active: [{ index: 0 }] });
 
     expect(openSpy).toHaveBeenCalledWith(expect.stringMatching(/\/process-definitions\/no-drill-label$/), '_blank');
     openSpy.mockRestore();
@@ -145,18 +144,15 @@ describe('Incident Volume Widget', () => {
     // Trigger reload to use mocked incidents
     component.onTimeFrameSelected();
 
-    const events = (component.chartOptions.chart as any).events;
-    const config = { globals: { seriesNames: component.chartOptions.labels as string[] } };
-
     expect(component.totalItems).toBe(5);
 
-    events.legendClick({}, 1, config); // hide first slice
+    component.onLegendItemClick(1);
     expect(component.totalItems).toBe(3);
-    expect(component.chartOptions.series).toEqual([3, 0]);
+    expect(component.chartData.datasets[0].data).toEqual([3, 0]);
 
-    events.legendClick({}, 1, config); // show first slice again
+    component.onLegendItemClick(1);
     expect(component.totalItems).toBe(5);
-    expect(component.chartOptions.series).toEqual([3, 2]);
+    expect(component.chartData.datasets[0].data).toEqual([3, 2]);
   });
 
   it('reloads data when a new time frame is selected', () => {

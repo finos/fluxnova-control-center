@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnDestroy, Output, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnDestroy, Output, ViewChild } from '@angular/core';
 import { NgbDate, NgbInputDatepicker } from '@ng-bootstrap/ng-bootstrap';
 import moment from 'moment';
 import { Subject, Subscription } from 'rxjs';
@@ -9,6 +9,7 @@ import { parseDate } from '../date-format';
   selector: 'fluxnova-date-select',
   templateUrl: './date-select.component.html',
   styleUrls: ['./date-select.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class DateSelectComponent implements OnDestroy {

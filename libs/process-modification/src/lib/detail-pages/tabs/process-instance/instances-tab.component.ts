@@ -1,5 +1,5 @@
 import { ColDef, FilterModel, IRowNode } from 'ag-grid-community';
-import { Component, ElementRef, inject, OnDestroy, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ElementRef, inject, OnDestroy, ViewChild } from '@angular/core';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { MODAL_DEFAULTS } from '@fxn/common';
 import {
@@ -22,6 +22,7 @@ import { PaginatedDataRequest } from '../../../services/types/paginated-data-req
 @Component({
   selector: 'fluxnova-instances-tab',
   templateUrl: './instances-tab.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class InstancesTabComponent extends BaseTabComponent implements OnDestroy {

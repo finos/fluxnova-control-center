@@ -1,7 +1,7 @@
-import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
-import { Test, TestingModule } from '@nestjs/testing';
 import { HttpService } from '@nestjs/axios';
 import { ConfigService } from '@nestjs/config';
+import { Test, TestingModule } from '@nestjs/testing';
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { EngineController } from './engine.controller';
 import type { Request } from 'express';
 
@@ -14,7 +14,7 @@ const mockConfigService = {
 };
 
 const mockEngineApi = {
-  getProcessEngineNames: vi.fn().mockResolvedValue({ data: [] }),
+  getProcessEngines: vi.fn().mockResolvedValue({ data: [] }),
 };
 
 const mockRequest = {
@@ -44,7 +44,7 @@ afterEach(() => {
 describe('Engine Controller', () => {
   it('returns engine names on successful API call', async () => {
     const mockResponse = { data: [{ name: 'engine1' }, { name: 'engine2' }] };
-    vi.spyOn(mockEngineApi, 'getProcessEngineNames').mockResolvedValue(mockResponse);
+    vi.spyOn(mockEngineApi, 'getProcessEngines').mockResolvedValue(mockResponse);
 
     const result = await controller.engines(mockRequest);
 
@@ -52,18 +52,18 @@ describe('Engine Controller', () => {
   });
 
   it('throws error message on API failure', async () => {
-    vi.spyOn(mockEngineApi, 'getProcessEngineNames').mockRejectedValue(new Error('API error'));
+    vi.spyOn(mockEngineApi, 'getProcessEngines').mockRejectedValue(new Error('API error'));
 
     await expect(controller.engines(mockRequest)).rejects.toThrow('Error getting engines');
   });
 
   it('includes access parameter in API call', async () => {
     const mockResponse = { data: ['engine1'] };
-    vi.spyOn(mockEngineApi, 'getProcessEngineNames').mockResolvedValue(mockResponse);
+    vi.spyOn(mockEngineApi, 'getProcessEngines').mockResolvedValue(mockResponse);
 
     await controller.engines(mockRequest);
 
-    expect(mockEngineApi.getProcessEngineNames).toHaveBeenCalledWith(
+    expect(mockEngineApi.getProcessEngines).toHaveBeenCalledWith(
       expect.objectContaining({ url: '?access=application' }),
     );
   });

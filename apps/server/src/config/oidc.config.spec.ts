@@ -1,5 +1,3 @@
-/* eslint-disable n/no-process-env -- This runs before the config service is initialized so we have to use process.env */
-
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { oidcConfigFactory } from './oidc.config';
 

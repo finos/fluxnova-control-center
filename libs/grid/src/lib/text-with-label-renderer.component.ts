@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { AgRendererComponent } from 'ag-grid-angular';
 
 @Component({
@@ -11,6 +11,7 @@ import { AgRendererComponent } from 'ag-grid-angular';
       {{ params.value }}
     </div>
   }`,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class TextWithLabelRendererComponent implements AgRendererComponent {

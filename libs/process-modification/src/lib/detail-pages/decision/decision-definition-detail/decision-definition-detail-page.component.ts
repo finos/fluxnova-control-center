@@ -1,4 +1,4 @@
-import { Component, inject, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { forkJoin, Observable, of, take } from 'rxjs';
 import { MODAL_DEFAULTS } from '@fxn/common';
 import { map } from 'rxjs/operators';
@@ -19,6 +19,7 @@ const COUNTS_DEFAULT: { [p: string]: number } = {
   selector: 'fluxnova-decision-definition-details-page',
   templateUrl: '../../item-detail-page.component.html',
   styleUrls: ['../../item-detail-page.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class DecisionDefinitionDetailPageComponent extends ItemDetailPageComponent implements OnInit, OnDestroy {

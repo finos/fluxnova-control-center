@@ -2,6 +2,7 @@
   "compileOnSave": false,
   "files": ["typings.d.ts"],
   "compilerOptions": {
+    "ignoreDeprecations": "6.0",
     "baseUrl": ".",
     "downlevelIteration": true,
     "outDir": "./dist/out-tsc",

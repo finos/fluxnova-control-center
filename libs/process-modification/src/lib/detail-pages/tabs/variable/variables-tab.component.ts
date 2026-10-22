@@ -1,5 +1,5 @@
 import { firstValueFrom, from, Observable, of } from 'rxjs';
-import { Component, inject, OnDestroy } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, OnDestroy } from '@angular/core';
 import { cloneDeep } from 'lodash-es';
 import { catchError, map, mergeMap, takeLast } from 'rxjs/operators';
 import { MODAL_DEFAULTS } from '@fxn/common';
@@ -29,6 +29,7 @@ import { PaginatedDataRequest } from '../../../services/types/paginated-data-req
   selector: 'fluxnova-variables-tab',
   templateUrl: './variables-tab.component.html',
   styleUrls: ['./variables-tab.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class VariablesTabComponent extends BaseTabComponent implements OnDestroy {

@@ -9,8 +9,33 @@
 
 .chart-wrapper {
   position: relative;
-  width: 100%;
-  height: 100%;
+  display: grid;
+  grid-template-columns: 350px 250px;
+  gap: 30px;
+  width: 630px;
+  height: 350px;
+}
+
+.chart-plot {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 350px;
+  height: 350px;
+}
+
+.chart-canvas {
+  cursor: pointer;
+}
+
+.chart-legend {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  max-height: 350px;
+  overflow-y: auto;
+  padding-top: 4px;
 }
 
 .chart-subtitle {
@@ -21,23 +46,59 @@
 }
 
 .chart-legend-title {
-  position: absolute;
   font-size: 0.8em;
   font-weight: bold;
-  right: 12%;
+  margin-bottom: 8px;
 }
 
-apx-chart {
+.legend-item {
   display: flex;
-  justify-content: center;
   align-items: center;
+  gap: 8px;
+  width: 100%;
+  min-width: 0;
+  border: 0;
+  padding: 4px 0;
+  background: transparent;
+  color: #515151;
+  font-size: 14px;
+  text-align: left;
+  cursor: pointer;
+}
+
+.legend-item:focus-visible {
+  outline: 2px solid #024a7a;
+  outline-offset: 1px;
+}
+
+.legend-swatch {
+  flex: 0 0 12px;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+}
+
+.legend-label {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.legend-item.is-hidden .legend-label {
+  text-decoration: line-through;
 }
 
 .chart-center-label {
   position: absolute;
-  top: 50%;
-  left: 35%;
-  transform: translate(-50%, -50%);
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
+
+.chart-center-label .center-link {
+  pointer-events: auto;
 }
 
 .chart-center-label .center-count {
@@ -47,9 +108,11 @@ apx-chart {
 
 .drillup {
   position: absolute;
+  z-index: 1;
   font-size: 0.8em;
   top: -10px;
   left: 15px;
+  scroll-margin-top: 80px;
 }
 
 .drillup-button {

@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { DefaultFloatingFilterComponent } from '../default-floating-filter/default-floating-filter.component';
 
 @Component({
   selector: 'fluxnova-version-floating-filter',
   templateUrl: './version-floating-filter.component.html',
   styleUrls: ['./version-floating-filter.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class VersionFloatingFilterComponent extends DefaultFloatingFilterComponent implements OnInit {

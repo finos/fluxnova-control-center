@@ -1,4 +1,4 @@
-import { Component, OnDestroy } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnDestroy } from '@angular/core';
 import { RadioButtonItem } from '@fxn/common';
 import { FILTER_COMPARATOR_DICTIONARY } from '@fxn/types';
 import { IFilterAngularComp } from 'ag-grid-angular';
@@ -22,6 +22,7 @@ export enum FilterFormats {
   selector: 'fluxnova-multi-select-floating-filter',
   templateUrl: './multi-select-floating-filter.component.html',
   styleUrls: ['./multi-select-floating-filter.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class MultiSelectFloatingFilterComponent

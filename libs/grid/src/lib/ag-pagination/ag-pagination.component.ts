@@ -1,4 +1,14 @@
-import { Component, EventEmitter, inject, Input, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  EventEmitter,
+  inject,
+  Input,
+  OnDestroy,
+  OnInit,
+  Output,
+  ViewChild,
+} from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import { NgbPagination } from '@ng-bootstrap/ng-bootstrap';
 import { SubSink } from 'subsink';
@@ -8,6 +18,7 @@ import { defaultPage, defaultPageSize, pageSizeMax, pageSizeMin } from './paging
   selector: 'fluxnova-ag-pagination',
   templateUrl: './ag-pagination.component.html',
   styleUrls: ['./ag-pagination.component.css'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class AgPaginationComponent implements OnInit, OnDestroy {

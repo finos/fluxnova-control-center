@@ -1,4 +1,12 @@
-import { AfterViewInit, Component, inject, OnInit, ViewChild, ViewChildren } from '@angular/core';
+import {
+  AfterViewInit,
+  ChangeDetectionStrategy,
+  Component,
+  inject,
+  OnInit,
+  ViewChild,
+  ViewChildren,
+} from '@angular/core';
 import { NgbActiveModal, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
 import { keyBy, mapValues, merge } from 'lodash-es';
 import { ItemTypeAction } from '@fxn/types';
@@ -98,6 +106,7 @@ export interface ModalResult {
   selector: 'fluxnova-confirm-modal',
   templateUrl: './confirm-modal.component.html',
   styleUrls: ['./confirm-modal.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class ConfirmModalComponent implements AfterViewInit, OnInit {

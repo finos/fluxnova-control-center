@@ -1,4 +1,4 @@
-import { Component, inject, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, ViewChild } from '@angular/core';
 import { every, isUndefined } from 'lodash-es';
 import { forkJoin, take } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -13,6 +13,7 @@ import { PaginatedDataRequest } from '../../services/types/paginated-data-reques
   selector: 'fluxnova-job-list',
   templateUrl: './job-list.component.html',
   styleUrls: ['./job-list.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class JobListComponent extends BaseListComponent {

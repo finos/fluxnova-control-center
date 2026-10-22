@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { IDateAngularComp } from 'ag-grid-angular';
 import { IDateParams } from 'ag-grid-community';
 
@@ -6,6 +6,7 @@ import { IDateParams } from 'ag-grid-community';
   selector: 'fluxnova-ag-grid-date-input',
   templateUrl: './date-input.component.html',
   styleUrls: ['./date-input.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class DateInputComponent implements IDateAngularComp {

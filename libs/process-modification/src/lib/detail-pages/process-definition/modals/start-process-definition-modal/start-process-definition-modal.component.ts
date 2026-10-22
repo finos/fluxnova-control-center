@@ -1,13 +1,13 @@
-import { AfterViewInit, Component, inject, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { catchError, debounceTime, Observable, Subject, throwError } from 'rxjs';
-import { SubSink } from 'subsink';
+import { AfterViewInit, ChangeDetectionStrategy, Component, inject, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { CodeEditorComponent } from '@fxn/common';
 import { StartProcessDefinitionOptions } from '@fxn/types';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { isEmpty } from 'lodash-es';
-import { editor } from 'monaco-editor';
+import { catchError, debounceTime, Observable, Subject, throwError } from 'rxjs';
+import { SubSink } from 'subsink';
 import { ProcessDefinitionService } from '../../../../services/process-definition.service';
-import IMarker = editor.IMarker;
+import type { editor } from 'monaco-editor';
+type IMarker = editor.IMarker;
 
 export interface StartProcessDefinitionModalState {
   isSubmitting: boolean;
@@ -90,6 +90,7 @@ const START_FORM_EXAMPLE = `{
   selector: 'fluxnova-start-process-definition-modal',
   templateUrl: './start-process-definition-modal.component.html',
   styleUrls: ['./start-process-definition-modal.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class StartProcessDefinitionModalComponent implements OnInit, OnDestroy, AfterViewInit {

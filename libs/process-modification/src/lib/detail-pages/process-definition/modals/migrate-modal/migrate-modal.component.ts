@@ -1,4 +1,13 @@
-import { Component, ElementRef, inject, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  ElementRef,
+  inject,
+  Input,
+  OnDestroy,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { SubSink } from 'subsink';
 import { finalize, forkJoin, of } from 'rxjs';
@@ -28,6 +37,7 @@ interface MigrationInfo {
   selector: 'fluxnova-migrate-modal',
   templateUrl: './migrate-modal.component.html',
   styleUrls: ['./migrate-modal.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class MigrateModalComponent implements OnDestroy, OnInit {

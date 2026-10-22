@@ -115,7 +115,7 @@ export function transformFilter(
   colDef?: ColDef,
 ): { [key: string]: string | boolean | [] | { operator: string; value: string }[] } | undefined {
   if (colFilter.filter) {
-    if (colDef?.filterParams.booleanFilterKeys?.length) {
+    if (colDef?.filterParams?.booleanFilterKeys?.length) {
       // If we have a boolean filter type, look at the value
       // of the filter and see if it matches a key that's been defined.
       // If it has, then we know it's true.  EG: The user selects "open"
@@ -136,7 +136,7 @@ export function transformFilter(
         };
     }
     return {
-      [colDef?.filterParams.filterKeyByComparator?.[colFilter.type] || fieldName]: getFilterValue(
+      [colDef?.filterParams?.filterKeyByComparator?.[colFilter.type] || fieldName]: getFilterValue(
         colFilter.type,
         colFilter.filter || '',
         colFilter.filterType,
