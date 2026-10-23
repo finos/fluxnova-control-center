@@ -1,7 +1,7 @@
 {
   "name": "fluxnova-control-center",
   "version": "1.2.0",
-  "packageManager": "pnpm@11.23.0",
+  "packageManager": "pnpm@11.28.8",
   "engines": {
     "node": ">=24 <25"
   },
