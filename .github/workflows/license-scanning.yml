@@ -1,0 +1,72 @@
+name: License Scanning
+
+on:
+  schedule:
+    - cron: '0 8 * * 1'
+  workflow_dispatch:
+  workflow_call:
+  push:
+    branches:
+      - main
+      - develop
+  pull_request:
+    branches:
+      - main
+      - develop
+
+permissions:
+  contents: read
+
+jobs:
+  scan:
+    name: Scan Licenses
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 11.23.0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: 'pnpm'
+
+      - name: Install production dependencies
+        run: pnpm install --frozen-lockfile --prod --ignore-scripts
+
+      - name: Install license-checker
+        run: npm install -g license-checker-rseidelsohn@5.0.1
+
+      - name: Get package info
+        id: pkg
+        run: |
+          PKG_NAME=$(node -p "require('./package.json').name")
+          PKG_VERSION=$(node -p "require('./package.json').version")
+          echo "exclude=${PKG_NAME}@${PKG_VERSION}" >> "$GITHUB_OUTPUT"
+
+      - name: Run license scan
+        run: |
+          license-checker-rseidelsohn \
+            --production \
+            --excludePrivatePackages \
+            --onlyAllow 'Apache-2.0;Apache-1.1;MIT;ISC;BSD-2-Clause;BSD-3-Clause;0BSD;Unlicense;Python-2.0;PostgreSQL;BSL-1.0;W3C;WTFPL;Xnet;NCSA;ZPL-2.0;zlib;BlueOak-1.0.0;CC0-1.0;CC-BY-4.0' \
+            --excludePackages '${{ steps.pkg.outputs.exclude }};bpmn-js@18.12.0;dmn-js@17.6.0;dmn-js-boxed-expression@17.6.0;dmn-js-decision-table@17.6.0;dmn-js-drd@17.6.0;dmn-js-literal-expression@17.6.0;dmn-js-shared@17.6.0'
+          # Tool choice: license-checker-rseidelsohn correctly reads pnpm's node_modules layout.
+          # pnpm licenses list --prod --json had ERR_PNPM_MISSING_PACKAGE_INDEX_FILE errors.
+          #
+          # Exclusions:
+          # - Root package: excluded to avoid UNKNOWN license from missing license field
+          # - bpmn-js and dmn-js family: Approved exception. License-checker reports "Custom: LICENSE"
+          #   but these are MIT with a bpmn.io watermark clause (permissive). The watermark must be retained.
+          #   See: https://github.com/bpmn-io/bpmn-js/blob/main/LICENSE
+          #        https://github.com/bpmn-io/dmn-js/blob/main/packages/dmn-js-boxed-expression/LICENSE
+          #
+          # Allowed non-standard licenses:
+          # - BlueOak-1.0.0: OSI-approved permissive license, equivalent to MIT
+          # - CC-BY-4.0 (caniuse-lite): applies to data, not code
