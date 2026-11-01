@@ -55,7 +55,7 @@ jobs:
           license-checker-rseidelsohn \
             --production \
             --excludePrivatePackages \
-            --onlyAllow 'Apache-2.0;Apache-1.1;MIT;ISC;BSD-2-Clause;BSD-3-Clause;0BSD;Unlicense;Python-2.0;PostgreSQL;BSL-1.0;W3C;WTFPL;Xnet;NCSA;ZPL-2.0;zlib;BlueOak-1.0.0;CC0-1.0;CC-BY-4.0' \
+            --onlyAllow 'Apache-2.0;Apache-1.1;MIT;ISC;BSD-2-Clause;BSD-3-Clause;0BSD;Unlicense;Python-2.0;PostgreSQL;BSL-1.0;W3C;WTFPL;Xnet;NCSA;ZPL-2.0;zlib;BlueOak-1.0.0;CC0-1.0;CC-BY-4.0;MPL-2.0' \
             --excludePackages '${{ steps.pkg.outputs.exclude }};bpmn-js@18.12.0;dmn-js@17.6.0;dmn-js-boxed-expression@17.6.0;dmn-js-decision-table@17.6.0;dmn-js-drd@17.6.0;dmn-js-literal-expression@17.6.0;dmn-js-shared@17.6.0'
           # Tool choice: license-checker-rseidelsohn correctly reads pnpm's node_modules layout.
           # pnpm licenses list --prod --json had ERR_PNPM_MISSING_PACKAGE_INDEX_FILE errors.
@@ -70,3 +70,4 @@ jobs:
           # Allowed non-standard licenses:
           # - BlueOak-1.0.0: OSI-approved permissive license, equivalent to MIT
           # - CC-BY-4.0 (caniuse-lite): applies to data, not code
+          # - MPL-2.0: FINOS Category B, allowed for unmodified dependencies (e.g. lightningcss)
