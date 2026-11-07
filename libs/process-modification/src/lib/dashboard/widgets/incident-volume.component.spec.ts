@@ -109,6 +109,13 @@ describe('Incident Volume Widget', () => {
     expect(component.subtitle).toBe(component.MAIN_SUBTITLE);
   });
 
+  it('encodes positive UTC offset in linkHref query params without turning + into a space', () => {
+    (component as any).calculatedTimeFrame = '2026-09-16T15:22:04.487+0300';
+    const parsedUrl = new URL(component.linkHref);
+    const filtersParam = JSON.parse(parsedUrl.searchParams.get('filters') ?? '{}');
+    expect(filtersParam.createTime?.dateFrom).toBe('2026-09-16T15:22:04.487+0300');
+  });
+
   it('drills down into processDefinitionId when a chart slice with drill data is selected', () => {
     expect(component.drilldown).toBe(false);
 

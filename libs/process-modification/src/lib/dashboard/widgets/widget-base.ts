@@ -97,7 +97,18 @@ export class WidgetBase {
   }
 
   protected getQueryParams(): string {
-    return '';
+    const filters = {
+      status: { filterType: 'select', filter: 'open', type: 'equals' },
+      createTime: { dateFrom: this.calculatedTimeFrame, type: 'after' },
+      processDefinitionKey: {
+        filterType: 'commaSeparatedList',
+        filter: this.selectedDefinitionKey,
+        type: 'multi',
+      },
+    };
+    const sorting = [{ colId: 'createTime', sort: 'desc' }];
+
+    return `filters=${encodeURIComponent(JSON.stringify(filters))}&sorting=${encodeURIComponent(JSON.stringify(sorting))}&toggleFilters=`;
   }
 
   protected getSliceColors(count: number): string[] {
