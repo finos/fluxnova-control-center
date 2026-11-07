@@ -1,10 +1,11 @@
-import { Component, inject, TemplateRef } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, TemplateRef } from '@angular/core';
 import { Toast, ToastService } from '../../services/toast.service';
 
 @Component({
   selector: 'fluxnova-toasts',
   templateUrl: './toast-container.component.html',
   styleUrls: ['./toast-container.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class ToastContainerComponent {

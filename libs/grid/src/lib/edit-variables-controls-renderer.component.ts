@@ -1,4 +1,4 @@
-import { Component, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ViewEncapsulation } from '@angular/core';
 import { AgRendererComponent } from 'ag-grid-angular';
 import { ICellRendererParams } from 'ag-grid-community';
 import { ItemType } from '@fxn/types';
@@ -41,6 +41,7 @@ import { ItemType } from '@fxn/types';
   `,
   styleUrls: ['./edit-variables-controls-renderer.component.scss'],
   encapsulation: ViewEncapsulation.None,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class EditVariablesControlsRendererComponent implements AgRendererComponent {

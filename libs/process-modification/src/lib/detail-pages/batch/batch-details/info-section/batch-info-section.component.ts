@@ -1,4 +1,4 @@
-import { Component, inject, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, Input } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import type { Batch } from '@fxn/types';
 
@@ -6,6 +6,7 @@ import type { Batch } from '@fxn/types';
   selector: 'fluxnova-batch-info-section',
   templateUrl: './batch-info-section.component.html',
   styleUrls: ['./batch-info-section.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class BatchInfoSectionComponent {

@@ -1,7 +1,7 @@
-import { Component, inject, OnDestroy, OnInit } from '@angular/core';
-import pluralize from 'pluralize';
+import { ChangeDetectionStrategy, Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { WINDOW } from 'ngx-window-token';
-import { map } from 'rxjs/operators';
+import pluralize from 'pluralize';
+import { finalize, map } from 'rxjs/operators';
 import { IncidentService } from '../../services/incident.service';
 import { PaginatedDataRequest } from '../../services/types/paginated-data-request';
 import { WidgetBase } from './widget-base';
@@ -10,11 +10,27 @@ import { WidgetBase } from './widget-base';
   selector: 'fluxnova-incident-volume',
   styleUrls: ['./widget-base.scss'],
   templateUrl: './widget-base.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class IncidentVolumeComponent extends WidgetBase implements OnInit, OnDestroy {
   private incidentsService = inject(IncidentService);
   protected window = inject<Window>(WINDOW);
+
+  protected override getQueryParams() {
+    const filters = {
+      status: { filterType: 'select', filter: 'open', type: 'equals' },
+      createTime: { dateFrom: this.calculatedTimeFrame, type: 'after' },
+      processDefinitionKey: {
+        filterType: 'commaSeparatedList',
+        filter: this.selectedDefinitionKey,
+        type: 'multi',
+      },
+    };
+    const sorting = [{ colId: 'createTime', sort: 'desc' }];
+
+    return `filters=${encodeURIComponent(JSON.stringify(filters))}&sorting=${encodeURIComponent(JSON.stringify(sorting))}&toggleFilters=`;
+  }
 
   constructor() {
     super('incidents');
@@ -54,6 +70,10 @@ export class IncidentVolumeComponent extends WidgetBase implements OnInit, OnDes
               ...rest,
             })),
           ),
+          finalize(() => {
+            this.dataLoading = false;
+            this.changeDetectorRef.markForCheck();
+          }),
         )
         .subscribe(this.onDataLoaded.bind(this)),
     );

@@ -1,5 +1,5 @@
 import { ColDef, RowClassParams, RowClickedEvent } from 'ag-grid-community';
-import { Component, inject, OnDestroy } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, OnDestroy } from '@angular/core';
 import { predefinedUserTaskColDefs, predefinedUserTaskColFields } from '@fxn/types';
 import { UserTaskService } from '../../../services/user-task.service';
 import { PimTab, PimTabRowQueryParam } from '../../item-detail-tab-utils';
@@ -9,6 +9,7 @@ import { PaginatedDataRequest } from '../../../services/types/paginated-data-req
 @Component({
   selector: 'fluxnova-user-tasks-tab',
   templateUrl: './user-tasks-tab.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class UserTasksTabComponent extends BaseTabComponent implements OnDestroy {

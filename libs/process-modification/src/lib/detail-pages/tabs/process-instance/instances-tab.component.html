@@ -2,20 +2,20 @@
   [showResetGridButton]="showResetGridButton"
   (resetGridClicked)="onResetGridClick()"
 >
-  <button
-    class="btn btn-primary"
+  <span
+    class="d-inline-block migrate-button-tooltip"
     [ngbTooltip]="migrateButtonTooltip"
     [placement]="top"
-    [disabled]="migrateButtonDisabled"
-    (click)="openModal()"
     container="body"
     *fluxnovaHasPermissions="{
       action: 'MigrateProcessInstance',
       resources: [{ itemType: detailItemType, itemId: detailItemId }],
     }"
   >
-    Migrate {{ selectedRows?.length || 'All' }} Instances
-  </button>
+    <button class="btn btn-primary" [disabled]="migrateButtonDisabled" (click)="openModal()">
+      Migrate {{ selectedRows?.length || 'All' }} Instances
+    </button>
+  </span>
 </fluxnova-tab-actions-floating-container>
 <span class="tab-grid">
   <fluxnova-items-table

@@ -1,4 +1,4 @@
-import { Component, inject, Input, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, Input, OnInit, ViewChild } from '@angular/core';
 
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { isEmpty } from 'lodash-es';
@@ -9,6 +9,7 @@ import { CodeEditorComponent } from '../code-editor/code-editor.component';
   selector: 'fluxnova-code-modal',
   imports: [GeneralModule],
   templateUrl: './code-modal.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrls: ['./code-modal.component.scss'],
 })
 export class CodeModalComponent implements OnInit {

@@ -1,3 +1,6 @@
+@use 'sass:map';
+@use '../theme' as *;
+
 // These are here to restore bpmn-js defined colors in the properties panel, and that's why we're not using something from theme-colors.
 $description-text: #999;
 $properties-panel-background: #f8f9fa;
@@ -89,12 +92,12 @@ $error-message: #cc3333;
   rect,
   polygon,
   circle {
-    stroke: map-get($theme-colors, 'success') !important;
-    fill: map-get($theme-colors, 'success') !important;
+    stroke: map.get($theme-colors, 'success') !important;
+    fill: map.get($theme-colors, 'success') !important;
     fill-opacity: 0.2 !important;
   }
   path {
-    stroke: map-get($theme-colors, 'success') !important;
+    stroke: map.get($theme-colors, 'success') !important;
   }
 }
 
@@ -102,12 +105,12 @@ $error-message: #cc3333;
   rect,
   polygon,
   circle {
-    stroke: map-get($theme-colors, 'danger') !important;
-    fill: map-get($theme-colors, 'danger') !important;
+    stroke: map.get($theme-colors, 'danger') !important;
+    fill: map.get($theme-colors, 'danger') !important;
     fill-opacity: 0.2 !important;
   }
   path {
-    stroke: map-get($theme-colors, 'danger') !important;
+    stroke: map.get($theme-colors, 'danger') !important;
   }
 }
 /*****/
@@ -149,39 +152,39 @@ $error-message: #cc3333;
     top: 70px;
 
     .entry {
-      background-color: map-get($theme-colors, 'white');
-      color: map-get($theme-colors, 'primary');
+      background-color: map.get($theme-colors, 'white');
+      color: map.get($theme-colors, 'primary');
       padding: 10px;
       width: 40px;
-      border: 1px solid map-get($theme-colors, 'primary');
+      border: 1px solid map.get($theme-colors, 'primary');
 
       &:hover {
-        background-color: map-get($theme-colors, 'light');
+        background-color: map.get($theme-colors, 'light');
       }
 
       &.active {
-        background-color: map-get($theme-colors, 'primary');
-        color: map-get($theme-colors, 'white');
+        background-color: map.get($theme-colors, 'primary');
+        color: map.get($theme-colors, 'white');
       }
 
       &.disabled {
         opacity: 0.6;
-        background-color: map-get($theme-colors, 'neutral-700');
-        border: 1px solid map-get($theme-colors, 'neutral-700');
-        color: map-get($theme-colors, 'neutral-500');
+        background-color: map.get($theme-colors, 'neutral-700');
+        border: 1px solid map.get($theme-colors, 'neutral-700');
+        color: map.get($theme-colors, 'neutral-500');
       }
     }
   }
 
   .set-animation-speed {
-    background-color: map-get($theme-colors, 'white');
-    color: map-get($theme-colors, 'primary');
-    border: 1px solid map-get($theme-colors, 'primary');
+    background-color: map.get($theme-colors, 'white');
+    color: map.get($theme-colors, 'primary');
+    border: 1px solid map.get($theme-colors, 'primary');
     cursor: default;
 
     &.active {
-      background-color: map-get($theme-colors, 'primary');
-      color: map-get($theme-colors, 'white');
+      background-color: map.get($theme-colors, 'primary');
+      color: map.get($theme-colors, 'white');
     }
   }
 
@@ -204,12 +207,12 @@ $error-message: #cc3333;
     flex-direction: row;
     border-radius: 2px;
     padding: 6px 12px;
-    background-color: map-get($theme-colors, 'white');
-    color: map-get($theme-colors, 'primary');
-    border: 1px solid map-get($theme-colors, 'primary');
+    background-color: map.get($theme-colors, 'white');
+    color: map.get($theme-colors, 'primary');
+    border: 1px solid map.get($theme-colors, 'primary');
 
     &:hover {
-      background-color: map-get($theme-colors, 'light');
+      background-color: map.get($theme-colors, 'light');
     }
   }
 
@@ -233,12 +236,12 @@ $error-message: #cc3333;
   flex-direction: row;
   border-radius: 2px;
   padding: 6px 12px;
-  background-color: map-get($theme-colors, 'white');
-  color: map-get($theme-colors, 'primary');
-  border: 1px solid map-get($theme-colors, 'primary');
+  background-color: map.get($theme-colors, 'white');
+  color: map.get($theme-colors, 'primary');
+  border: 1px solid map.get($theme-colors, 'primary');
 
   &:hover {
-    background-color: map-get($theme-colors, 'light');
+    background-color: map.get($theme-colors, 'light');
   }
 }
 

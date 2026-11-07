@@ -1,4 +1,6 @@
-@import './colors';
+@use './theme' as *;
+@use 'sass:map';
+@use 'bootstrap/scss/bootstrap';
 /*
   These classes are meant to provide alternatives to boostrap classes
   where the bootstrap classes adds a !important tag or add more options
@@ -23,11 +25,11 @@
 /* ----------------------------------------------------------------------- */
 
 .bg {
-  background-color: map-get($theme-colors, 'white') !important;
+  background-color: map.get($theme-colors, 'white') !important;
 }
 
 .themed-bg {
-  background-color: map-get($theme-colors, 'white') !important;
+  background-color: map.get($theme-colors, 'white') !important;
 }
 
 /* ----------------------------------------------------------------------- */
@@ -51,9 +53,7 @@ select {
     appearance: none;
     background-position: right 50%;
     background-repeat: no-repeat;
-    background-image: url(escape-svg(
-      'data:image/svg+xml;utf8,<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="12" version="1.0"><path stroke="#{map-get($theme-colors, dark)}" fill="#{map-get($theme-colors, dark)}" d="M4 8L0 4h8z"/></svg>'
-    ));
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='12'%3E%3Cpath stroke='black' fill='black' d='M4%208L0%204h8z'/%3E%3C/svg%3E");
   }
 }
 
@@ -71,23 +71,23 @@ select {
 /* ----------------------------------------------------------------------- */
 
 .stroke-primary {
-  stroke: map-get($theme-colors, 'primary') !important;
+  stroke: map.get($theme-colors, 'primary') !important;
 }
 
 .stroke-success {
-  stroke: map-get($theme-colors, 'success') !important;
+  stroke: map.get($theme-colors, 'success') !important;
 }
 
 .stroke-warning {
-  stroke: map-get($theme-colors, 'warning') !important;
+  stroke: map.get($theme-colors, 'warning') !important;
 }
 
 .stroke-danger {
-  stroke: map-get($theme-colors, 'danger') !important;
+  stroke: map.get($theme-colors, 'danger') !important;
 }
 
 .stroke-info {
-  stroke: map-get($theme-colors, 'info') !important;
+  stroke: map.get($theme-colors, 'info') !important;
 }
 
 /* ----------------------------------------------------------------------- */

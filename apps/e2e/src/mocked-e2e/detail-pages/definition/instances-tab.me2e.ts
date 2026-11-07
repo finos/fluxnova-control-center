@@ -85,11 +85,11 @@ test.describe('The instances tab on the process definition detail page', () => {
     await expect(migrateInstancesButton).toBeVisible();
     await expect(migrateInstancesButton).toBeDisabled();
 
-    await migrateInstancesButton.hover({ force: true });
+    await page.locator('.migrate-button-tooltip').hover();
 
     const tooltip = page.locator('ngb-tooltip-window').first();
 
-    expect(await tooltip.textContent()).toBe('Migration requires multiple versions');
+    await expect(tooltip).toHaveText('Migration requires multiple versions');
   });
 
   test.describe('should show the total number of instances using this definition within the tab name', () => {

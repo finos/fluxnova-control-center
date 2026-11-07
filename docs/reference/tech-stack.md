@@ -69,25 +69,29 @@ fluxnova-control-center/
 
 ### Data Visualisation & Process Modelling
 
-| Library                                                                                             | Version     | Purpose                                                             |
-| --------------------------------------------------------------------------------------------------- | ----------- | ------------------------------------------------------------------- |
-| [AG Grid](https://www.ag-grid.com)                                                                  | ~34.3       | High-performance data grid (`ag-grid-angular`, `ag-grid-community`) |
-| [bpmn-js](https://bpmn.io/toolkit/bpmn-js/)                                                         | ^18.12      | BPMN 2.0 process diagram viewer/editor                              |
-| [dmn-js](https://bpmn.io/toolkit/dmn-js/)                                                           | ^17.6       | DMN decision table viewer/editor                                    |
-| [diagram-js](https://github.com/bpmn-io/diagram-js)                                                 | ^15.9       | Underlying diagramming toolkit                                      |
-| [ApexCharts](https://apexcharts.com) / [ng-apexcharts](https://github.com/apexcharts/ng-apexcharts) | ^5.2 / ^2.0 | Charts and graphs                                                   |
-| [Monaco Editor](https://microsoft.github.io/monaco-editor/)                                         | ^0.55       | In-browser code editor                                              |
-| [visual-heatmap](https://github.com/nswamy14/visual-heatmap)                                        | ^2.2        | Heatmap visualisations                                              |
+| Library                                                                                          | Version     | Purpose                                                             |
+| ------------------------------------------------------------------------------------------------ | ----------- | ------------------------------------------------------------------- |
+| [AG Grid](https://www.ag-grid.com)                                                               | ~34.3       | High-performance data grid (`ag-grid-angular`, `ag-grid-community`) |
+| [bpmn-js](https://bpmn.io/toolkit/bpmn-js/)                                                      | ^18.12      | BPMN 2.0 process diagram viewer/editor                              |
+| [dmn-js](https://bpmn.io/toolkit/dmn-js/)                                                        | ^17.6       | DMN decision table viewer/editor                                    |
+| [diagram-js](https://github.com/bpmn-io/diagram-js)                                              | ^15.9       | Underlying diagramming toolkit                                      |
+| [Chart.js](https://www.chartjs.org) / [ng2-charts](https://github.com/valor-software/ng2-charts) | ^4.5 / ^8.0 | Charts and graphs                                                   |
+| [Monaco Editor](https://microsoft.github.io/monaco-editor/)                                      | ^0.55       | In-browser code editor                                              |
+| [visual-heatmap](https://github.com/nswamy14/visual-heatmap)                                     | ^2.2        | Heatmap visualisations                                              |
 
 ### Build
 
-| Tool                                                                                  | Purpose                                                    |
-| ------------------------------------------------------------------------------------- | ---------------------------------------------------------- |
-| [Angular CLI](https://angular.dev/tools/cli) / `@angular-devkit/build-angular`        | Primary build pipeline                                     |
-| [Webpack 5](https://webpack.js.org)                                                   | Bundler (with custom config via `extra-webpack.config.ts`) |
-| [Rspack](https://rspack.dev)                                                          | High-performance Rust-based bundler (`@rspack/core`)       |
-| [gzipper](https://github.com/gios/gzipper)                                            | Post-build Brotli + Gzip compression of static assets      |
-| [webpack-bundle-analyzer](https://github.com/webpack-contrib/webpack-bundle-analyzer) | Bundle size analysis                                       |
+| Tool                                                                        | Purpose                                               |
+| --------------------------------------------------------------------------- | ----------------------------------------------------- |
+| [Angular CLI](https://angular.dev/tools/cli) / `@angular/build:application` | Production build pipeline using esbuild               |
+| [Vite](https://vite.dev)                                                    | Development server via `@angular/build:dev-server`    |
+| [gzipper](https://github.com/gios/gzipper)                                  | Post-build Brotli + Gzip compression of static assets |
+| [esbuild Analyze](https://esbuild.github.io/analyze/)                       | Frontend bundle analysis from esbuild statistics      |
+
+Run `pnpm frontend-bundle-report` to generate `dist/apps/frontend/browser-stats.json`,
+then open that file in esbuild Analyze. The command retains the production bundle
+budgets; a budget failure prevents the statistics file from being emitted.
+The server still uses webpack and its separate `pnpm server-bundle-report` command.
 
 ---
 

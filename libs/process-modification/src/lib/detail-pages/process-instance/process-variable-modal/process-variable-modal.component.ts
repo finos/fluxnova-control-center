@@ -1,4 +1,13 @@
-import { AfterViewInit, Component, ElementRef, inject, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import {
+  AfterViewInit,
+  ChangeDetectionStrategy,
+  Component,
+  ElementRef,
+  inject,
+  OnDestroy,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { NgbActiveModal, NgbTooltip } from '@ng-bootstrap/ng-bootstrap';
 import { convertDateToFluxnovaString, DateFilterTypes } from '@fxn/common';
 import { Variable } from '@fxn/types';
@@ -33,6 +42,7 @@ export interface VariableModalResult {
   selector: 'fluxnova-process-variable-modal',
   templateUrl: './process-variable-modal.component.html',
   styleUrls: ['./process-variable-modal.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class ProcessVariableModalComponent implements OnInit, AfterViewInit, OnDestroy {

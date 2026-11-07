@@ -1,10 +1,11 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 import { ToggleFilter } from '@fxn/types/src';
 
 @Component({
   selector: 'fluxnova-toggle-filters',
   templateUrl: './toggle-filters.component.html',
   styleUrls: [],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class ToggleFiltersComponent {

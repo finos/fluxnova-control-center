@@ -10,9 +10,10 @@ import { FLUXNOVA_PORT, FluxnovaError, isRunningLocally } from './common';
 
 const logger = new Logger('StartServer');
 
-export interface SslKeyAndCert {
+export interface SslConfiguration {
   cert?: string;
   key?: string;
+  passphrase?: string;
 }
 
 export async function startServer(app: Express) {
@@ -33,36 +34,63 @@ export async function startServer(app: Express) {
   return server;
 }
 
-async function getSslKeyAndCert(): Promise<SslKeyAndCert | undefined> {
+async function getSslKeyAndCert(): Promise<SslConfiguration | undefined> {
+  const keyFile = process.env.FXN_SSL_KEY_PATH ?? '/certs/server.key';
+  const certFile = process.env.FXN_SSL_CERT_PATH ?? '/certs/server.crt';
+
   let key, cert;
-
   try {
-    const keyFile = `${__dirname}/cert/fluxnova.finos.local.key`;
-    const certFile = `${__dirname}/cert/fluxnova.finos.local.crt`;
-    key = await readFile(keyFile, 'utf8');
-    cert = await readFile(certFile, 'utf8');
+    [key, cert] = await Promise.all([readFile(keyFile, 'utf8'), readFile(certFile, 'utf8')]);
   } catch {
-    logger.log('SSL cert/key not found in filesystem');
-  }
-
-  if (!key || !cert) {
-    logger.log('SSL cert/key not available, using http');
-
     if (!isRunningLocally()) {
-      throw new Error('cannot start without ssl');
+      throw new Error(`SSL cert/key not found or unreadable at configured paths (key: ${keyFile}, cert: ${certFile})`);
     }
+
+    logger.log('SSL cert/key not available, using http');
 
     return undefined;
   }
 
+  const passphrase = await resolvePassphrase();
   return {
     key,
     cert,
+    ...(passphrase ? { passphrase } : {}),
   };
 }
 
-async function startHttpsServer(app: Express, sslSecret: SslKeyAndCert, port: string | number): Promise<https.Server> {
-  return startAsync(https.createServer(sslSecret, app), port);
+async function resolvePassphrase(): Promise<string | undefined> {
+  if (process.env.FXN_SSL_KEY_PASSPHRASE) {
+    return process.env.FXN_SSL_KEY_PASSPHRASE;
+  }
+
+  const passphraseFile = process.env.FXN_SSL_KEY_PASSPHRASE_FILE ?? '/certs/SSL_KEYSTORE_PASSWORD';
+  try {
+    return (await readFile(passphraseFile, 'utf8')).trim();
+  } catch {
+    // No passphrase file present — assume unencrypted key
+    return undefined;
+  }
+}
+
+async function startHttpsServer(
+  app: Express,
+  sslSecret: SslConfiguration,
+  port: string | number,
+): Promise<https.Server> {
+  let server: https.Server;
+  try {
+    server = https.createServer(sslSecret, app);
+  } catch (error) {
+    const isPassphraseError = sslSecret.passphrase !== undefined;
+    if (isPassphraseError) {
+      logger.error(`Failed to initialize TLS — passphrase may be incorrect: ${(error as Error).message}`);
+    } else {
+      logger.error(`Failed to initialize TLS server: ${(error as Error).message}`);
+    }
+    throw new FluxnovaError('failed to create https server', { cause: error });
+  }
+  return startAsync(server, port);
 }
 
 async function startHttpServer(app: Express, port: string | number): Promise<http.Server> {

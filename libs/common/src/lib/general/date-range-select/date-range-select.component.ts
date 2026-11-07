@@ -1,4 +1,14 @@
-import { Component, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  ElementRef,
+  EventEmitter,
+  Input,
+  OnDestroy,
+  OnInit,
+  Output,
+  ViewChild,
+} from '@angular/core';
 import { NgbDate, NgbInputDatepicker } from '@ng-bootstrap/ng-bootstrap';
 import moment from 'moment';
 import { Subject } from 'rxjs';
@@ -12,6 +22,7 @@ export type DateFilterTypes = 'inRange' | 'equals' | 'before' | 'after';
   selector: 'fluxnova-date-range-select',
   templateUrl: './date-range-select.component.html',
   styleUrls: ['./date-range-select.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class DateRangeSelectComponent implements OnDestroy, OnInit {

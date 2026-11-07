@@ -146,7 +146,7 @@ async function stubApi(page: Page, api: string, filter: string, response: any = 
       }
     }
 
-    await route.continue();
+    await route.fallback();
   });
 
   return result;

@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { AfterViewInit, Component, inject, OnInit } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 import { NavigationEnd, Router, RoutesRecognized } from '@angular/router';
 import { fromEvent, Observable } from 'rxjs';
@@ -11,6 +11,7 @@ import { FluxnovaRouteData } from '../fluxnova-route-data';
   selector: 'fluxnova-root-layout',
   templateUrl: './root-layout.component.html',
   styleUrls: ['./root-layout.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class RootLayoutComponent implements AfterViewInit, OnInit {

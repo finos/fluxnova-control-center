@@ -4,8 +4,8 @@ import NavigatedViewer from 'bpmn-js/lib/NavigatedViewer';
 import DmnJSNavigatedViewer from 'dmn-js/lib/NavigatedViewer';
 import { beforeEach, describe, expect, it, Mocked, vi } from 'vitest';
 import { ColorRenderer } from '../extensions/color-renderer';
-import { ViewerService } from './viewer.service';
 import { DiagramRendererService } from './diagram-renderer.service';
+import { ViewerService } from './viewer.service';
 
 describe('DiagramRendererService', () => {
   let service: DiagramRendererService;
@@ -128,5 +128,16 @@ describe('DiagramRendererService', () => {
     await service.openDiagramView(renderer, 'test-viewId');
 
     expect(mockDmnJSNavigatedViewer.open).toHaveBeenCalled();
+  });
+
+  it('should do nothing when no renderer is supplied', async () => {
+    await expect(service.renderDiagram(null)).resolves.toBeUndefined();
+    await expect(service.openDiagramView(null, 'test-viewId')).resolves.toBeUndefined();
+  });
+
+  it('should skip opening a view when the renderer cannot open views', async () => {
+    const renderer = { render: vi.fn(), reposition: vi.fn() } as any;
+
+    await expect(service.openDiagramView(renderer, 'test-viewId')).resolves.toBeUndefined();
   });
 });

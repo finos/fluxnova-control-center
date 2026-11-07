@@ -1,9 +1,10 @@
 import pluralize from 'pluralize';
-import { Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 
 @Component({
   selector: 'fluxnova-value-with-units',
   template: `{{ getFormattedValue() }}`,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class ValueWithUnitsComponent {

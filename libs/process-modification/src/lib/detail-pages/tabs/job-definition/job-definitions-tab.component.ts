@@ -1,4 +1,4 @@
-import { Component, EventEmitter, inject, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, inject, Output } from '@angular/core';
 import {
   detailPageJobDefinitionTabColFields,
   ItemTypeActions,
@@ -18,6 +18,7 @@ import { PaginatedDataRequest } from '../../../services/types/paginated-data-req
 @Component({
   selector: 'fluxnova-job-definitions-tab',
   templateUrl: './job-definitions-tab.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class JobDefinitionsTabComponent extends BaseTabComponent {

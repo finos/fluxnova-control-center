@@ -163,10 +163,12 @@ describe('VariableController', () => {
       {
         id: variable.processInstanceId,
         patchVariablesDto: {
-          [variable.name]: {
-            value: variable.value,
-            type: variable.type,
-            valueInfo: variable.valueInfo,
+          modifications: {
+            [variable.name]: {
+              value: variable.value,
+              type: variable.type,
+              valueInfo: variable.valueInfo,
+            },
           },
         },
       },
@@ -191,10 +193,12 @@ describe('VariableController', () => {
         {
           id: variable.processInstanceId,
           patchVariablesDto: {
-            [name]: {
-              value: variable.value,
-              type: variable.type,
-              valueInfo: variable.valueInfo,
+            modifications: {
+              [name]: {
+                value: variable.value,
+                type: variable.type,
+                valueInfo: variable.valueInfo,
+              },
             },
           },
         },
@@ -218,10 +222,12 @@ describe('VariableController', () => {
       {
         id: variable.taskId,
         patchVariablesDto: {
-          [variable.name]: {
-            value: variable.value,
-            type: variable.type,
-            valueInfo: variable.valueInfo,
+          modifications: {
+            [variable.name]: {
+              value: variable.value,
+              type: variable.type,
+              valueInfo: variable.valueInfo,
+            },
           },
         },
       },
@@ -244,10 +250,12 @@ describe('VariableController', () => {
       {
         id: variable.executionId,
         patchVariablesDto: {
-          [variable.name]: {
-            value: variable.value,
-            type: variable.type,
-            valueInfo: variable.valueInfo,
+          modifications: {
+            [variable.name]: {
+              value: variable.value,
+              type: variable.type,
+              valueInfo: variable.valueInfo,
+            },
           },
         },
       },
@@ -315,10 +323,12 @@ describe('VariableController', () => {
       {
         id: variable.processInstanceId,
         patchVariablesDto: {
-          [variable.name]: {
-            value: variable.value,
-            type: variable.type,
-            valueInfo: variable.valueInfo,
+          modifications: {
+            [variable.name]: {
+              value: variable.value,
+              type: variable.type,
+              valueInfo: variable.valueInfo,
+            },
           },
         },
       },

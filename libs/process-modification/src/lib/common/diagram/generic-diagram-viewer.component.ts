@@ -1,4 +1,14 @@
-import { Component, ElementRef, EventEmitter, inject, Input, OnDestroy, Output, ViewChild } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  ElementRef,
+  EventEmitter,
+  inject,
+  Input,
+  OnDestroy,
+  Output,
+  ViewChild,
+} from '@angular/core';
 import { forkJoin, Observable, Subscription } from 'rxjs';
 import { DecisionDefinitionDiagram, DIAGRAM_TYPE, ProcessDefinitionDiagram } from '@fxn/types';
 
@@ -21,6 +31,7 @@ import { DiagramRenderer } from './diagram-renderer';
   templateUrl: `./generic-diagram-viewer.component.html`,
   styleUrls: ['./generic-diagram-viewer.component.scss'],
   imports: [],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: true,
 })
 export class GenericDiagramSectionViewComponent implements OnDestroy {

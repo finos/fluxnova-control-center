@@ -1,3 +1,8 @@
+@use 'sass:map';
+@use '../theme' as *;
+@use 'bootstrap/scss/functions' as *;
+@use 'bootstrap/scss/bootstrap' as bootstrap;
+
 //set the font family to Arial after bootstrap is loaded
 html,
 body {
@@ -72,12 +77,12 @@ h5.weight-normal {
 }
 
 .btn-primary {
-  border: 1px solid map-get($theme-colors, 'primary');
+  border: 1px solid map.get($theme-colors, 'primary');
   font-weight: bold;
 
   &:not(:disabled):not(.disabled) {
     &:focus {
-      background-color: map-get($theme-colors, 'primary');
+      background-color: map.get($theme-colors, 'primary');
     }
 
     &:hover,
@@ -94,9 +99,9 @@ h5.weight-normal {
   }
 
   &:disabled {
-    background-color: map-get($theme-colors, 'neutral-700');
-    border: 1px solid map-get($theme-colors, 'neutral-700');
-    color: map-get($theme-colors, 'neutral-500');
+    background-color: map.get($theme-colors, 'neutral-700');
+    border: 1px solid map.get($theme-colors, 'neutral-700');
+    color: map.get($theme-colors, 'neutral-500');
   }
 }
 
@@ -105,17 +110,17 @@ h5.weight-normal {
   cursor: default;
 
   &.btn:active {
-    background-color: map-get($theme-colors, 'neutral-700');
-    color: map-get($theme-colors, 'neutral-500');
+    background-color: map.get($theme-colors, 'neutral-700');
+    color: map.get($theme-colors, 'neutral-500');
   }
 }
 
 .btn-outline-white:hover {
-  color: map-get($theme-colors, 'primary');
+  color: map.get($theme-colors, 'primary');
 }
 
 .form-control {
-  border: 1px solid map-get($theme-colors, 'neutral-800');
+  border: 1px solid map.get($theme-colors, 'neutral-800');
   color: $color-text-standard;
   height: 35px;
 
@@ -124,7 +129,7 @@ h5.weight-normal {
   }
 
   &:focus {
-    border: 2px solid map-get($theme-colors, 'neutral-800');
+    border: 2px solid map.get($theme-colors, 'neutral-800');
     // account for the 1 extra px being applied to the border to prevent jitter on focus
     padding-left: 11px;
     padding-right: 11px;
@@ -132,7 +137,7 @@ h5.weight-normal {
     box-shadow: none;
 
     .is-invalid {
-      border: 2px solid map-get($theme-colors, 'danger');
+      border: 2px solid map.get($theme-colors, 'danger');
     }
   }
 
@@ -142,14 +147,14 @@ h5.weight-normal {
   }
 
   &.is-invalid {
-    border: 1px solid map-get($theme-colors, 'danger');
+    border: 1px solid map.get($theme-colors, 'danger');
   }
 }
 
 .form-switch {
   .form-check-input:checked {
-    background-color: map-get($theme-colors, 'primary');
-    border-color: map-get($theme-colors, 'primary');
+    background-color: map.get($theme-colors, 'primary');
+    border-color: map.get($theme-colors, 'primary');
   }
 
   .form-check-input:hover {
@@ -158,14 +163,14 @@ h5.weight-normal {
 }
 
 .disabled-form-field {
-  background-color: map-get($theme-colors, 'neutral-375') !important;
-  color: map-get($theme-colors, 'neutral-750');
-  border: 1px solid map-get($theme-colors, 'neutral-750');
+  background-color: map.get($theme-colors, 'neutral-375') !important;
+  color: map.get($theme-colors, 'neutral-750');
+  border: 1px solid map.get($theme-colors, 'neutral-750');
   cursor: auto;
 }
 
 .disabled-icon {
-  color: map-get($theme-colors, 'neutral-750') !important;
+  color: map.get($theme-colors, 'neutral-750') !important;
   cursor: auto;
 }
 
@@ -177,7 +182,7 @@ input[type='radio'] {
 
   &:focus {
     outline-offset: 0;
-    outline: map-get($theme-colors, 'primary') auto 1px;
+    outline: map.get($theme-colors, 'primary') auto 1px;
   }
 }
 
@@ -198,13 +203,13 @@ input[type='radio']:checked:before {
 }
 
 .btn.btn-secondary {
-  color: map-get($theme-colors, 'primary');
-  background-color: map-get($theme-colors, 'white');
-  border: 1px solid map-get($theme-colors, 'primary');
+  color: map.get($theme-colors, 'primary');
+  background-color: map.get($theme-colors, 'white');
+  border: 1px solid map.get($theme-colors, 'primary');
 
   &:not(:disabled):not(.disabled) {
     &:hover {
-      background-color: map-get($theme-colors, 'hover');
+      background-color: map.get($theme-colors, 'hover');
     }
 
     &:focus,
@@ -212,31 +217,31 @@ input[type='radio']:checked:before {
       border-width: 2px;
       padding: 5px 11px;
       box-shadow: none;
-      background-color: map-get($theme-colors, 'white');
+      background-color: map.get($theme-colors, 'white');
     }
 
     &:active,
     &:active:focus {
-      color: map-get($theme-colors, 'primary');
-      background-color: map-get($theme-colors, 'hover');
+      color: map.get($theme-colors, 'primary');
+      background-color: map.get($theme-colors, 'hover');
     }
 
     &.toggled:not(:hover) {
-      background-color: map-get($theme-colors, 'active');
+      background-color: map.get($theme-colors, 'active');
     }
   }
 
   &:disabled {
-    background-color: map-get($theme-colors, 'white');
-    border: 1px solid map-get($theme-colors, 'neutral-700');
-    color: map-get($theme-colors, 'neutral-500');
+    background-color: map.get($theme-colors, 'white');
+    border: 1px solid map.get($theme-colors, 'neutral-700');
+    color: map.get($theme-colors, 'neutral-500');
   }
 }
 
 .tertiary-button {
   border: none;
   background: none;
-  color: map-get($theme-colors, 'primary');
+  color: map.get($theme-colors, 'primary');
 
   &:not(:disabled):not(.disabled) {
     .btn-label::after {
@@ -250,44 +255,44 @@ input[type='radio']:checked:before {
     }
 
     &:hover {
-      color: map-get($theme-colors, 'primary');
+      color: map.get($theme-colors, 'primary');
       font-weight: 700;
     }
 
     &:focus,
     &:hover:focus {
-      box-shadow: 0 0 0 1px map-get($theme-colors, 'primary');
-      background-color: map-get($theme-colors, 'white');
+      box-shadow: 0 0 0 1px map.get($theme-colors, 'primary');
+      background-color: map.get($theme-colors, 'white');
       font-weight: normal;
     }
 
     &:active,
     &:active:focus {
-      box-shadow: 0 0 0 1px map-get($theme-colors, 'primary');
-      background-color: map-get($theme-colors, 'light');
+      box-shadow: 0 0 0 1px map.get($theme-colors, 'primary');
+      background-color: map.get($theme-colors, 'light');
       font-weight: normal;
     }
   }
 
   &:disabled {
-    color: map-get($theme-colors, 'neutral-700');
+    color: map.get($theme-colors, 'neutral-700');
   }
 }
 
 .show > .btn.btn-outline-neutral-800,
 .btn.btn-outline-neutral-800 {
-  color: map-get($theme-colors, 'dark');
-  border-color: map-get($theme-colors, 'neutral-800');
-  background-color: map-get($theme-colors, 'white');
+  color: map.get($theme-colors, 'dark');
+  border-color: map.get($theme-colors, 'neutral-800');
+  background-color: map.get($theme-colors, 'white');
 
   &:not(:disabled):not(.disabled) {
     &:hover:focus,
     &:active:focus,
     &:active,
     &:focus {
-      color: map-get($theme-colors, 'dark');
-      border-color: map-get($theme-colors, 'dark');
-      background-color: map-get($theme-colors, 'light');
+      color: map.get($theme-colors, 'dark');
+      border-color: map.get($theme-colors, 'dark');
+      background-color: map.get($theme-colors, 'light');
     }
 
     &:focus,
@@ -296,19 +301,19 @@ input[type='radio']:checked:before {
       border-width: 2px;
       padding: 5px 11px;
       box-shadow: none;
-      background-color: map-get($theme-colors, 'light');
-      color: map-get($theme-colors, 'dark');
+      background-color: map.get($theme-colors, 'light');
+      color: map.get($theme-colors, 'dark');
     }
 
     &.error {
-      border-color: map-get($theme-colors, 'danger');
+      border-color: map.get($theme-colors, 'danger');
     }
   }
 
   &:disabled {
-    background-color: map-get($theme-colors, 'light');
-    border: 1px solid map-get($theme-colors, 'neutral-700');
-    color: map-get($theme-colors, 'neutral-700');
+    background-color: map.get($theme-colors, 'light');
+    border: 1px solid map.get($theme-colors, 'neutral-700');
+    color: map.get($theme-colors, 'neutral-700');
   }
 
   &.dropdown::after {
@@ -332,7 +337,7 @@ input[type='radio']:checked:before {
       content: '\f103';
       transform: rotate(90deg);
       margin-left: 0;
-      @include border-start-radius($border-radius);
+      @include bootstrap.border-start-radius($border-radius);
     }
   }
 
@@ -347,7 +352,7 @@ input[type='radio']:checked:before {
       content: '\f103';
       transform: rotate(270deg);
       margin-left: 0;
-      @include border-end-radius($border-radius);
+      @include bootstrap.border-end-radius($border-radius);
     }
   }
 }

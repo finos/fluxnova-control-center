@@ -1,4 +1,5 @@
 // Common Colors between Themes
+@use 'sass:map';
 
 // I have attempted to map the neutral colors given in the style guide to a bootstrap grey-#
 // For no equivalent neutral color, I am having that grey default to black
@@ -19,7 +20,7 @@ $color-white: #ffffff;
 
 $grays: () !default;
 // stylelint-disable-next-line scss/dollar-variable-default
-$grays: map-merge(
+$grays: map.merge(
   (
     '100': $color-neutral-100,
     '200': $color-neutral-300,

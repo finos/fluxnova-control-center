@@ -1,19 +1,19 @@
 import { Page } from '@playwright/test';
 import historyMock from '../fixtures/history/historyMock.json';
-import jobsMock from '../fixtures/jobs/jobs-list.json';
-import jobDefinitionsMock from '../fixtures/jobs/job-definitions-list.json';
 import incidentsMock from '../fixtures/incidents/default.json';
-import variablesMock from '../fixtures/variables/default.json';
-import decisionInstancesMock from '../fixtures/process-instances/mock-decision-instances.json';
-import mockMigrationTestActivityInstance from '../fixtures/process-instances/migration-test-activity-instance.json';
-import mockMigrationTestStartEvent from '../fixtures/process-definitions/migration-test-start-event.json';
+import jobDefinitionsMock from '../fixtures/jobs/job-definitions-list.json';
+import jobsMock from '../fixtures/jobs/jobs-list.json';
 import mockMigrationTestDiagram from '../fixtures/process-definitions/migration-test-diagram.json';
-import mockMigrationTestVariablesUpdate from '../fixtures/variables/migration-test-variables-update.json';
-import mockMigrationTestVariablesDelete from '../fixtures/variables/migration-test-variables-delete.json';
+import mockMigrationTestStartEvent from '../fixtures/process-definitions/migration-test-start-event.json';
 import processInstancesDefault from '../fixtures/process-instances/default.json';
+import mockMigrationTestActivityInstance from '../fixtures/process-instances/migration-test-activity-instance.json';
+import decisionInstancesMock from '../fixtures/process-instances/mock-decision-instances.json';
+import variablesMock from '../fixtures/variables/default.json';
+import mockMigrationTestVariablesDelete from '../fixtures/variables/migration-test-variables-delete.json';
+import mockMigrationTestVariablesUpdate from '../fixtures/variables/migration-test-variables-update.json';
 import OverrideFulfill from '../shared/overrideFulfill';
-import { DetailsPage } from './details-page.po';
 import { BasePage, FLUXNOVA_PAGES } from './base-page.po';
+import { DetailsPage } from './details-page.po';
 
 export class ProcessInstancePage extends DetailsPage {
   private _jobsMockedUsed: any;
@@ -144,7 +144,7 @@ export class ProcessInstancePage extends DetailsPage {
 
         await route.fulfill(fulfillObject);
       } else {
-        await route.continue();
+        await route.fallback();
       }
     });
   }
@@ -198,7 +198,7 @@ export class ProcessInstancePage extends DetailsPage {
           json: jobDefinitionsMock,
         });
       } else {
-        await route.continue();
+        await route.fallback();
       }
     });
   }
@@ -212,7 +212,7 @@ export class ProcessInstancePage extends DetailsPage {
       if (method === 'POST' && overrideFulfill) {
         await route.fulfill(overrideFulfill);
       } else {
-        await route.continue();
+        await route.fallback();
       }
     });
   }
@@ -229,7 +229,7 @@ export class ProcessInstancePage extends DetailsPage {
       } else if (method === 'POST' && requestBody?.filter?.processInstanceId === this.processInstanceId) {
         await route.fulfill(mockMigrationTestStartEvent);
       } else {
-        await route.continue();
+        await route.fallback();
       }
     });
   }
@@ -270,12 +270,16 @@ export class ProcessInstancePage extends DetailsPage {
           json: variablesMock,
         });
       } else {
-        await route.continue();
+        await route.fallback();
       }
     });
 
     await this.page.route('api/variables/update-execution', async (route) => {
       await route.fulfill(mockMigrationTestVariablesUpdate);
+    });
+
+    await this.page.route('api/variables/update-process', async (route) => {
+      await route.fulfill({ status: 200, json: {} });
     });
 
     await this.page.route('api/variables/delete-execution', async (route) => {

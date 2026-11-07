@@ -1,8 +1,8 @@
+import { DEFAULT_ENGINE } from '@fxn/test-support';
+import { ResourcePermissionPair } from '@fxn/types';
 import { BrowserContext, expect, Page } from '@playwright/test';
 import { isEmpty } from 'lodash-es';
 import { join } from 'path';
-import { DEFAULT_ENGINE } from '@fxn/test-support';
-import { ResourcePermissionPair } from '@fxn/types';
 
 export class BasePage {
   public readonly PATH_TO_FIXTURES: string = join(__dirname, '../fixtures');
@@ -61,9 +61,58 @@ export class BasePage {
   public async stubApisCalledOnLoad() {
     await this.page.unrouteAll();
 
+    await this.page
+      .context()
+      .route('**/authorization/check?**', (route) => route.fulfill({ status: 200, json: { authorized: true } }));
+
+    const appOrigin = new URL(process.env.FXN_BASE_URL || 'http://localhost:4000').origin;
+    await this.page.context().route('**/*', (route) => {
+      const requestUrl = new URL(route.request().url());
+      if (requestUrl.origin !== appOrigin) {
+        throw new Error(
+          `External request in mocked test: ${route.request().method()} ${requestUrl.origin}${requestUrl.pathname}`,
+        );
+      }
+      return route.fallback();
+    });
+
+    await this.stubApi();
     await this.stubConfig();
     await this.stubVersion();
     await this.stubProfileImages();
+  }
+
+  public async stubApi() {
+    await this.page.route(/\/api\//, async (route) => {
+      const { pathname } = new URL(route.request().url());
+      const method = route.request().method();
+
+      const emptyListPostPaths = [
+        '/api/incidents',
+        '/api/process-instances',
+        '/api/process-definitions',
+        '/api/process-definitions/called-process-definitions',
+        '/api/variables/variable-history',
+      ];
+
+      const routeFallbackPaths = ['/api/auth', '/api/liveness', '/api/authorization/check'];
+
+      const isCountScenario = pathname.endsWith('/count');
+      const isEmptyListScenario =
+        !isCountScenario && (method === 'GET' || (method === 'POST' && emptyListPostPaths.includes(pathname)));
+
+      const isFallbackScenario = !isCountScenario && routeFallbackPaths.includes(pathname);
+
+      if (isCountScenario) {
+        return route.fulfill({ status: 200, json: 0 });
+      } else if (isFallbackScenario) {
+        return route.fallback();
+      } else if (isEmptyListScenario) {
+        return route.fulfill({ status: 200, json: [] });
+      } else {
+        throw new Error(`Unstubbed API request: ${method} ${pathname}`);
+      }
+    });
   }
 
   public async stubProfileImages() {
@@ -107,11 +156,12 @@ export class BasePage {
   public async initialize(context: BrowserContext | Page, permissions?: ResourcePermissionPair[]) {
     await this.stubAuth(context);
 
+    await this.stubApisCalledOnLoad();
+
     // Only stub authorization checks if auth is required - if auth is not required,
     // the user should have access to all features regardless of the permissions provided
     if (permissions) await this.stubAuthorizationChecks(context, permissions);
 
-    await this.stubApisCalledOnLoad();
     await this.stubConfig(!!permissions);
     await this.setWindowSize();
   }

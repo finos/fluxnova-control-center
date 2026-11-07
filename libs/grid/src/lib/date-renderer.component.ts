@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { ICellRendererAngularComp } from 'ag-grid-angular';
 
 @Component({
@@ -9,6 +9,7 @@ import { ICellRendererAngularComp } from 'ag-grid-angular';
     </div>
   `,
   styleUrls: ['./date-renderer.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class DateRendererComponent implements ICellRendererAngularComp {

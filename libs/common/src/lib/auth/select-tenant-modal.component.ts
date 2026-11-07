@@ -1,4 +1,4 @@
-import { AfterViewInit, Component } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, Component } from '@angular/core';
 import { NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { Tenant, User } from '@fxn/types';
 
@@ -6,6 +6,7 @@ import { Tenant, User } from '@fxn/types';
   selector: 'fluxnova-select-tenant-modal',
   templateUrl: './select-tenant-modal.component.html',
   styleUrls: ['./select-tenant-modal.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class SelectTenantModalComponent implements AfterViewInit {

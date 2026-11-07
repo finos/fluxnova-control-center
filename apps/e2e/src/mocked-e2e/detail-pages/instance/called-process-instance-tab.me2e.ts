@@ -88,11 +88,8 @@ test.describe('should show', () => {
 });
 
 test.describe('when there are NO rows to show', () => {
-  test.beforeEach(async ({ context, page }) => {
-    processInstancePage = new ProcessInstancePage(page, PROCESS_INSTANCE_ID, 'called-process-instances');
-
-    await processInstancePage.initialize(context);
-
+  test.beforeEach(async () => {
+    await processInstancePage.stubActivityInstancesEndpoint({ status: 200, json: [] });
     await processInstancePage.goto();
   });
 

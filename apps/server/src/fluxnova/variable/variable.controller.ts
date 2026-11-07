@@ -7,6 +7,7 @@ import {
   ExecutionApiModifyLocalExecutionVariablesRequest,
   HistoricVariableInstanceApi,
   HistoricVariableInstanceApiQueryHistoricVariableInstancesCountRequest,
+  PatchVariablesDto,
   ProcessInstanceApi,
   ProcessInstanceApiModifyProcessInstanceVariablesRequest,
   TaskVariableApi,
@@ -60,8 +61,8 @@ function buildPatchBody(
   };
 
   // Null-prototype object prevents prototype pollution via special keys
-  const patchVariablesDto: Record<string, typeof bodyValue> = Object.create(null);
-  patchVariablesDto[variableName] = bodyValue;
+  const patchVariablesDto: PatchVariablesDto = Object.create(null);
+  patchVariablesDto.modifications = { [variableName]: bodyValue };
 
   return { id, patchVariablesDto };
 }

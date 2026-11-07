@@ -2,14 +2,14 @@
 import { defineConfig } from 'vite';
 import dts from 'vite-plugin-dts';
 import * as path from 'path';
-import { nxViteTsPaths } from '@nx/vite/plugins/nx-tsconfig-paths.plugin';
+import tsconfigPaths from 'vite-tsconfig-paths';
 import swc from 'unplugin-swc';
 
 export default defineConfig({
   root: __dirname,
   cacheDir: '../../node_modules/.vite/server',
   plugins: [
-    nxViteTsPaths(),
+    tsconfigPaths(),
     dts({
       entryRoot: 'src',
       tsConfigFilePath: path.join(__dirname, 'tsconfig.spec.json'),

@@ -19,11 +19,7 @@
       }
     },
     "test": {
-      "executor": "@nx/vitest:test",
-      "outputs": ["{workspaceRoot}/results/unit/libs/grid", "{workspaceRoot}/results/coverage/libs/grid"],
-      "options": {
-        "config": "libs/grid/vite.config.ts"
-      }
+      "outputs": ["{workspaceRoot}/results/unit/libs/grid", "{workspaceRoot}/results/coverage/libs/grid"]
     }
   }
 }

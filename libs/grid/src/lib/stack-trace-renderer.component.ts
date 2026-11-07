@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { AgRendererComponent } from 'ag-grid-angular';
 import { ICellRendererParams } from 'ag-grid-community';
 import { CodeModalComponent, GeneralModule, MODAL_DEFAULTS } from '@fxn/common';
@@ -12,6 +12,7 @@ import { HttpClient } from '@angular/common/http';
       {{ message }}
     </span>
   </div>`,
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [GeneralModule],
 })
 export class StackTraceRendererComponent implements AgRendererComponent {

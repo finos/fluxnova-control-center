@@ -1,4 +1,4 @@
-@import 'ag-grid-icons';
+@use './ag-grid-icons' as *;
 
 $default-mixin-parameters: (
   icons-data: null,

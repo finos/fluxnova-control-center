@@ -1,5 +1,6 @@
 import {
   AfterViewInit,
+  ChangeDetectionStrategy,
   Component,
   ElementRef,
   EventEmitter,
@@ -20,6 +21,7 @@ import { SubSink } from 'subsink';
   selector: 'fluxnova-multi-select',
   templateUrl: './multi-select.component.html',
   styleUrls: ['./multi-select.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class MultiSelectComponent implements OnChanges, AfterViewInit, OnDestroy {

@@ -63,6 +63,11 @@ The following environment variables are available:
     health-check responses, etc.
   - required?: no
   - default: "dev"
+- `FXN_FORCE_HTTP`
+  - description: Force the server to start in HTTP mode and skip TLS key/cert loading.
+  - required?: no
+  - valid values: "true" | "false"
+  - default: unset (TLS path selection logic is used)
 - `FXN_IDENTITY_HEADER_KEY`
   - description: Header for API requests that contains an authenticated user's identity token.
     Only used when FXN_AUTH_STRATEGY is set to "oidc".
@@ -164,6 +169,27 @@ The following environment variables are available:
   - description: Base URL for the Fluxnova rest api or other contract conforming rest api used
     to access the appropriate Fluxnova engine.
   - required?: yes
+- `FXN_SSL_CERT_PATH`
+  - description: Filesystem path to the TLS certificate file used for HTTPS startup.
+  - required?: no
+  - default: "/certs/server.crt"
+- `FXN_SSL_KEY_PASSPHRASE`
+  - description: Passphrase for an encrypted TLS private key.
+  - required?: no
+  - default: unset
+  - notes:
+    - When set, this value takes precedence over `FXN_SSL_KEY_PASSPHRASE_FILE`.
+- `FXN_SSL_KEY_PASSPHRASE_FILE`
+  - description: Filesystem path to a file containing the TLS key passphrase.
+  - required?: no
+  - default: "/certs/SSL_KEYSTORE_PASSWORD"
+  - notes:
+    - Only used when `FXN_SSL_KEY_PASSPHRASE` is not set.
+    - File contents are trimmed for whitespace before use.
+- `FXN_SSL_KEY_PATH`
+  - description: Filesystem path to the TLS private key file used for HTTPS startup.
+  - required?: no
+  - default: "/certs/server.key"
 - `FXN_TEST_TENANT`
   - description: Engine identifier to use for e2e tests. When unset, the e2e tests will use the `default` engine.
   - required?: no

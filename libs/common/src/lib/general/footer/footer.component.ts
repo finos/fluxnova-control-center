@@ -1,22 +1,29 @@
-import { Component, inject, Input, OnChanges, OnDestroy, OnInit, SimpleChanges, ViewChild } from '@angular/core';
-import { map, Observable } from 'rxjs';
-import { SubSink } from 'subsink';
-import { VersionService } from '../../services/version.service';
-import { UserService } from '../../services/user.service';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  inject,
+  Input,
+  OnChanges,
+  OnInit,
+  SimpleChanges,
+  ViewChild,
+} from '@angular/core';
+import { asyncScheduler, map, Observable, observeOn } from 'rxjs';
 import { SelectTenantComponent } from '../../auth/select-tenant.component';
+import { UserService } from '../../services/user.service';
+import { VersionService } from '../../services/version.service';
 
 @Component({
   selector: 'fluxnova-footer',
   templateUrl: './footer.component.html',
   styleUrls: ['./footer.component.scss'],
   providers: [],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
-export class FooterComponent implements OnChanges, OnInit, OnDestroy {
+export class FooterComponent implements OnChanges, OnInit {
   private userService = inject(UserService);
   private versionService = inject(VersionService);
-
-  protected subs: SubSink = new SubSink();
 
   @Input() sliderOpen = false;
   showLinks = false;
@@ -24,7 +31,7 @@ export class FooterComponent implements OnChanges, OnInit, OnDestroy {
 
   @ViewChild('tenantSelector') tenantSelector?: SelectTenantComponent;
 
-  public engineVersion?: string;
+  public engineVersion$?: Observable<string | undefined>;
 
   get uiVersion() {
     return window.fluxnovaConfig?.version;
@@ -42,10 +49,9 @@ export class FooterComponent implements OnChanges, OnInit, OnDestroy {
       map((tenant) => (tenant ? `Tenant: ${tenant?.displayName} (${tenant?.id})` : 'Tenant')),
     );
 
-    this.subs.add(
-      this.versionService.getRestAPIVersion().subscribe((resp) => {
-        this.engineVersion = resp.version;
-      }),
+    this.engineVersion$ = this.versionService.getRestAPIVersion().pipe(
+      observeOn(asyncScheduler),
+      map((resp) => resp.version),
     );
   }
 
@@ -54,9 +60,5 @@ export class FooterComponent implements OnChanges, OnInit, OnDestroy {
       this.showLinks = false;
       this.tenantSelector?.closeMenu();
     }
-  }
-
-  ngOnDestroy() {
-    this.subs.unsubscribe();
   }
 }

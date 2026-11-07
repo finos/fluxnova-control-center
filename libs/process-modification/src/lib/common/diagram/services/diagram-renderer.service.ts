@@ -16,7 +16,7 @@ export class DiagramRendererService {
       return;
     }
 
-    renderer.open(viewId);
+    await renderer.open(viewId);
   }
 
   public async renderDiagram(renderer: DiagramRenderer | null, viewId: string = '') {

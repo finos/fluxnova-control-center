@@ -1,12 +1,21 @@
-// Had to use relative imports here for some reason. TODO: See if we can avoid that.
-@import '../../../../../../node_modules/ag-grid-community/styles/ag-grid';
-@import '../../../../../../node_modules/ag-grid-community/styles/ag-theme-alpine';
+@use 'sass:map';
+@use 'bootstrap/scss/bootstrap';
+@use '../standard-classes';
+@use './ng-bootstrap';
+@use 'ag-grid-community/styles' as ag-grid;
+@use '../theme' as *;
+
+@include ag-grid.grid-styles(
+  (
+    theme: alpine,
+  )
+);
 
 .custom-ag-theme {
   @extend .ag-theme-alpine;
 
   .ag-dnd-ghost {
-    box-shadow: -1px 1px 3px map-get($theme-colors, 'neutral-800');
+    box-shadow: -1px 1px 3px map.get($theme-colors, 'neutral-800');
     padding: 8px 20px;
     background-color: inherit;
     z-index: 1020;
@@ -129,7 +138,7 @@
   }
 
   .ag-checkbox-input-wrapper.ag-disabled::after {
-    background-color: map-get($theme-colors, 'neutral-500');
+    background-color: map.get($theme-colors, 'neutral-500');
   }
 
   input,
@@ -184,7 +193,7 @@
 
   .ag-ltr .ag-root:not(.ag-has-focus) .ag-cell.ag-cell-last-left-pinned:not(.ag-cell-range-right),
   .ag-ltr .ag-cell:not(.ag-cell-focus).ag-cell-last-left-pinned:not(.ag-cell-range-right) {
-    border-right: 1px map-get($theme-colors, 'text-standard') solid;
+    border-right: 1px map.get($theme-colors, 'text-standard') solid;
     margin-top: -3px;
     margin-bottom: -2px;
     height: 54px;
@@ -192,7 +201,7 @@
   }
 
   .ag-pinned-left-header {
-    border-right: 1px map-get($theme-colors, 'text-standard') solid;
+    border-right: 1px map.get($theme-colors, 'text-standard') solid;
     z-index: 3;
     position: relative;
   }
@@ -245,8 +254,8 @@
     font-weight: normal;
   }
   // variables
-  --ag-border-color: #b7b7b7; // map-get($theme-colors, 'neutral-600')
-  --ag-row-border-color: #b7b7b7; // map-get($theme-colors, 'neutral-600')
+  --ag-border-color: #b7b7b7; // map.get($theme-colors, 'neutral-600')
+  --ag-row-border-color: #b7b7b7; // map.get($theme-colors, 'neutral-600')
   --ag-row-border-style: solid;
   --ag-row-border-width: 1px;
   --ag-borders-critical: solid 1px;

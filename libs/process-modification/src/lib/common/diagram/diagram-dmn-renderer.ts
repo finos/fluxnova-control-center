@@ -24,7 +24,7 @@ export class DiagramDmnRenderer implements DiagramRenderer {
   }
 
   public async open(viewId: string) {
-    this._dmnViewer.open(this.getViewFromViewId(viewId));
+    await this._dmnViewer.open(this.getViewFromViewId(viewId));
   }
 
   public async render() {
@@ -32,7 +32,8 @@ export class DiagramDmnRenderer implements DiagramRenderer {
   }
 
   public reposition(): void {
-    const diagramCanvas = this._dmnViewer.getActiveViewer()?.get('canvas');
+    // Only the DRD view provides a canvas; decision table and literal expression views do not.
+    const diagramCanvas = this._dmnViewer.getActiveViewer()?.get('canvas', false);
 
     diagramCanvas?.resized();
     diagramCanvas?.zoom('fit-viewport', 'center');

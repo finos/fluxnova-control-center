@@ -15,10 +15,6 @@ test.describe('Process instance incidents tab', () => {
     await processInstancePage.initialize(context);
   });
 
-  test.afterEach(async ({ page }) => {
-    await page.close();
-  });
-
   test('shows a grid containing columns related to each incident in this process instance', async ({ page }) => {
     await processInstancePage.goto();
 

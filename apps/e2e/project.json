@@ -10,14 +10,16 @@
       "executor": "@nx/playwright:playwright",
       "outputs": ["{workspaceRoot}/results/playwright"],
       "options": {
-        "config": "apps/e2e/playwright.config.ts"
+        "config": "apps/e2e/playwright.config.ts",
+        "project": ["e2e", "regression"]
       }
     },
     "me2e": {
       "executor": "@nx/playwright:playwright",
       "outputs": ["{workspaceRoot}/results/playwright"],
       "options": {
-        "config": "apps/e2e/playwright.config.ts"
+        "config": "apps/e2e/playwright.config.ts",
+        "project": ["me2e"]
       }
     },
     "lint": {

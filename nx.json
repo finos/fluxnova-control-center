@@ -90,5 +90,15 @@
       "!{projectRoot}/eslint.config.cjs"
     ]
   },
-  "defaultBase": "develop"
+  "defaultBase": "develop",
+  "analytics": false,
+  "plugins": [
+    {
+      "plugin": "@nx/vitest",
+      "options": {
+        "testMode": "run",
+        "testTargetName": "test"
+      }
+    }
+  ]
 }

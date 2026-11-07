@@ -1,4 +1,4 @@
-import { Component, ElementRef, inject, Input, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ElementRef, inject, Input, ViewChild } from '@angular/core';
 import { ThemeService } from '@fxn/common/src';
 import { WINDOW } from 'ngx-window-token';
 
@@ -6,6 +6,7 @@ import { WINDOW } from 'ngx-window-token';
   selector: 'fluxnova-diagram-legend',
   templateUrl: './diagram-legend.component.html',
   styleUrls: ['./diagram-legend.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class DiagramLegendComponent {

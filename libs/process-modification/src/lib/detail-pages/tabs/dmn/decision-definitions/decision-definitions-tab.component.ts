@@ -1,4 +1,4 @@
-import { Component, inject, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { deploymentDecisionDefinitionColumnDefinitions } from '@fxn/types';
 import { SubSink } from 'subsink';
 import { DeploymentService } from '../../../../services/deployment.service';
@@ -11,6 +11,7 @@ import { PaginatedDataRequest } from '../../../../services/types/paginated-data-
   selector: 'fluxnova-decision-definition',
   templateUrl: './decision-definitions-tab.component.html',
   styleUrls: [],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class DecisionDefinitionsTabComponent extends BaseTabComponent implements OnInit, OnDestroy {

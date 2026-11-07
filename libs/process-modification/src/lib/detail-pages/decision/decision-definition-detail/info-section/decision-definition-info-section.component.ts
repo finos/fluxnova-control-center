@@ -1,4 +1,4 @@
-import { Component, EventEmitter, inject, OnDestroy, OnInit, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, inject, OnDestroy, OnInit, Output } from '@angular/core';
 import { DecisionDefinition, MAX_RESULT_COUNT } from '@fxn/types';
 import { SubSink } from 'subsink';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -10,6 +10,7 @@ import { DecisionDefinitionService } from '../../../../services/decision-definit
   selector: 'fluxnova-decision-definition-info-section',
   templateUrl: './decision-definition-info-section.component.html',
   styleUrl: './decision-definition-info-section.component.scss',
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class DecisionDefinitionInfoSectionComponent implements OnInit, OnDestroy {

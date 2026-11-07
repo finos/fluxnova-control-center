@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { NavigationStart, Router } from '@angular/router';
 import { NgbModal, NgbTooltipConfig } from '@ng-bootstrap/ng-bootstrap';
 
@@ -6,6 +6,7 @@ import { NgbModal, NgbTooltipConfig } from '@ng-bootstrap/ng-bootstrap';
   selector: 'fluxnova-root',
   templateUrl: './app.component.html',
   styleUrls: [],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class AppComponent {

@@ -1,17 +1,38 @@
+@use 'sass:meta';
+@use 'sass:map';
+@use 'sass:color';
+@use '../theme' as *;
+@use 'bootstrap/scss/bootstrap';
+@use '../standard-classes';
+
 // These are the ng-select variables.
 // Overriding to set our defaults, and make overriding via the theme easier.
-$ng-select-highlight: map-get($theme-colors, 'light') !default;
+$ng-select-highlight: map.get($theme-colors, 'light') !default;
 $ng-select-primary-text: $color-text-standard !default;
-$ng-select-disabled-text: map-get($theme-colors, 'secondary') !default;
+$ng-select-disabled-text: map.get($theme-colors, 'secondary') !default;
 $ng-select-border: $color-neutral-700 !default;
-$ng-select-bg: map-get($theme-colors, 'white') !default;
+$ng-select-bg: map.get($theme-colors, 'white') !default;
 $ng-select-selected: $color-neutral-700 !default;
-$ng-select-marked: darken($ng-select-highlight, 5) !default;
-$ng-select-placeholder: lighten($ng-select-primary-text, 40) !default;
+$ng-select-marked: color.adjust($ng-select-highlight, $lightness: -5%) !default;
+$ng-select-placeholder: color.adjust($ng-select-primary-text, $lightness: 40%) !default;
+$ng-select-dropdown-option-disabled: color.adjust($ng-select-primary-text, $lightness: 60%) !default;
 $ng-select-multi-value-text: $ng-select-primary-text !default;
-$ng-select-clear: map-get($theme-colors, 'primary') !default;
+$ng-select-clear: map.get($theme-colors, 'primary') !default;
 
-@import '@ng-select/ng-select/scss/default.theme';
+@include meta.load-css(
+  '@ng-select/ng-select/scss/default.theme',
+  $with: (
+    'ng-select-highlight': $ng-select-highlight,
+    'ng-select-primary-text': $ng-select-primary-text,
+    'ng-select-disabled-text': $ng-select-disabled-text,
+    'ng-select-border': $ng-select-border,
+    'ng-select-bg': $ng-select-bg,
+    'ng-select-selected': $ng-select-selected,
+    'ng-select-marked': $ng-select-marked,
+    'ng-select-placeholder': $ng-select-placeholder,
+    'ng-select-dropdown-option-disabled': $ng-select-dropdown-option-disabled
+  )
+);
 @import '../fonts/fluxnova-icon-font.css';
 
 .ng-select.ng-select-single,
@@ -40,7 +61,7 @@ $ng-select-clear: map-get($theme-colors, 'primary') !default;
 
         &:hover,
         &:hover::after {
-          color: map-get($theme-colors, 'dark');
+          color: map.get($theme-colors, 'dark');
           background: $color-blue-300;
         }
       }
@@ -67,7 +88,7 @@ $ng-select-clear: map-get($theme-colors, 'primary') !default;
   &.ng-select-opened > .ng-select-container .ng-arrow-wrapper::after {
     font-family: 'fluxnova-icon-font', sans-serif;
     content: '\f104';
-    color: map-get($theme-colors, 'primary');
+    color: map.get($theme-colors, 'primary');
   }
 
   .ng-arrow-wrapper {
@@ -85,7 +106,7 @@ $ng-select-clear: map-get($theme-colors, 'primary') !default;
     border: none;
     font-family: 'fluxnova-icon-font', sans-serif;
     content: '\f103';
-    color: map-get($theme-colors, 'primary');
+    color: map.get($theme-colors, 'primary');
   }
 
   input {

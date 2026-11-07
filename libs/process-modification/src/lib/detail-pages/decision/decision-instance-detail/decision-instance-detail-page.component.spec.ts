@@ -1,14 +1,14 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { lastValueFrom, of } from 'rxjs';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ActivatedRoute, Router } from '@angular/router';
+import { lastValueFrom, of } from 'rxjs';
 import { beforeEach, describe, expect, it, Mocked, vi } from 'vitest';
+import { DecisionDiagramViewerComponent } from '../../../common/diagram/decision-diagram-viewer.component';
+import { ToolbarEvent } from '../../../common/toolbar/toolbar.component';
 import { ConfirmActionService } from '../../../services/confirm-action.service';
 import { DecisionInstanceService } from '../../../services/decision-instance.service';
 import { DecisionInstanceTabs } from '../../item-detail-tab-utils';
-import { ToolbarEvent } from '../../../common/toolbar/toolbar.component';
-import { DecisionDiagramViewerComponent } from '../../../common/diagram/decision-diagram-viewer.component';
 import { DecisionInstanceDetailPageComponent } from './decision-instance-detail-page.component';
 
 describe('DecisionInstanceDetailPageComponent', () => {
@@ -20,7 +20,11 @@ describe('DecisionInstanceDetailPageComponent', () => {
   };
 
   const mockService: Mocked<DecisionInstanceService> = {
-    getInstance: vi.fn(() => of({})),
+    getInstance: vi.fn(() =>
+      of({
+        outputs: [{ ruleId: 'rule-one' }, { ruleId: 'rule-two' }, { ruleId: 'rule-one' }],
+      }),
+    ),
   } as unknown as Mocked<DecisionInstanceService>;
 
   const mockRoute = {
@@ -82,6 +86,12 @@ describe('DecisionInstanceDetailPageComponent', () => {
     expect(component.isItemFound$).toBeDefined();
     await expect(lastValueFrom(component.isItemFound$ as any)).resolves.toEqual(true);
     expect(component.isLoading).toEqual(false);
+  });
+
+  it('should collect unique matched rule IDs from decision outputs', () => {
+    component.ngOnInit();
+
+    expect(component.highlightedRuleIds).toEqual(['rule-one', 'rule-two']);
   });
 
   it('get itemId should return the instanceId from the url', () => {

@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ViewChild } from '@angular/core';
 import { IHeaderAngularComp } from 'ag-grid-angular';
 import { IHeaderParams } from 'ag-grid-community';
 
@@ -50,6 +50,7 @@ import { IHeaderParams } from 'ag-grid-community';
     </div>
   `,
   styleUrls: ['./tooltip-header.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class TooltipHeaderComponent implements IHeaderAngularComp {

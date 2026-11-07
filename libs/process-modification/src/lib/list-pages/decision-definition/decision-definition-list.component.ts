@@ -1,4 +1,4 @@
-import { Component, inject, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, ViewChild } from '@angular/core';
 import { ItemType, ListOptions } from '@fxn/types';
 import { take } from 'rxjs';
 import { getDefaultListViewState } from '../../common/list-utils';
@@ -12,6 +12,7 @@ import { PaginatedDataRequest } from '../../services/types/paginated-data-reques
   selector: 'fluxnova-decision-definition-list',
   templateUrl: './decision-definition-list.component.html',
   styleUrls: ['./decision-definition-list.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class DecisionDefinitionListComponent extends BaseListComponent {

@@ -1,3 +1,9 @@
+@use 'sass:map';
+@use 'sass:color';
+@use '../theme' as *;
+@use 'bootstrap/scss/functions' as *;
+@use 'bootstrap/scss/bootstrap' as bootstrap;
+
 ngb-datepicker {
   border: 0;
   padding-top: 0.75rem;
@@ -11,7 +17,7 @@ ngb-datepicker {
   }
 
   .ngb-dp-day:focus {
-    outline-color: map-get($theme-colors, 'primary');
+    outline-color: map.get($theme-colors, 'primary');
   }
 
   ngb-datepicker-navigation-select.ngb-dp-navigation-select {
@@ -42,7 +48,7 @@ ngb-datepicker {
   }
 
   .bg-secondary {
-    background-color: lighten($primary-blue, 10) !important;
+    background-color: color.adjust($primary-blue, $lightness: 10%) !important;
   }
 }
 
@@ -122,13 +128,13 @@ display active secondary button state when dropdown is open
 .show > .btn.btn-secondary:not(:disabled):not(.disabled):focus:hover {
   border-width: 2px;
   padding: 5px 11px;
-  background-color: map-get($theme-colors, 'light');
-  color: map-get($theme-colors, 'primary');
-  border-color: map-get($theme-colors, 'primary');
+  background-color: map.get($theme-colors, 'light');
+  color: map.get($theme-colors, 'primary');
+  border-color: map.get($theme-colors, 'primary');
 }
 
 .page-link {
-  @include border-radius($border-radius);
+  @include bootstrap.border-radius($border-radius);
 }
 
 .border {

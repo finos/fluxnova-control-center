@@ -1,4 +1,4 @@
-import { Component, inject, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, OnDestroy, OnInit } from '@angular/core';
 import {
   BPMN_COLUMN_DEFINITIONS,
   ColDefWithFilterParams,
@@ -20,6 +20,7 @@ import { PaginatedDataRequest } from '../../../services/types/paginated-data-req
   selector: 'fluxnova-process-definition-info-tab',
   templateUrl: './process-definition-info-tab.component.html',
   styleUrls: ['./process-definition-info-tab.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class ProcessDefinitionInfoTabComponent extends BaseTabComponent implements OnInit, OnDestroy {

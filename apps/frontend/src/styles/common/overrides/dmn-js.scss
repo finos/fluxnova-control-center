@@ -1,3 +1,5 @@
+@use '../theme' as *;
+
 @import 'dmn-js/dist/assets/dmn-font/css/dmn.css';
 @import 'dmn-js/dist/assets/dmn-font/css/dmn-codes.css';
 @import 'dmn-js/dist/assets/dmn-font/css/dmn-embedded.css';
@@ -30,6 +32,10 @@
   // set odd row color
   tbody tr:nth-child(odd) {
     background-color: #ffffff;
+  }
+
+  & tbody tr.row-highlighted > td {
+    background-color: $color-blue-300;
   }
 }
 

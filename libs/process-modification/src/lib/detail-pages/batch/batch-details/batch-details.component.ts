@@ -1,4 +1,4 @@
-import { Component, inject, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { ConfirmModalService, RouteData, ToastService } from '@fxn/common';
 import { Batch, ButtonActions } from '@fxn/types';
 import { SubSink } from 'subsink';
@@ -15,6 +15,7 @@ import { BatchTabs, PimTab } from '../../item-detail-tab-utils';
   selector: 'fluxnova-batch-details',
   templateUrl: './batch-details.component.html',
   styleUrls: ['./batch-details.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class BatchDetailsComponent extends ItemDetailPageComponent implements OnInit, OnDestroy {

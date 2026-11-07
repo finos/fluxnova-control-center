@@ -26,7 +26,7 @@ export class EngineController extends FluxnovaController {
     return this.safeApiCall(
       async () =>
         (
-          await this.api.getProcessEngineNames({
+          await this.api.getProcessEngines({
             ...(await this.createAxiosOptions(req)),
             url: '?access=application',
           })

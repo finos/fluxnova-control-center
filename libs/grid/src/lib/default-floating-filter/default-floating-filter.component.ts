@@ -1,4 +1,4 @@
-import { Component, OnDestroy } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnDestroy } from '@angular/core';
 import { RadioButtonItem } from '@fxn/common';
 import { FILTER_COMPARATOR_DICTIONARY } from '@fxn/types';
 import { IFilterAngularComp } from 'ag-grid-angular';
@@ -11,6 +11,7 @@ import { DynamicallyDisabledFilterComponent } from '../dynamically-disabled-filt
   selector: 'fluxnova-default-floating-filter',
   templateUrl: './default-floating-filter.component.html',
   styleUrls: ['./default-floating-filter.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class DefaultFloatingFilterComponent

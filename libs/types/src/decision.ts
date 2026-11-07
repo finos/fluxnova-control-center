@@ -30,6 +30,8 @@ export interface DecisionInstanceIO {
   decisionInstanceId: string;
   errorMessage: string;
   id: string;
+  ruleId?: string;
+  ruleOrder?: number;
   type: string;
   createTime: string;
   removalTime: string;

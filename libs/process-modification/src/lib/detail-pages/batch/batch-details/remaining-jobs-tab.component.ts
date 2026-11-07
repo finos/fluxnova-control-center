@@ -1,4 +1,4 @@
-import { Component, OnDestroy } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnDestroy } from '@angular/core';
 import { ColDef } from 'ag-grid-community';
 import { predefinedJobColDefs, remainingJobColFields } from '@fxn/types';
 import { PimTab, PimTabRowQueryParam } from '../../item-detail-tab-utils';
@@ -39,6 +39,7 @@ import { BaseBatchDetailsTabComponent } from './base-batch-details-tab.component
     ></fluxnova-ag-pagination>
   `,
   styleUrls: ['./remaining-jobs-tab.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class RemainingJobsTabComponent extends BaseBatchDetailsTabComponent implements OnDestroy {

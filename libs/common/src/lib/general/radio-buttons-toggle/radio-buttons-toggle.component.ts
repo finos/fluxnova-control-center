@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 
 export interface RadioButtonItem {
   name: string;
@@ -10,6 +10,7 @@ export interface RadioButtonItem {
   selector: 'fluxnova-radio-buttons-toggle',
   templateUrl: './radio-buttons-toggle.component.html',
   styleUrls: ['./radio-buttons-toggle.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class RadioButtonsToggleComponent {

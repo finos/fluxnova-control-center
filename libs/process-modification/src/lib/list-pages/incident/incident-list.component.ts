@@ -1,4 +1,4 @@
-import { Component, inject, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, ViewChild } from '@angular/core';
 import { forkJoin, take, timer } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { ItemType, ItemTypeActions, ListOptions } from '@fxn/types';
@@ -12,6 +12,7 @@ import { PaginatedDataRequest } from '../../services/types/paginated-data-reques
   selector: 'fluxnova-incident-list',
   templateUrl: './incident-list.component.html',
   styleUrls: ['./incident-list.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class IncidentListComponent extends BaseListComponent {

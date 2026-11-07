@@ -15,11 +15,7 @@
       }
     },
     "test": {
-      "executor": "@nx/vitest:test",
-      "outputs": ["{workspaceRoot}/results/unit/libs/types", "{workspaceRoot}/results/coverage/libs/types"],
-      "options": {
-        "config": "libs/types/vite.config.ts"
-      }
+      "outputs": ["{workspaceRoot}/results/unit/libs/types", "{workspaceRoot}/results/coverage/libs/types"]
     }
   }
 }

@@ -17,6 +17,7 @@ test.beforeEach(async ({ page, context }) => {
   await context.route(/styles.js/, (route) => route.abort());
 
   basePage = new BasePage(page);
+  await basePage.stubApisCalledOnLoad();
 });
 
 test.describe('When a user with no access attempts to log in', () => {

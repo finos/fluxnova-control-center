@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { jobLogColFields, predefinedDetailPageJobLogTabColDef } from '@fxn/types';
 import { ColDef } from 'ag-grid-community';
 import { PimTab } from '../../item-detail-tab-utils';
@@ -41,6 +41,7 @@ import { BaseBatchDetailsTabComponent } from './base-batch-details-tab.component
     ></fluxnova-ag-pagination>
   `,
   styleUrls: ['./job-logs-tab.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class JobLogsTabComponent extends BaseBatchDetailsTabComponent {

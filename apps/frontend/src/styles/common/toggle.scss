@@ -1,3 +1,7 @@
+@use 'sass:map';
+@use './theme' as *;
+@use './standard-classes';
+
 // toggle slider styling
 
 .toggle-label {
@@ -5,7 +9,7 @@
   vertical-align: middle;
   width: min-content;
   line-height: 12px;
-  color: map-get($theme-colors, 'primary');
+  color: map.get($theme-colors, 'primary');
 }
 
 input[type='checkbox'].toggle {
@@ -13,7 +17,7 @@ input[type='checkbox'].toggle {
   width: 72px;
   height: 38px;
   position: relative;
-  background: map-get($theme-colors, 'white');
+  background: map.get($theme-colors, 'white');
   border: 1px solid $color-neutral-900;
   &:disabled,
   &:disabled:checked {
@@ -38,20 +42,20 @@ input[type='checkbox'].toggle:before {
   background: $color-neutral-900;
   left: 25px;
   top: 0;
-  color: map-get($theme-colors, 'white');
+  color: map.get($theme-colors, 'white');
   font-weight: bold;
   border-radius: 3px;
   transition: all cubic-bezier(0.3, 1.5, 0.7, 1) 0.3s;
 }
 
 input[type='checkbox'].toggle:checked {
-  border: 1px solid map-get($theme-colors, 'primary');
+  border: 1px solid map.get($theme-colors, 'primary');
   visibility: visible;
   &:before {
     font-family: 'Arial', sans-serif;
     content: 'ON';
-    background: map-get($theme-colors, 'primary');
+    background: map.get($theme-colors, 'primary');
     left: -1px;
-    color: map-get($theme-colors, 'white');
+    color: map.get($theme-colors, 'white');
   }
 }

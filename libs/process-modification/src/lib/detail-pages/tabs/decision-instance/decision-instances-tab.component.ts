@@ -1,4 +1,4 @@
-import { Component, inject, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, Input } from '@angular/core';
 import { decisionInstanceAllColsColDefs, decisionInstanceDefaultColDefs, ItemType } from '@fxn/types';
 import { ColDef } from 'ag-grid-community';
 import { BaseTabComponent } from '../base-tab-component';
@@ -11,6 +11,7 @@ import { PaginatedDataRequest } from '../../../services/types/paginated-data-req
   selector: 'fluxnova-decision-instance-list',
   templateUrl: './decision-instances-tab.component.html',
   styleUrls: ['./decision-instances-tab.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class DecisionInstancesTabComponent extends BaseTabComponent implements NeedsParentInfo {

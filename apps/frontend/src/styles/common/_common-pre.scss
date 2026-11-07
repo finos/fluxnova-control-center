@@ -1,0 +1,280 @@
+@use './theme' as *;
+@use 'sass:map';
+
+@import '../fonts/fluxnova-icon-font.css';
+
+/* this removes the white space bounce when scrolling beyond the page */
+html {
+  overflow: hidden;
+}
+
+html,
+body {
+  height: 100%;
+  color: $color-text-standard !important;
+}
+
+body.force-grabbing * {
+  cursor: grabbing !important;
+}
+
+fluxnova-root {
+  overflow: hidden;
+}
+
+.dynamic-modal.modal-dialog {
+  max-width: fit-content !important;
+}
+
+.modal-backdrop {
+  &.show.opaque {
+    opacity: 1;
+    background-color: $color-neutral-900;
+  }
+}
+
+// not using bootstraps d-none for xtrac-auth-visible.directive so we can have more than one deciding influence on if the item is hidden
+.auth-hidden {
+  display: none !important;
+}
+
+fluxnova-disabled {
+  height: 100%;
+  width: 100%;
+
+  .modal-backdrop {
+    position: absolute;
+    z-index: 900; //less than dropdown windows
+  }
+}
+
+img.profile-image {
+  object-fit: cover;
+}
+
+.fluxnova-truncate-with-tooltip {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.as-split-gutter {
+  background-color: map.get($theme-colors, 'light') !important;
+}
+
+#rightPanel {
+  border-left: 1px solid $color-borders-standard !important;
+  min-width: 1000px;
+}
+
+#topPanel {
+  border-bottom: 1px solid $color-borders-standard !important;
+  display: grid;
+  grid-template-rows: min-content auto 0;
+}
+
+.items-list-view {
+  display: grid;
+  height: 100vh;
+  grid-template-rows: auto 1fr auto;
+}
+
+.global-header {
+  display: grid;
+  padding: 0 1rem 0 0;
+
+  .header-label {
+    display: inline-block;
+    padding: 1rem 2rem;
+    letter-spacing: 0.3125rem;
+    text-transform: uppercase;
+    font-weight: 700;
+    width: fit-content;
+  }
+
+  .toolbar {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    height: 100%;
+    margin: auto 0;
+
+    .toolbar-actions {
+      margin: auto 0 auto 1rem;
+    }
+
+    .toolbar-actions.toolbar-section-left {
+      button {
+        margin-right: 0.5rem;
+        line-height: 0.5rem;
+        border-radius: 50%;
+        padding: 0;
+        cursor: pointer;
+        vertical-align: middle;
+      }
+    }
+
+    .toolbar-actions.toolbar-section-right {
+      .btn {
+        padding: 0.5em;
+        height: 2.5em;
+        min-width: 2.5em;
+      }
+    }
+  }
+}
+
+.items-list-view .global-header {
+  grid-template-columns: auto 1fr auto;
+}
+
+.item-detail-view .global-header {
+  grid-template-columns: auto 1fr auto;
+  background-color: white;
+  border-bottom: 1px solid $color-borders-standard;
+}
+
+.dashboard-wrapper .global-header > .header-label {
+  background-color: map.get($theme-colors, 'dashboard');
+}
+
+.detail-item-type-process-instance .global-header > .header-label,
+.list-item-type-process-instance .global-header > .header-label {
+  background-color: map.get($theme-colors, 'process-instance');
+}
+
+.detail-item-type-process-definition .global-header > .header-label,
+.list-item-type-process-definition .global-header > .header-label {
+  background-color: map.get($theme-colors, 'process-definition');
+}
+
+.detail-item-type-job .global-header > .header-label,
+.list-item-type-job .global-header > .header-label {
+  background-color: map.get($theme-colors, 'job');
+}
+
+.detail-item-type-incident .global-header > .header-label,
+.list-item-type-incident .global-header > .header-label {
+  background-color: map.get($theme-colors, 'incident');
+}
+
+.detail-item-type-deployment .global-header > .header-label,
+.list-item-type-deployment .global-header > .header-label {
+  background-color: map.get($theme-colors, 'deployment');
+}
+
+.detail-item-type-batch .global-header > .header-label,
+.list-item-type-batch .global-header > .header-label {
+  background-color: map.get($theme-colors, 'batch');
+}
+
+.detail-item-type-decision-definition .global-header > .header-label,
+.list-item-type-decision-definition .global-header > .header-label {
+  background-color: map.get($theme-colors, 'decision-definition');
+}
+
+.detail-item-type-decision-instance .global-header > .header-label,
+.list-item-type-decision-instance .global-header > .header-label {
+  background-color: map.get($theme-colors, 'decision-instance');
+}
+
+button.close {
+  outline: none;
+}
+
+.cdk-drag-preview {
+  .tab {
+    border-bottom: 2px solid map.get($theme-colors, 'white');
+    transform: translateY(0);
+    padding: 8px 16px;
+  }
+}
+
+// local dev colors
+$local-border-indicator-color: yellow;
+$local-border-indicator-border-width: 0;
+
+.local-left {
+  background: $local-border-indicator-color;
+  box-shadow: 0 3px 3px 3px $local-border-indicator-color;
+  position: absolute;
+  left: 0;
+  height: 100%;
+  opacity: 0.5;
+  width: $local-border-indicator-border-width;
+  z-index: 9999;
+}
+
+.local-right {
+  background: $local-border-indicator-color;
+  box-shadow: -3px 0 3px 3px $local-border-indicator-color;
+  position: absolute;
+  right: 0;
+  height: 100%;
+  opacity: 0.5;
+  width: $local-border-indicator-border-width;
+  z-index: 9999;
+}
+
+.local-top {
+  background: $local-border-indicator-color;
+  box-shadow: 3px 0 3px 3px $local-border-indicator-color;
+  position: absolute;
+  top: 0;
+  height: $local-border-indicator-border-width;
+  opacity: 0.5;
+  width: 100%;
+  z-index: 9999;
+}
+
+.local-bottom {
+  background: $local-border-indicator-color;
+  box-shadow: 0 -3px 3px 3px $local-border-indicator-color;
+  position: absolute;
+  bottom: 0;
+  height: $local-border-indicator-border-width;
+  opacity: 0.5;
+  width: 100%;
+  z-index: 9999;
+}
+
+.noselect {
+  user-select: none;
+}
+
+.document-viewer-modal {
+  .modal-dialog.modal-lg.modal-dialog-centered {
+    height: 100vh;
+    width: 100vw;
+    margin: 0;
+    max-width: unset;
+    max-height: unset;
+
+    .modal-content {
+      width: 100vw;
+      height: 100vh;
+      border: none;
+      border-radius: 0;
+      background-color: rgba(0, 0, 0, 0.6);
+    }
+  }
+}
+
+.bulk-item-modal .modal-dialog {
+  max-width: 600px;
+}
+
+span[class^='fluxnova-']:before,
+span[class*=' fluxnova-']:before {
+  line-height: 110%;
+}
+
+.background-illustration {
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.background-illustration-base-size {
+  width: 100px;
+  height: 100px;
+  margin: 0 auto 15px auto;
+}

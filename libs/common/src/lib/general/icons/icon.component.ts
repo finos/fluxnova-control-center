@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { colors, ThemeColors } from '../../themes';
 import Icons from '../../../assets/icons.svg';
 
@@ -10,6 +10,7 @@ import Icons from '../../../assets/icons.svg';
     </svg>
   `,
   styleUrls: ['./icon.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class IconComponent {

@@ -1,4 +1,4 @@
-import { Component, inject, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, ViewChild } from '@angular/core';
 import { take } from 'rxjs';
 import { ItemType, ItemTypeActions, ListOptions } from '@fxn/types';
 import { getDefaultListViewState } from '../../common/list-utils';
@@ -11,6 +11,7 @@ import { PaginatedDataRequest } from '../../services/types/paginated-data-reques
   selector: 'fluxnova-deployment-list',
   templateUrl: './deployment-list.component.html',
   styleUrls: ['./deployment-list.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class DeploymentListComponent extends BaseListComponent {

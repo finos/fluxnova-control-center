@@ -1,4 +1,4 @@
-import { Component, inject, OnDestroy, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, OnDestroy, ViewChild } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 import { Router } from '@angular/router';
 import { Observable, Subscription } from 'rxjs';
@@ -13,6 +13,7 @@ import { UserService } from '../../services/user.service';
   selector: 'fluxnova-side-drawer',
   templateUrl: './side-drawer.component.html',
   styleUrls: ['./side-drawer.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class SideDrawerComponent implements OnDestroy {

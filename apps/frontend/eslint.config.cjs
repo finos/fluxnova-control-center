@@ -1,55 +1,44 @@
-const { FlatCompat } = require('@eslint/eslintrc');
-const js = require('@eslint/js');
+const nxEslintPlugin = require('@nx/eslint-plugin');
+const angularEslint = require('angular-eslint');
 const baseConfig = require('../../eslint.config.cjs');
-
-const compat = new FlatCompat({
-  baseDirectory: __dirname,
-  recommendedConfig: js.configs.recommended,
-});
 
 module.exports = [
   {
     ignores: ['**/dist'],
   },
   ...baseConfig,
-  ...compat
-    .config({
-      extends: ['plugin:@nx/angular', 'plugin:@angular-eslint/template/process-inline-templates'],
-    })
-    .map((config) => ({
-      ...config,
-      files: ['**/*.ts'],
-      rules: {
-        ...config.rules,
-        'no-restricted-syntax': 'off',
-        '@angular-eslint/directive-selector': [
-          'error',
-          {
-            type: 'attribute',
-            prefix: 'fluxnova',
-            style: 'camelCase',
-          },
-        ],
-        '@angular-eslint/component-selector': [
-          'error',
-          {
-            type: 'element',
-            prefix: 'fluxnova',
-            style: 'kebab-case',
-          },
-        ],
-        '@angular-eslint/prefer-standalone': 'off',
-      },
-    })),
-  ...compat
-    .config({
-      extends: ['plugin:@nx/angular-template'],
-    })
-    .map((config) => ({
-      ...config,
-      files: ['**/*.html'],
-      rules: {
-        ...config.rules,
-      },
-    })),
+  ...nxEslintPlugin.configs['flat/angular'],
+  ...angularEslint.configs.templateRecommended.map((config) => ({
+    ...config,
+    files: ['**/*.html'],
+    rules: {
+      ...config.rules,
+      '@angular-eslint/template/prefer-control-flow': 'off',
+    },
+  })),
+  {
+    files: ['**/*.ts'],
+    rules: {
+      'no-restricted-syntax': 'off',
+      '@angular-eslint/directive-selector': [
+        'error',
+        {
+          type: 'attribute',
+          prefix: 'fluxnova',
+          style: 'camelCase',
+        },
+      ],
+      '@angular-eslint/component-selector': [
+        'error',
+        {
+          type: 'element',
+          prefix: 'fluxnova',
+          style: 'kebab-case',
+        },
+      ],
+      '@angular-eslint/prefer-standalone': 'off',
+      // Components rely on Eager change detection; see the Angular 22 change-detection-eager migration.
+      '@angular-eslint/prefer-on-push-component-change-detection': 'off',
+    },
+  },
 ];

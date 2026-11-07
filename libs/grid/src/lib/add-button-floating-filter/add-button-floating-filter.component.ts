@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { IFilterAngularComp } from 'ag-grid-angular';
 import { IFilterParams } from 'ag-grid-community';
 
@@ -6,6 +6,7 @@ import { IFilterParams } from 'ag-grid-community';
   selector: 'fluxnova-add-button-floating-filter',
   templateUrl: './add-button-floating-filter.component.html',
   styleUrls: ['./add-button-floating-filter.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class AddButtonFloatingFilterComponent implements IFilterAngularComp {

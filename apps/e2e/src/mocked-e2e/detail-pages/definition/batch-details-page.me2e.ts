@@ -1,9 +1,9 @@
 import { BrowserContext, expect, Page, test } from '@playwright/test';
+import { FXN_SUPPORT_STORAGE_STATE } from '../../../../playwright.config';
+import failedJobs from '../../../fixtures/batches/details-failed-jobs.json';
 import history from '../../../fixtures/batches/details-history.json';
 import jobLogHistory from '../../../fixtures/batches/details-job-logs-history.json';
 import statistics from '../../../fixtures/batches/details-statistics.json';
-import failedJobs from '../../../fixtures/batches/details-failed-jobs.json';
-import { FXN_SUPPORT_STORAGE_STATE } from '../../../../playwright.config';
 import { BasePage } from '../../../page-objects/base-page.po';
 
 async function goToPage(page: Page, context: BrowserContext) {
@@ -119,6 +119,6 @@ test.describe('Batch details page', () => {
 
   async function checkToast(page: Page, str: string) {
     await expect(page.getByLabel('Loading...').first()).not.toBeVisible();
-    await expect(page.getByRole('alert')).toContainText(str);
+    await expect(page.locator('ngb-toast')).toContainText(str);
   }
 });

@@ -1,12 +1,21 @@
+import {
+  AfterViewInit,
+  ChangeDetectionStrategy,
+  Component,
+  ElementRef,
+  inject,
+  OnDestroy,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
+import { CodeEditorComponent } from '@fxn/common';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { isEmpty } from 'lodash-es';
-import { editor } from 'monaco-editor';
 import { catchError, debounceTime, Observable, Subject, throwError } from 'rxjs';
 import { SubSink } from 'subsink';
-import { AfterViewInit, Component, ElementRef, inject, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { CodeEditorComponent } from '@fxn/common';
 import { DecisionDefinitionService } from '../../../../services/decision-definition.service';
-import IMarker = editor.IMarker;
+import type { editor } from 'monaco-editor';
+type IMarker = editor.IMarker;
 
 export interface EvaluateDecisionModalState {
   isSubmitting: boolean;
@@ -83,6 +92,7 @@ export const EVALUATE_DECISION_SCHEMA = {
   selector: 'fluxnova-evaluate-decision-modal',
   templateUrl: './evaluate-decision-modal.component.html',
   styleUrls: ['./evaluate-decision-modal.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class EvaluateDecisionModalComponent implements OnInit, OnDestroy, AfterViewInit {

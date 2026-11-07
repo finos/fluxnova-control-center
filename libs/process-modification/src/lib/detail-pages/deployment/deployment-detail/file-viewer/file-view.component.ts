@@ -1,4 +1,13 @@
-import { Component, EventEmitter, inject, Input, OnDestroy, Output, ViewChild } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  EventEmitter,
+  inject,
+  Input,
+  OnDestroy,
+  Output,
+  ViewChild,
+} from '@angular/core';
 import { DeploymentResource } from '@fxn/types';
 import { CodeEditorComponent } from '@fxn/common';
 import { SubSink } from 'subsink';
@@ -10,6 +19,7 @@ import { GenericDiagramSectionViewComponent } from '../../../../common/diagram/g
   selector: 'fluxnova-deployment-file-view',
   templateUrl: './file-view.component.html',
   styleUrls: ['./file-view.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class FileViewComponent implements OnDestroy {

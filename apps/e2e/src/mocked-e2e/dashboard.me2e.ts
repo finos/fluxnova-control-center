@@ -1,7 +1,19 @@
-import { expect, test } from '@playwright/test';
+import { expect, type Locator, test } from '@playwright/test';
 import { DashboardPage } from '../page-objects/dashboard-page.po';
 
 let dashboardPage: DashboardPage;
+
+const clickFirstSlice = async (canvas: Locator) => {
+  const box = await canvas.boundingBox();
+  if (!box) {
+    throw new Error('Incident chart canvas is not visible');
+  }
+
+  const radius = Math.min(box.width, box.height) / 2;
+  await canvas.click({
+    position: { x: box.width / 2 + radius * 0.8, y: box.height / 2 },
+  });
+};
 
 test.beforeEach(async ({ context, page }) => {
   dashboardPage = new DashboardPage(page);
@@ -12,16 +24,9 @@ test.beforeEach(async ({ context, page }) => {
 test.describe('The Dashboard', () => {
   test.describe('has an incident volume widget', () => {
     test('that should allow drilling down into the subset of data', async ({ page }) => {
-      const dataPoint = page.locator('.chart-wrapper .apexcharts-canvas .apexcharts-series path').first();
+      const dataPoint = page.locator('.chart-wrapper .chart-canvas').first();
 
-      await page.waitForTimeout(2000);
-
-      const box = await dataPoint.boundingBox();
-      const x = (box?.x ?? 0) + (box?.width ?? 0) - 4;
-      const y = (box?.y ?? 0) + (box?.height ?? 0) / 2;
-
-      await page.mouse.move(x, y);
-      await page.mouse.click(x, y);
+      await clickFirstSlice(dataPoint);
 
       await page.waitForTimeout(2000);
 
@@ -30,19 +35,12 @@ test.describe('The Dashboard', () => {
     });
 
     test('that should allow drilling up into the subset of data', async ({ page }) => {
-      const dataPoint = page.locator('.chart-wrapper .apexcharts-canvas .apexcharts-series path').first();
-      await page.waitForTimeout(2000);
-
-      const box = await dataPoint.boundingBox();
-      const x = (box?.x ?? 0) + (box?.width ?? 0) - 4;
-      const y = (box?.y ?? 0) + (box?.height ?? 0) / 2;
-
-      await page.mouse.move(x, y);
-      await page.mouse.click(x, y);
+      const dataPoint = page.locator('.chart-wrapper .chart-canvas').first();
+      await clickFirstSlice(dataPoint);
 
       await page.waitForTimeout(2000);
 
-      await page.locator('.chart-wrapper .drillup-button').click();
+      await page.getByRole('button', { name: 'Return to main view' }).click();
 
       await page.waitForTimeout(2000);
 
@@ -52,7 +50,7 @@ test.describe('The Dashboard', () => {
     test('that should show correct total after drilling in/out with one or more section hidden', async ({ page }) => {
       const firstWidget = page.locator('.chart-wrapper').first();
       const centerLabel = firstWidget.locator('.chart-center-label');
-      const firstLegendItem = firstWidget.locator('.apexcharts-legend .apexcharts-legend-series').first();
+      const firstLegendItem = firstWidget.locator('.chart-legend .legend-item').first();
 
       const getTotal = async () => parseInt((await centerLabel.textContent()) || '', 10);
 
@@ -69,18 +67,13 @@ test.describe('The Dashboard', () => {
       await page.waitForTimeout(2000);
 
       // 4. Click a visible series (drill down)
-      const dataPoint = firstWidget.locator('.apexcharts-canvas .apexcharts-series path').first();
-      const box = await dataPoint.boundingBox();
-      const x = (box?.x ?? 0) + (box?.width ?? 0) - 4;
-      const y = (box?.y ?? 0) + (box?.height ?? 0) / 2;
-
-      await page.mouse.move(x, y);
-      await page.mouse.click(x, y);
+      const dataPoint = firstWidget.locator('.chart-canvas');
+      await clickFirstSlice(dataPoint);
 
       await page.waitForTimeout(2000);
 
       // 5. Click the Main link in the breadcrumb (drill up)
-      await firstWidget.locator('.drillup-button').click();
+      await firstWidget.getByRole('button', { name: 'Return to main view' }).click();
 
       await page.waitForTimeout(2000);
 

@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { ActionPermissionsSpec, ApplyChangesModalOptions } from '@fxn/types';
 import { PermissionService } from '@fxn/common/src/lib/services/permission.service';
@@ -7,6 +7,7 @@ import { PermissionService } from '@fxn/common/src/lib/services/permission.servi
   selector: 'fluxnova-apply-changes-confirm-modal',
   templateUrl: './confirm-modal.component.html',
   styleUrls: ['./confirm-modal.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class ApplyChangesConfirmModalComponent implements OnInit {

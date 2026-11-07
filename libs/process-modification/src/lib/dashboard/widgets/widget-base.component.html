@@ -19,29 +19,47 @@
     @if (dataLoading) {
       <fluxnova-loading></fluxnova-loading>
     }
-    @if (chartOptions.series && !dataLoading) {
+    @if (chartData.labels && !dataLoading) {
       <div class="chart-wrapper">
         <span class="chart-subtitle">{{ subtitle }}</span>
-        <span class="chart-legend-title">{{ legendTitle }}</span>
         <span *ngIf="drilldown" class="drillup">
           <button class="drillup-button" (click)="onDrillup()" aria-label="Return to main view">Main</button
           >&emsp;/&emsp;<b>{{ selectedDefinitionKey }}</b>
         </span>
-        <apx-chart
-          [series]="chartOptions.series"
-          [chart]="chartDef"
-          [labels]="labelsDef"
-          [legend]="legendDef"
-          [dataLabels]="dataLabelsDef"
-          [colors]="colorsDef"
-        >
-        </apx-chart>
-        <div class="chart-center-label">
-          <a [href]="linkHref" target="_blank" rel="noopener noreferrer" class="center-link">
-            <span class="center-count"
-              ><b>{{ displayCount }}</b></span
+        <div class="chart-plot">
+          <canvas
+            baseChart
+            #chart="base-chart"
+            class="chart-canvas"
+            [type]="'doughnut'"
+            [data]="chartData"
+            [options]="chartOptions"
+            [legend]="false"
+            (chartClick)="onChartClick($event)"
+            (chartHover)="onChartHover($event, chart)"
+          ></canvas>
+          <div class="chart-center-label">
+            <a [href]="linkHref" target="_blank" rel="noopener noreferrer" class="center-link">
+              <span class="center-count"
+                ><b>{{ displayCount }}</b></span
+              >
+            </a>
+          </div>
+        </div>
+        <div class="chart-legend" aria-label="Chart legend">
+          <span class="chart-legend-title">{{ legendTitle }}</span>
+          @for (label of labelsDef; track label; let index = $index) {
+            <button
+              type="button"
+              class="legend-item"
+              [class.is-hidden]="!visibilityDef[index]"
+              [attr.aria-pressed]="visibilityDef[index]"
+              (click)="onLegendItemClick(index)"
             >
-          </a>
+              <span class="legend-swatch" [style.backgroundColor]="getColor(index)"></span>
+              <span class="legend-label">{{ label }}</span>
+            </button>
+          }
         </div>
       </div>
     }

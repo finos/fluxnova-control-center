@@ -1,17 +1,17 @@
-import { Page } from '@playwright/test';
 import { ActivityInstanceHistory } from '@fxn/types';
-import mockMigrationTestMultipleVersions from '../fixtures/process-definitions/migration-test-multiple-versions.json';
-import mockMigrationTestDiagram from '../fixtures/process-definitions/migration-test-diagram.json';
-import mockMigrationTestStartEvent from '../fixtures/process-definitions/migration-test-start-event.json';
+import { Page } from '@playwright/test';
+import mockIncidents from '../fixtures/incidents/default.json';
 import mockMigrationTestJobDefinitions from '../fixtures/jobs/migration-test-job-definitions.json';
+import mockMigrationTestDiagram from '../fixtures/process-definitions/migration-test-diagram.json';
+import mockMigrationTestMultipleVersions from '../fixtures/process-definitions/migration-test-multiple-versions.json';
+import mockMigrationTestStartEvent from '../fixtures/process-definitions/migration-test-start-event.json';
 import mockMigrationTestStatistics from '../fixtures/process-definitions/migration-test-statistics.json';
 import mockStaticCalledProcessInstances from '../fixtures/process-definitions/static-called-process-instances.json';
-import mockIncidents from '../fixtures/incidents/default.json';
-import OverrideFulfill from '../shared/overrideFulfill';
 import decisionInstancesMock from '../fixtures/process-instances/mock-decision-instances.json';
+import OverrideFulfill from '../shared/overrideFulfill';
 import { getProcessDefinitionId } from '../utils/test-utils';
-import { DetailsPage } from './details-page.po';
 import { BasePage, FLUXNOVA_PAGES } from './base-page.po';
+import { DetailsPage } from './details-page.po';
 
 export class ProcessDefinitionsPage extends DetailsPage {
   constructor(
@@ -138,7 +138,7 @@ export class ProcessDefinitionsPage extends DetailsPage {
           contentType: 'text/html; charset=utf-8',
         });
       } else {
-        await routes.continue();
+        await routes.fallback();
       }
     });
   }
@@ -210,7 +210,7 @@ export class ProcessDefinitionsPage extends DetailsPage {
       } else if (method === 'POST' && body?.filter?.processDefinitionId === this.processDefinitionId) {
         await routes.fulfill(mockMigrationTestStartEvent);
       } else {
-        await routes.continue();
+        await routes.fallback();
       }
     });
   }
@@ -237,7 +237,7 @@ export class ProcessDefinitionsPage extends DetailsPage {
       if (method === 'GET') {
         await routes.fulfill(mockMigrationTestDiagram);
       } else {
-        await routes.continue();
+        await routes.fallback();
       }
     });
   }
@@ -289,7 +289,7 @@ export class ProcessDefinitionsPage extends DetailsPage {
       if (method === 'GET') {
         await routes.fulfill(mockMigrationTestStatistics);
       } else {
-        await routes.continue();
+        await routes.fallback();
       }
     });
   }

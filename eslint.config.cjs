@@ -7,6 +7,15 @@ const compat = new FlatCompat({
   recommendedConfig: js.configs.recommended,
 });
 
+const MAX_LEN_OPTIONS = {
+  code: 120,
+  tabWidth: 2,
+  ignoreStrings: true,
+  ignoreTemplateLiterals: true,
+  ignoreUrls: true,
+  ignoreRegExpLiterals: true,
+};
+
 module.exports = [
   {
     ignores: ['**/dist'],
@@ -67,12 +76,14 @@ module.exports = [
             groups: [['builtin', 'external'], 'internal', 'parent', 'sibling', 'index', 'object', 'type'],
           },
         ],
-        'sort-imports': ['error', {
-          'ignoreDeclarationSort': true,
-          'ignoreCase': true,
-        }],
+        'sort-imports': [
+          'error',
+          {
+            ignoreDeclarationSort: true,
+            ignoreCase: true,
+          },
+        ],
         'no-restricted-syntax': 'off',
-        '@angular-eslint/no-conflicting-lifecycle': 'error',
         '@angular-eslint/no-input-rename': 'error',
         '@angular-eslint/no-inputs-metadata-property': 'error',
         '@angular-eslint/no-output-native': 'error',
@@ -143,7 +154,7 @@ module.exports = [
         'prefer-const': 'error',
         radix: 'error',
         'no-extra-semi': 'off',
-        'max-len': ['warn', { code: 120, tabWidth: 2 }],
+        'max-len': ['warn', MAX_LEN_OPTIONS],
       },
       linterOptions: {
         reportUnusedDisableDirectives: 'error',
@@ -161,7 +172,7 @@ module.exports = [
         '@angular-eslint/template/banana-in-box': 'error',
         '@angular-eslint/template/no-negated-async': 'error',
         '@angular-eslint/template/eqeqeq': 'error',
-        'max-len': ['warn', { code: 120, tabWidth: 2 }],
+        'max-len': ['warn', MAX_LEN_OPTIONS],
       },
     })),
   ...compat
@@ -174,7 +185,7 @@ module.exports = [
       rules: {
         ...config.rules,
         'no-extra-semi': 'off',
-        'max-len': ['warn', { code: 120, tabWidth: 2 }],
+        'max-len': ['warn', MAX_LEN_OPTIONS],
       },
     })),
   {

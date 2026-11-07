@@ -1,4 +1,5 @@
 import {
+  ChangeDetectionStrategy,
   Component,
   ElementRef,
   EventEmitter,
@@ -17,6 +18,7 @@ import { ItemDetailPageCommunicationService } from '../../item-detail-page.commu
   selector: 'fluxnova-heatmap-modal',
   templateUrl: './heatmap-settings-modal.component.html',
   styleUrls: ['./heatmap-settings-modal.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class HeatmapSettingsModalComponent implements OnInit, OnDestroy {

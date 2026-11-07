@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 
 export interface ContextMenuItemProperties {
   iconName: string;
@@ -18,6 +18,7 @@ export interface ContextMenuItemProperties {
     {{ title }}
   </div>`,
   styleUrls: ['./context-menu.component.css'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class ContextMenuItemComponent {

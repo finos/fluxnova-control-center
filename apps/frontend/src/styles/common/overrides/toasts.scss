@@ -1,3 +1,7 @@
+@use 'sass:map';
+@use '../theme' as *;
+@use '../standard-classes';
+
 ngb-toast.toast.show {
   .toast-header {
     @extend .bg;
@@ -5,33 +9,33 @@ ngb-toast.toast.show {
 }
 
 .toast-border-primary {
-  border-left: 4px solid map-get($theme-colors, 'primary');
+  border-left: 4px solid map.get($theme-colors, 'primary');
 }
 
 .toast-border-secondary {
-  border-left: 4px solid map-get($theme-colors, 'secondary');
+  border-left: 4px solid map.get($theme-colors, 'secondary');
 }
 
 .toast-border-success {
-  border-left: 4px solid map-get($theme-colors, 'success');
+  border-left: 4px solid map.get($theme-colors, 'success');
 }
 
 .toast-border-info {
-  border-left: 4px solid map-get($theme-colors, 'info');
+  border-left: 4px solid map.get($theme-colors, 'info');
 }
 
 .toast-border-warning {
-  border-left: 4px solid map-get($theme-colors, 'warning');
+  border-left: 4px solid map.get($theme-colors, 'warning');
 }
 
 .toast-border-danger {
-  border-left: 4px solid map-get($theme-colors, 'danger');
+  border-left: 4px solid map.get($theme-colors, 'danger');
 }
 
 .toast-border-dark {
-  border-left: 4px solid map-get($theme-colors, 'dark');
+  border-left: 4px solid map.get($theme-colors, 'dark');
 }
 
 .toast-border-light {
-  border-left: 4px solid map-get($theme-colors, 'light');
+  border-left: 4px solid map.get($theme-colors, 'light');
 }

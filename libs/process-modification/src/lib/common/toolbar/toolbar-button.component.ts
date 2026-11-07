@@ -1,10 +1,11 @@
-import { Component, inject, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, Input } from '@angular/core';
 import { ToolbarService } from './toolbar.service';
 
 @Component({
   selector: 'fluxnova-toolbar-button',
   templateUrl: './toolbar-button.component.html',
   styleUrls: [],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class ToolbarButtonComponent {

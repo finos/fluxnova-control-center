@@ -1,5 +1,5 @@
-import { beforeEach, describe, expect, it, vi } from 'vitest';
 import globalAxios from 'axios';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { EngineService } from './engine.service';
 
 let service: EngineService;
@@ -13,7 +13,7 @@ describe('Engine Service', () => {
     const mockResponse = { data: ['engine1', 'engine2'] };
     vi.spyOn(globalAxios, 'request').mockResolvedValue(mockResponse);
 
-    const result = await service.getProcessEngineNames({ url: '?filter=active' });
+    const result = await service.getProcessEngines({ url: '?filter=active' });
 
     expect(result.data).toEqual(['engine1', 'engine2']);
     expect(globalAxios.request).toHaveBeenCalledWith(
@@ -24,6 +24,6 @@ describe('Engine Service', () => {
   it('throws an error if the API call fails', async () => {
     vi.spyOn(globalAxios, 'request').mockRejectedValue(new Error('API error'));
 
-    await expect(service.getProcessEngineNames()).rejects.toThrow('API error');
+    await expect(service.getProcessEngines()).rejects.toThrow('API error');
   });
 });

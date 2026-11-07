@@ -1,4 +1,4 @@
-import { Component, inject, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { ProcessInstance, ProcessInstanceStatesMap } from '@fxn/types';
 import { SubSink } from 'subsink';
 import { ActivatedRoute } from '@angular/router';
@@ -9,6 +9,7 @@ import { ItemDetailPageCommunicationService } from '../../../item-detail-page.co
   selector: 'fluxnova-process-instance-info-section',
   templateUrl: './process-instance-info-section.component.html',
   styleUrls: ['./process-instance-info-section.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class ProcessInstanceInfoSectionComponent implements OnInit, OnDestroy {

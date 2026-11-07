@@ -47,7 +47,7 @@ export class ListPage extends BasePage {
           path: `${this.PATH_TO_FIXTURES}/process-instances/default.json`,
         });
       } else {
-        await route.continue();
+        await route.fallback();
       }
     });
 
@@ -55,7 +55,7 @@ export class ListPage extends BasePage {
       if (route.request().method() === 'POST') {
         await route.fulfill({ status: 201, body: '669' });
       } else {
-        await route.continue();
+        await route.fallback();
       }
     });
 

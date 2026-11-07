@@ -14,26 +14,31 @@ on:
       - 'release/**'
       - 'hotfix/**'
   pull_request:
+    branches:
+      - develop
+      - main
   workflow_dispatch:
 
 concurrency:
-  group: ${{ github.ref == 'refs/heads/main' && format('ci-default-branch-{0}-{1}', github.sha, github.workflow) || format('ci-pr-{0}-{1}', github.ref, github.workflow) }}
+  group: ${{ github.ref == 'refs/heads/develop' && format('ci-default-branch-{0}-{1}', github.sha, github.workflow) || format('ci-pr-{0}-{1}', github.ref, github.workflow) }}
   cancel-in-progress: true
 
 permissions:
   contents: read
-  packages: write
-  actions: read
-  pull-requests: write
-  id-token: write
 
 jobs:
   build:
     name: Build & Test
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+      actions: read
+      pull-requests: write
+      id-token: write
     steps:
       - name: Checkout repo
-        uses: actions/checkout@v6
+        uses: actions/checkout@v4
 
       - name: Set up pnpm and install dependencies
         uses: ./.github/actions/pnpm-setup
@@ -45,15 +50,13 @@ jobs:
         uses: ./.github/actions/build-app
 
       - name: Run unit tests
-        run: TZ=UTC ./node_modules/.bin/nx run-many --target=test --code-coverage --runInBand --silent
+        run: pnpm test:all
 
       - name: Install Playwright browsers
         run: npx playwright install --with-deps chromium
 
       - name: Run mocked E2E tests
-        run: |
-          mkdir -p apps/e2e/.auth
-          npx playwright test -c apps/e2e/playwright.config.ts --project me2e
+        run: pnpm me2e
 
       - name: Extract version from branch
         id: version

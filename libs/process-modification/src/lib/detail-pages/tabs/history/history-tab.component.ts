@@ -1,4 +1,4 @@
-import { Component, inject, OnDestroy } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, OnDestroy } from '@angular/core';
 import { detailPageHistoryTabColFields, noFilterNoSortColDef, predefinedHistoryColDefs } from '@fxn/types';
 import { IsFullWidthRowParams, RowClickedEvent } from 'ag-grid-community';
 import { catchError, map } from 'rxjs/operators';
@@ -14,6 +14,7 @@ import { HistoryTabService } from './history-tab.service';
   selector: 'fluxnova-history-tab',
   templateUrl: './history-tab.component.html',
   styleUrls: ['./history-tab.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class HistoryTabComponent extends BaseTabComponent implements OnDestroy {

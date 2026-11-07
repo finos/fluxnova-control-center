@@ -1,5 +1,6 @@
 /* eslint-disable max-lines */
 import {
+  ChangeDetectionStrategy,
   Component,
   ElementRef,
   EventEmitter,
@@ -39,6 +40,7 @@ import { cloneDeep, pick } from 'lodash-es';
   selector: 'fluxnova-items-table',
   templateUrl: './items-table.component.html',
   styleUrls: ['./items-table.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class ItemsTableComponent {

@@ -1,4 +1,4 @@
-import { Component, inject, OnDestroy } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, OnDestroy } from '@angular/core';
 import { SubSink } from 'subsink';
 import { Observable, Subscription } from 'rxjs';
 import { failedJobColFields, predefinedDetailPageFailedJobTabColDef, predefinedJobColDefs } from '@fxn/types';
@@ -11,6 +11,7 @@ import { BaseBatchDetailsTabComponent } from './base-batch-details-tab.component
   selector: 'fluxnova-failed-jobs-tab',
   templateUrl: './failed-jobs-tab.component.html',
   styleUrl: './failed-jobs-tab.component.scss',
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class FailedJobsTabComponent extends BaseBatchDetailsTabComponent implements OnDestroy {

@@ -1,4 +1,6 @@
+import { HttpClient } from '@angular/common/http';
 import {
+  ChangeDetectionStrategy,
   Component,
   EventEmitter,
   inject,
@@ -8,7 +10,7 @@ import {
   ViewChild,
   ViewEncapsulation,
 } from '@angular/core';
-import { finalize, forkJoin, Subject } from 'rxjs';
+import { Router } from '@angular/router';
 import {
   BatchResponse,
   DecisionDefinition,
@@ -19,11 +21,10 @@ import {
   ProcessDefinition,
   ProcessInstance,
 } from '@fxn/types';
-import { HttpClient } from '@angular/common/http';
-import { isEmpty } from 'lodash-es';
-import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { NgSelectComponent } from '@ng-select/ng-select';
-import { Router } from '@angular/router';
+import { isEmpty } from 'lodash-es';
+import { finalize, forkJoin, Subject } from 'rxjs';
+import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { SubSink } from 'subsink';
 import { getUrlSegments } from '../../utils';
 
@@ -32,6 +33,7 @@ import { getUrlSegments } from '../../utils';
   templateUrl: './search-navigation.component.html',
   styleUrls: ['./search-navigation.component.scss'],
   encapsulation: ViewEncapsulation.None,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class SearchNavigationComponent implements OnInit, OnDestroy {

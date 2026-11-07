@@ -11,8 +11,9 @@ const authDisabled: boolean = /none/.test(process.env.FXN_AUTH_STRATEGY ?? 'none
 
 setup('Create Designer User Auth', async ({ page }) => {
   const loginPage = new LoginPage(page);
+  const usr = `${process.env?.FXN_DESIGNER_USR_EMAIL}`;
   const creds: any = {
-    usr: process.env.FXN_DESIGNER_USR,
+    usr,
     psw: process.env.FXN_DESIGNER_PSW,
   };
 
@@ -24,8 +25,9 @@ setup('Create Designer User Auth', async ({ page }) => {
 
 setup('Create Support User Auth', async ({ page }) => {
   const loginPage = new LoginPage(page);
+  const usr = `${process.env.FXN_SUPPORT_USR_EMAIL}`;
   const creds: any = {
-    usr: process.env.FXN_SUPPORT_USR,
+    usr,
     psw: process.env.FXN_SUPPORT_PSW,
   };
 
@@ -37,13 +39,14 @@ setup('Create Support User Auth', async ({ page }) => {
 
 setup('Create Plat Read Auth', async ({ page }) => {
   setup.skip(
-    !process.env.FXN_PLAT_READ_USR || isEmpty(process.env.FXN_PLAT_READ_USR),
-    'Skipping since FXN_PLAT_READ_USR is not set in the environment',
+    !process.env.FXN_PLAT_READ_USR_EMAIL || isEmpty(process.env.FXN_PLAT_READ_USR_EMAIL),
+    'Skipping since FXN_PLAT_READ_USR_EMAIL is not set in the environment',
   );
 
   const loginPage = new LoginPage(page);
+  const usr = `${process.env?.FXN_PLAT_READ_USR_EMAIL}`;
   const creds: any = {
-    usr: process.env.FXN_PLAT_READ_USR,
+    usr,
     psw: process.env.FXN_PLAT_READ_PSW,
   };
 
