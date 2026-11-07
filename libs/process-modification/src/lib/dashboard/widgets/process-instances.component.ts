@@ -29,7 +29,7 @@ export class ProcessInstancesComponent extends WidgetBase implements OnInit, OnD
     };
     const sorting = [{ colId: 'startTime', sort: 'desc' }];
 
-    return `filters=${JSON.stringify(filters)}&sorting=${JSON.stringify(sorting)}&toggleFilters=`;
+    return `filters=${encodeURIComponent(JSON.stringify(filters))}&sorting=${encodeURIComponent(JSON.stringify(sorting))}&toggleFilters=`;
   }
 
   constructor() {
