@@ -190,7 +190,7 @@
     "@nx/webpack": "23.2.1",
     "@nx/workspace": "23.2.1",
     "@openapitools/openapi-generator-cli": "^2.25.0",
-    "@playwright/test": "^1.56.1",
+    "@playwright/test": "^1.65.1",
     "@schematics/angular": "22.0.1",
     "@swc/core": "^1.15.3",
     "@types/chai": "^5.2.3",
