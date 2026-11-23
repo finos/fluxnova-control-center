@@ -15,6 +15,7 @@ import { Subject, take } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
 import { SubSink } from 'subsink';
 import { VariableService } from '../../../services/variable.service';
+import { cleanAndValidateXml, formatXml } from './xml-utils';
 
 export interface VariableOptions {
   variable?: Variable;
@@ -66,9 +67,6 @@ export class ProcessVariableModalComponent implements OnInit, AfterViewInit, OnD
   public hasLoadedDeserialized = false;
   public deserializedErrorMessage = '';
   public dynamicErrorMessage = '';
-  public domParser = new DOMParser();
-  public xmlSerializer = new XMLSerializer();
-  public xsltProcessor = new XSLTProcessor();
 
   ngAfterViewInit() {
     this.viewChild?.nativeElement.addEventListener('keypress', this.handleKeyPress);
@@ -278,40 +276,11 @@ export class ProcessVariableModalComponent implements OnInit, AfterViewInit, OnD
   }
 
   formatXML(unformattedString: string): string {
-    const { resultXml, isValid } = this.cleanAndValidateXml(unformattedString);
-    if (!isValid) return resultXml;
-
-    this.xsltProcessor.importStylesheet(
-      this.domParser.parseFromString(
-        [
-          '<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform">',
-          '  <xsl:strip-space elements="*"/>',
-          '  <xsl:template match="para[content-style][(text())]">',
-          '    <xsl:value-of select="normalize-space(.)"/>',
-          '  </xsl:template>',
-          '  <xsl:template match="node()|@*">',
-          '    <xsl:copy><xsl:apply-templates select="node()|@*"/></xsl:copy>',
-          '  </xsl:template>',
-          '  <xsl:output indent="yes"/>',
-          '</xsl:stylesheet>',
-        ].join('\n'),
-        'application/xml',
-      ),
-    );
-
-    const formattedDoc = this.xsltProcessor.transformToDocument(
-      this.domParser.parseFromString(resultXml, 'application/xml'),
-    );
-    return this.xmlSerializer.serializeToString(formattedDoc);
+    return formatXml(unformattedString);
   }
 
   cleanAndValidateXml(xml: string): { resultXml: string; isValid: boolean } {
-    const doc = this.domParser.parseFromString(xml, 'text/xml');
-    if (doc.getElementsByTagName('parsererror').length > 0) {
-      return { resultXml: xml, isValid: false };
-    }
-
-    return { resultXml: this.xmlSerializer.serializeToString(doc), isValid: true };
+    return cleanAndValidateXml(xml);
   }
 
   getValidationMessage(): string {

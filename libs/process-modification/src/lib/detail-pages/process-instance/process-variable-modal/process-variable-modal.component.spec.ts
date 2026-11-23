@@ -14,23 +14,6 @@ describe('ProcessVariableModalComponent', () => {
   let component: ProcessVariableModalComponent;
   let fixture: ComponentFixture<ProcessVariableModalComponent>;
 
-  Object.defineProperty(window, 'XSLTProcessor', {
-    value: vi.fn(function () {
-      return {
-        transformToDocument: vi.fn(),
-        importStylesheet: vi.fn(),
-      };
-    }),
-  });
-
-  Object.defineProperty(window, 'XMLSerializer', {
-    value: vi.fn(function () {
-      return {
-        serializeToString: vi.fn(),
-      };
-    }),
-  });
-
   const mockHttp = {
     get: vi.fn(),
   };
@@ -187,13 +170,6 @@ describe('ProcessVariableModalComponent', () => {
     component.handleFormat();
     expect(formatXmlSpy).toHaveBeenCalledTimes(0);
     expect(formatJsonSpy).toHaveBeenCalledTimes(0);
-  });
-
-  it('should correctly format the xml when formatXml is called', () => {
-    component.formatXML('<xml><aTag><aNestedTag>A value here</aNestedTag></aTag></xml>');
-    expect(component.xsltProcessor.importStylesheet).toHaveBeenCalledTimes(1);
-    expect(component.xsltProcessor.transformToDocument).toHaveBeenCalledTimes(1);
-    expect(component.xmlSerializer.serializeToString).toHaveBeenCalledTimes(2);
   });
 
   it('should format variableValue as xml if type is xml', () => {

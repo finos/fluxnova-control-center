@@ -205,6 +205,28 @@ describe('Variables Tab Component', () => {
       vi.clearAllMocks();
     });
 
+    describe('when a row is clicked', () => {
+      it('does not open the read-only modal when an action button descendant is clicked', async () => {
+        const showReadOnlyModal = vi.spyOn(component, 'showReadOnlyModal');
+        const button = document.createElement('button');
+        const icon = document.createElement('fluxnova-icon');
+        button.appendChild(icon);
+
+        await component.onRowClick({ event: { target: icon } });
+
+        expect(showReadOnlyModal).not.toHaveBeenCalled();
+      });
+
+      it('opens the read-only modal when a non-action cell is clicked', async () => {
+        const showReadOnlyModal = vi.spyOn(component, 'showReadOnlyModal').mockImplementation(() => undefined);
+        const cell = document.createElement('div');
+
+        await component.onRowClick({ event: { target: cell } });
+
+        expect(showReadOnlyModal).toHaveBeenCalledWith({ event: { target: cell } });
+      });
+    });
+
     it('closes modals when the component is destroyed', () => {
       component.ngOnDestroy();
       expect(mockProcessVariableModalService.hide).toHaveBeenCalled();
