@@ -81,8 +81,16 @@ configuration variables and options.
 
 5. Generate Fluxnova API client library:
 
+   For Linux
+
    ```bash
    ./scripts/generate-fluxnova-client.sh
+   ```
+
+   For Windows
+
+   ```bash
+   scripts/generate-fluxnova-client.bat
    ```
 
 6. Start the development server:
