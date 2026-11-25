@@ -219,7 +219,10 @@ export class VariablesTabComponent extends BaseTabComponent implements OnDestroy
   }
 
   override async onRowClick(event: any = {}): Promise<void> {
-    if (event.event.target.nodeName !== 'FLUXNOVA-ICON') this.showReadOnlyModal(event);
+    const target = event.event?.target;
+    if (!target?.closest?.('button') && target?.nodeName !== 'FLUXNOVA-ICON') {
+      this.showReadOnlyModal(event);
+    }
   }
 
   public showReadOnlyModal(event: any) {
